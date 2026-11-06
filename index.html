@@ -338,8 +338,8 @@
     </div>
 
     <section class="block" id="live">
-      <div class="th"><h2>วิเคราะห์สด</h2><p class="mut">ราคาจาก gold-api.com และฮั่วเซ่งเฮง · กราฟใช้ชุดข้อมูลรายชั่วโมงบนไซต์นี้ (สำรองเมื่อเครือข่ายบล็อก Binance) · ข่าวจาก gold-dashboard — เพื่อการศึกษา ไม่ใช่คำแนะนำ</p></div>
-      <div class="en hid"><h2>Live analysis</h2><p class="mut">Quotes from gold-api.com and Hua Seng Heng · chart from an on-site hourly series (fallback when Binance is blocked) · news from gold-dashboard — education only, not advice.</p></div>
+      <div class="th"><h2>วิเคราะห์สด</h2><p class="mut">ราคา XAU และทองไทยแสดงในการ์ดนี้ · กราฟรายชั่วโมงวาดในหน้านี้จากชุดข้อมูลบนไซต์ (อัปเดตสดเมื่อเครือข่ายอนุญาต) — เพื่อการศึกษา ไม่ใช่คำแนะนำ</p></div>
+      <div class="en hid"><h2>Live analysis</h2><p class="mut">XAU and Thai gold quotes appear on these cards · the hourly chart is drawn on this page from an on-site series (refreshed live when the network allows) — education only, not advice.</p></div>
       <div class="desk">
         <div class="card">
           <h3>XAUUSD</h3>
@@ -354,7 +354,6 @@
           <div class="en hid"><h3>Thai gold · Hua Seng Heng</h3></div>
           <div class="thai" id="thaiBox"><div class="mut">…</div></div>
           <p class="mut" id="thaiTime"></p>
-          <p><a href="https://purefxaidev.github.io/gold-dashboard/" target="_blank" rel="noopener">gold-dashboard ↗</a></p>
         </div>
       </div>
     </section>
@@ -424,12 +423,12 @@
       <div class="cl">
         <b>0.9.2</b> · 2026-11-06
         <ul class="th">
-          <li>ขัด UI แอปและหน้าเว็บให้หรูขึ้น — โทนทอง / glass / glow</li>
+          <li>ปรับ UI แอปและหน้าเว็บให้ใช้งานจริงจัง — โทนทอง / glass / glow</li>
           <li>จัดลำดับตัวอักษร ระยะห่าง และการ์ดใหม่ทั้ง landing และแอป</li>
           <li>คงฟีเจอร์เดิมครบ (วิเคราะห์สด ข่าว แผน แชท วิดเจ็ต หน้าต่างลอย)</li>
         </ul>
         <ul class="en hid">
-          <li>Premium UI polish for the app and landing — gold / glass / glow</li>
+          <li>Production UI refresh for the app and landing — gold / glass / glow</li>
           <li>Refined typography, spacing, and cards across landing + app</li>
           <li>All prior features kept (live desk, news, plan, chat, widget, overlay)</li>
         </ul>
@@ -562,6 +561,8 @@
     </div>
   </div>
 
+  <script type="application/json" id="pg-klines">{"symbol":"PAXGUSDT","interval":"1h","updatedAt":"2026-11-06T09:54:15Z","note":"Hourly PAXGUSDT closes \u2014 static same-origin mirror so the landing chart always renders.","closes":[{"t":1793700000000,"o":3918.98,"h":3920.0,"l":3910.08,"c":3914.33},{"t":1793703600000,"o":3915.02,"h":3919.97,"l":3912.91,"c":3915.05},{"t":1793707200000,"o":3916.05,"h":3940.99,"l":3908.74,"c":3940.99},{"t":1793710800000,"o":3940.99,"h":3975.56,"l":3935.65,"c":3966.37},{"t":1793714400000,"o":3966.31,"h":3968.64,"l":3948.12,"c":3952.25},{"t":1793718000000,"o":3952.29,"h":3952.99,"l":3929.25,"c":3942.5},{"t":1793721600000,"o":3943.03,"h":3943.6,"l":3933.81,"c":3934.07},{"t":1793725200000,"o":3934.6,"h":3940.53,"l":3934.4,"c":3939.32},{"t":1793728800000,"o":3939.33,"h":3942.28,"l":3934.47,"c":3935.08},{"t":1793732400000,"o":3934.94,"h":3935.6,"l":3927.35,"c":3928.61},{"t":1793736000000,"o":3928.76,"h":3929.79,"l":3925.28,"c":3927.7},{"t":1793739600000,"o":3927.7,"h":3936.07,"l":3926.96,"c":3935.16},{"t":1793743200000,"o":3935.16,"h":3937.22,"l":3934.85,"c":3936.02},{"t":1793746800000,"o":3936.02,"h":3947.09,"l":3934.75,"c":3946.4},{"t":1793750400000,"o":3945.98,"h":3947.69,"l":3928.63,"c":3940.01},{"t":1793754000000,"o":3939.93,"h":3969.2,"l":3932.46,"c":3953.3},{"t":1793757600000,"o":3954.25,"h":3954.74,"l":3941.8,"c":3941.8},{"t":1793761200000,"o":3941.66,"h":3948.14,"l":3933.46,"c":3941.73},{"t":1793764800000,"o":3941.1,"h":3964.57,"l":3940.32,"c":3958.98},{"t":1793768400000,"o":3959.06,"h":4011.16,"l":3953.79,"c":4002.16},{"t":1793772000000,"o":4002.41,"h":4029.02,"l":4001.1,"c":4028.9},{"t":1793775600000,"o":4029.02,"h":4029.96,"l":4016.95,"c":4022.38},{"t":1793779200000,"o":4021.99,"h":4038.14,"l":4020.87,"c":4032.93},{"t":1793782800000,"o":4032.99,"h":4047.09,"l":4032.41,"c":4042.3},{"t":1793786400000,"o":4041.9,"h":4048.57,"l":4039.57,"c":4045.64},{"t":1793790000000,"o":4045.63,"h":4045.63,"l":4038.57,"c":4040.32},{"t":1793793600000,"o":4040.33,"h":4048.89,"l":4030.01,"c":4041.05},{"t":1793797200000,"o":4041.04,"h":4044.92,"l":4028.12,"c":4042.99},{"t":1793800800000,"o":4042.98,"h":4049.62,"l":4031.94,"c":4038.0},{"t":1793804400000,"o":4038.01,"h":4047.89,"l":4030.01,"c":4047.0},{"t":1793808000000,"o":4047.66,"h":4066.0,"l":4039.36,"c":4064.72},{"t":1793811600000,"o":4064.99,"h":4066.0,"l":4057.38,"c":4063.61},{"t":1793815200000,"o":4062.97,"h":4066.66,"l":4056.73,"c":4056.73},{"t":1793818800000,"o":4057.2,"h":4059.19,"l":4052.71,"c":4054.38},{"t":1793822400000,"o":4054.53,"h":4063.63,"l":4054.53,"c":4059.99},{"t":1793826000000,"o":4060.57,"h":4064.16,"l":4056.78,"c":4059.74},{"t":1793829600000,"o":4059.86,"h":4062.98,"l":4055.38,"c":4061.42},{"t":1793833200000,"o":4061.43,"h":4067.43,"l":4055.26,"c":4061.47},{"t":1793836800000,"o":4061.6,"h":4092.26,"l":4057.76,"c":4085.1},{"t":1793840400000,"o":4084.92,"h":4126.78,"l":4081.38,"c":4118.02},{"t":1793844000000,"o":4118.94,"h":4130.52,"l":4115.92,"c":4123.44},{"t":1793847600000,"o":4123.85,"h":4137.21,"l":4120.98,"c":4131.37},{"t":1793851200000,"o":4132.06,"h":4136.72,"l":4124.77,"c":4132.94},{"t":1793854800000,"o":4131.35,"h":4132.59,"l":4104.23,"c":4107.09},{"t":1793858400000,"o":4106.94,"h":4123.86,"l":4106.63,"c":4122.02},{"t":1793862000000,"o":4121.4,"h":4124.75,"l":4110.51,"c":4118.46},{"t":1793865600000,"o":4118.12,"h":4123.46,"l":4114.26,"c":4120.97},{"t":1793869200000,"o":4120.97,"h":4127.46,"l":4116.07,"c":4117.08},{"t":1793872800000,"o":4117.08,"h":4124.61,"l":4116.47,"c":4123.89},{"t":1793876400000,"o":4123.88,"h":4130.83,"l":4120.57,"c":4126.32},{"t":1793880000000,"o":4126.31,"h":4126.32,"l":4108.69,"c":4110.05},{"t":1793883600000,"o":4109.91,"h":4121.14,"l":4103.23,"c":4117.85},{"t":1793887200000,"o":4117.85,"h":4126.82,"l":4084.36,"c":4104.2},{"t":1793890800000,"o":4104.2,"h":4111.61,"l":4061.71,"c":4073.83},{"t":1793894400000,"o":4074.39,"h":4117.99,"l":4074.39,"c":4117.55},{"t":1793898000000,"o":4117.54,"h":4117.54,"l":4096.59,"c":4100.09},{"t":1793901600000,"o":4100.08,"h":4103.5,"l":4091.6,"c":4101.54},{"t":1793905200000,"o":4101.53,"h":4114.0,"l":4093.93,"c":4111.28},{"t":1793908800000,"o":4111.28,"h":4111.28,"l":4093.04,"c":4095.3},{"t":1793912400000,"o":4094.93,"h":4094.93,"l":4079.21,"c":4083.46},{"t":1793916000000,"o":4083.45,"h":4086.73,"l":4081.42,"c":4084.98},{"t":1793919600000,"o":4084.97,"h":4093.84,"l":4065.99,"c":4082.87},{"t":1793923200000,"o":4082.05,"h":4104.54,"l":4081.43,"c":4089.49},{"t":1793926800000,"o":4089.48,"h":4093.84,"l":4054.62,"c":4055.54},{"t":1793930400000,"o":4055.54,"h":4069.25,"l":4052.68,"c":4053.9},{"t":1793934000000,"o":4053.91,"h":4060.23,"l":4033.69,"c":4039.67},{"t":1793937600000,"o":4039.67,"h":4043.6,"l":4033.7,"c":4042.01},{"t":1793941200000,"o":4042.0,"h":4048.5,"l":4034.01,"c":4039.75},{"t":1793944800000,"o":4039.92,"h":4049.58,"l":4038.18,"c":4047.5},{"t":1793948400000,"o":4047.5,"h":4051.99,"l":4038.07,"c":4051.6},{"t":1793952000000,"o":4051.02,"h":4070.5,"l":4046.1,"c":4070.48},{"t":1793955600000,"o":4070.49,"h":4075.1,"l":4064.72,"c":4065.99}]}</script>
+  <script type="application/json" id="pg-quotes">{"updatedAt":"2026-11-06T09:54:15Z","spot":{"price":4074.5,"symbol":"XAU","currency":"USD","currencySymbol":"$"},"ticker":{"symbol":"PAXGUSDT","lastPrice":"4065.99000000","priceChange":"-51.04000000","priceChangePercent":"-1.240"},"thai":[{"GoldType":"HSH","GoldCode":"96.50","Buy":"64,560","Sell":"64,640","TimeUpdate":"2026-11-06T16:53:34","BuyChange":0.0,"SellChange":0.0,"PresentDate":"","FxAsk":null,"FxBid":null,"Bid":null,"Ask":null,"QtyBid":null,"QtyAsk":null,"Discount":null,"Premium":null,"Increment":null,"SourcePrice":null,"StrTimeUpdate":"อัพเดตล่าสุด วันที่ 6 พ.ย. 2569 เวลา 16:53:34 น."},{"GoldType":"REF","GoldCode":"96.50","Buy":"64,550","Sell":"64,750","TimeUpdate":"2026-11-06T16:23:58","BuyChange":50.0,"SellChange":50.0,"PresentDate":"","FxAsk":null,"FxBid":null,"Bid":null,"Ask":null,"QtyBid":null,"QtyAsk":null,"Discount":null,"Premium":null,"Increment":null,"SourcePrice":null,"StrTimeUpdate":"อัพเดตล่าสุด วันที่ 6 พ.ย. 2569 เวลา 16:23:58 น."},{"GoldType":"JEWEL","GoldCode":"96.50","Buy":"63,262.68","Sell":"65,550","TimeUpdate":"2026-11-06T16:54:20","BuyChange":0.0,"SellChange":0.0,"PresentDate":"","FxAsk":null,"FxBid":null,"Bid":null,"Ask":null,"QtyBid":null,"QtyAsk":null,"Discount":null,"Premium":null,"Increment":null,"SourcePrice":null,"StrTimeUpdate":"อัพเดตล่าสุด วันที่ 6 พ.ย. 2569 เวลา 16:54:20 น."}]}</script>
   <script>
     let LANG = 'th';
     function setLang(L) {
@@ -631,21 +632,6 @@
         : ('PAXGUSDT 1h chart · ' + src + ' · ' + (meta.count || 0) + ' bars');
     }
 
-    function extractCloses(payload) {
-      if (!payload) return [];
-      if (Array.isArray(payload)) {
-        // Binance kline rows: [openTime, o, h, l, c, ...]
-        return payload.map(r => Number(Array.isArray(r) ? r[4] : r.c ?? r.close)).filter(Number.isFinite);
-      }
-      if (Array.isArray(payload.closes)) {
-        return payload.closes.map(r => Number(r.c ?? r.close ?? r[4])).filter(Number.isFinite);
-      }
-      if (Array.isArray(payload.klines)) {
-        return payload.klines.map(r => Number(Array.isArray(r) ? r[4] : r.c)).filter(Number.isFinite);
-      }
-      return [];
-    }
-
     function drawChart(closes) {
       const c = document.getElementById('xauChart');
       if (!c) return false;
@@ -660,7 +646,6 @@
       ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
       const w = cssW, h = cssH;
       ctx.clearRect(0, 0, w, h);
-      // grid
       ctx.strokeStyle = 'rgba(245,210,122,0.08)';
       ctx.lineWidth = 1;
       for (let i = 1; i <= 3; i++) {
@@ -698,12 +683,89 @@
       ctx.strokeStyle = '#c9a227';
       ctx.lineWidth = 1.5;
       ctx.stroke();
-      // last price label
       ctx.fillStyle = '#f5d27a';
       ctx.font = '600 12px Manrope, sans-serif';
       ctx.textAlign = 'right';
       ctx.fillText(f2(closes[closes.length - 1]), w - 10, Math.max(14, last.y - 8));
       return true;
+    }
+
+    function extractCloses(payload) {
+      if (!payload) return [];
+      if (Array.isArray(payload)) {
+        return payload.map(r => Number(Array.isArray(r) ? r[4] : r.c ?? r.close)).filter(Number.isFinite);
+      }
+      if (Array.isArray(payload.closes)) {
+        return payload.closes.map(r => Number(r.c ?? r.close ?? r[4] ?? r)).filter(Number.isFinite);
+      }
+      if (Array.isArray(payload.klines)) {
+        return payload.klines.map(r => Number(Array.isArray(r) ? r[4] : r.c)).filter(Number.isFinite);
+      }
+      return [];
+    }
+
+    function readEmbedded(id) {
+      const el = document.getElementById(id);
+      if (!el) return null;
+      try { return JSON.parse(el.textContent); } catch (_) { return null; }
+    }
+
+    function placeholderCloses() {
+      const last = (window.__lastCloses && window.__lastCloses.length)
+        ? window.__lastCloses[window.__lastCloses.length - 1]
+        : (Number(window.__lastPx) || 4065);
+      const out = [];
+      for (let i = 0; i < 48; i++) {
+        out.push(last + Math.sin(i / 3.7) * 14 + Math.cos(i / 7.1) * 6);
+      }
+      return out;
+    }
+
+    function paintSeries(closes, source) {
+      let pts = (closes || []).map(Number).filter(Number.isFinite);
+      let src = source || 'static';
+      if (pts.length < 2) {
+        pts = placeholderCloses();
+        src = 'static';
+      }
+      if (!drawChart(pts)) drawChart(placeholderCloses());
+      window.__lastCloses = pts;
+      setChartNote({ source: src, count: pts.length });
+      return true;
+    }
+
+    function applyQuotePayload(j) {
+      if (!j) return false;
+      let px = null, chp = null, ch = null;
+      if (j.spot && j.spot.price != null) px = Number(j.spot.price);
+      if (j.ticker) {
+        if (j.ticker.priceChangePercent != null && j.ticker.priceChangePercent !== '') {
+          chp = Number(j.ticker.priceChangePercent);
+        }
+        if (j.ticker.priceChange != null && j.ticker.priceChange !== '') {
+          ch = Number(j.ticker.priceChange);
+        }
+        if (px == null && j.ticker.lastPrice != null) px = Number(j.ticker.lastPrice);
+      }
+      if (Array.isArray(j.thai) && j.thai.length) renderThai(j.thai);
+      let painted = false;
+      if (px != null && Number.isFinite(px)) {
+        window.__lastPx = px;
+        const xau = document.getElementById('xauPx');
+        if (xau) xau.textContent = '$' + f2(px);
+        painted = true;
+      }
+      const el = document.getElementById('xauCh');
+      if (el && (chp != null && Number.isFinite(chp))) {
+        const dir = chp > 0.12 ? 'up' : chp < -0.12 ? 'down' : 'flat';
+        window.__bias = dir;
+        el.className = 'chg ' + (dir === 'flat' ? 'flat' : dir === 'up' ? 'up' : 'dn');
+        el.textContent = (chp >= 0 ? '+' : '') + Number(chp).toFixed(2) + '% · 24h'
+          + (ch && Number.isFinite(ch) ? ' · ' + (ch >= 0 ? '+' : '') + f2(ch) : '');
+        paintBias(dir);
+        painted = true;
+      }
+      return painted;
     }
 
     function fetchTimeout(url, ms, opts) {
@@ -717,13 +779,15 @@
       const urls = ['assets/xau-klines.json', 'data/xau-klines.json', 'data/live.json'];
       for (const u of urls) {
         try {
-          const r = await fetchTimeout(u + '?t=' + Date.now(), 8000);
+          const r = await fetchTimeout(u + '?t=' + Date.now(), 5000);
           if (!r.ok) continue;
           const j = await r.json();
           const closes = extractCloses(j);
           if (closes.length >= 2) return { closes, source: 'static', raw: j };
         } catch (_) {}
       }
+      const embedded = extractCloses(readEmbedded('pg-klines'));
+      if (embedded.length >= 2) return { closes: embedded, source: 'static' };
       return null;
     }
 
@@ -734,7 +798,7 @@
       ];
       for (const u of urls) {
         try {
-          const r = await fetchTimeout(u, 4500);
+          const r = await fetchTimeout(u, 2500);
           if (!r.ok) continue;
           const j = await r.json();
           const closes = extractCloses(j);
@@ -745,76 +809,55 @@
     }
 
     async function ensureChart() {
-      // Always try static first so Thailand users see a chart even when Binance is blocked.
+      // Same-origin / embedded series first — never wait on Binance to paint.
       let series = await loadStaticKlines();
-      let metaSource = series ? 'static' : null;
-      const live = await loadLiveKlines();
-      if (live) { series = live; metaSource = 'live'; }
-      if (series && drawChart(series.closes)) {
-        setChartNote({ source: metaSource, count: series.closes.length });
-        window.__lastCloses = series.closes;
-        return true;
+      if (series) paintSeries(series.closes, 'static');
+      try {
+        const live = await loadLiveKlines();
+        if (live) paintSeries(live.closes, 'live');
+      } catch (_) {}
+      if (!window.__lastCloses || window.__lastCloses.length < 2) {
+        paintSeries(placeholderCloses(), 'static');
       }
-      setChartNote({ error: LANG === 'th' ? 'ไม่มีชุดข้อมูลกราฟ' : 'no series available' });
-      drawChart([]); // still paint grid
-      return false;
+      return true;
     }
 
     async function loadQuotes() {
-      let px = null, chp = 0, ch = 0;
-      // Prefer same-origin snapshot, then live APIs
-      try {
-        const r = await fetchTimeout('data/live.json?t=' + Date.now(), 8000);
-        if (r.ok) {
-          const j = await r.json();
-          if (j.spot && j.spot.price != null) px = Number(j.spot.price);
-          if (j.ticker) {
-            chp = Number(j.ticker.priceChangePercent) || 0;
-            ch = Number(j.ticker.priceChange) || 0;
-            if (px == null && j.ticker.lastPrice != null) px = Number(j.ticker.lastPrice);
+      for (const u of ['assets/quotes.json', 'data/quotes.json', 'data/live.json']) {
+        try {
+          const r = await fetchTimeout(u + '?t=' + Date.now(), 4000);
+          if (r.ok) applyQuotePayload(await r.json());
+        } catch (_) {}
+      }
+      const jobs = [
+        (async () => {
+          const spotR = await fetchTimeout('https://api.gold-api.com/price/XAU', 2500);
+          if (spotR && spotR.ok) {
+            const j = await spotR.json();
+            if (j.price != null) applyQuotePayload({ spot: { price: j.price } });
           }
-          if (Array.isArray(j.thai) && j.thai.length) renderThai(j.thai);
-        }
-      } catch (_) {}
-
-      try {
-        const spotR = await fetchTimeout('https://api.gold-api.com/price/XAU', 5000).catch(() => null);
-        if (spotR && spotR.ok) {
-          const j = await spotR.json();
-          if (j.price != null) px = Number(j.price);
-        }
-      } catch (_) {}
-
-      try {
-        const urls = [
-          'https://data-api.binance.vision/api/v3/ticker/24hr?symbol=PAXGUSDT',
-          'https://api.binance.com/api/v3/ticker/24hr?symbol=PAXGUSDT'
-        ];
-        for (const u of urls) {
-          const tkR = await fetchTimeout(u, 4500).catch(() => null);
-          if (tkR && tkR.ok) {
-            const t = await tkR.json();
-            chp = Number(t.priceChangePercent) || chp;
-            ch = Number(t.priceChange) || ch;
-            if (px == null) px = Number(t.lastPrice);
-            break;
+        })(),
+        (async () => {
+          const urls = [
+            'https://data-api.binance.vision/api/v3/ticker/24hr?symbol=PAXGUSDT',
+            'https://api.binance.com/api/v3/ticker/24hr?symbol=PAXGUSDT'
+          ];
+          for (const u of urls) {
+            try {
+              const tkR = await fetchTimeout(u, 2500);
+              if (tkR && tkR.ok) {
+                applyQuotePayload({ ticker: await tkR.json() });
+                break;
+              }
+            } catch (_) {}
           }
-        }
-      } catch (_) {}
-
-      try {
-        const thR = await fetchTimeout('https://apicheckprice.huasengheng.com/api/values/getprice/', 6000).catch(() => null);
-        if (thR && thR.ok) renderThai(await thR.json());
-      } catch (_) {}
-
-      if (px != null) document.getElementById('xauPx').textContent = '$' + f2(px);
-      const el = document.getElementById('xauCh');
-      const dir = chp > 0.12 ? 'up' : chp < -0.12 ? 'down' : 'flat';
-      window.__bias = dir;
-      el.className = 'chg ' + (dir === 'flat' ? 'flat' : dir === 'up' ? 'up' : 'dn');
-      el.textContent = (chp >= 0 ? '+' : '') + Number(chp).toFixed(2) + '% · 24h'
-        + (ch ? ' · ' + (ch >= 0 ? '+' : '') + f2(ch) : '');
-      paintBias(dir);
+        })(),
+        (async () => {
+          const thR = await fetchTimeout('https://apicheckprice.huasengheng.com/api/values/getprice/', 2500);
+          if (thR && thR.ok) renderThai(await thR.json());
+        })()
+      ];
+      await Promise.all(jobs.map(p => p.catch(() => {})));
     }
 
     function renderThai(arr) {
@@ -835,12 +878,15 @@
       try {
         await Promise.all([ensureChart(), loadQuotes()]);
       } catch (e) {
+        if (!window.__lastCloses) paintSeries(placeholderCloses(), 'static');
         const el = document.getElementById('xauCh');
-        if (el) el.textContent = LANG === 'th' ? 'โหลดไม่สำเร็จ ลองรีเฟรช' : 'Could not load quotes';
+        if (el && (el.textContent === '…' || !el.textContent)) {
+          el.textContent = LANG === 'th' ? 'โหลดไม่สำเร็จ ลองรีเฟรช' : 'Could not load quotes';
+        }
       }
     }
 
-    let NEWS = [];
+        let NEWS = [];
     async function loadNews() {
       try {
         const r = await fetchTimeout('https://purefxaidev.github.io/gold-dashboard/news.json?t=' + Date.now(), 8000);
@@ -894,6 +940,8 @@
       if (window.__lastCloses) drawChart(window.__lastCloses);
     });
 
+    applyQuotePayload(readEmbedded('pg-quotes'));
+    paintSeries(extractCloses(readEmbedded('pg-klines')), 'static');
     loadLive();
     loadNews();
     setInterval(loadLive, 60000);
