@@ -64,18 +64,14 @@
       box-shadow:0 12px 40px #0006, inset 0 1px 0 #f5d27a18;
       position:sticky; top:12px; z-index:40;
     }
-    .brand { display:flex; align-items:center; gap:14px; text-decoration:none; color:inherit }
+    .brand { display:flex; align-items:center; gap:12px; text-decoration:none; color:inherit }
     .brand .logo-mark {
       width:52px; height:52px; flex:0 0 auto; display:block;
       filter:drop-shadow(0 0 10px #f5c54266) drop-shadow(0 6px 18px #000a);
       transition:transform .25s ease, filter .25s ease;
     }
     .brand:hover .logo-mark { transform:scale(1.04); filter:drop-shadow(0 0 14px #f5c54299) drop-shadow(0 8px 22px #000a) }
-    .brand .logo-lockup {
-      height:46px; width:auto; max-width:min(220px,42vw); display:block;
-      filter:drop-shadow(0 2px 10px #0008);
-    }
-    .brand .brand-text { display:none }
+    .brand .brand-text { display:block; min-width:0 }
     .brand h1 {
       margin:0; font-size:21px; letter-spacing:2.8px; font-weight:800;
       background:linear-gradient(135deg,var(--gold3),var(--gold) 40%,var(--gold2));
@@ -83,9 +79,9 @@
     }
     .brand small { display:block; color:var(--muted); letter-spacing:.1em; font-size:11px; margin-top:2px }
     @media (max-width:520px){
-      .brand .logo-lockup { display:none }
-      .brand .brand-text { display:block }
       .brand .logo-mark { width:46px; height:46px }
+      .brand h1 { font-size:18px; letter-spacing:2px }
+      .brand small { font-size:10px; letter-spacing:.08em }
     }
     .nav-r { display:flex; gap:8px; align-items:center; flex-wrap:wrap }
     .lang button {
@@ -420,8 +416,7 @@
     <header class="top">
       <a class="brand" href="./" aria-label="PureGold by PureFxAi">
         <img class="logo-mark" src="assets/logo-mark.svg" width="52" height="52" alt="">
-        <img class="logo-lockup" src="assets/logo-lockup.svg" height="46" alt="PUREGOLD">
-        <div class="brand-text"><h1>PUREGOLD</h1><small>by PureFxAi · gold.purefxai.store</small></div>
+        <div class="brand-text"><h1>PUREGOLD</h1><small>BY PUREFXAI · GOLD DESK</small></div>
       </a>
       <div class="nav-r">
         <div class="lang">
