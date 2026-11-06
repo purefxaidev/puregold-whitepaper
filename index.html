@@ -5,11 +5,15 @@
   <meta name="viewport" content="width=device-width,initial-scale=1">
   <title>PUREGOLD — Live gold desk by PureFxAi</title>
   <meta name="description" content="PUREGOLD by PureFxAi — live XAU, Thai gold, bias, news and charts. Download the Android APK.">
-  <link rel="icon" href="icon.png">
+  <link rel="icon" type="image/svg+xml" href="assets/logo-mark.svg">
+  <link rel="icon" type="image/png" sizes="192x192" href="assets/logo-192.png">
+  <link rel="apple-touch-icon" href="assets/logo-192.png">
   <link rel="canonical" href="https://gold.purefxai.store/">
+  <meta property="og:url" content="https://gold.purefxai.store/">
   <meta property="og:title" content="PUREGOLD by PureFxAi">
   <meta property="og:description" content="Live Thai gold + XAUUSD desk. Download the Android APK.">
-  <meta property="og:image" content="nong-mee.jpg">
+  <meta property="og:image" content="https://gold.purefxai.store/assets/logo-192.png">
+  <meta name="theme-color" content="#06050a">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Thai:wght@400;600;700&family=Manrope:wght@400;600;700;800&display=swap" rel="stylesheet">
   <style>
@@ -60,17 +64,29 @@
       box-shadow:0 12px 40px #0006, inset 0 1px 0 #f5d27a18;
       position:sticky; top:12px; z-index:40;
     }
-    .brand { display:flex; align-items:center; gap:12px; text-decoration:none; color:inherit }
-    .brand img.logo {
-      width:50px; height:50px; border-radius:16px; object-fit:cover;
-      border:1px solid var(--gold2); box-shadow:0 0 0 4px #f5d27a14, 0 8px 24px #0008;
+    .brand { display:flex; align-items:center; gap:14px; text-decoration:none; color:inherit }
+    .brand .logo-mark {
+      width:52px; height:52px; flex:0 0 auto; display:block;
+      filter:drop-shadow(0 0 10px #f5c54266) drop-shadow(0 6px 18px #000a);
+      transition:transform .25s ease, filter .25s ease;
     }
+    .brand:hover .logo-mark { transform:scale(1.04); filter:drop-shadow(0 0 14px #f5c54299) drop-shadow(0 8px 22px #000a) }
+    .brand .logo-lockup {
+      height:46px; width:auto; max-width:min(220px,42vw); display:block;
+      filter:drop-shadow(0 2px 10px #0008);
+    }
+    .brand .brand-text { display:none }
     .brand h1 {
       margin:0; font-size:21px; letter-spacing:2.8px; font-weight:800;
       background:linear-gradient(135deg,var(--gold3),var(--gold) 40%,var(--gold2));
       -webkit-background-clip:text; background-clip:text; color:transparent;
     }
     .brand small { display:block; color:var(--muted); letter-spacing:.1em; font-size:11px; margin-top:2px }
+    @media (max-width:520px){
+      .brand .logo-lockup { display:none }
+      .brand .brand-text { display:block }
+      .brand .logo-mark { width:46px; height:46px }
+    }
     .nav-r { display:flex; gap:8px; align-items:center; flex-wrap:wrap }
     .lang button {
       background:rgba(20,16,12,.8); color:var(--muted); border:1px solid var(--line);
@@ -84,9 +100,11 @@
     a.btn, button.btn {
       display:inline-flex; align-items:center; justify-content:center; gap:8px;
       padding:14px 22px; border-radius:16px; font:inherit; font-weight:800;
-      text-decoration:none; border:0; cursor:pointer; transition:transform .15s, box-shadow .2s;
+      text-decoration:none; border:0; cursor:pointer;
+      transition:transform .22s cubic-bezier(.2,.8,.2,1), box-shadow .25s ease, border-color .2s, filter .2s;
     }
-    a.btn:hover, button.btn:hover { transform:translateY(-1px) }
+    a.btn:hover, button.btn:hover { transform:translateY(-2px) }
+    a.btn:active, button.btn:active { transform:translateY(0) }
     .btn-gold {
       background:linear-gradient(135deg,#ffe9b0,#f5d27a 35%,#c9a227 70%,#8a6b12);
       color:#16120a; box-shadow:0 12px 36px #c9a22750, inset 0 1px 0 #fff6;
@@ -363,6 +381,31 @@
     .promo-cta { padding:16px 18px 20px; display:flex; flex-direction:column; gap:10px }
     .promo-cta p { margin:0; color:var(--muted); font-size:13px; line-height:1.45 }
     .promo-cta .row { display:flex; flex-wrap:wrap; gap:10px }
+
+    /* Luxury motion — tasteful, reduced-motion safe */
+    .card, .feat-ico, .stage, .reviews .card {
+      transition:transform .28s cubic-bezier(.2,.8,.2,1), box-shadow .28s ease, border-color .25s ease;
+    }
+    .card:hover {
+      transform:translateY(-3px);
+      box-shadow:0 18px 48px #000a, 0 0 0 1px #f5d27a33, inset 0 1px 0 #f5d27a18;
+      border-color:rgba(245,210,122,.45);
+    }
+    .reveal {
+      opacity:0; transform:translateY(22px);
+      transition:opacity .7s cubic-bezier(.2,.8,.2,1), transform .7s cubic-bezier(.2,.8,.2,1);
+      will-change:opacity, transform;
+    }
+    .reveal.in { opacity:1; transform:none }
+    .reveal-delay-1 { transition-delay:.08s }
+    .reveal-delay-2 { transition-delay:.16s }
+    .reveal-delay-3 { transition-delay:.24s }
+    @media (prefers-reduced-motion: reduce) {
+      .reveal, .reveal.in { opacity:1; transform:none; transition:none }
+      a.btn:hover, button.btn:hover, .card:hover { transform:none }
+      .brand:hover .logo-mark { transform:none }
+    }
+
     @media (max-width:860px){
       .reviews { grid-template-columns:1fr }
     }
@@ -375,9 +418,10 @@
   </div>
   <div class="wrap">
     <header class="top">
-      <a class="brand" href="./">
-        <img class="logo" src="icon.png" alt="PUREGOLD">
-        <div><h1>PUREGOLD</h1><small>by PureFxAi · gold.purefxai.store</small></div>
+      <a class="brand" href="./" aria-label="PureGold by PureFxAi">
+        <img class="logo-mark" src="assets/logo-mark.svg" width="52" height="52" alt="">
+        <img class="logo-lockup" src="assets/logo-lockup.svg" height="46" alt="PUREGOLD">
+        <div class="brand-text"><h1>PUREGOLD</h1><small>by PureFxAi · gold.purefxai.store</small></div>
       </a>
       <div class="nav-r">
         <div class="lang">
@@ -388,7 +432,7 @@
       </div>
     </header>
 
-    <div class="hero">
+    <div class="hero reveal in">
       <div>
         <p class="eyebrow th">โต๊ะวิเคราะห์ · ทองไทย · XAUUSD</p>
         <p class="eyebrow en hid">Live desk · Thai gold · XAUUSD</p>
@@ -406,7 +450,7 @@
         </div>
         <p class="ver" id="dlMeta">PUREGOLD-0.9.2.apk · signed release</p>
       </div>
-      <div class="stage">
+      <div class="stage reveal in">
         <video autoplay muted loop playsinline poster="assets/hero-poster.jpg" aria-label="Nong Mee hero">
           <source src="assets/hero.webm?v=20261106" type="video/webm">
           <source src="assets/hero.mp4?v=20261106" type="video/mp4">
@@ -416,7 +460,7 @@
       </div>
     </div>
 
-    <section class="block" id="live">
+    <section class="block reveal" id="live">
       <div class="th"><h2>ราคาทองสด</h2><p class="mut">ทองโลกและทองไทยโชว์ในการ์ดด้านล่าง · กราฟรายชั่วโมงวาดในหน้านี้ — เพื่อการศึกษา ไม่ใช่คำแนะนำการลงทุน</p></div>
       <div class="en hid"><h2>Live gold prices</h2><p class="mut">World and Thai gold on the cards below · hourly chart drawn on this page — education only, not investment advice.</p></div>
       <div class="desk">
@@ -451,21 +495,21 @@
       </div>
     </section>
 
-    <section class="block" id="news">
+    <section class="block reveal" id="news">
       <div class="th"><h2>ข่าวทอง</h2><p class="mut">พาดหัวสะอาด มีลิงก์ต้นทาง — ไม่แสดงโค้ด HTML</p></div>
       <div class="en hid"><h2>Gold news</h2><p class="mut">Clean headlines with source links — no raw HTML.</p></div>
       <div class="news-grid" id="newsBox"><div class="mut">…</div></div>
     </section>
 
     <div class="shine-line" aria-hidden="true"></div>
-    <div class="feats">
-      <div class="card"><div class="feat-ico">📈</div><div class="th"><h3>กราฟ + เทคนิค</h3><p>หน้าแรกของแอปมีกราฟสดและมุมมองเทคนิค คู่กับราคาทองไทย / XAU</p></div><div class="en hid"><h3>Chart + techniques</h3><p>The app home shows a live chart and techniques next to Thai / XAU prices.</p></div></div>
-      <div class="card"><div class="feat-ico">📰</div><div class="th"><h3>ข่าวที่อ่านได้</h3><p>แปลไทย/จีน/ญี่ปุ่นได้เมื่อตั้งภาษาแอป และมีปุ่มเปิดข่าว</p></div><div class="en hid"><h3>Readable news</h3><p>Localized headlines when the app language is TH/ZH/JA, plus an Open-link button.</p></div></div>
-      <div class="card"><div class="feat-ico">🐻</div><div class="th"><h3>PureFxAi</h3><p>น้องหมีช่วยวิเคราะห์ข่าว และแจ้งเตือนข่าวที่กระทบทองรุนแรง</p></div><div class="en hid"><h3>PureFxAi</h3><p>Nong Mee helps analyze headlines and can alert on strong gold-moving news.</p></div></div>
+    <div class="feats reveal">
+      <div class="card reveal reveal-delay-1"><div class="feat-ico">📈</div><div class="th"><h3>กราฟ + เทคนิค</h3><p>หน้าแรกของแอปมีกราฟสดและมุมมองเทคนิค คู่กับราคาทองไทย / XAU</p></div><div class="en hid"><h3>Chart + techniques</h3><p>The app home shows a live chart and techniques next to Thai / XAU prices.</p></div></div>
+      <div class="card reveal reveal-delay-2"><div class="feat-ico">📰</div><div class="th"><h3>ข่าวที่อ่านได้</h3><p>แปลไทย/จีน/ญี่ปุ่นได้เมื่อตั้งภาษาแอป และมีปุ่มเปิดข่าว</p></div><div class="en hid"><h3>Readable news</h3><p>Localized headlines when the app language is TH/ZH/JA, plus an Open-link button.</p></div></div>
+      <div class="card reveal reveal-delay-3"><div class="feat-ico">🐻</div><div class="th"><h3>PureFxAi</h3><p>น้องหมีช่วยวิเคราะห์ข่าว และแจ้งเตือนข่าวที่กระทบทองรุนแรง</p></div><div class="en hid"><h3>PureFxAi</h3><p>Nong Mee helps analyze headlines and can alert on strong gold-moving news.</p></div></div>
     </div>
 
 
-    <section class="block" id="reviews">
+    <section class="block reveal" id="reviews">
       <div class="th"><h2>เสียงจากผู้ใช้งาน</h2><p class="mut">ตัวอย่างรีวิวเพื่อประกอบการนำเสนอ — ไม่ใช่ผลตอบแทนการลงทุนที่รับประกัน</p></div>
       <div class="en hid"><h2>What users say</h2><p class="mut">Illustrative testimonials for product presentation — not guaranteed investment results.</p></div>
       <div class="reviews">
@@ -510,7 +554,7 @@
       <p class="mut review-note en hid">Testimonials above are illustrative for product presentation.</p>
     </section>
 
-    <section class="block" id="updates">
+    <section class="block reveal" id="updates">
       <div class="th"><h2>ประวัติเวอร์ชัน</h2><p class="mut">อัปเดตล่าสุดของแอป · <a href="downloads/PUREGOLD-0.9.2.apk">ดาวน์โหลด 0.9.2</a></p></div>
       <div class="en hid"><h2>Version history</h2><p class="mut">Latest app updates · <a href="downloads/PUREGOLD-0.9.2.apk">Download 0.9.2</a></p></div>
       <div class="cl">
@@ -581,7 +625,7 @@
       <p class="mut"><a href="https://github.com/purefxaidev/puregold-app/releases">GitHub releases ↗</a></p>
     </section>
 
-    <section class="block">
+    <section class="block reveal">
       <div class="th">
         <h2>วิธีติดตั้ง APK</h2>
         <ol>
@@ -600,7 +644,7 @@
       </div>
     </section>
 
-    <section class="block">
+    <section class="block reveal" id="support">
       <div class="th"><h2>การสนับสนุน</h2><p>ถ้า PUREGOLD มีประโยชน์ สามารถสนับสนุนทีมได้ตามสบาย ไม่บังคับ และไม่มีผลตอบแทนการลงทุน</p></div>
       <div class="en hid"><h2>Support the project</h2><p>If PUREGOLD is useful, you are welcome to support the team. Optional — not an investment.</p></div>
       <div class="grid">
@@ -619,7 +663,7 @@
       </div>
     </section>
 
-    <section class="block warn">
+    <section class="block warn reveal">
       <div class="th"><h2>คำเตือนความเสี่ยง</h2><p><b>การลงทุนมีความเสี่ยง</b> ข้อมูลในแอปและหน้านี้เพื่อการศึกษาเท่านั้น ไม่ใช่คำแนะนำการลงทุน การเทรดทองมีความเสี่ยงสูง คุณอาจขาดทุนได้ทั้งหมด โปรดตัดสินใจด้วยตนเอง</p></div>
       <div class="en hid"><h2>Risk disclaimer</h2><p><b>Investing involves risk.</b> Everything in the app and on this page is for education only — not financial advice. Gold trading is high risk; you can lose all capital. Decide for yourself.</p></div>
     </section>
@@ -629,7 +673,7 @@
     </p>
     <footer>
       PureGold by PureFxAi · <a href="https://gold.purefxai.store/">gold.purefxai.store</a> ·
-      <a href="https://purefxaidev.github.io/puregold-whitepaper/">GitHub Pages</a> ·
+      <a href="https://dashboard.purefxai.store/">dashboard.purefxai.store</a> ·
       <a href="https://github.com/purefxaidev/puregold-app">App repo</a>
     </footer>
   </div>
@@ -1171,6 +1215,26 @@
         }
         if (unmuteBtn) unmuteBtn.classList.remove('hid');
       }, 1200);
+    })();
+
+
+    // Scroll reveal
+    (function revealOnScroll() {
+      const nodes = document.querySelectorAll('.reveal');
+      if (!nodes.length) return;
+      if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+        nodes.forEach(n => n.classList.add('in'));
+        return;
+      }
+      const io = new IntersectionObserver((entries) => {
+        entries.forEach(e => {
+          if (e.isIntersecting) {
+            e.target.classList.add('in');
+            io.unobserve(e.target);
+          }
+        });
+      }, { rootMargin: '0px 0px -8% 0px', threshold: 0.12 });
+      nodes.forEach(n => io.observe(n));
     })();
 
     window.addEventListener('resize', () => {
