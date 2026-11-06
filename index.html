@@ -424,7 +424,7 @@
             <button type="button" class="btn btn-gold btn-sm" id="openDashBtn">
               <span class="th">ดูกราฟ</span><span class="en hid">Full chart</span>
             </button>
-            <a class="btn btn-ghost btn-sm" id="openDashTab" href="https://purefxaidev.github.io/gold-dashboard/?lang=th" target="_blank" rel="noopener">
+            <a class="btn btn-ghost btn-sm" id="openDashTab" href="https://dashboard.purefxai.store/?lang=th" target="_blank" rel="noopener">
               <span class="th">เปิดแท็บใหม่</span><span class="en hid">Open in new tab</span>
             </a>
           </div>
@@ -1061,7 +1061,7 @@
 
     async function loadNews() {
       try {
-        const r = await fetchTimeout('https://purefxaidev.github.io/gold-dashboard/news.json?t=' + Date.now(), 8000);
+        const r = await fetchTimeout('https://dashboard.purefxai.store/news.json?t=' + Date.now(), 8000);
         const d = await r.json();
         NEWS = (d.items || []).slice(0, 8);
       } catch (e) { NEWS = []; }
@@ -1123,7 +1123,7 @@
     }
 
 
-    const DASH_BASE = 'https://purefxaidev.github.io/gold-dashboard/';
+    const DASH_BASE = 'https://dashboard.purefxai.store/';
     function dashUrl(lang) {
       const L = (lang || LANG || 'th').toLowerCase().startsWith('en') ? 'en' : 'th';
       return DASH_BASE + '?lang=' + L;
@@ -1200,7 +1200,7 @@
       <div class="dash-bar">
         <strong id="dashTitle">PUREGOLD · Chart</strong>
         <div class="dash-tools">
-          <a class="btn" id="dashExternal" href="https://purefxaidev.github.io/gold-dashboard/?lang=th" target="_blank" rel="noopener">↗</a>
+          <a class="btn" id="dashExternal" href="https://dashboard.purefxai.store/?lang=th" target="_blank" rel="noopener">↗</a>
           <button type="button" class="icon" id="dashClose" aria-label="Close">×</button>
         </div>
       </div>
