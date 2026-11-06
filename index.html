@@ -13,74 +13,236 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Thai:wght@400;600;700&family=Manrope:wght@400;600;700;800&display=swap" rel="stylesheet">
   <style>
-    :root { --bg:#07060a; --card:#141218; --gold:#f5d27a; --gold2:#c9a227; --text:#efe8d6; --muted:#9a8f73; --line:#322b1a; --up:#3ddc84; --dn:#ff6b75; }
+    :root {
+      --bg:#06050a; --card:rgba(22,18,28,.72); --card-solid:#14101a;
+      --gold:#f5d27a; --gold2:#c9a227; --gold3:#ffe9b0; --gold-deep:#8a6b12;
+      --text:#f3ecda; --muted:#a89a7a; --line:rgba(201,162,39,.28);
+      --up:#3ddc84; --dn:#ff6b75; --glow:#f5d27a55;
+    }
     * { box-sizing:border-box }
-    html,body { margin:0; background:var(--bg); color:var(--text); font-family:'IBM Plex Sans Thai',Manrope,system-ui,sans-serif; line-height:1.65 }
+    html { scroll-behavior:smooth }
+    html,body { margin:0; background:var(--bg); color:var(--text);
+      font-family:'IBM Plex Sans Thai',Manrope,system-ui,sans-serif; line-height:1.65 }
     html[lang=en] body { font-family:Manrope,'IBM Plex Sans Thai',system-ui,sans-serif }
-    body { min-height:100vh; background:
-      radial-gradient(1000px 520px at 90% -8%, #5a3d1455 0%, transparent 55%),
-      radial-gradient(800px 420px at -12% 8%, #1c1408 0%, transparent 50%),
-      linear-gradient(180deg,#0e0b10 0%, #07060a 42%, #0b0906 100%); }
-    .wrap { max-width:1100px; margin:0 auto; padding:24px 18px 72px }
-    header.top { display:flex; align-items:center; justify-content:space-between; gap:16px; flex-wrap:wrap; margin-bottom:22px }
+    body {
+      min-height:100vh; position:relative; overflow-x:hidden;
+      background:
+        radial-gradient(900px 480px at 92% -6%, #7a552055 0%, transparent 55%),
+        radial-gradient(700px 420px at -10% 12%, #2a1a0855 0%, transparent 50%),
+        radial-gradient(600px 360px at 50% 100%, #3a281022 0%, transparent 55%),
+        linear-gradient(180deg,#100c12 0%, #06050a 40%, #0a0806 100%);
+    }
+    body::before {
+      content:""; position:fixed; inset:0; pointer-events:none; z-index:0;
+      background-image:
+        radial-gradient(1.2px 1.2px at 20% 30%, #f5d27a33 0%, transparent 100%),
+        radial-gradient(1px 1px at 70% 60%, #ffe9b022 0%, transparent 100%),
+        radial-gradient(1.5px 1.5px at 40% 80%, #c9a22722 0%, transparent 100%);
+      opacity:.55;
+    }
+    .wrap { max-width:1120px; margin:0 auto; padding:20px 18px 96px; position:relative; z-index:1 }
+    header.top {
+      display:flex; align-items:center; justify-content:space-between; gap:16px; flex-wrap:wrap;
+      margin:0 0 28px; padding:12px 14px; border-radius:20px;
+      background:rgba(12,10,16,.65); border:1px solid var(--line);
+      backdrop-filter:blur(16px); -webkit-backdrop-filter:blur(16px);
+      box-shadow:0 12px 40px #0006, inset 0 1px 0 #f5d27a18;
+      position:sticky; top:12px; z-index:40;
+    }
     .brand { display:flex; align-items:center; gap:12px; text-decoration:none; color:inherit }
-    .brand img.logo { width:48px; height:48px; border-radius:14px; object-fit:cover; border:1px solid var(--gold2) }
-    .brand h1 { margin:0; font-size:20px; letter-spacing:2.4px; color:var(--gold) }
-    .brand small { display:block; color:var(--muted); letter-spacing:.08em; font-size:11px }
+    .brand img.logo {
+      width:50px; height:50px; border-radius:16px; object-fit:cover;
+      border:1px solid var(--gold2); box-shadow:0 0 0 4px #f5d27a14, 0 8px 24px #0008;
+    }
+    .brand h1 {
+      margin:0; font-size:21px; letter-spacing:2.8px; font-weight:800;
+      background:linear-gradient(135deg,var(--gold3),var(--gold) 40%,var(--gold2));
+      -webkit-background-clip:text; background-clip:text; color:transparent;
+    }
+    .brand small { display:block; color:var(--muted); letter-spacing:.1em; font-size:11px; margin-top:2px }
     .nav-r { display:flex; gap:8px; align-items:center; flex-wrap:wrap }
-    .lang button { background:#15120c; color:var(--muted); border:1px solid var(--line); border-radius:999px; padding:8px 14px; font:inherit; cursor:pointer }
-    .lang button.on { background:var(--gold); color:#14110a; border-color:var(--gold); font-weight:700 }
-    a.btn, button.btn { display:inline-flex; align-items:center; justify-content:center; gap:8px; padding:14px 22px; border-radius:14px; font:inherit; font-weight:800; text-decoration:none; border:0; cursor:pointer }
-    .btn-gold { background:linear-gradient(135deg,#ffe09a,#c9a227 55%,#8a6b12); color:#16120a; box-shadow:0 10px 32px #c9a22740 }
-    .btn-ghost { background:#15120c; color:var(--gold); border:1px solid var(--line) }
+    .lang button {
+      background:rgba(20,16,12,.8); color:var(--muted); border:1px solid var(--line);
+      border-radius:999px; padding:8px 14px; font:inherit; cursor:pointer; transition:.2s;
+    }
+    .lang button:hover { color:var(--gold); border-color:var(--gold2) }
+    .lang button.on {
+      background:linear-gradient(135deg,#ffe09a,#c9a227); color:#14110a;
+      border-color:transparent; font-weight:800; box-shadow:0 6px 20px #c9a22744;
+    }
+    a.btn, button.btn {
+      display:inline-flex; align-items:center; justify-content:center; gap:8px;
+      padding:14px 22px; border-radius:16px; font:inherit; font-weight:800;
+      text-decoration:none; border:0; cursor:pointer; transition:transform .15s, box-shadow .2s;
+    }
+    a.btn:hover, button.btn:hover { transform:translateY(-1px) }
+    .btn-gold {
+      background:linear-gradient(135deg,#ffe9b0,#f5d27a 35%,#c9a227 70%,#8a6b12);
+      color:#16120a; box-shadow:0 12px 36px #c9a22750, inset 0 1px 0 #fff6;
+    }
+    .btn-ghost {
+      background:rgba(20,16,12,.7); color:var(--gold); border:1px solid var(--line);
+      backdrop-filter:blur(8px);
+    }
+    .btn-ghost:hover { border-color:var(--gold); box-shadow:0 0 24px #f5d27a22 }
     .btn-sm { padding:10px 16px; font-size:14px }
-    .hero { display:grid; grid-template-columns:1.1fr .9fr; gap:28px; align-items:center; padding:10px 0 8px }
-    .eyebrow { color:var(--gold2); letter-spacing:.18em; text-transform:uppercase; font-size:12px; font-weight:700; margin:0 0 10px }
-    .hero h2 { margin:0 0 12px; font-size:clamp(30px,5vw,50px); line-height:1.15 }
-    .hero h2 span { color:var(--gold) }
-    .lead { font-size:18px; color:#ddd4bc; max-width:36em }
-    .cta-row { display:flex; flex-wrap:wrap; gap:12px; margin:22px 0 10px }
-    .ver { color:var(--muted); font-size:13px }
-    .stage { position:relative; display:flex; justify-content:center }
-    .stage::before { content:""; position:absolute; inset:12% 14%; background:radial-gradient(circle,#f5d27a33,transparent 70%); filter:blur(8px) }
-    .stage video, .stage img.fallback { width:min(380px,86%); aspect-ratio:1; border-radius:28px; object-fit:cover; border:2px solid #f5d27a66; box-shadow:0 22px 60px #0008, 0 0 0 10px #f5d27a12; position:relative; background:#110e08 }
-    .badge { position:absolute; bottom:16px; left:50%; transform:translateX(-50%); background:#16120ce8; border:1px solid var(--gold2); color:var(--gold); padding:6px 14px; border-radius:999px; font-size:13px; font-weight:700; white-space:nowrap }
-    .desk { display:grid; grid-template-columns:1.15fr .85fr; gap:14px; margin:28px 0 10px }
-    .card { background:linear-gradient(180deg,#17141c,#100e14); border:1px solid var(--line); border-radius:20px; padding:18px }
-    .card h3 { margin:0 0 8px; color:var(--gold); font-size:16px }
-    .price { font-size:40px; font-weight:800; letter-spacing:-1px; margin:4px 0 }
+    .hero {
+      display:grid; grid-template-columns:1.12fr .88fr; gap:32px; align-items:center;
+      padding:8px 0 18px;
+    }
+    .eyebrow {
+      display:inline-flex; align-items:center; gap:8px;
+      color:var(--gold2); letter-spacing:.2em; text-transform:uppercase;
+      font-size:11px; font-weight:800; margin:0 0 14px;
+      padding:6px 12px; border-radius:999px; border:1px solid var(--line);
+      background:rgba(201,162,39,.08);
+    }
+    .eyebrow::before { content:""; width:7px; height:7px; border-radius:50%; background:var(--gold); box-shadow:0 0 10px var(--gold) }
+    .hero h2 { margin:0 0 14px; font-size:clamp(32px,5.2vw,54px); line-height:1.12; font-weight:800; letter-spacing:-.02em }
+    .hero h2 span {
+      background:linear-gradient(135deg,var(--gold3),var(--gold),var(--gold2));
+      -webkit-background-clip:text; background-clip:text; color:transparent;
+    }
+    .lead { font-size:18px; color:#ddd4bc; max-width:36em; margin:0 }
+    .cta-row { display:flex; flex-wrap:wrap; gap:12px; margin:26px 0 12px }
+    .ver { color:var(--muted); font-size:13px; margin:0 }
+    .stage { position:relative; display:flex; justify-content:center; align-items:center }
+    .stage::before {
+      content:""; position:absolute; inset:8% 10%;
+      background:radial-gradient(circle,#f5d27a55,transparent 68%);
+      filter:blur(18px); animation:pulseGlow 4.5s ease-in-out infinite;
+    }
+    @keyframes pulseGlow {
+      0%,100% { opacity:.55; transform:scale(1) }
+      50% { opacity:.95; transform:scale(1.06) }
+    }
+    .stage video, .stage img.fallback {
+      width:min(400px,88%); aspect-ratio:1; border-radius:32px; object-fit:cover;
+      border:2px solid #f5d27a77; position:relative;
+      box-shadow:0 28px 70px #000a, 0 0 0 12px #f5d27a12, 0 0 80px #c9a22733;
+      background:#110e08;
+    }
+    .badge {
+      position:absolute; bottom:18px; left:50%; transform:translateX(-50%);
+      background:rgba(18,14,10,.88); border:1px solid var(--gold2); color:var(--gold);
+      padding:8px 16px; border-radius:999px; font-size:13px; font-weight:800;
+      white-space:nowrap; backdrop-filter:blur(10px);
+      box-shadow:0 8px 24px #0008;
+    }
+    .desk { display:grid; grid-template-columns:1.15fr .85fr; gap:14px; margin:22px 0 6px }
+    .card {
+      background:linear-gradient(165deg,rgba(28,22,34,.85),rgba(14,12,18,.9));
+      border:1px solid var(--line); border-radius:22px; padding:20px;
+      box-shadow:0 16px 40px #0005, inset 0 1px 0 #f5d27a14;
+      backdrop-filter:blur(10px);
+      transition:border-color .2s, transform .2s;
+    }
+    .card:hover { border-color:#f5d27a55; transform:translateY(-2px) }
+    .card h3 { margin:0 0 8px; color:var(--gold); font-size:16px; letter-spacing:.3px }
+    .price {
+      font-size:44px; font-weight:800; letter-spacing:-1.2px; margin:6px 0;
+      font-family:Manrope,'IBM Plex Sans Thai',sans-serif;
+      background:linear-gradient(180deg,#fff,#f5d27a); -webkit-background-clip:text; background-clip:text; color:transparent;
+    }
     .chg.up { color:var(--up) } .chg.dn { color:var(--dn) } .chg.flat { color:var(--muted) }
-    .tag { display:inline-block; padding:5px 12px; border-radius:999px; font-size:12px; font-weight:800 }
-    .tag.up { background:#0a3d24; color:var(--up) } .tag.dn { background:#4a1216; color:var(--dn) } .tag.flat { background:#1a1a22; color:var(--gold) }
+    .tag { display:inline-block; padding:6px 14px; border-radius:999px; font-size:12px; font-weight:800; letter-spacing:.04em }
+    .tag.up { background:#0a3d24; color:var(--up); box-shadow:0 0 16px #3ddc8433 }
+    .tag.dn { background:#4a1216; color:var(--dn); box-shadow:0 0 16px #ff6b7533 }
+    .tag.flat { background:#1a1a22; color:var(--gold); border:1px solid var(--line) }
     .thai { display:grid; gap:8px; margin-top:8px }
-    .thai .row { display:flex; justify-content:space-between; gap:10px; border-bottom:1px solid #2a2418; padding:6px 0; font-size:14px }
-    canvas#xauChart { width:100%; height:220px; display:block; background:#0b0a0e; border-radius:14px; border:1px solid var(--line) }
+    .thai .row {
+      display:flex; justify-content:space-between; gap:10px;
+      border-bottom:1px solid #2a241855; padding:8px 0; font-size:14px;
+    }
+    canvas#xauChart {
+      width:100%; height:220px; display:block; background:#0a090e;
+      border-radius:16px; border:1px solid var(--line);
+      box-shadow:inset 0 0 40px #0006;
+    }
     .news-grid { display:grid; grid-template-columns:1fr 1fr; gap:12px }
-    article.news { background:#100e14; border:1px solid var(--line); border-left:4px solid var(--gold2); border-radius:16px; padding:14px }
-    article.news.bullish { border-left-color:var(--up) } article.news.bearish { border-left-color:var(--dn) }
-    article.news h4 { margin:0 0 6px; font-size:15px }
+    article.news {
+      background:linear-gradient(160deg,rgba(18,14,22,.9),rgba(10,8,14,.95));
+      border:1px solid var(--line); border-left:4px solid var(--gold2);
+      border-radius:18px; padding:16px;
+      transition:transform .15s, border-color .2s, box-shadow .2s;
+    }
+    article.news:hover { transform:translateY(-2px); box-shadow:0 12px 32px #0006; border-color:#f5d27a44 }
+    article.news.bullish { border-left-color:var(--up) }
+    article.news.bearish { border-left-color:var(--dn) }
+    article.news h4 { margin:0 0 6px; font-size:15px; line-height:1.35 }
     article.news p { margin:0; color:var(--muted); font-size:13px }
-    article.news a { color:var(--gold); font-size:13px; font-weight:700; text-decoration:none; display:inline-block; margin-top:8px }
-    .feats { display:grid; grid-template-columns:repeat(3,1fr); gap:12px; margin:18px 0 }
-    section.block { background:linear-gradient(180deg,#141218,#0d0c10); border:1px solid var(--line); border-radius:22px; padding:22px; margin:16px 0 }
-    section.block h2 { margin:0 0 12px; color:var(--gold); font-size:22px }
-    .cl { border-top:1px solid #2a2418; padding:12px 0 }
-    .cl:first-of-type { border-top:0 }
-    .cl b { color:var(--gold) }
+    article.news a {
+      color:var(--gold); font-size:13px; font-weight:800; text-decoration:none;
+      display:inline-flex; align-items:center; gap:4px; margin-top:10px;
+      padding:6px 12px; border-radius:999px; border:1px solid var(--line); background:#15120c;
+    }
+    .feats { display:grid; grid-template-columns:repeat(3,1fr); gap:14px; margin:20px 0 }
+    .feats .card { position:relative; overflow:hidden }
+    .feats .card::after {
+      content:""; position:absolute; top:-40%; right:-20%; width:120px; height:120px;
+      background:radial-gradient(circle,#f5d27a22,transparent 70%); pointer-events:none;
+    }
+    .feat-ico {
+      width:40px; height:40px; border-radius:12px; display:grid; place-items:center;
+      font-size:18px; margin-bottom:10px;
+      background:linear-gradient(135deg,#2a2210,#15120c); border:1px solid var(--line);
+      box-shadow:0 0 20px #f5d27a18;
+    }
+    section.block {
+      background:linear-gradient(165deg,rgba(22,18,28,.78),rgba(10,8,14,.92));
+      border:1px solid var(--line); border-radius:26px; padding:26px; margin:18px 0;
+      box-shadow:0 18px 48px #0005, inset 0 1px 0 #f5d27a12;
+      backdrop-filter:blur(12px);
+    }
+    section.block h2 {
+      margin:0 0 10px; font-size:24px; font-weight:800; letter-spacing:.2px;
+      background:linear-gradient(135deg,var(--gold3),var(--gold2));
+      -webkit-background-clip:text; background-clip:text; color:transparent;
+    }
+    .cl {
+      border-top:1px solid #2a241855; padding:14px 0;
+      border-radius:0; transition:background .15s;
+    }
+    .cl:first-of-type {
+      border-top:0; padding:14px 16px; margin:8px 0 4px;
+      background:linear-gradient(90deg,#f5d27a14,transparent 70%);
+      border:1px solid #f5d27a33; border-radius:16px;
+    }
+    .cl b { color:var(--gold); font-size:15px }
     .grid { display:grid; grid-template-columns:1fr 1fr; gap:16px }
-    .qr { background:#0d0b10; border:1px solid var(--line); border-radius:18px; padding:18px; text-align:center }
-    .qr img { width:150px; height:150px; object-fit:contain; background:#fff; border-radius:12px; padding:6px }
+    .qr {
+      background:linear-gradient(180deg,#141018,#0c0a10); border:1px solid var(--line);
+      border-radius:20px; padding:20px; text-align:center;
+      box-shadow:inset 0 1px 0 #f5d27a14;
+    }
+    .qr img { width:150px; height:150px; object-fit:contain; background:#fff; border-radius:14px; padding:6px; box-shadow:0 8px 24px #0006 }
     .addr { font-family:ui-monospace,Menlo,Consolas,monospace; word-break:break-all; color:var(--gold); font-size:13px }
     a { color:var(--gold) }
-    .warn { border-left:4px solid var(--dn); background:#ff5c5c12 }
-    footer { color:var(--muted); font-size:13px; margin-top:28px; text-align:center }
+    .warn {
+      border-left:4px solid var(--dn); background:linear-gradient(90deg,#ff5c5c14,transparent 60%);
+    }
+    footer { color:var(--muted); font-size:13px; margin-top:32px; text-align:center; line-height:1.8 }
     .hid { display:none !important }
     .mut { color:var(--muted); font-size:13px }
     ol,ul { margin:8px 0 0; padding-left:20px }
+    .float-cta {
+      position:fixed; left:0; right:0; bottom:0; z-index:50;
+      padding:12px 16px calc(12px + env(safe-area-inset-bottom));
+      background:linear-gradient(180deg,transparent,rgba(6,5,10,.92) 28%,rgba(6,5,10,.98));
+      display:flex; justify-content:center; gap:10px; pointer-events:none;
+    }
+    .float-cta a { pointer-events:auto; box-shadow:0 10px 36px #000a }
+    .shine-line {
+      height:1px; margin:6px 0 18px;
+      background:linear-gradient(90deg,transparent,#f5d27a66 30%,#ffe9b0 50%,#f5d27a66 70%,transparent);
+    }
     @media (max-width:860px){
       .hero,.desk,.feats,.grid,.news-grid { grid-template-columns:1fr }
       .hero { text-align:center }
       .cta-row { justify-content:center }
+      .eyebrow { margin-left:auto; margin-right:auto }
+      header.top { position:relative; top:0 }
+      .price { font-size:36px }
     }
   </style>
 </head>
@@ -96,7 +258,7 @@
           <button type="button" id="bth" class="on" onclick="setLang('th')">ไทย</button>
           <button type="button" id="ben" onclick="setLang('en')">English</button>
         </div>
-        <a class="btn btn-gold btn-sm" href="downloads/PUREGOLD-0.9.1.apk">⬇ APK 0.9.1</a>
+        <a class="btn btn-gold btn-sm" href="downloads/PUREGOLD-0.9.2.apk">⬇ APK 0.9.2</a>
       </div>
     </header>
 
@@ -112,10 +274,10 @@
           <p class="lead">Live Hua Seng Heng Thai gold, XAU, chart, bias and news in the browser — then download the Android app for plans, PureFxAi chat, widgets and alerts.</p>
         </div>
         <div class="cta-row">
-          <a class="btn btn-gold" href="downloads/PUREGOLD-0.9.1.apk" id="dlBtn">⬇ Download APK 0.9.1</a>
+          <a class="btn btn-gold" href="downloads/PUREGOLD-0.9.2.apk" id="dlBtn">⬇ Download APK 0.9.2</a>
           <a class="btn btn-ghost" href="https://one.toexness.com/a/s2didh6p">Exness IB · s2didh6p</a>
         </div>
-        <p class="ver" id="dlMeta">PUREGOLD-0.9.1.apk · signed release</p>
+        <p class="ver" id="dlMeta">PUREGOLD-0.9.2.apk · signed release</p>
       </div>
       <div class="stage">
         <video autoplay muted loop playsinline poster="nong-mee.jpg" aria-label="Nong Mee hero">
@@ -155,15 +317,29 @@
       <div class="news-grid" id="newsBox"><div class="mut">…</div></div>
     </section>
 
+    <div class="shine-line" aria-hidden="true"></div>
     <div class="feats">
-      <div class="card"><div class="th"><h3>กราฟ + เทคนิค</h3><p>หน้าแรกของแอปมีกราฟสดและมุมมองเทคนิค คู่กับราคาทองไทย / XAU</p></div><div class="en hid"><h3>Chart + techniques</h3><p>The app home shows a live chart and techniques next to Thai / XAU prices.</p></div></div>
-      <div class="card"><div class="th"><h3>ข่าวที่อ่านได้</h3><p>แปลไทย/จีน/ญี่ปุ่นได้เมื่อตั้งภาษาแอป และมีปุ่มเปิดข่าว</p></div><div class="en hid"><h3>Readable news</h3><p>Localized headlines when the app language is TH/ZH/JA, plus an Open-link button.</p></div></div>
-      <div class="card"><div class="th"><h3>PureFxAi</h3><p>น้องหมีช่วยวิเคราะห์ข่าว และแจ้งเตือนข่าวที่กระทบทองรุนแรง</p></div><div class="en hid"><h3>PureFxAi</h3><p>Nong Mee helps analyze headlines and can alert on strong gold-moving news.</p></div></div>
+      <div class="card"><div class="feat-ico">📈</div><div class="th"><h3>กราฟ + เทคนิค</h3><p>หน้าแรกของแอปมีกราฟสดและมุมมองเทคนิค คู่กับราคาทองไทย / XAU</p></div><div class="en hid"><h3>Chart + techniques</h3><p>The app home shows a live chart and techniques next to Thai / XAU prices.</p></div></div>
+      <div class="card"><div class="feat-ico">📰</div><div class="th"><h3>ข่าวที่อ่านได้</h3><p>แปลไทย/จีน/ญี่ปุ่นได้เมื่อตั้งภาษาแอป และมีปุ่มเปิดข่าว</p></div><div class="en hid"><h3>Readable news</h3><p>Localized headlines when the app language is TH/ZH/JA, plus an Open-link button.</p></div></div>
+      <div class="card"><div class="feat-ico">🐻</div><div class="th"><h3>PureFxAi</h3><p>น้องหมีช่วยวิเคราะห์ข่าว และแจ้งเตือนข่าวที่กระทบทองรุนแรง</p></div><div class="en hid"><h3>PureFxAi</h3><p>Nong Mee helps analyze headlines and can alert on strong gold-moving news.</p></div></div>
     </div>
 
     <section class="block" id="updates">
-      <div class="th"><h2>ประวัติเวอร์ชัน</h2><p class="mut">อัปเดตล่าสุดของแอป · <a href="downloads/PUREGOLD-0.9.1.apk">ดาวน์โหลด 0.9.1</a></p></div>
-      <div class="en hid"><h2>Version history</h2><p class="mut">Latest app updates · <a href="downloads/PUREGOLD-0.9.1.apk">Download 0.9.1</a></p></div>
+      <div class="th"><h2>ประวัติเวอร์ชัน</h2><p class="mut">อัปเดตล่าสุดของแอป · <a href="downloads/PUREGOLD-0.9.2.apk">ดาวน์โหลด 0.9.2</a></p></div>
+      <div class="en hid"><h2>Version history</h2><p class="mut">Latest app updates · <a href="downloads/PUREGOLD-0.9.2.apk">Download 0.9.2</a></p></div>
+      <div class="cl">
+        <b>0.9.2</b> · 2026-11-06
+        <ul class="th">
+          <li>ขัด UI แอปและหน้าเว็บให้หรูขึ้น — โทนทอง / glass / glow</li>
+          <li>จัดลำดับตัวอักษร ระยะห่าง และการ์ดใหม่ทั้ง landing และแอป</li>
+          <li>คงฟีเจอร์เดิมครบ (วิเคราะห์สด ข่าว แผน แชท วิดเจ็ต หน้าต่างลอย)</li>
+        </ul>
+        <ul class="en hid">
+          <li>Premium UI polish for the app and landing — gold / glass / glow</li>
+          <li>Refined typography, spacing, and cards across landing + app</li>
+          <li>All prior features kept (live desk, news, plan, chat, widget, overlay)</li>
+        </ul>
+      </div>
       <div class="cl">
         <b>0.9.1</b> · 2026-11-06
         <ul class="th">
@@ -223,7 +399,7 @@
       <div class="th">
         <h2>วิธีติดตั้ง APK</h2>
         <ol>
-          <li>กดดาวน์โหลด APK 0.9.1 แล้วอนุญาตติดตั้งจากแหล่งที่ไม่รู้จักหากระบบถาม</li>
+          <li>กดดาวน์โหลด APK 0.9.2 แล้วอนุญาตติดตั้งจากแหล่งที่ไม่รู้จักหากระบบถาม</li>
           <li>ติดตั้งทับเวอร์ชันเดิมได้ ไม่ต้องถอนก่อน</li>
           <li>ในเมนู → ตั้งค่า วาง API key เพื่อเปิด PureFxAi</li>
         </ol>
@@ -231,7 +407,7 @@
       <div class="en hid">
         <h2>Install the APK</h2>
         <ol>
-          <li>Download APK 0.9.1 and allow unknown sources if Android asks.</li>
+          <li>Download APK 0.9.2 and allow unknown sources if Android asks.</li>
           <li>You can install over the previous version.</li>
           <li>In More → Settings, paste an API key to enable PureFxAi.</li>
         </ol>
@@ -263,7 +439,7 @@
     </section>
 
     <p style="text-align:center;margin-top:26px">
-      <a class="btn btn-gold" href="downloads/PUREGOLD-0.9.1.apk">⬇ Download APK 0.9.1</a>
+      <a class="btn btn-gold" href="downloads/PUREGOLD-0.9.2.apk">⬇ Download APK 0.9.2</a>
     </p>
     <footer>
       PureGold by PureFxAi · <a href="https://gold.purefxai.store/">gold.purefxai.store</a> ·
@@ -327,14 +503,33 @@
       const closes = rows.map(r => +r[4]);
       const min = Math.min(...closes), max = Math.max(...closes);
       const pad = 16;
-      ctx.strokeStyle = '#f5d27a';
-      ctx.lineWidth = 2;
+      const pts = closes.map((p, i) => ({
+        x: pad + (i / (closes.length - 1 || 1)) * (w - pad * 2),
+        y: h - pad - ((p - min) / (max - min || 1)) * (h - pad * 2)
+      }));
+      const grad = ctx.createLinearGradient(0, pad, 0, h - pad);
+      grad.addColorStop(0, 'rgba(245,210,122,0.35)');
+      grad.addColorStop(1, 'rgba(245,210,122,0)');
       ctx.beginPath();
-      closes.forEach((p, i) => {
-        const x = pad + (i / (closes.length - 1)) * (w - pad * 2);
-        const y = h - pad - ((p - min) / (max - min || 1)) * (h - pad * 2);
-        i ? ctx.lineTo(x, y) : ctx.moveTo(x, y);
-      });
+      pts.forEach((pt, i) => i ? ctx.lineTo(pt.x, pt.y) : ctx.moveTo(pt.x, pt.y));
+      ctx.lineTo(pts[pts.length-1].x, h - pad);
+      ctx.lineTo(pts[0].x, h - pad);
+      ctx.closePath();
+      ctx.fillStyle = grad;
+      ctx.fill();
+      ctx.beginPath();
+      pts.forEach((pt, i) => i ? ctx.lineTo(pt.x, pt.y) : ctx.moveTo(pt.x, pt.y));
+      ctx.strokeStyle = '#f5d27a';
+      ctx.lineWidth = 2.4;
+      ctx.lineJoin = 'round';
+      ctx.stroke();
+      const last = pts[pts.length-1];
+      ctx.beginPath();
+      ctx.arc(last.x, last.y, 4, 0, Math.PI*2);
+      ctx.fillStyle = '#ffe9b0';
+      ctx.fill();
+      ctx.strokeStyle = '#c9a227';
+      ctx.lineWidth = 1.5;
       ctx.stroke();
     }
 
@@ -415,5 +610,10 @@
     loadNews();
     setInterval(loadLive, 30000);
   </script>
+
+  <div class="float-cta">
+    <a class="btn btn-gold btn-sm" href="downloads/PUREGOLD-0.9.2.apk">⬇ APK 0.9.2</a>
+    <a class="btn btn-ghost btn-sm" href="https://one.toexness.com/a/s2didh6p">Exness IB</a>
+  </div>
 </body>
 </html>
