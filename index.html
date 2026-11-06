@@ -284,6 +284,47 @@
     .review .who b { color:var(--gold3); font-size:13px }
     .review .who span { color:var(--muted); font-size:12px }
     .review-note { margin-top:12px }
+    .chart-actions {
+      display:flex; flex-wrap:wrap; gap:10px; align-items:center;
+      margin:12px 0 4px;
+    }
+    .chart-actions .btn { padding:11px 18px; font-size:14px }
+    .dash-modal {
+      position:fixed; inset:0; z-index:90; display:none; align-items:center; justify-content:center;
+      padding:14px; background:rgba(4,3,8,.86); backdrop-filter:blur(12px);
+    }
+    .dash-modal.open { display:flex }
+    .dash-frame {
+      width:min(1180px,100%); height:min(86vh,920px);
+      background:linear-gradient(165deg,#1a1520,#0c0a10);
+      border:1px solid var(--line); border-radius:22px; overflow:hidden;
+      box-shadow:0 30px 80px #000c, 0 0 0 1px #f5d27a22;
+      display:flex; flex-direction:column;
+    }
+    .dash-bar {
+      padding:10px 14px; display:flex; align-items:center; justify-content:space-between; gap:10px;
+      border-bottom:1px solid #2a241855; background:rgba(12,10,16,.92);
+    }
+    .dash-bar strong {
+      letter-spacing:.14em; font-size:12px; color:var(--gold); font-weight:800;
+    }
+    .dash-bar .dash-tools { display:flex; gap:8px; align-items:center; flex-wrap:wrap }
+    .dash-bar button, .dash-bar a.btn {
+      background:transparent; border:1px solid var(--line); color:var(--muted);
+      border-radius:999px; padding:8px 12px; cursor:pointer; font:inherit; font-size:13px;
+      text-decoration:none; font-weight:700;
+    }
+    .dash-bar button:hover, .dash-bar a.btn:hover { color:var(--gold); border-color:var(--gold2) }
+    .dash-bar button.icon {
+      width:36px; height:36px; padding:0; font-size:18px; display:grid; place-items:center;
+    }
+    .dash-frame iframe {
+      flex:1; width:100%; border:0; background:#07080d; min-height:420px;
+    }
+    @media (max-width:720px){
+      .dash-frame { height:92vh; border-radius:16px }
+      .dash-modal { padding:8px }
+    }
     .promo-modal {
       position:fixed; inset:0; z-index:80; display:none; align-items:center; justify-content:center;
       padding:18px; background:rgba(4,3,8,.78); backdrop-filter:blur(10px);
@@ -379,6 +420,14 @@
             <canvas id="xauChart" width="720" height="260" aria-label="XAU hourly chart"></canvas>
           </div>
           <p class="mut" id="chartNote"></p>
+          <div class="chart-actions">
+            <button type="button" class="btn btn-gold btn-sm" id="openDashBtn">
+              <span class="th">ดูกราฟ</span><span class="en hid">Full chart</span>
+            </button>
+            <a class="btn btn-ghost btn-sm" id="openDashTab" href="https://purefxaidev.github.io/gold-dashboard/?lang=th" target="_blank" rel="noopener">
+              <span class="th">เปิดแท็บใหม่</span><span class="en hid">Open in new tab</span>
+            </a>
+          </div>
         </div>
         <div class="card">
           <div class="thai-head">
@@ -617,6 +666,7 @@
       try { if (LAST_THAI) renderThai(LAST_THAI); } catch (_) {}
       if (window.__bias) paintBias(window.__bias);
       if (window.__chartMeta) setChartNote(window.__chartMeta);
+      try { if (typeof syncDashLinks === 'function') syncDashLinks(); } catch (_) {}
     }
     setLang((navigator.language || 'th').toLowerCase().startsWith('th') ? 'th' : 'en');
 
@@ -1072,6 +1122,51 @@
       }
     }
 
+
+    const DASH_BASE = 'https://purefxaidev.github.io/gold-dashboard/';
+    function dashUrl(lang) {
+      const L = (lang || LANG || 'th').toLowerCase().startsWith('en') ? 'en' : 'th';
+      return DASH_BASE + '?lang=' + L;
+    }
+    function syncDashLinks() {
+      const url = dashUrl(LANG);
+      const tab = document.getElementById('openDashTab');
+      const ext = document.getElementById('dashExternal');
+      if (tab) tab.href = url;
+      if (ext) ext.href = url;
+      const title = document.getElementById('dashTitle');
+      if (title) title.textContent = LANG === 'th' ? 'PUREGOLD · กราฟวิเคราะห์' : 'PUREGOLD · Full chart';
+      const btn = document.getElementById('openDashBtn');
+      if (btn) {
+        // keep bilingual spans; class toggles handle visibility
+      }
+    }
+    (function dashModal() {
+      const modal = document.getElementById('dashModal');
+      const frame = document.getElementById('dashFrame');
+      const openBtn = document.getElementById('openDashBtn');
+      if (!modal || !frame || !openBtn) return;
+      const close = () => {
+        modal.classList.remove('open');
+        modal.setAttribute('aria-hidden', 'true');
+        // keep iframe loaded for snappy re-open; clear only on long idle not needed
+      };
+      const open = () => {
+        const url = dashUrl(LANG);
+        syncDashLinks();
+        if (frame.getAttribute('src') !== url) frame.src = url;
+        modal.classList.add('open');
+        modal.setAttribute('aria-hidden', 'false');
+      };
+      openBtn.addEventListener('click', open);
+      document.getElementById('dashClose')?.addEventListener('click', close);
+      modal.addEventListener('click', (e) => { if (e.target === modal) close(); });
+      document.addEventListener('keydown', (e) => {
+        if (e.key === 'Escape' && modal.classList.contains('open')) close();
+      });
+      syncDashLinks();
+    })();
+
     (function cycleBg() {
       const clips = [1,2,3,4].map(n => 'assets/bg-bull-bear-0' + n + '.mp4?v=20261106c');
       const v = document.getElementById('bgCycle');
@@ -1100,6 +1195,19 @@
   </script>
 
   
+  <div class="dash-modal" id="dashModal" aria-hidden="true">
+    <div class="dash-frame" role="dialog" aria-modal="true" aria-labelledby="dashTitle">
+      <div class="dash-bar">
+        <strong id="dashTitle">PUREGOLD · Chart</strong>
+        <div class="dash-tools">
+          <a class="btn" id="dashExternal" href="https://purefxaidev.github.io/gold-dashboard/?lang=th" target="_blank" rel="noopener">↗</a>
+          <button type="button" class="icon" id="dashClose" aria-label="Close">×</button>
+        </div>
+      </div>
+      <iframe id="dashFrame" title="PUREGOLD gold dashboard" loading="lazy" referrerpolicy="no-referrer"></iframe>
+    </div>
+  </div>
+
   <div class="float-cta">
     <a class="btn btn-gold btn-sm" href="downloads/PUREGOLD-0.9.2.apk">⬇ APK 0.9.2</a>
     <a class="btn btn-ghost btn-sm" href="https://one.toexness.com/a/s2didh6p">Exness IB</a>
