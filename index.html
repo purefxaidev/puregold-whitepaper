@@ -1,0 +1,183 @@
+<!doctype html>
+<html lang="th">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>PUREGOLD Whitepaper — PureFxAi</title>
+  <meta name="description" content="PureGold by PureFxAi — product whitepaper for the gold analysis app.">
+  <link rel="icon" href="icon.png">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Thai:wght@400;600;700&family=Manrope:wght@400;600;700;800&display=swap" rel="stylesheet">
+  <style>
+    :root { --bg:#07080d; --card:#12141d; --gold:#f5d27a; --gold2:#c9a227; --text:#e8e3d3; --muted:#9a8f73; --line:#2a2618; --up:#3ddc84; }
+    * { box-sizing:border-box }
+    html,body { margin:0; background:radial-gradient(1200px 600px at 10% -10%, #1a160c 0%, var(--bg) 50%); color:var(--text);
+      font-family:'IBM Plex Sans Thai',Manrope,system-ui,sans-serif; line-height:1.65 }
+    html[lang=en] body { font-family:Manrope,'IBM Plex Sans Thai',system-ui,sans-serif }
+    .wrap { max-width:880px; margin:0 auto; padding:32px 20px 80px }
+    header { display:flex; align-items:center; justify-content:space-between; gap:16px; flex-wrap:wrap; margin-bottom:36px }
+    .brand { display:flex; align-items:center; gap:14px }
+    .brand img { width:72px; height:72px; border-radius:50%; object-fit:cover; border:1px solid var(--gold2); box-shadow:0 0 0 4px #f5d27a22 }
+    .brand h1 { margin:0; font-size:28px; letter-spacing:2px; color:var(--gold) }
+    .brand small { display:block; color:var(--muted); letter-spacing:1px; font-size:13px }
+    .lang { display:flex; gap:8px }
+    .lang button { background:#151722; color:var(--muted); border:1px solid var(--line); border-radius:999px; padding:8px 14px; font:inherit; cursor:pointer }
+    .lang button.on { background:var(--gold); color:#111; border-color:var(--gold); font-weight:700 }
+    section { background:linear-gradient(180deg,var(--card),#0b0c13); border:1px solid var(--line); border-radius:18px; padding:22px 24px; margin:16px 0 }
+    h2 { margin:0 0 10px; color:var(--gold); font-size:20px }
+    p,li { color:var(--text) }
+    .muted { color:var(--muted) }
+    .grid { display:grid; grid-template-columns:1fr 1fr; gap:16px }
+    @media (max-width:700px){ .grid { grid-template-columns:1fr } .brand h1{font-size:22px} }
+    .qr { background:#0d0f17; border:1px solid var(--line); border-radius:16px; padding:16px; text-align:center }
+    .qr img { width:160px; height:160px; object-fit:contain; background:#fff; border-radius:12px; padding:6px }
+    code, .addr { font-family:ui-monospace,Menlo,Consolas,monospace; word-break:break-all; color:var(--gold) }
+    a { color:var(--gold) }
+    .cta { display:inline-block; margin-top:8px; padding:12px 18px; border-radius:12px; background:linear-gradient(90deg,var(--gold2),var(--gold)); color:#111; font-weight:800; text-decoration:none }
+    .warn { border-left:3px solid #ff5c5c; background:#ff5c5c12; padding:10px 14px; border-radius:10px }
+    footer { color:var(--muted); font-size:13px; margin-top:28px; text-align:center }
+    .hid { display:none !important }
+    ul { margin:8px 0 0; padding-left:20px }
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <header>
+      <div class="brand">
+        <img src="nong-mee.jpg" alt="น้องหมี Nong Mee">
+        <div>
+          <h1>PUREGOLD</h1>
+          <small>by PureFxAi · Whitepaper</small>
+        </div>
+      </div>
+      <div class="lang">
+        <button type="button" id="bth" class="on" onclick="setLang('th')">ไทย</button>
+        <button type="button" id="ben" onclick="setLang('en')">English</button>
+      </div>
+    </header>
+
+    <section data-th data-en class="intro">
+      <div class="th">
+        <h2>วิสัยทัศน์</h2>
+        <p>PUREGOLD คือแอปมือถือสำหรับคนที่ติดตามทองไทย (ฮั่วเซ่งเฮง) และทองโลก XAUUSD ในที่เดียว ออกแบบโดย PureFxAi ให้ดูราคา แผนเทรดเพื่อการศึกษา กราฟ เทคนิค และข่าวล่าสุดได้เร็ว โดยมี <b>น้องหมี</b> เป็นมาสคอตของแบรนด์</p>
+      </div>
+      <div class="en hid">
+        <h2>Vision</h2>
+        <p>PUREGOLD is a mobile app for people who follow Thai gold (Hua Seng Heng) and world gold XAUUSD in one place. Built by PureFxAi to surface prices, educational trade plans, charts, techniques, and the latest news — with <b>Nong Mee</b> as the brand mascot.</p>
+      </div>
+    </section>
+
+    <section>
+      <div class="th">
+        <h2>ไฮไลต์ผลิตภัณฑ์</h2>
+        <ul>
+          <li>หน้าแรกมีกราฟและเทคนิค พร้อมราคาทองไทย / XAU และมุมมองระยะสั้น</li>
+          <li>เมนูแผน สัญญาณเข้า–ออกเพื่อการศึกษา และประวัติความแม่นยำ</li>
+          <li>ข่าวล่าสุดหลายแหล่ง พร้อมลิงก์ต้นทาง</li>
+          <li>PureFxAi วิเคราะห์ข่าวว่าหนุนหรือกดดันทอง และแจ้งเตือนข่าวแรงได้</li>
+          <li>แชท PureFxAi · วิดเจ็ตหน้าจอหลัก · หน้าต่างลอยทับแอปอื่น</li>
+        </ul>
+      </div>
+      <div class="en hid">
+        <h2>Product highlights</h2>
+        <ul>
+          <li>Home shows chart and techniques plus Thai / XAU prices and short-term bias</li>
+          <li>Plan tab with educational entry/exit levels and signal accuracy history</li>
+          <li>Latest multi-source gold news with original links</li>
+          <li>PureFxAi analyzes whether headlines support or pressure gold, with optional strong-news alerts</li>
+          <li>PureFxAi chat · home-screen widget · floating overlay over other apps</li>
+        </ul>
+      </div>
+    </section>
+
+    <section>
+      <div class="th">
+        <h2>น้องหมี</h2>
+        <p>น้องหมี (Nong Mee / 小熊 / くまちゃん) คือมาสคอตของ PureGold — ปรากฏในหน้าแรก การวิเคราะห์ข่าว และแชท PureFxAi ให้แบรนด์ดูอบอุ่น จดจำง่าย แต่ไม่แทนที่ไอคอนแอปหลัก</p>
+      </div>
+      <div class="en hid">
+        <h2>Nong Mee</h2>
+        <p>Nong Mee (น้องหมี / 小熊 / くまちゃん) is the PureGold mascot — she appears on Home, news analysis, and PureFxAi chat so the brand feels warm and easy to recognize, without replacing the main app icon.</p>
+      </div>
+    </section>
+
+    <section>
+      <div class="th">
+        <h2>PureFxAi วิเคราะห์ข่าวอย่างไร</h2>
+        <ol>
+          <li>แอปดึงข่าวทองล่าสุดจากฟีดแดชบอร์ด, Google News (ไทย/อังกฤษ), Yahoo Finance (GC=F) และหัวข้อ Kitco</li>
+          <li>แต่ละการ์ดมีป้ายผลกระทบเบื้องต้น และลิงก์เปิดข่าวต้นทาง</li>
+          <li>ถ้ามี API key ในตั้งค่า PureFxAi จะสรุปภาพรวมและอธิบายว่าทำไมแต่ละพาดหัวถึงเอียงหนุน / กดดัน / เป็นกลาง ต่อราคาทอง</li>
+          <li>ผลถูกแคชในเครื่องตามรหัสข่าวและภาษา เพื่อไม่ยิง API ซ้ำทุกครั้งที่เปิด</li>
+          <li>หากข่าวนั้นมีผลแรง (ขาขึ้นหรือขาลงชัด) แอปสามารถเด้งแจ้งเตือนแบบ SMS ตามช่วงเวลาที่ตั้งไว้</li>
+        </ol>
+        <p class="muted">แบรนด์ในแอปใช้ชื่อ PureFxAi เท่านั้น ไม่โชว์ชื่อโมเดลหรือผู้ให้บริการภายนอก</p>
+      </div>
+      <div class="en hid">
+        <h2>How PureFxAi news analysis works</h2>
+        <ol>
+          <li>The app pulls the latest gold headlines from the dashboard feed, Google News (Thai/English), Yahoo Finance (GC=F), and Kitco headlines.</li>
+          <li>Each card keeps an impact badge and a link to the original source.</li>
+          <li>With an API key in Settings, PureFxAi writes an overall summary plus why each headline looks bullish, bearish, or neutral for gold.</li>
+          <li>Analyses are cached on-device by news id and language so the API is not called on every open.</li>
+          <li>If a story looks strongly bullish or bearish, the app can send an SMS-style alert that respects your interval and mute settings.</li>
+        </ol>
+        <p class="muted">The UI is branded PureFxAi only — it never shows third-party model or vendor names.</p>
+      </div>
+    </section>
+
+    <section>
+      <div class="th">
+        <h2>การสนับสนุน</h2>
+        <p>ถ้า PUREGOLD มีประโยชน์ สามารถสนับสนุนทีมได้ตามสบาย ไม่บังคับ</p>
+      </div>
+      <div class="en hid">
+        <h2>Support</h2>
+        <p>If PUREGOLD is useful, you are welcome to support the team. It is optional.</p>
+      </div>
+      <div class="grid">
+        <div class="qr">
+          <b>USDT · ERC20</b>
+          <p class="addr">0x920deab53daf94ca2030ad5ceec2265bf5686941</p>
+          <img src="usdt-erc20-qr.png" alt="USDT ERC20 QR">
+          <p class="muted">Ethereum (ERC20) only</p>
+        </div>
+        <div class="qr">
+          <b>Exness IB</b>
+          <p><a href="https://one.toexness.com/a/s2didh6p">one.toexness.com/a/s2didh6p</a><br>code <code>s2didh6p</code></p>
+          <img src="exness-qr.png" alt="Exness QR">
+          <p><a class="cta" href="https://one.toexness.com/a/s2didh6p">Open Exness</a></p>
+        </div>
+      </div>
+    </section>
+
+    <section class="warn">
+      <div class="th">
+        <h2>คำเตือนความเสี่ยง</h2>
+        <p><b>การลงทุนมีความเสี่ยง</b> ข้อมูลในแอปและเอกสารนี้เพื่อการศึกษาเท่านั้น ไม่ใช่คำแนะนำการลงทุน การเทรดทองมีความเสี่ยงสูง โปรดตัดสินใจด้วยตนเอง</p>
+      </div>
+      <div class="en hid">
+        <h2>Risk disclaimer</h2>
+        <p><b>Investing involves risk.</b> Everything in the app and this whitepaper is for education only — not financial advice. Gold trading is high risk; decide for yourself.</p>
+      </div>
+    </section>
+
+    <p style="text-align:center">
+      <a class="cta" href="https://github.com/purefxaidev/puregold-app/releases/latest">Download PUREGOLD</a>
+    </p>
+    <footer>
+      PureGold by PureFxAi · <a href="https://github.com/purefxaidev/puregold-app">App repo</a>
+    </footer>
+  </div>
+  <script>
+    function setLang(L) {
+      document.documentElement.lang = L;
+      document.querySelectorAll('.th').forEach(el => el.classList.toggle('hid', L !== 'th'));
+      document.querySelectorAll('.en').forEach(el => el.classList.toggle('hid', L !== 'en'));
+      document.getElementById('bth').classList.toggle('on', L === 'th');
+      document.getElementById('ben').classList.toggle('on', L === 'en');
+    }
+    setLang((navigator.language || 'th').toLowerCase().startsWith('th') ? 'th' : 'en');
+  </script>
+</body>
+</html>
