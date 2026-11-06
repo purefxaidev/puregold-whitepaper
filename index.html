@@ -339,6 +339,53 @@
       .dash-frame { height:92vh; border-radius:16px }
       .dash-modal { padding:8px }
     }
+
+    .lang-modal {
+      position:fixed; inset:0; z-index:95; display:none; align-items:center; justify-content:center;
+      padding:18px; background:rgba(4,3,8,.82); backdrop-filter:blur(12px);
+    }
+    .lang-modal.open { display:flex }
+    .lang-card {
+      width:min(420px,100%);
+      background:linear-gradient(165deg, rgba(36,28,18,.92), rgba(12,10,16,.96));
+      border:1px solid rgba(245,210,122,.35);
+      border-radius:24px; overflow:hidden;
+      box-shadow:0 30px 80px #000c, 0 0 0 1px #f5d27a22, inset 0 1px 0 #f5d27a22;
+      backdrop-filter:blur(18px);
+      padding:28px 24px 26px;
+      text-align:center;
+    }
+    .lang-card .lang-kicker {
+      letter-spacing:.22em; font-size:11px; color:var(--gold); font-weight:800; margin:0 0 10px;
+    }
+    .lang-card h2 {
+      margin:0 0 8px; font-size:22px; font-weight:800; color:#fff8e8;
+      letter-spacing:.02em;
+    }
+    .lang-card .lang-sub {
+      margin:0 0 22px; color:var(--muted); font-size:13px; line-height:1.5;
+    }
+    .lang-picks {
+      display:flex; flex-direction:column; gap:12px;
+    }
+    .lang-picks button {
+      display:flex; align-items:center; justify-content:center; gap:10px;
+      width:100%; padding:18px 20px; border-radius:16px; font:inherit; font-size:18px;
+      font-weight:800; cursor:pointer; border:1px solid var(--line);
+      transition:transform .22s cubic-bezier(.2,.8,.2,1), box-shadow .25s ease, border-color .2s, filter .2s;
+    }
+    .lang-picks button:hover { transform:translateY(-2px) }
+    .lang-picks .pick-th {
+      background:linear-gradient(135deg,#ffe9b0,#f5d27a 35%,#c9a227 70%,#8a6b12);
+      color:#16120a; border-color:transparent;
+      box-shadow:0 12px 36px #c9a22750, inset 0 1px 0 #fff6;
+    }
+    .lang-picks .pick-en {
+      background:rgba(20,16,12,.75); color:var(--gold);
+      box-shadow:inset 0 1px 0 #f5d27a14;
+    }
+    .lang-picks .pick-en:hover { border-color:var(--gold2); box-shadow:0 0 24px #f5d27a22 }
+
     .promo-modal {
       position:fixed; inset:0; z-index:80; display:none; align-items:center; justify-content:center;
       padding:18px; background:rgba(4,3,8,.78); backdrop-filter:blur(10px);
@@ -672,6 +719,19 @@
       <a href="https://github.com/purefxaidev/puregold-app">App repo</a>
     </footer>
   </div>
+
+  <div class="lang-modal" id="langModal" role="dialog" aria-modal="true" aria-labelledby="langTitle" aria-hidden="true">
+    <div class="lang-card">
+      <p class="lang-kicker">PUREGOLD · PUREFXAI</p>
+      <h2 id="langTitle">เลือกภาษา / Choose language</h2>
+      <p class="lang-sub">เว็บคุณต้องการภาษาใด · Which language do you prefer?</p>
+      <div class="lang-picks">
+        <button type="button" class="pick-th" id="langPickTh" aria-label="ภาษาไทย">ไทย</button>
+        <button type="button" class="pick-en" id="langPickEn" aria-label="English">English</button>
+      </div>
+    </div>
+  </div>
+
   <div class="promo-modal" id="promoModal" role="dialog" aria-modal="true" aria-label="PureGold welcome">
     <div class="promo-card">
       <div class="promo-brand">
@@ -702,7 +762,9 @@
     let LANG = 'th';
     let LAST_THAI = null;
     let NEWS = [];
-    function setLang(L) {
+    function setLang(L, persist) {
+      if (persist === undefined) persist = true;
+      L = (L === 'en') ? 'en' : 'th';
       LANG = L;
       document.documentElement.lang = L;
       document.querySelectorAll('.th').forEach(el => el.classList.toggle('hid', L !== 'th'));
@@ -726,8 +788,51 @@
       if (window.__bias) paintBias(window.__bias);
       if (window.__chartMeta) setChartNote(window.__chartMeta);
       try { if (typeof syncDashLinks === 'function') syncDashLinks(); } catch (_) {}
+      if (persist) {
+        try { localStorage.setItem('pg_lang', L === 'en' ? 'en' : 'th'); } catch (_) {}
+      }
     }
-    setLang((navigator.language || 'th').toLowerCase().startsWith('th') ? 'th' : 'en');
+    function getSavedLang() {
+      try {
+        const v = localStorage.getItem('pg_lang');
+        if (v === 'th' || v === 'en') return v;
+      } catch (_) {}
+      return null;
+    }
+    window.__pgLangReady = false;
+    window.__pgAfterLang = [];
+    (function bootLang() {
+      const saved = getSavedLang();
+      const modal = document.getElementById('langModal');
+      if (saved) {
+        setLang(saved, false);
+        window.__pgLangReady = true;
+        if (modal) {
+          modal.classList.remove('open');
+          modal.setAttribute('aria-hidden', 'true');
+        }
+        return;
+      }
+      const guess = (navigator.language || 'th').toLowerCase().startsWith('th') ? 'th' : 'en';
+      setLang(guess, false);
+      if (!modal) {
+        window.__pgLangReady = true;
+        return;
+      }
+      modal.classList.add('open');
+      modal.setAttribute('aria-hidden', 'false');
+      const finish = (L) => {
+        setLang(L, true);
+        modal.classList.remove('open');
+        modal.setAttribute('aria-hidden', 'true');
+        window.__pgLangReady = true;
+        const q = window.__pgAfterLang || [];
+        window.__pgAfterLang = [];
+        q.forEach((fn) => { try { fn(); } catch (_) {} });
+      };
+      document.getElementById('langPickTh')?.addEventListener('click', () => finish('th'));
+      document.getElementById('langPickEn')?.addEventListener('click', () => finish('en'));
+    })();
 
     function decodeEntities(s) {
       let prev = String(s || '');
@@ -1202,14 +1307,17 @@
       let seen = false;
       try { seen = sessionStorage.getItem('pg_hostess_seen_v1') === '1'; } catch (_) {}
       if (seen) return;
-      setTimeout(() => {
+      const showPromo = () => {
         modal.classList.add('open');
         syncHostessVideo(LANG);
         if (video) {
           try { video.currentTime = 0; video.muted = true; video.play().catch(() => {}); } catch (_) {}
         }
         if (unmuteBtn) unmuteBtn.classList.remove('hid');
-      }, 1200);
+      };
+      const schedule = (delay) => setTimeout(showPromo, delay);
+      if (window.__pgLangReady) schedule(900);
+      else (window.__pgAfterLang = window.__pgAfterLang || []).push(() => schedule(450));
     })();
 
 
