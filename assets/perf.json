@@ -1,7 +1,7 @@
 {
-  "as_of": "2026-11-10T19:50:31+07:00",
-  "as_of_bangkok": "2026-11-10 19:50",
-  "spot": 4079.35,
+  "as_of": "2026-11-10T20:05:19+07:00",
+  "as_of_bangkok": "2026-11-10 20:05",
+  "spot": 4073.965,
   "spot_source": "Swissquote XAU/USD mid",
   "history_source": "Yahoo Finance COMEX Gold (GC=F) daily close",
   "history_symbol": "GC=F",
@@ -17,12 +17,12 @@
       "target": "2026-11-03",
       "ref_date": "2026-11-03",
       "ref_close": 3940.4,
-      "change": 138.95,
-      "change_pct": 3.5263,
+      "change": 133.565,
+      "change_pct": 3.3896,
       "verify_source": "Binance PAXGUSDT daily close",
       "verify_ref_date": "2026-11-03",
       "verify_ref_close": 3946.4,
-      "verify_pct": 3.3689
+      "verify_pct": 3.2324
     },
     {
       "id": "1M",
@@ -32,12 +32,12 @@
       "target": "2026-10-11",
       "ref_date": "2026-10-09",
       "ref_close": 4216.3,
-      "change": -136.95,
-      "change_pct": -3.2481,
+      "change": -142.335,
+      "change_pct": -3.3758,
       "verify_source": "Binance PAXGUSDT daily close",
       "verify_ref_date": "2026-10-09",
       "verify_ref_close": 4187.18,
-      "verify_pct": -2.5752
+      "verify_pct": -2.7038
     },
     {
       "id": "3M",
@@ -47,12 +47,12 @@
       "target": "2026-08-12",
       "ref_date": "2026-08-12",
       "ref_close": 4467.5,
-      "change": -388.15,
-      "change_pct": -8.6883,
+      "change": -393.535,
+      "change_pct": -8.8088,
       "verify_source": "Binance PAXGUSDT daily close",
       "verify_ref_date": "2026-08-12",
       "verify_ref_close": 4409.58,
-      "verify_pct": -7.4889
+      "verify_pct": -7.611
     },
     {
       "id": "YTD",
@@ -62,12 +62,12 @@
       "target": "2026-01-01",
       "ref_date": "2025-12-31",
       "ref_close": 4341.1,
-      "change": -261.75,
-      "change_pct": -6.0296,
+      "change": -267.135,
+      "change_pct": -6.1536,
       "verify_source": "Binance PAXGUSDT daily close",
       "verify_ref_date": "2025-12-31",
       "verify_ref_close": 4336.99,
-      "verify_pct": -5.9405
+      "verify_pct": -6.0647
     },
     {
       "id": "1Y",
@@ -77,12 +77,12 @@
       "target": "2025-11-10",
       "ref_date": "2025-11-10",
       "ref_close": 4122.0,
-      "change": -42.65,
-      "change_pct": -1.0347,
+      "change": -48.035,
+      "change_pct": -1.1653,
       "verify_source": "Binance PAXGUSDT daily close",
       "verify_ref_date": "2025-11-10",
       "verify_ref_close": 4114.67,
-      "verify_pct": -0.8584
+      "verify_pct": -0.9893
     }
   ]
 }
