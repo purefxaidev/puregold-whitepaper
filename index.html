@@ -223,27 +223,36 @@
     }
     .dash-modal { z-index:92 } .lang-modal { z-index:96 } .promo-modal { z-index:80 }
     .dash-modal.open, .lang-modal.open, .promo-modal.open { display:flex }
+    .dash-modal {
+      position:fixed; inset:0; padding:0 !important; margin:0;
+      align-items:stretch !important; justify-content:stretch;
+      background:#07080d; backdrop-filter:none; -webkit-backdrop-filter:none;
+    }
     .dash-frame {
-      width:min(1200px,100%); height:min(92vh,960px);
-      background:linear-gradient(180deg,rgba(255,255,255,.08),rgba(12,14,20,.92));
-      border:1px solid rgba(255,255,255,.22);
-      border-radius:20px; overflow:hidden;
-      display:flex; flex-direction:column;
-      box-shadow:0 24px 64px rgba(0,0,0,.45);
+      width:100%; height:100%; width:100dvw; height:100dvh; height:100svh;
+      max-width:none; max-height:none;
+      background:#07080d; border:0; border-radius:0; overflow:hidden;
+      display:flex; flex-direction:column; box-shadow:none;
     }
     .dash-bar {
-      padding:10px 14px; display:flex; align-items:center; justify-content:space-between; gap:10px;
+      flex:0 0 auto; min-height:44px;
+      padding:8px 10px;
+      padding-top:max(8px, env(safe-area-inset-top, 0px));
+      padding-left:max(10px, env(safe-area-inset-left, 0px));
+      padding-right:max(10px, env(safe-area-inset-right, 0px));
+      display:flex; align-items:center; justify-content:space-between; gap:8px;
       border-bottom:1px solid var(--line); background:#101218;
     }
-    .dash-bar strong { letter-spacing:.12em; font-size:12px; color:var(--gold); font-weight:700 }
-    .dash-bar .dash-tools { display:flex; gap:8px; align-items:center }
+    .dash-bar strong { letter-spacing:.12em; font-size:12px; color:var(--gold); font-weight:700; min-width:0; overflow:hidden; text-overflow:ellipsis; white-space:nowrap }
+    .dash-bar .dash-tools { display:flex; gap:6px; align-items:center; flex:0 0 auto }
     .dash-bar button, .dash-bar a.btn {
       background:transparent; border:1px solid var(--line); color:var(--muted);
       border-radius:8px; padding:6px 10px; cursor:pointer; font:inherit; font-size:13px;
       text-decoration:none; font-weight:700;
     }
     .dash-bar button.icon { width:34px; height:34px; padding:0; font-size:18px; display:grid; place-items:center }
-    .dash-frame iframe { flex:1; width:100%; border:0; background:#07080d; min-height:420px }
+    .dash-frame iframe { flex:1 1 auto; width:100%; height:auto; border:0; background:#07080d; min-height:0 }
+    body.pg-modal-open, html.pg-modal-open { overflow:hidden !important; touch-action:none; }
     .lang-card, .promo-card {
       width:min(1100px,100%); background:#12141b; border:1px solid var(--line); border-radius:14px; overflow:hidden;
     }
@@ -287,10 +296,13 @@
       .hero { gap:20px }
     }
     @media (max-width:720px){
-      .dash-frame { height:100dvh; border-radius:0; border:0 }
+      .dash-frame { height:100dvh; height:100svh; border-radius:0; border:0 }
       .dash-modal { padding:0 }
-      .promo-modal, .lang-modal { padding:8px; align-items:flex-start }
-      .promo-card { width:100%; margin-top:8px }
+      .promo-modal, .spdr-save { padding:0; align-items:flex-end }
+      .lang-modal { padding:12px; align-items:center }
+      .promo-card { width:100%; max-height:100dvh; overflow:auto; margin:0; border-radius:16px 16px 0 0 }
+      .spdr-save .box { width:100%; max-width:none; max-height:100dvh; max-height:100svh; border-radius:16px 16px 0 0; margin:0 }
+      .ios-sheet-modal { padding:0 }
       header.top { top:6px }
       .wrap { padding:12px 14px 64px }
       .levels-stats { grid-template-columns:1fr 1fr; gap:8px }
@@ -375,6 +387,8 @@
       .spdr-periods { grid-template-columns:1fr 1fr; gap:6px }
       .spdr-p:last-child { grid-column:1 / -1 }
       #spdrChart { height:200px !important }
+      .spdr-save { padding:0; align-items:flex-end }
+      .spdr-save .box { width:100%; max-width:none; max-height:100dvh; max-height:100svh; border-radius:16px 16px 0 0; margin:0 }
     }
 
 
@@ -1255,6 +1269,12 @@
     }
     window.__pgLangReady = false;
     window.__pgAfterLang = [];
+    window.__pgLockBody = function(on) {
+      document.body.classList.toggle('pg-modal-open', !!on);
+      document.documentElement.classList.toggle('pg-modal-open', !!on);
+      document.body.style.overflow = on ? 'hidden' : '';
+      document.documentElement.style.overflow = on ? 'hidden' : '';
+    };
     (function bootLang() {
       const saved = getSavedLang();
       const modal = document.getElementById('langModal');
@@ -1275,10 +1295,11 @@
       }
       modal.classList.add('open');
       modal.setAttribute('aria-hidden', 'false');
+      window.__pgLockBody(true);
       const finish = (L) => {
         setLang(L, true);
         modal.classList.remove('open');
-        document.body.style.overflow = '';
+        window.__pgLockBody(false);
         modal.setAttribute('aria-hidden', 'true');
         window.__pgLangReady = true;
         const q = window.__pgAfterLang || [];
@@ -1794,6 +1815,7 @@
       syncHostessVideo(LANG);
       const close = () => {
         modal.classList.remove('open');
+        window.__pgLockBody(false);
         try { sessionStorage.setItem('pg_hostess_seen_v1', '1'); } catch (_) {}
         if (video) { try { video.pause(); } catch (_) {} }
         setTimeout(() => { try { if (typeof window.__pgShowSignupAd === 'function') window.__pgShowSignupAd(); } catch (_) {} }, 700);
@@ -1829,7 +1851,9 @@
       try { seen = sessionStorage.getItem('pg_hostess_seen_v1') === '1'; } catch (_) {}
       if (seen) return;
       const showPromo = () => {
+        if (document.getElementById('dashModal')?.classList.contains('open')) return;
         modal.classList.add('open');
+        window.__pgLockBody(true);
         syncHostessVideo(LANG);
         if (video) {
           try { video.currentTime = 0; video.muted = true; video.play().catch(() => {}); } catch (_) {}
@@ -1877,12 +1901,15 @@
 
 
     const DASH_BASE = 'https://dashboard.purefxai.store/';
-    function dashUrl(lang) {
+    function dashUrl(lang, opts) {
       const L = (lang || LANG || 'th').toLowerCase().startsWith('en') ? 'en' : 'th';
-      return DASH_BASE + '?lang=' + L;
+      const u = new URL(DASH_BASE);
+      u.searchParams.set('lang', L);
+      if (!opts || opts.embed !== false) u.searchParams.set('embed', '1');
+      return u.toString();
     }
     function syncDashLinks() {
-      const url = dashUrl(LANG);
+      const url = dashUrl(LANG, { embed: false });
       const tab = document.getElementById('openDashTab');
       const ext = document.getElementById('dashExternal');
       if (tab) tab.href = url;
@@ -1898,13 +1925,39 @@
       const modal = document.getElementById('dashModal');
       const frame = document.getElementById('dashFrame');
       const openBtn = document.getElementById('openDashBtn');
-      if (!openBtn) return;
-      if (!modal || !frame) { openBtn.addEventListener('click', () => window.open(dashUrl(LANG), '_blank', 'noopener')); return; }
-      const close = () => {
+      if (!modal || !frame) {
+        openBtn?.addEventListener('click', () => window.open(dashUrl(LANG, { embed: false }), '_blank', 'noopener'));
+        return;
+      }
+      let pushed = false;
+      const lockScroll = (on) => {
+        document.body.classList.toggle('pg-modal-open', on);
+        document.documentElement.classList.toggle('pg-modal-open', on);
+        document.body.style.overflow = on ? 'hidden' : '';
+        document.documentElement.style.overflow = on ? 'hidden' : '';
+      };
+      const pin = () => {
+        const vv = window.visualViewport;
+        if (!vv || !modal.classList.contains('open')) return;
+        modal.style.left = vv.offsetLeft + 'px';
+        modal.style.top = vv.offsetTop + 'px';
+        modal.style.width = vv.width + 'px';
+        modal.style.height = vv.height + 'px';
+        modal.style.right = 'auto';
+        modal.style.bottom = 'auto';
+      };
+      const unpin = () => {
+        modal.style.left = modal.style.top = modal.style.width = modal.style.height = '';
+        modal.style.right = modal.style.bottom = '';
+      };
+      const close = (fromPop) => {
+        if (!modal.classList.contains('open')) return;
         modal.classList.remove('open');
-        document.body.style.overflow = '';
+        lockScroll(false);
+        unpin();
         modal.setAttribute('aria-hidden', 'true');
-        // keep iframe loaded for snappy re-open; clear only on long idle not needed
+        if (!fromPop && pushed) { pushed = false; try { history.back(); } catch (_) {} }
+        else pushed = false;
       };
       const open = () => {
         const url = dashUrl(LANG);
@@ -1912,19 +1965,30 @@
         try {
           if (frame.getAttribute('src') !== url) frame.src = url;
           modal.classList.add('open');
-          document.body.style.overflow = 'hidden';
-        } catch (_) { window.open(url, '_blank', 'noopener'); }
-        modal.setAttribute('aria-hidden', 'false');
+          modal.setAttribute('aria-hidden', 'false');
+          lockScroll(true);
+          pin();
+          if (!pushed) {
+            try { history.pushState({ pgDash: 1 }, '', '#chart-modal'); pushed = true; } catch (_) {}
+          }
+        } catch (_) { window.open(dashUrl(LANG, { embed: false }), '_blank', 'noopener'); }
       };
       window.__openDash = open;
-      openBtn.addEventListener('click', (e) => { e.preventDefault(); e.stopPropagation(); open(); });
+      window.__closeDash = close;
+      openBtn?.addEventListener('click', (e) => { e.preventDefault(); e.stopPropagation(); open(); });
       document.getElementById('heroDashBtn')?.addEventListener('click', (e) => { e.preventDefault(); e.stopPropagation(); open(); });
-      document.getElementById('dashClose')?.addEventListener('click', close);
+      document.getElementById('dashClose')?.addEventListener('click', () => close());
       modal.addEventListener('click', (e) => { if (e.target === modal) close(); });
       document.addEventListener('keydown', (e) => {
         if (e.key === 'Escape' && modal.classList.contains('open')) close();
       });
+      window.addEventListener('popstate', () => {
+        if (modal.classList.contains('open')) close(true);
+      });
+      window.visualViewport?.addEventListener('resize', pin);
+      window.visualViewport?.addEventListener('scroll', pin);
       syncDashLinks();
+      if (location.hash === '#chart-modal') setTimeout(open, 0);
     })();
 
     (function cycleBg() {
@@ -1944,24 +2008,17 @@
     })();
 
     window.__openDash = window.__openDash || function(){
-      const url = (typeof dashUrl === 'function') ? dashUrl(LANG) : ('https://dashboard.purefxai.store/?lang=' + (LANG === 'en' ? 'en' : 'th'));
+      const url = (typeof dashUrl === 'function') ? dashUrl(LANG) : ('https://dashboard.purefxai.store/?lang=' + (LANG === 'en' ? 'en' : 'th') + '&embed=1');
       const modal = document.getElementById('dashModal');
       const frame = document.getElementById('dashFrame');
-      if (!modal || !frame) { window.open(url, '_blank', 'noopener'); return; }
+      if (!modal || !frame) { window.open(url.replace('embed=1',''), '_blank', 'noopener'); return; }
       try {
         if (frame.getAttribute('src') !== url) frame.src = url;
         modal.classList.add('open');
         modal.setAttribute('aria-hidden', 'false');
+        document.body.classList.add('pg-modal-open');
         document.body.style.overflow = 'hidden';
-      } catch (_) { window.open(url, '_blank', 'noopener'); }
-      const started = Date.now();
-      const watchdog = setTimeout(() => {
-        try {
-          if (!frame.getAttribute('src')) window.open(url, '_blank', 'noopener');
-        } catch (_) { window.open(url, '_blank', 'noopener'); }
-      }, 4000);
-      frame.addEventListener('load', () => clearTimeout(watchdog), { once:true });
-      frame.addEventListener('error', () => { clearTimeout(watchdog); window.open(url, '_blank', 'noopener'); }, { once:true });
+      } catch (_) { window.open(url.replace('embed=1',''), '_blank', 'noopener'); }
     };
     document.addEventListener('click', (e) => {
       const btn = e.target && e.target.closest && e.target.closest('#openDashBtn, #heroDashBtn, [data-open-dash]');
@@ -2366,6 +2423,7 @@
     function closeSpdrSave() {
       const sheet = document.getElementById("spdrSave");
       if (sheet) { sheet.classList.remove("on"); sheet.hidden = true; }
+      window.__pgLockBody(false);
       if (spdrSaveUrl) { try { URL.revokeObjectURL(spdrSaveUrl); } catch (_) {} spdrSaveUrl = null; }
       const img = document.getElementById("spdrSaveImg");
       if (img) img.removeAttribute("src");
@@ -2380,7 +2438,7 @@
         : "หากไม่ดาวน์โหลดอัตโนมัติ ให้กดค้างที่รูป แล้วเลือกบันทึกรูป";
       if (img) img.src = url;
       if (a) { a.href = url; a.download = name; }
-      if (sheet) { sheet.hidden = false; sheet.classList.add("on"); }
+      if (sheet) { sheet.hidden = false; sheet.classList.add("on"); window.__pgLockBody(true); }
     }
     async function downloadSpdrPng() {
       try {
@@ -2576,11 +2634,13 @@
         if (p.standalone) return;
         sheet.classList.add('open');
         sheet.setAttribute('aria-hidden', 'false');
+        window.__pgLockBody(true);
       }
       function closeIosSheet() {
         if (!sheet) return;
         sheet.classList.remove('open');
         sheet.setAttribute('aria-hidden', 'true');
+        window.__pgLockBody(false);
       }
       window.openIosSheet = openIosSheet;
       document.getElementById('iosInstallBtn')?.addEventListener('click', openIosSheet);
