@@ -1,0 +1,34 @@
+{
+  "id": "https://gold.purefxai.store/",
+  "name": "PureGold by PureFxAi",
+  "short_name": "PureGold",
+  "description": "XAUUSD spot desk, daily support and resistance, Thai gold, SPDR flows, and market news by PureFxAi.",
+  "start_url": "/?source=pwa",
+  "scope": "/",
+  "display": "standalone",
+  "orientation": "any",
+  "background_color": "#100e0a",
+  "theme_color": "#100e0a",
+  "lang": "th",
+  "dir": "ltr",
+  "icons": [
+    {
+      "src": "/icons/icon-192.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "/icons/icon-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "/icons/icon-512-maskable.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "maskable"
+    }
+  ]
+}
