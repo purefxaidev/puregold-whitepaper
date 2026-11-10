@@ -3,8 +3,8 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width,initial-scale=1">
-  <title>PUREGOLD — Live gold desk by PureFxAi</title>
-  <meta name="description" content="PUREGOLD by PureFxAi — live XAU, Thai gold, bias, news and charts. Download the Android APK.">
+  <title>PUREGOLD — XAUUSD spot desk by PureFxAi</title>
+  <meta name="description" content="PUREGOLD by PureFxAi — XAUUSD spot price, daily support and resistance, Thai gold, news and charts. Download the Android APK.">
   <link rel="icon" type="image/svg+xml" href="assets/logo-mark.svg">
   <link rel="icon" type="image/png" sizes="192x192" href="assets/logo-192.png">
   <link rel="apple-touch-icon" href="assets/logo-192.png">
@@ -17,441 +17,255 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Thai:wght@400;600;700&family=Manrope:wght@400;600;700;800&display=swap" rel="stylesheet">
   <style>
+
     :root {
-      --bg:#06050a; --card:rgba(22,18,28,.72); --card-solid:#14101a;
-      --gold:#f5d27a; --gold2:#c9a227; --gold3:#ffe9b0; --gold-deep:#8a6b12;
-      --text:#f3ecda; --muted:#a89a7a; --line:rgba(201,162,39,.28);
-      --up:#3ddc84; --dn:#ff6b75; --glow:#f5d27a55;
+      --bg:#07080c; --card:rgba(14,16,22,.92); --card-solid:#12141b;
+      --gold:#d4b15f; --gold2:#b8913d; --gold3:#ead7a2; --gold-deep:#7a6320;
+      --text:#eee8db; --muted:#9a917f; --line:rgba(212,175,95,.18);
+      --up:#3dba7a; --dn:#e05b66; --glow:transparent;
     }
     * { box-sizing:border-box }
     html { scroll-behavior:smooth }
     html,body { margin:0; background:var(--bg); color:var(--text);
-      font-family:'IBM Plex Sans Thai',Manrope,system-ui,sans-serif; line-height:1.65 }
+      font-family:'IBM Plex Sans Thai',Manrope,system-ui,sans-serif; line-height:1.6; font-size:16px }
     html[lang=en] body { font-family:Manrope,'IBM Plex Sans Thai',system-ui,sans-serif }
     body {
       min-height:100vh; position:relative; overflow-x:hidden;
-      background:
-        radial-gradient(900px 480px at 92% -6%, #7a552055 0%, transparent 55%),
-        radial-gradient(700px 420px at -10% 12%, #2a1a0855 0%, transparent 50%),
-        radial-gradient(600px 360px at 50% 100%, #3a281022 0%, transparent 55%),
-        linear-gradient(180deg,#100c12 0%, #06050a 40%, #0a0806 100%);
+      background:linear-gradient(180deg,#0b0c11 0%, #07080c 40%, #08090d 100%);
     }
     .page-bg { position:fixed; inset:0; z-index:0; overflow:hidden; pointer-events:none; }
     .page-bg video {
       width:100%; height:100%; object-fit:cover; display:block;
-      filter:saturate(1.12) contrast(1.08) brightness(.58);
+      filter:saturate(.7) contrast(1.02) brightness(.28);
+      transform:scale(1.04);
     }
     .page-bg-veil {
       position:absolute; inset:0;
-      background:
-        radial-gradient(ellipse at 50% 18%, rgba(201,162,39,.16), transparent 46%),
-        linear-gradient(180deg, rgba(6,5,10,.40) 0%, rgba(6,5,10,.62) 38%, rgba(6,5,10,.88) 78%, rgba(6,5,10,.96) 100%);
+      background:linear-gradient(180deg, rgba(7,8,12,.55) 0%, rgba(7,8,12,.78) 42%, rgba(7,8,12,.94) 78%, #07080c 100%);
     }
-    body::before {
-      content:""; position:fixed; inset:0; pointer-events:none; z-index:1;
-      background-image:
-        radial-gradient(1.2px 1.2px at 20% 30%, #f5d27a33 0%, transparent 100%),
-        radial-gradient(1px 1px at 70% 60%, #ffe9b022 0%, transparent 100%),
-        radial-gradient(1.5px 1.5px at 40% 80%, #c9a22722 0%, transparent 100%);
-      opacity:.55;
-    }
-    .wrap { max-width:1120px; margin:0 auto; padding:20px 18px 96px; position:relative; z-index:2 }
+    .wrap { max-width:1160px; margin:0 auto; padding:16px 20px 80px; position:relative; z-index:2 }
     header.top {
       display:flex; align-items:center; justify-content:space-between; gap:16px; flex-wrap:wrap;
-      margin:0 0 28px; padding:12px 14px; border-radius:20px;
-      background:rgba(12,10,16,.78); border:1px solid var(--line);
-      backdrop-filter:blur(18px); -webkit-backdrop-filter:blur(18px);
-      box-shadow:0 12px 40px #0006, inset 0 1px 0 #f5d27a18;
-      position:sticky; top:12px; z-index:40;
+      margin:0 0 28px; padding:10px 14px; border-radius:12px;
+      background:rgba(10,12,16,.82); border:1px solid var(--line);
+      backdrop-filter:blur(16px); -webkit-backdrop-filter:blur(16px);
+      position:sticky; top:10px; z-index:40;
     }
-    .brand { display:flex; align-items:center; gap:12px; text-decoration:none; color:inherit }
-    .brand .logo-mark {
-      width:52px; height:52px; flex:0 0 auto; display:block;
-      filter:drop-shadow(0 0 10px #f5c54266) drop-shadow(0 6px 18px #000a);
-      transition:transform .25s ease, filter .25s ease;
-    }
-    .brand:hover .logo-mark { transform:scale(1.04); filter:drop-shadow(0 0 14px #f5c54299) drop-shadow(0 8px 22px #000a) }
+    .brand { display:flex; align-items:center; gap:10px; text-decoration:none; color:inherit }
+    .brand .logo-mark { width:40px; height:40px; flex:0 0 auto; display:block }
     .brand .brand-text { display:block; min-width:0 }
     .brand h1 {
-      margin:0; font-size:21px; letter-spacing:2.8px; font-weight:800;
-      background:linear-gradient(135deg,var(--gold3),var(--gold) 40%,var(--gold2));
-      -webkit-background-clip:text; background-clip:text; color:transparent;
+      margin:0; font-size:17px; letter-spacing:.18em; font-weight:700;
+      color:var(--gold3);
     }
-    .brand small { display:block; color:var(--muted); letter-spacing:.1em; font-size:11px; margin-top:2px }
-    @media (max-width:520px){
-      .brand .logo-mark { width:46px; height:46px }
-      .brand h1 { font-size:18px; letter-spacing:2px }
-      .brand small { font-size:10px; letter-spacing:.08em }
-    }
+    .brand small { display:block; color:var(--muted); letter-spacing:.12em; font-size:10px; margin-top:1px; text-transform:uppercase }
+    .nav-links { display:flex; gap:18px; align-items:center; flex-wrap:wrap }
+    .nav-links a { color:var(--muted); text-decoration:none; font-size:13px; font-weight:600; letter-spacing:.04em }
+    .nav-links a:hover { color:var(--gold) }
     .nav-r { display:flex; gap:8px; align-items:center; flex-wrap:wrap }
     .lang button {
-      background:rgba(20,16,12,.8); color:var(--muted); border:1px solid var(--line);
-      border-radius:999px; padding:8px 14px; font:inherit; cursor:pointer; transition:.2s;
+      background:transparent; color:var(--muted); border:1px solid var(--line);
+      border-radius:8px; padding:6px 12px; font:inherit; font-size:13px; cursor:pointer;
     }
     .lang button:hover { color:var(--gold); border-color:var(--gold2) }
-    .lang button.on {
-      background:linear-gradient(135deg,#ffe09a,#c9a227); color:#14110a;
-      border-color:transparent; font-weight:800; box-shadow:0 6px 20px #c9a22744;
-    }
+    .lang button.on { background:var(--gold); color:#16120a; border-color:transparent; font-weight:700 }
     a.btn, button.btn {
       display:inline-flex; align-items:center; justify-content:center; gap:8px;
-      padding:14px 22px; border-radius:16px; font:inherit; font-weight:800;
+      padding:12px 20px; border-radius:10px; font:inherit; font-weight:700;
       text-decoration:none; border:0; cursor:pointer;
-      transition:transform .22s cubic-bezier(.2,.8,.2,1), box-shadow .25s ease, border-color .2s, filter .2s;
+      transition:background .15s ease, border-color .15s ease, color .15s ease;
     }
-    a.btn:hover, button.btn:hover { transform:translateY(-2px) }
-    a.btn:active, button.btn:active { transform:translateY(0) }
-    .btn-gold {
-      background:linear-gradient(135deg,#ffe9b0,#f5d27a 35%,#c9a227 70%,#8a6b12);
-      color:#16120a; box-shadow:0 12px 36px #c9a22750, inset 0 1px 0 #fff6;
-    }
+    .btn-gold { background:var(--gold); color:#16120a }
+    .btn-gold:hover { background:var(--gold3) }
     .btn-ghost {
-      background:rgba(20,16,12,.7); color:var(--gold); border:1px solid var(--line);
-      backdrop-filter:blur(8px);
+      background:transparent; color:var(--gold); border:1px solid var(--line);
     }
-    .btn-ghost:hover { border-color:var(--gold); box-shadow:0 0 24px #f5d27a22 }
-    .btn-sm { padding:10px 16px; font-size:14px }
+    .btn-ghost:hover { border-color:var(--gold); color:var(--gold3) }
+    .btn-sm { padding:8px 14px; font-size:13px }
     .hero {
-      display:grid; grid-template-columns:1.12fr .88fr; gap:32px; align-items:center;
-      padding:8px 0 18px;
+      display:grid; grid-template-columns:1.2fr .8fr; gap:36px; align-items:center;
+      padding:12px 0 8px; min-height:auto;
     }
     .eyebrow {
       display:inline-flex; align-items:center; gap:8px;
-      color:var(--gold2); letter-spacing:.2em; text-transform:uppercase;
-      font-size:11px; font-weight:800; margin:0 0 14px;
-      padding:6px 12px; border-radius:999px; border:1px solid var(--line);
-      background:rgba(201,162,39,.08);
+      color:var(--gold2); letter-spacing:.16em; text-transform:uppercase;
+      font-size:11px; font-weight:700; margin:0 0 14px;
     }
-    .eyebrow::before { content:""; width:7px; height:7px; border-radius:50%; background:var(--gold); box-shadow:0 0 10px var(--gold) }
-    .hero h2 { margin:0 0 14px; font-size:clamp(32px,5.2vw,54px); line-height:1.12; font-weight:800; letter-spacing:-.02em }
-    .hero h2 span {
-      background:linear-gradient(135deg,var(--gold3),var(--gold),var(--gold2));
-      -webkit-background-clip:text; background-clip:text; color:transparent;
-    }
-    .lead { font-size:18px; color:#ddd4bc; max-width:36em; margin:0 }
-    .cta-row { display:flex; flex-wrap:wrap; gap:12px; margin:26px 0 12px }
+    .hero h2 { margin:0 0 14px; font-size:clamp(28px,4.4vw,46px); line-height:1.15; font-weight:700; letter-spacing:-.02em }
+    .hero h2 span { color:var(--gold) }
+    .lead { font-size:17px; color:#d5cdb8; max-width:36em; margin:0 }
+    .cta-row { display:flex; flex-wrap:wrap; gap:10px; margin:24px 0 10px }
     .ver { color:var(--muted); font-size:13px; margin:0 }
-    .stage { position:relative; display:flex; justify-content:center; align-items:center }
-    .stage::before {
-      content:""; position:absolute; inset:8% 10%;
-      background:radial-gradient(circle,#f5d27a55,transparent 68%);
-      filter:blur(18px); animation:pulseGlow 4.5s ease-in-out infinite;
+    .hero-quote {
+      background:var(--card); border:1px solid var(--line); border-radius:14px; padding:22px 24px;
     }
-    @keyframes pulseGlow {
-      0%,100% { opacity:.55; transform:scale(1) }
-      50% { opacity:.95; transform:scale(1.06) }
-    }
-    .stage video, .stage img.fallback {
-      width:min(480px,96%); aspect-ratio:1; border-radius:32px; object-fit:cover;
-      border:2px solid #f5d27a88; position:relative;
-      box-shadow:0 28px 80px #000c, 0 0 0 14px #f5d27a14, 0 0 110px #c9a22744;
-      background:#110e08;
-    }
-    .badge {
-      position:absolute; bottom:18px; left:50%; transform:translateX(-50%);
-      background:rgba(18,14,10,.88); border:1px solid var(--gold2); color:var(--gold);
-      padding:8px 16px; border-radius:999px; font-size:13px; font-weight:800;
-      white-space:nowrap; backdrop-filter:blur(10px);
-      box-shadow:0 8px 24px #0008;
-    }
-    .desk { display:grid; grid-template-columns:1.15fr .85fr; gap:14px; margin:22px 0 6px }
+    .hero-quote .k { font-size:12px; letter-spacing:.14em; color:var(--muted); font-weight:700 }
+    .hero-quote .price { font-size:clamp(36px,5vw,52px); font-weight:700; letter-spacing:-.03em; line-height:1.1; margin:8px 0 6px; font-variant-numeric:tabular-nums }
+    .hero-quote .meta { display:flex; flex-wrap:wrap; gap:10px 16px; align-items:baseline; color:var(--muted); font-size:13px }
+    .stage { position:relative; display:none }
+    .stage video, .stage img.fallback { width:0; height:0 }
+    .badge { display:none }
+    .block, .hero, #levels, #chart, #news, #reviews, #updates, #support { scroll-margin-top: 88px }
+    .block { margin:56px 0 0 }
+    .block > h2, .block .th > h2, .block .en > h2 { margin:0 0 6px; font-size:22px; font-weight:700; letter-spacing:-.01em }
+    .mut { color:var(--muted); font-size:13px; margin:0 0 16px }
+    .desk { display:grid; grid-template-columns:1.2fr .8fr; gap:16px; margin:8px 0 0 }
     .card {
-      background:linear-gradient(165deg,rgba(22,18,28,.90),rgba(10,8,14,.94));
-      border:1px solid var(--line); border-radius:22px; padding:20px;
-      box-shadow:0 16px 40px #0007, inset 0 1px 0 #f5d27a14;
-      backdrop-filter:blur(14px);
-      transition:border-color .2s, transform .2s;
+      background:var(--card); border:1px solid var(--line); border-radius:14px; padding:20px 22px;
     }
-    .card:hover { border-color:#f5d27a55; transform:translateY(-2px) }
-    .card h3 { margin:0 0 8px; color:var(--gold); font-size:16px; letter-spacing:.3px }
-    .price {
-      font-size:44px; font-weight:800; letter-spacing:-1.2px; margin:6px 0;
-      font-family:Manrope,'IBM Plex Sans Thai',sans-serif;
-      background:linear-gradient(180deg,#fff,#f5d27a); -webkit-background-clip:text; background-clip:text; color:transparent;
-    }
+    .card h3 { margin:0 0 8px; font-size:13px; letter-spacing:.12em; text-transform:uppercase; color:var(--muted); font-weight:700 }
+    .price { font-size:32px; font-weight:700; letter-spacing:-.02em; font-variant-numeric:tabular-nums }
+    .chg { font-size:14px; font-weight:600; font-variant-numeric:tabular-nums }
     .chg.up { color:var(--up) } .chg.dn { color:var(--dn) } .chg.flat { color:var(--muted) }
-    .tag { display:inline-block; padding:6px 14px; border-radius:999px; font-size:12px; font-weight:800; letter-spacing:.04em }
-    .tag.up { background:#0a3d24; color:var(--up); box-shadow:0 0 16px #3ddc8433 }
-    .tag.dn { background:#4a1216; color:var(--dn); box-shadow:0 0 16px #ff6b7533 }
-    .tag.flat { background:#1a1a22; color:var(--gold); border:1px solid var(--line) }
-    .thai { display:grid; gap:10px; margin-top:10px }
-    .thai .row {
-      border:1px solid #2a241855; border-radius:14px; padding:12px 14px;
-      background:rgba(12,10,16,.55); font-size:14px;
-    }
-    .thai .row .name { font-weight:800; color:var(--gold); margin-bottom:8px; font-size:13px; letter-spacing:.02em }
-    .thai .row .prices { display:grid; grid-template-columns:1fr 1fr; gap:10px }
-    .thai .row .px { display:flex; flex-direction:column; gap:2px }
-    .thai .row .px .lbl { font-size:11px; color:var(--muted); font-weight:700; letter-spacing:.04em; text-transform:uppercase }
-    .thai .row .px .val { font-size:18px; font-weight:800; font-variant-numeric:tabular-nums; color:#f7f1e4 }
-    .thai .row .px.sell .val { color:#f5d27a }
-    .thai-helper { margin:4px 0 0; font-size:12px; color:var(--muted); font-weight:600 }
-    .thai-head { display:flex; flex-direction:column; gap:2px; margin-bottom:4px }
-    .news-grid { display:grid; grid-template-columns:1fr 1fr; gap:12px }
-    article.news {
-      background:linear-gradient(160deg,rgba(18,14,22,.9),rgba(10,8,14,.95));
-      border:1px solid var(--line); border-left:4px solid var(--gold2);
-      border-radius:18px; padding:16px;
-      transition:transform .15s, border-color .2s, box-shadow .2s;
-    }
-    article.news:hover { transform:translateY(-2px); box-shadow:0 12px 32px #0006; border-color:#f5d27a44 }
-    article.news.bullish { border-left-color:var(--up) }
-    article.news.bearish { border-left-color:var(--dn) }
-    article.news h4 { margin:0 0 6px; font-size:15px; line-height:1.35 }
-    article.news p { margin:0; color:var(--muted); font-size:13px }
-    article.news a {
-      color:var(--gold); font-size:13px; font-weight:800; text-decoration:none;
-      display:inline-flex; align-items:center; gap:4px; margin-top:10px;
-      padding:6px 12px; border-radius:999px; border:1px solid var(--line); background:#15120c;
-    }
-    .feats { display:grid; grid-template-columns:repeat(3,1fr); gap:14px; margin:20px 0 }
-    .feats .card { position:relative; overflow:hidden }
-    .feats .card::after {
-      content:""; position:absolute; top:-40%; right:-20%; width:120px; height:120px;
-      background:radial-gradient(circle,#f5d27a22,transparent 70%); pointer-events:none;
-    }
-    .feat-ico {
-      width:40px; height:40px; border-radius:12px; display:grid; place-items:center;
-      font-size:18px; margin-bottom:10px;
-      background:linear-gradient(135deg,#2a2210,#15120c); border:1px solid var(--line);
-      box-shadow:0 0 20px #f5d27a18;
-    }
-    section.block {
-      background:linear-gradient(165deg,rgba(18,14,24,.88),rgba(8,6,12,.94));
-      border:1px solid var(--line); border-radius:26px; padding:26px; margin:18px 0;
-      box-shadow:0 18px 48px #0007, inset 0 1px 0 #f5d27a12;
-      backdrop-filter:blur(16px);
-    }
-    section.block h2 {
-      margin:0 0 10px; font-size:24px; font-weight:800; letter-spacing:.2px;
-      background:linear-gradient(135deg,var(--gold3),var(--gold2));
-      -webkit-background-clip:text; background-clip:text; color:transparent;
-    }
-    .cl {
-      border-top:1px solid #2a241855; padding:14px 0;
-      border-radius:0; transition:background .15s;
-    }
-    .cl:first-of-type {
-      border-top:0; padding:14px 16px; margin:8px 0 4px;
-      background:linear-gradient(90deg,#f5d27a14,transparent 70%);
-      border:1px solid #f5d27a33; border-radius:16px;
-    }
-    .cl b { color:var(--gold); font-size:15px }
-    .grid { display:grid; grid-template-columns:1fr 1fr; gap:16px }
-    .qr {
-      background:linear-gradient(180deg,#141018,#0c0a10); border:1px solid var(--line);
-      border-radius:20px; padding:20px; text-align:center;
-      box-shadow:inset 0 1px 0 #f5d27a14;
-    }
-    .qr img { width:150px; height:150px; object-fit:contain; background:#fff; border-radius:14px; padding:6px; box-shadow:0 8px 24px #0006 }
-    .addr { font-family:ui-monospace,Menlo,Consolas,monospace; word-break:break-all; color:var(--gold); font-size:13px }
-    a { color:var(--gold) }
-    .warn {
-      border-left:4px solid var(--dn); background:linear-gradient(90deg,#ff5c5c14,transparent 60%);
-    }
-    footer { color:var(--muted); font-size:13px; margin-top:32px; text-align:center; line-height:1.8 }
+    .tag { display:inline-block; border:1px solid var(--line); border-radius:999px; padding:3px 10px; font-size:12px; font-weight:700 }
+    .tag.up, .bullish { color:var(--up); border-color:rgba(61,186,122,.35) }
+    .tag.down, .tag.dn, .bearish { color:var(--dn); border-color:rgba(224,91,102,.35) }
+    .tag.flat, .tag.neutral { color:var(--muted) }
+    .chart-shell { margin:12px 0; border-radius:8px; overflow:hidden; background:#0a0b10; border:1px solid rgba(255,255,255,.04) }
+    canvas#xauChart { width:100% !important; height:300px !important; min-height:300px; display:block; background:#0a0b10; }
+    .chart-actions { display:flex; flex-wrap:wrap; gap:10px; align-items:center; margin:12px 0 0 }
+    .thai-head { margin-bottom:10px }
+    .thai-helper { margin:4px 0 0; font-size:12px; color:var(--muted) }
+    .thai { display:flex; flex-direction:column; gap:10px }
+    .thai .row, .thai .px { display:flex; justify-content:space-between; gap:10px; font-variant-numeric:tabular-nums }
     .hid { display:none !important }
-    .mut { color:var(--muted); font-size:13px }
-    ol,ul { margin:8px 0 0; padding-left:20px }
-    .float-cta {
-      position:fixed; left:0; right:0; bottom:0; z-index:50;
-      padding:12px 16px calc(12px + env(safe-area-inset-bottom));
-      background:linear-gradient(180deg,transparent,rgba(6,5,10,.92) 28%,rgba(6,5,10,.98));
-      display:flex; justify-content:center; gap:10px; pointer-events:none;
-    }
-    .float-cta a { pointer-events:auto; box-shadow:0 10px 36px #000a }
-    .shine-line {
-      height:1px; margin:6px 0 18px;
-      background:linear-gradient(90deg,transparent,#f5d27a66 30%,#ffe9b0 50%,#f5d27a66 70%,transparent);
-    }
-    @media (max-width:860px){
-      .hero,.desk,.feats,.grid,.news-grid,.reviews { grid-template-columns:1fr }
-      .hero { text-align:center }
-      .cta-row { justify-content:center }
-      .eyebrow { margin-left:auto; margin-right:auto }
-      header.top { position:relative; top:0 }
-      .price { font-size:36px }
-    }
 
-    .chart-shell {
-      width:100%; height:260px; min-height:260px;
-      border-radius:16px; overflow:hidden; background:#0a090e;
-      border:1px solid var(--line); box-shadow:inset 0 0 40px #0008;
-      isolation:isolate; transform:translateZ(0);
+    .levels-board { display:grid; gap:16px }
+    .levels-stats {
+      display:grid; grid-template-columns:repeat(4,1fr); gap:12px;
     }
-    canvas#xauChart {
-      width:100% !important; height:260px !important; min-height:260px;
-      display:block; background:#0a090e; border:0;
-      position:relative; z-index:1; transform:translateZ(0);
+    .levels-stats .stat {
+      background:var(--card); border:1px solid var(--line); border-radius:12px; padding:14px 16px;
     }
-    .reviews { display:grid; grid-template-columns:repeat(3,1fr); gap:14px; margin-top:14px }
-    .review {
-      background:linear-gradient(165deg,rgba(24,20,30,.9),rgba(12,10,16,.95));
-      border:1px solid var(--line); border-radius:18px; padding:18px 18px 16px;
-      box-shadow:0 12px 32px #0005; display:flex; flex-direction:column; gap:10px;
+    .levels-stats .lbl { font-size:11px; letter-spacing:.12em; text-transform:uppercase; color:var(--muted); font-weight:700 }
+    .levels-stats .val { font-size:20px; font-weight:700; margin-top:6px; font-variant-numeric:tabular-nums }
+    .levels-stats .sub { font-size:12px; color:var(--muted); margin-top:4px }
+    .levels-grid {
+      display:grid; grid-template-columns:repeat(7,1fr); gap:8px;
     }
-    .review .stars { color:var(--gold); letter-spacing:2px; font-size:14px }
-    .review blockquote {
-      margin:0; font-size:14px; line-height:1.55; color:#e8dfc8; flex:1;
+    .lv {
+      background:var(--card); border:1px solid var(--line); border-radius:10px; padding:12px 8px; text-align:center;
     }
-    .review .who { display:flex; flex-direction:column; gap:2px; margin-top:4px }
-    .review .who b { color:var(--gold3); font-size:13px }
-    .review .who span { color:var(--muted); font-size:12px }
+    .lv .k { font-size:11px; font-weight:700; letter-spacing:.1em; color:var(--muted) }
+    .lv .v { font-size:15px; font-weight:700; margin-top:4px; font-variant-numeric:tabular-nums }
+    .lv.res { border-color:rgba(224,91,102,.28) } .lv.res .k { color:var(--dn) }
+    .lv.sup { border-color:rgba(61,186,122,.28) } .lv.sup .k { color:var(--up) }
+    .lv.pp { border-color:rgba(212,175,95,.45) } .lv.pp .k, .lv.pp .v { color:var(--gold) }
+    .lv.active { box-shadow:inset 0 0 0 1px var(--gold) }
+    .levels-note { font-size:12px; color:var(--muted); margin:8px 0 0; line-height:1.5 }
+
+    .feats { display:grid; grid-template-columns:repeat(3,1fr); gap:14px; margin:56px 0 0 }
+    .feat-ico { font-size:18px; margin-bottom:8px }
+    .feats .card h3 { text-transform:none; letter-spacing:0; font-size:16px; color:var(--text); margin:0 0 6px }
+    .feats .card p { margin:0; color:var(--muted); font-size:14px }
+    .news-grid { display:grid; grid-template-columns:repeat(2,1fr); gap:12px }
+    .news { background:var(--card); border:1px solid var(--line); border-radius:12px; padding:16px 18px }
+    .news h4 { margin:0 0 6px; font-size:15px; font-weight:700; line-height:1.4 }
+    .news p { margin:0 0 8px; color:var(--muted); font-size:13px }
+    .news a { color:var(--gold); text-decoration:none; font-size:13px; font-weight:600 }
+    .reviews { display:grid; grid-template-columns:repeat(3,1fr); gap:12px }
+    .review { background:var(--card); border:1px solid var(--line); border-radius:12px; padding:18px }
+    .stars { color:var(--gold); letter-spacing:2px; margin-bottom:8px }
+    .review blockquote { margin:0 0 12px; font-size:14px; color:#ddd6c4 }
+    .who { font-size:12px; color:var(--muted) } .who b { color:var(--text); display:block }
     .review-note { margin-top:12px }
-    .chart-actions {
-      display:flex; flex-wrap:wrap; gap:10px; align-items:center;
-      margin:12px 0 4px;
-    }
-    .chart-actions .btn { padding:11px 18px; font-size:14px }
-    .dash-modal {
+    .cl { border-top:1px solid var(--line); padding:14px 0 } .cl:first-of-type { border-top:0 }
+    .cl b { color:var(--gold) }
+    .cl ul { margin:8px 0 0; padding-left:18px; color:#d5cdb8 }
+    .grid { display:grid; grid-template-columns:1fr 1fr; gap:14px }
+    .qr { background:var(--card); border:1px solid var(--line); border-radius:12px; padding:18px; text-align:center }
+    .qr img { width:140px; height:140px; object-fit:contain; background:#fff; border-radius:8px; padding:6px }
+    .addr, .qr .addr { font-family:ui-monospace,Menlo,monospace; font-size:12px; word-break:break-all; color:var(--muted) }
+    .warn { background:rgba(224,91,102,.06); border:1px solid rgba(224,91,102,.22); border-radius:12px; padding:18px 20px }
+    .warn h2 { margin:0 0 6px; font-size:16px }
+    .warn p { margin:0; color:#d5cdb8; font-size:14px }
+    footer { color:var(--muted); font-size:13px; margin-top:48px; text-align:center; line-height:1.8 }
+    footer a { color:var(--gold); text-decoration:none }
+    .shine-line { display:none }
+    .float-cta { display:none !important }
+
+    .dash-modal, .lang-modal, .promo-modal {
       position:fixed; inset:0; z-index:90; display:none; align-items:center; justify-content:center;
-      padding:14px; background:rgba(4,3,8,.86); backdrop-filter:blur(12px);
+      padding:16px; background:rgba(5,6,10,.82); backdrop-filter:blur(10px);
     }
-    .dash-modal.open { display:flex }
+    .dash-modal { z-index:92 } .lang-modal { z-index:96 } .promo-modal { z-index:80 }
+    .dash-modal.open, .lang-modal.open, .promo-modal.open { display:flex }
     .dash-frame {
-      width:min(1180px,100%); height:min(86vh,920px);
-      background:linear-gradient(165deg,#1a1520,#0c0a10);
-      border:1px solid var(--line); border-radius:22px; overflow:hidden;
-      box-shadow:0 30px 80px #000c, 0 0 0 1px #f5d27a22;
+      width:min(1200px,100%); height:min(92vh,960px);
+      background:#0c0e14; border:1px solid var(--line); border-radius:12px; overflow:hidden;
       display:flex; flex-direction:column;
     }
     .dash-bar {
       padding:10px 14px; display:flex; align-items:center; justify-content:space-between; gap:10px;
-      border-bottom:1px solid #2a241855; background:rgba(12,10,16,.92);
+      border-bottom:1px solid var(--line); background:#101218;
     }
-    .dash-bar strong {
-      letter-spacing:.14em; font-size:12px; color:var(--gold); font-weight:800;
-    }
-    .dash-bar .dash-tools { display:flex; gap:8px; align-items:center; flex-wrap:wrap }
+    .dash-bar strong { letter-spacing:.12em; font-size:12px; color:var(--gold); font-weight:700 }
+    .dash-bar .dash-tools { display:flex; gap:8px; align-items:center }
     .dash-bar button, .dash-bar a.btn {
       background:transparent; border:1px solid var(--line); color:var(--muted);
-      border-radius:999px; padding:8px 12px; cursor:pointer; font:inherit; font-size:13px;
+      border-radius:8px; padding:6px 10px; cursor:pointer; font:inherit; font-size:13px;
       text-decoration:none; font-weight:700;
     }
-    .dash-bar button:hover, .dash-bar a.btn:hover { color:var(--gold); border-color:var(--gold2) }
-    .dash-bar button.icon {
-      width:36px; height:36px; padding:0; font-size:18px; display:grid; place-items:center;
+    .dash-bar button.icon { width:34px; height:34px; padding:0; font-size:18px; display:grid; place-items:center }
+    .dash-frame iframe { flex:1; width:100%; border:0; background:#07080d; min-height:420px }
+    .lang-card, .promo-card {
+      width:min(1100px,100%); background:#12141b; border:1px solid var(--line); border-radius:14px; overflow:hidden;
     }
-    .dash-frame iframe {
-      flex:1; width:100%; border:0; background:#07080d; min-height:420px;
-    }
-    @media (max-width:720px){
-      .dash-frame { height:100dvh; border-radius:0; border:0 }
-      .dash-modal { padding:0 }
-    }
-
-    .lang-modal {
-      position:fixed; inset:0; z-index:95; display:none; align-items:center; justify-content:center;
-      padding:18px; background:rgba(4,3,8,.82); backdrop-filter:blur(12px);
-    }
-    .lang-modal.open { display:flex }
-    .lang-card {
-      width:min(420px,100%);
-      background:linear-gradient(165deg, rgba(36,28,18,.92), rgba(12,10,16,.96));
-      border:1px solid rgba(245,210,122,.35);
-      border-radius:24px; overflow:hidden;
-      box-shadow:0 30px 80px #000c, 0 0 0 1px #f5d27a22, inset 0 1px 0 #f5d27a22;
-      backdrop-filter:blur(18px);
-      padding:28px 24px 26px;
-      text-align:center;
-    }
-    .lang-card .lang-kicker {
-      letter-spacing:.22em; font-size:11px; color:var(--gold); font-weight:800; margin:0 0 10px;
-    }
-    .lang-card h2 {
-      margin:0 0 8px; font-size:22px; font-weight:800; color:#fff8e8;
-      letter-spacing:.02em;
-    }
-    .lang-card .lang-sub {
-      margin:0 0 22px; color:var(--muted); font-size:13px; line-height:1.5;
-    }
-    .lang-picks {
-      display:flex; flex-direction:column; gap:12px;
-    }
+    .lang-card { width:min(460px,100%); padding:28px 24px; text-align:center }
+    .lang-kicker { letter-spacing:.16em; color:var(--gold); font-size:12px; font-weight:700; margin:0 0 8px }
+    .lang-card h2 { margin:0 0 8px; font-size:22px }
+    .lang-sub { color:var(--muted); margin:0 0 20px; font-size:14px }
+    .lang-picks { display:flex; gap:10px; justify-content:center }
     .lang-picks button {
-      display:flex; align-items:center; justify-content:center; gap:10px;
-      width:100%; padding:18px 20px; border-radius:16px; font:inherit; font-size:18px;
-      font-weight:800; cursor:pointer; border:1px solid var(--line);
-      transition:transform .22s cubic-bezier(.2,.8,.2,1), box-shadow .25s ease, border-color .2s, filter .2s;
+      flex:1; padding:12px 16px; border-radius:10px; font:inherit; font-weight:700; cursor:pointer; border:1px solid var(--line);
     }
-    .lang-picks button:hover { transform:translateY(-2px) }
-    .lang-picks .pick-th {
-      background:linear-gradient(135deg,#ffe9b0,#f5d27a 35%,#c9a227 70%,#8a6b12);
-      color:#16120a; border-color:transparent;
-      box-shadow:0 12px 36px #c9a22750, inset 0 1px 0 #fff6;
-    }
-    .lang-picks .pick-en {
-      background:rgba(20,16,12,.75); color:var(--gold);
-      box-shadow:inset 0 1px 0 #f5d27a14;
-    }
-    .lang-picks .pick-en:hover { border-color:var(--gold2); box-shadow:0 0 24px #f5d27a22 }
-
-    .promo-modal {
-      position:fixed; inset:0; z-index:80; display:none; align-items:center; justify-content:center;
-      padding:18px; background:rgba(4,3,8,.78); backdrop-filter:blur(10px);
-    }
-    .promo-modal.open { display:flex }
-    .promo-card {
-      width:min(1100px,100%,calc((100dvh - 210px) * 16 / 9)); min-width:min(100%,340px); background:linear-gradient(165deg,#1a1520,#0c0a10);
-      border:1px solid var(--line); border-radius:24px; overflow:hidden;
-      box-shadow:0 30px 80px #000c, 0 0 0 1px #f5d27a22;
-    }
-    .promo-brand {
-      padding:14px 18px 8px; display:flex; align-items:center; justify-content:space-between; gap:12px;
-    }
-    .promo-brand strong {
-      letter-spacing:.18em; font-size:13px; color:var(--gold);
-      font-weight:800;
-    }
+    .lang-picks .pick-th { background:var(--gold); color:#16120a; border-color:transparent }
+    .lang-picks .pick-en { background:transparent; color:var(--gold) }
+    .promo-brand { padding:12px 16px; display:flex; align-items:center; justify-content:space-between; gap:12px }
+    .promo-brand strong { letter-spacing:.14em; font-size:12px; color:var(--gold); font-weight:700 }
     .promo-brand button {
       background:transparent; border:1px solid var(--line); color:var(--muted);
-      border-radius:999px; width:36px; height:36px; cursor:pointer; font-size:18px;
+      border-radius:8px; width:34px; height:34px; cursor:pointer; font-size:18px;
     }
-    .promo-brand button:hover { color:var(--gold); border-color:var(--gold2) }
+    .promo-video-wrap { position:relative; background:#0a0b10 }
     .promo-card video {
-      display:block; width:100%; aspect-ratio:16/9; object-fit:cover; background:#110e08;
-      border-top:1px solid #2a241855; border-bottom:1px solid #2a241855; margin:0 auto;
+      display:block; width:100%; aspect-ratio:16/9; object-fit:cover; background:#0a0b10;
     }
-    .promo-video-wrap { position:relative; background:#110e08 }
     .promo-unmute {
       position:absolute; left:12px; bottom:12px; z-index:2;
-      background:rgba(10,8,14,.82); border:1px solid var(--line); color:var(--gold);
-      border-radius:999px; padding:8px 14px; font:inherit; font-size:12px; font-weight:700;
-      cursor:pointer; letter-spacing:.04em; backdrop-filter:blur(6px);
+      background:rgba(10,12,16,.88); border:1px solid var(--line); color:var(--gold);
+      border-radius:8px; padding:8px 12px; font:inherit; font-size:12px; font-weight:700; cursor:pointer;
     }
-    .promo-unmute:hover { border-color:var(--gold2); color:#fff }
     .promo-unmute.hid { display:none }
-    .promo-cta { padding:16px 18px 20px; display:flex; flex-direction:column; gap:10px }
+    .promo-cta { padding:14px 16px 16px; display:flex; flex-direction:column; gap:10px }
     .promo-cta p { margin:0; color:var(--muted); font-size:13px; line-height:1.45 }
     .promo-cta .row { display:flex; flex-wrap:wrap; gap:10px }
 
-    /* Luxury motion — tasteful, reduced-motion safe */
-    .card, .feat-ico, .stage, .reviews .card {
-      transition:transform .28s cubic-bezier(.2,.8,.2,1), box-shadow .28s ease, border-color .25s ease;
-    }
-    .card:hover {
-      transform:translateY(-3px);
-      box-shadow:0 18px 48px #000a, 0 0 0 1px #f5d27a33, inset 0 1px 0 #f5d27a18;
-      border-color:rgba(245,210,122,.45);
-    }
-    .reveal {
-      opacity:0; transform:translateY(22px);
-      transition:opacity .7s cubic-bezier(.2,.8,.2,1), transform .7s cubic-bezier(.2,.8,.2,1);
-      will-change:opacity, transform;
-    }
+    .reveal { opacity:0; transform:translateY(12px); transition:opacity .5s ease, transform .5s ease }
     .reveal.in { opacity:1; transform:none }
-    .reveal-delay-1 { transition-delay:.08s }
-    .reveal-delay-2 { transition-delay:.16s }
-    .reveal-delay-3 { transition-delay:.24s }
+    .reveal-delay-1 { transition-delay:.06s } .reveal-delay-2 { transition-delay:.12s } .reveal-delay-3 { transition-delay:.18s }
+
+    @media (max-width:900px){
+      .hero, .desk, .feats, .reviews, .grid, .news-grid, .levels-stats { grid-template-columns:1fr }
+      .levels-grid { grid-template-columns:repeat(4,1fr) }
+      .nav-links { display:none }
+      .hero { gap:20px }
+    }
+    @media (max-width:720px){
+      .levels-grid { grid-template-columns:repeat(2,1fr) }
+      .dash-frame { height:100dvh; border-radius:0; border:0 }
+      .dash-modal { padding:0 }
+      .promo-modal, .lang-modal { padding:8px; align-items:flex-start }
+      .promo-card { width:100%; margin-top:8px }
+      header.top { top:6px }
+      .wrap { padding:12px 14px 64px }
+    }
     @media (prefers-reduced-motion: reduce) {
       .reveal, .reveal.in { opacity:1; transform:none; transition:none }
-      a.btn:hover, button.btn:hover, .card:hover { transform:none }
-      .brand:hover .logo-mark { transform:none }
+      html { scroll-behavior:auto }
+      .page-bg video { transform:none }
     }
 
-    @media (max-width:860px){
-      .reviews { grid-template-columns:1fr }
-    }
   </style>
 </head>
 <body>
@@ -465,54 +279,78 @@
         <img class="logo-mark" src="assets/logo-mark.svg" width="52" height="52" alt="">
         <div class="brand-text"><h1>PUREGOLD</h1><small>BY PUREFXAI · GOLD DESK</small></div>
       </a>
+      <nav class="nav-links" aria-label="Page">
+        <a href="#levels"><span class="th">แนวรับแนวต้าน</span><span class="en hid">Levels</span></a>
+        <a href="#chart"><span class="th">กราฟ</span><span class="en hid">Chart</span></a>
+        <a href="#news"><span class="th">ข่าว</span><span class="en hid">News</span></a>
+        <a href="https://dashboard.purefxai.store/?lang=th" id="navDash" target="_blank" rel="noopener">Dashboard</a>
+      </nav>
       <div class="nav-r">
         <div class="lang">
           <button type="button" id="bth" class="on" onclick="setLang('th')">ไทย</button>
           <button type="button" id="ben" onclick="setLang('en')">English</button>
         </div>
-        <a class="btn btn-gold btn-sm" href="downloads/PUREGOLD-0.9.3.apk">⬇ APK 0.9.3</a>
+        <a class="btn btn-gold btn-sm" href="downloads/PUREGOLD-0.9.3.apk">APK 0.9.3</a>
       </div>
     </header>
 
-    <div class="hero reveal in">
+    <section class="hero reveal in" id="top">
       <div>
-        <p class="eyebrow th">โต๊ะวิเคราะห์ · ทองไทย · XAUUSD</p>
-        <p class="eyebrow en hid">Live desk · Thai gold · XAUUSD</p>
+        <p class="eyebrow th">โต๊ะวิเคราะห์ทองคำสปอต · XAUUSD</p>
+        <p class="eyebrow en hid">Spot gold desk · XAUUSD</p>
         <div class="th">
-          <h2>โต๊ะวิเคราะห์ทอง<br>พร้อม <span>น้องหมี</span></h2>
-          <p class="lead">ติดตามราคาทองไทย (ฮั่วเซ่งเฮง) ทองโลก XAUUSD กราฟรายชั่วโมง มุมมองตลาด และข่าว — แล้วดาวน์โหลดแอป Android สำหรับแผน แชท PureFxAi วิดเจ็ต และแจ้งเตือน</p>
+          <h2>ราคาทองคำสปอต<br>แนวรับแนวต้าน และกราฟสด</h2>
+          <p class="lead">ติดตาม XAUUSD จากราคาทองสปอต ระดับแนวรับแนวต้านรายวัน ทองไทยฮั่วเซ่งเฮง และข่าวในหน้าเดียว — แล้วดาวน์โหลดแอป Android สำหรับแผน แชท PureFxAi และแจ้งเตือน</p>
         </div>
         <div class="en hid">
-          <h2>Professional gold desk<br>with <span>Nong Mee</span></h2>
-          <p class="lead">Hua Seng Heng Thai gold, XAUUSD, hourly chart, market bias and news in the browser — then download the Android app for plans, PureFxAi chat, widgets and alerts.</p>
+          <h2>Spot gold prices,<br>support, resistance and a live chart</h2>
+          <p class="lead">Follow XAUUSD from FX spot, daily support and resistance, Hua Seng Heng Thai gold, and news — then download the Android app for plans, PureFxAi chat and alerts.</p>
         </div>
         <div class="cta-row">
-          <a class="btn btn-gold" href="downloads/PUREGOLD-0.9.3.apk" id="dlBtn">⬇ Download APK 0.9.3</a>
-          <a class="btn btn-ghost" href="https://one.toexness.com/a/s2didh6p">Exness IB · s2didh6p</a>
+          <a class="btn btn-gold" href="downloads/PUREGOLD-0.9.3.apk" id="dlBtn">Download APK 0.9.3</a>
+          <button type="button" class="btn btn-ghost" id="heroDashBtn" data-open-dash="1">
+            <span class="th">ดูกราฟ</span><span class="en hid">View chart</span>
+          </button>
         </div>
         <p class="ver" id="dlMeta">PUREGOLD-0.9.3.apk · signed release</p>
       </div>
-      <div class="stage reveal in">
-        <video autoplay muted loop playsinline poster="assets/hero-poster.jpg" aria-label="Nong Mee hero">
-          <source src="assets/hero.webm?v=20261106" type="video/webm">
-          <source src="assets/hero.mp4?v=20261106" type="video/mp4">
-        </video>
-        <div class="badge th">น้องหมี · มาสคอต PureGold</div>
-        <div class="badge en hid">Nong Mee · PureGold mascot</div>
-      </div>
-    </div>
+      <aside class="hero-quote reveal in" aria-label="XAUUSD spot">
+        <div class="k">XAUUSD · SPOT</div>
+        <div class="price" id="heroPx">—</div>
+        <div class="meta">
+          <span id="heroCh" class="chg flat">…</span>
+          <span id="heroSrc" class="ver"></span>
+        </div>
+      </aside>
+    </section>
 
-    <section class="block reveal" id="live">
-      <div class="th"><h2>ราคาทองสด</h2><p class="mut">ทองโลกและทองไทยโชว์ในการ์ดด้านล่าง · กราฟรายชั่วโมงวาดในหน้านี้ — เพื่อการศึกษา ไม่ใช่คำแนะนำการลงทุน</p></div>
-      <div class="en hid"><h2>Live gold prices</h2><p class="mut">World and Thai gold on the cards below · hourly chart drawn on this page — education only, not investment advice.</p></div>
+    <section class="block reveal" id="levels">
+      <div class="th"><h2>แนวรับแนวต้าน XAUUSD</h2><p class="mut">จุดพิวอต รายวัน (S1–S3 / R1–R3) จากแท่งที่ปิดแล้ว ปรับให้ตรงราคาทองสปอต · เวลาไทย (Asia/Bangkok)</p></div>
+      <div class="en hid"><h2>XAUUSD support / resistance</h2><p class="mut">Daily floor pivots (S1–S3 / R1–R3) from the prior completed session, aligned to FX spot · Asia/Bangkok time</p></div>
+      <div class="levels-board">
+        <div class="levels-stats">
+          <div class="stat"><div class="lbl">XAUUSD</div><div class="val" id="lvSpot">—</div><div class="sub" id="lvSrc"></div></div>
+          <div class="stat"><div class="lbl th">ระดับใกล้สุด</div><div class="lbl en hid">Nearest level</div><div class="val" id="lvNear">—</div><div class="sub" id="lvNearSub"></div></div>
+          <div class="stat"><div class="lbl th">มุมมอง</div><div class="lbl en hid">Bias</div><div class="val" id="lvBias">—</div><div class="sub" id="lvBiasSub"></div></div>
+          <div class="stat"><div class="lbl th">อัปเดต (กทม.)</div><div class="lbl en hid">Updated (Bangkok)</div><div class="val" id="lvTime">—</div><div class="sub">Asia/Bangkok</div></div>
+        </div>
+        <div class="levels-grid" id="lvGrid" aria-label="Daily pivot levels"></div>
+        <p class="levels-note th" id="lvNote">ข้อมูลเพื่อการศึกษาเท่านั้น ไม่ใช่คำแนะนำการลงทุน การเทรดทองมีความเสี่ยงสูง</p>
+        <p class="levels-note en hid" id="lvNoteEn">For education only — not investment advice. Gold trading is high risk.</p>
+      </div>
+    </section>
+
+    <section class="block reveal" id="chart">
+      <div class="th"><h2>กราฟ XAUUSD</h2><p class="mut">กราฟรายชั่วโมงบนหน้านี้ พร้อมเส้นแนวรับแนวต้าน — เพื่อการศึกษา ไม่ใช่คำแนะนำการลงทุน</p></div>
+      <div class="en hid"><h2>XAUUSD chart</h2><p class="mut">Hourly chart on this page with support and resistance lines — education only, not investment advice.</p></div>
       <div class="desk">
         <div class="card">
           <h3>XAUUSD</h3>
           <div class="price" id="xauPx">—</div>
           <div id="xauCh" class="chg flat">…</div>
-          <div style="margin:10px 0 14px"><span class="tag flat" id="biasTag">—</span></div>
+          <div style="margin:10px 0 8px"><span class="tag flat" id="biasTag">—</span></div>
           <div class="chart-shell">
-            <canvas id="xauChart" width="720" height="260" aria-label="XAU hourly chart"></canvas>
+            <canvas id="xauChart" width="720" height="300" aria-label="XAUUSD hourly chart with support and resistance"></canvas>
           </div>
           <p class="mut" id="chartNote"></p>
           <div class="chart-actions">
@@ -524,7 +362,7 @@
             </a>
           </div>
         </div>
-        <div class="card">
+        <div class="card" id="analysis">
           <div class="thai-head">
             <div class="th"><h3>ทองไทย (ฮั่วเซ่งเฮง)</h3></div>
             <div class="en hid"><h3>Thai gold (Hua Seng Heng)</h3></div>
@@ -599,6 +437,17 @@
     <section class="block reveal" id="updates">
       <div class="th"><h2>ประวัติเวอร์ชัน</h2><p class="mut">อัปเดตล่าสุดของแอป · <a href="downloads/PUREGOLD-0.9.3.apk">ดาวน์โหลด 0.9.3</a></p></div>
       <div class="en hid"><h2>Version history</h2><p class="mut">Latest app updates · <a href="downloads/PUREGOLD-0.9.3.apk">Download 0.9.3</a></p></div>
+      <div class="cl">
+        <b>0.9.3</b> · 2026-11-10
+        <ul class="th">
+          <li>เริ่มใช้โมเดลวิเคราะห์ในแอปได้เลย โดยไม่ต้องกรอก API key</li>
+          <li>ปรับการแสดงราคาและการวิเคราะห์ให้แม่นขึ้นจากผลย้อนหลัง</li>
+        </ul>
+        <ul class="en hid">
+          <li>On-device analysis starts without entering an API key</li>
+          <li>Price display and analysis refine themselves from later outcomes</li>
+        </ul>
+      </div>
       <div class="cl">
         <b>0.9.2</b> · 2026-11-06
         <ul class="th">
@@ -758,19 +607,18 @@
         <button type="button" class="promo-unmute" id="promoUnmute" aria-label="Unmute">🔊 เปิดเสียง</button>
       </div>
       <div class="promo-cta">
-        <p class="th">สวัสดีค่ะ — แนะนำ PureGold AI · วิเคราะห์ทอง XAUUSD และแนวโน้มบนเว็บ</p>
-        <p class="en hid">Welcome — PureGold AI for XAUUSD analysis and the live gold desk</p>
+        <p class="th">ยินดีต้อนรับสู่ PureGold — ดูราคาทองสปอต XAUUSD และแนวรับแนวต้านบนโต๊ะวิเคราะห์</p>
+        <p class="en hid">Welcome to PureGold — spot XAUUSD prices and support / resistance on the live desk.</p>
         <div class="row">
           <a class="btn btn-gold btn-sm" id="promoDash" href="https://dashboard.purefxai.store/?lang=th" target="_blank" rel="noopener">ดูกราฟ</a>
-          <a class="btn btn-ghost btn-sm" href="downloads/PUREGOLD-0.9.3.apk">⬇ APK</a>
-          <button type="button" class="btn btn-ghost btn-sm" id="promoDismiss">ปิด</button>
         </div>
       </div>
     </div>
   </div>
 
-  <script type="application/json" id="pg-klines">{"symbol":"PAXGUSDT","interval":"1h","updatedAt":"2026-11-06T09:54:15Z","note":"Hourly PAXGUSDT closes \u2014 static same-origin mirror so the landing chart always renders.","closes":[{"t":1793700000000,"o":3918.98,"h":3920.0,"l":3910.08,"c":3914.33},{"t":1793703600000,"o":3915.02,"h":3919.97,"l":3912.91,"c":3915.05},{"t":1793707200000,"o":3916.05,"h":3940.99,"l":3908.74,"c":3940.99},{"t":1793710800000,"o":3940.99,"h":3975.56,"l":3935.65,"c":3966.37},{"t":1793714400000,"o":3966.31,"h":3968.64,"l":3948.12,"c":3952.25},{"t":1793718000000,"o":3952.29,"h":3952.99,"l":3929.25,"c":3942.5},{"t":1793721600000,"o":3943.03,"h":3943.6,"l":3933.81,"c":3934.07},{"t":1793725200000,"o":3934.6,"h":3940.53,"l":3934.4,"c":3939.32},{"t":1793728800000,"o":3939.33,"h":3942.28,"l":3934.47,"c":3935.08},{"t":1793732400000,"o":3934.94,"h":3935.6,"l":3927.35,"c":3928.61},{"t":1793736000000,"o":3928.76,"h":3929.79,"l":3925.28,"c":3927.7},{"t":1793739600000,"o":3927.7,"h":3936.07,"l":3926.96,"c":3935.16},{"t":1793743200000,"o":3935.16,"h":3937.22,"l":3934.85,"c":3936.02},{"t":1793746800000,"o":3936.02,"h":3947.09,"l":3934.75,"c":3946.4},{"t":1793750400000,"o":3945.98,"h":3947.69,"l":3928.63,"c":3940.01},{"t":1793754000000,"o":3939.93,"h":3969.2,"l":3932.46,"c":3953.3},{"t":1793757600000,"o":3954.25,"h":3954.74,"l":3941.8,"c":3941.8},{"t":1793761200000,"o":3941.66,"h":3948.14,"l":3933.46,"c":3941.73},{"t":1793764800000,"o":3941.1,"h":3964.57,"l":3940.32,"c":3958.98},{"t":1793768400000,"o":3959.06,"h":4011.16,"l":3953.79,"c":4002.16},{"t":1793772000000,"o":4002.41,"h":4029.02,"l":4001.1,"c":4028.9},{"t":1793775600000,"o":4029.02,"h":4029.96,"l":4016.95,"c":4022.38},{"t":1793779200000,"o":4021.99,"h":4038.14,"l":4020.87,"c":4032.93},{"t":1793782800000,"o":4032.99,"h":4047.09,"l":4032.41,"c":4042.3},{"t":1793786400000,"o":4041.9,"h":4048.57,"l":4039.57,"c":4045.64},{"t":1793790000000,"o":4045.63,"h":4045.63,"l":4038.57,"c":4040.32},{"t":1793793600000,"o":4040.33,"h":4048.89,"l":4030.01,"c":4041.05},{"t":1793797200000,"o":4041.04,"h":4044.92,"l":4028.12,"c":4042.99},{"t":1793800800000,"o":4042.98,"h":4049.62,"l":4031.94,"c":4038.0},{"t":1793804400000,"o":4038.01,"h":4047.89,"l":4030.01,"c":4047.0},{"t":1793808000000,"o":4047.66,"h":4066.0,"l":4039.36,"c":4064.72},{"t":1793811600000,"o":4064.99,"h":4066.0,"l":4057.38,"c":4063.61},{"t":1793815200000,"o":4062.97,"h":4066.66,"l":4056.73,"c":4056.73},{"t":1793818800000,"o":4057.2,"h":4059.19,"l":4052.71,"c":4054.38},{"t":1793822400000,"o":4054.53,"h":4063.63,"l":4054.53,"c":4059.99},{"t":1793826000000,"o":4060.57,"h":4064.16,"l":4056.78,"c":4059.74},{"t":1793829600000,"o":4059.86,"h":4062.98,"l":4055.38,"c":4061.42},{"t":1793833200000,"o":4061.43,"h":4067.43,"l":4055.26,"c":4061.47},{"t":1793836800000,"o":4061.6,"h":4092.26,"l":4057.76,"c":4085.1},{"t":1793840400000,"o":4084.92,"h":4126.78,"l":4081.38,"c":4118.02},{"t":1793844000000,"o":4118.94,"h":4130.52,"l":4115.92,"c":4123.44},{"t":1793847600000,"o":4123.85,"h":4137.21,"l":4120.98,"c":4131.37},{"t":1793851200000,"o":4132.06,"h":4136.72,"l":4124.77,"c":4132.94},{"t":1793854800000,"o":4131.35,"h":4132.59,"l":4104.23,"c":4107.09},{"t":1793858400000,"o":4106.94,"h":4123.86,"l":4106.63,"c":4122.02},{"t":1793862000000,"o":4121.4,"h":4124.75,"l":4110.51,"c":4118.46},{"t":1793865600000,"o":4118.12,"h":4123.46,"l":4114.26,"c":4120.97},{"t":1793869200000,"o":4120.97,"h":4127.46,"l":4116.07,"c":4117.08},{"t":1793872800000,"o":4117.08,"h":4124.61,"l":4116.47,"c":4123.89},{"t":1793876400000,"o":4123.88,"h":4130.83,"l":4120.57,"c":4126.32},{"t":1793880000000,"o":4126.31,"h":4126.32,"l":4108.69,"c":4110.05},{"t":1793883600000,"o":4109.91,"h":4121.14,"l":4103.23,"c":4117.85},{"t":1793887200000,"o":4117.85,"h":4126.82,"l":4084.36,"c":4104.2},{"t":1793890800000,"o":4104.2,"h":4111.61,"l":4061.71,"c":4073.83},{"t":1793894400000,"o":4074.39,"h":4117.99,"l":4074.39,"c":4117.55},{"t":1793898000000,"o":4117.54,"h":4117.54,"l":4096.59,"c":4100.09},{"t":1793901600000,"o":4100.08,"h":4103.5,"l":4091.6,"c":4101.54},{"t":1793905200000,"o":4101.53,"h":4114.0,"l":4093.93,"c":4111.28},{"t":1793908800000,"o":4111.28,"h":4111.28,"l":4093.04,"c":4095.3},{"t":1793912400000,"o":4094.93,"h":4094.93,"l":4079.21,"c":4083.46},{"t":1793916000000,"o":4083.45,"h":4086.73,"l":4081.42,"c":4084.98},{"t":1793919600000,"o":4084.97,"h":4093.84,"l":4065.99,"c":4082.87},{"t":1793923200000,"o":4082.05,"h":4104.54,"l":4081.43,"c":4089.49},{"t":1793926800000,"o":4089.48,"h":4093.84,"l":4054.62,"c":4055.54},{"t":1793930400000,"o":4055.54,"h":4069.25,"l":4052.68,"c":4053.9},{"t":1793934000000,"o":4053.91,"h":4060.23,"l":4033.69,"c":4039.67},{"t":1793937600000,"o":4039.67,"h":4043.6,"l":4033.7,"c":4042.01},{"t":1793941200000,"o":4042.0,"h":4048.5,"l":4034.01,"c":4039.75},{"t":1793944800000,"o":4039.92,"h":4049.58,"l":4038.18,"c":4047.5},{"t":1793948400000,"o":4047.5,"h":4051.99,"l":4038.07,"c":4051.6},{"t":1793952000000,"o":4051.02,"h":4070.5,"l":4046.1,"c":4070.48},{"t":1793955600000,"o":4070.49,"h":4075.1,"l":4064.72,"c":4065.99}]}</script>
-  <script type="application/json" id="pg-quotes">{"updatedAt":"2026-11-06T09:54:15Z","spot":{"price":4074.5,"symbol":"XAU","currency":"USD","currencySymbol":"$"},"ticker":{"symbol":"PAXGUSDT","lastPrice":"4065.99000000","priceChange":"-51.04000000","priceChangePercent":"-1.240"},"thai":[{"GoldType":"HSH","GoldCode":"96.50","Buy":"64,560","Sell":"64,640","TimeUpdate":"2026-11-06T16:53:34","BuyChange":0.0,"SellChange":0.0,"PresentDate":"","FxAsk":null,"FxBid":null,"Bid":null,"Ask":null,"QtyBid":null,"QtyAsk":null,"Discount":null,"Premium":null,"Increment":null,"SourcePrice":null,"StrTimeUpdate":"อัพเดตล่าสุด วันที่ 6 พ.ย. 2569 เวลา 16:53:34 น."},{"GoldType":"REF","GoldCode":"96.50","Buy":"64,550","Sell":"64,750","TimeUpdate":"2026-11-06T16:23:58","BuyChange":50.0,"SellChange":50.0,"PresentDate":"","FxAsk":null,"FxBid":null,"Bid":null,"Ask":null,"QtyBid":null,"QtyAsk":null,"Discount":null,"Premium":null,"Increment":null,"SourcePrice":null,"StrTimeUpdate":"อัพเดตล่าสุด วันที่ 6 พ.ย. 2569 เวลา 16:23:58 น."},{"GoldType":"JEWEL","GoldCode":"96.50","Buy":"63,262.68","Sell":"65,550","TimeUpdate":"2026-11-06T16:54:20","BuyChange":0.0,"SellChange":0.0,"PresentDate":"","FxAsk":null,"FxBid":null,"Bid":null,"Ask":null,"QtyBid":null,"QtyAsk":null,"Discount":null,"Premium":null,"Increment":null,"SourcePrice":null,"StrTimeUpdate":"อัพเดตล่าสุด วันที่ 6 พ.ย. 2569 เวลา 16:54:20 น."}]}</script>
+  <script type="application/json" id="pg-klines">{"symbol":"XAUUSD","interval":"1h","updatedAt":"2026-11-10T03:47:28Z","spot":4110.575,"spotSource":"swissquote","note":"Hourly XAUUSD series aligned to FX spot so the landing chart matches the live desk.","closes":[{"t":1794024000000,"o":4081.795,"h":4082.415,"l":4080.615,"c":4081.485},{"t":1794027600000,"o":4081.485,"h":4081.485,"l":4077.535,"c":4077.535},{"t":1794031200000,"o":4077.545,"h":4077.545,"l":4076.175,"c":4077.375},{"t":1794034800000,"o":4077.375,"h":4077.685,"l":4076.835,"c":4077.535},{"t":1794038400000,"o":4077.525,"h":4077.535,"l":4074.545,"c":4075.725},{"t":1794042000000,"o":4075.735,"h":4076.125,"l":4073.925,"c":4075.265},{"t":1794045600000,"o":4075.275,"h":4077.155,"l":4075.275,"c":4076.775},{"t":1794049200000,"o":4076.775,"h":4077.155,"l":4075.395,"c":4076.385},{"t":1794052800000,"o":4076.395,"h":4076.855,"l":4075.975,"c":4076.745},{"t":1794056400000,"o":4076.745,"h":4076.845,"l":4076.495,"c":4076.495},{"t":1794060000000,"o":4076.505,"h":4076.955,"l":4076.335,"c":4076.525},{"t":1794063600000,"o":4076.525,"h":4076.535,"l":4073.845,"c":4074.185},{"t":1794067200000,"o":4074.175,"h":4075.965,"l":4074.175,"c":4075.965},{"t":1794070800000,"o":4075.965,"h":4077.155,"l":4075.765,"c":4076.545},{"t":1794074400000,"o":4076.545,"h":4076.925,"l":4076.255,"c":4076.455},{"t":1794078000000,"o":4076.445,"h":4076.975,"l":4076.145,"c":4076.545},{"t":1794081600000,"o":4076.545,"h":4077.505,"l":4076.545,"c":4077.405},{"t":1794085200000,"o":4077.405,"h":4077.545,"l":4075.875,"c":4075.965},{"t":1794088800000,"o":4075.965,"h":4076.355,"l":4074.465,"c":4076.355},{"t":1794092400000,"o":4076.345,"h":4076.585,"l":4074.645,"c":4076.555},{"t":1794096000000,"o":4076.555,"h":4080.755,"l":4069.725,"c":4075.055},{"t":1794099600000,"o":4075.045,"h":4076.315,"l":4074.485,"c":4074.905},{"t":1794103200000,"o":4074.905,"h":4075.185,"l":4073.515,"c":4073.515},{"t":1794106800000,"o":4073.525,"h":4074.755,"l":4072.285,"c":4073.595},{"t":1794110400000,"o":4073.595,"h":4073.605,"l":4070.675,"c":4070.795},{"t":1794114000000,"o":4070.795,"h":4071.745,"l":4070.115,"c":4071.675},{"t":1794117600000,"o":4071.675,"h":4073.295,"l":4070.635,"c":4072.855},{"t":1794121200000,"o":4072.865,"h":4072.865,"l":4071.255,"c":4071.555},{"t":1794124800000,"o":4071.555,"h":4071.985,"l":4070.695,"c":4071.165},{"t":1794128400000,"o":4071.165,"h":4071.585,"l":4069.985,"c":4071.585},{"t":1794132000000,"o":4071.585,"h":4072.605,"l":4071.575,"c":4072.455},{"t":1794135600000,"o":4072.445,"h":4072.455,"l":4068.005,"c":4070.015},{"t":1794139200000,"o":4070.015,"h":4070.025,"l":4068.855,"c":4069.085},{"t":1794142800000,"o":4069.085,"h":4070.355,"l":4068.565,"c":4068.895},{"t":1794146400000,"o":4068.895,"h":4068.895,"l":4066.375,"c":4066.535},{"t":1794150000000,"o":4066.525,"h":4066.535,"l":4064.175,"c":4066.115},{"t":1794153600000,"o":4066.125,"h":4066.415,"l":4064.045,"c":4064.765},{"t":1794157200000,"o":4064.765,"h":4066.195,"l":4062.205,"c":4064.905},{"t":1794160800000,"o":4064.905,"h":4069.855,"l":4064.115,"c":4069.685},{"t":1794164400000,"o":4069.685,"h":4071.555,"l":4069.545,"c":4071.355},{"t":1794168000000,"o":4071.355,"h":4071.355,"l":4065.665,"c":4066.145},{"t":1794171600000,"o":4066.145,"h":4067.485,"l":4048.415,"c":4049.145},{"t":1794175200000,"o":4049.825,"h":4060.755,"l":4044.095,"c":4060.755},{"t":1794178800000,"o":4060.755,"h":4078.965,"l":4059.755,"c":4063.165},{"t":1794182400000,"o":4063.165,"h":4111.755,"l":4063.165,"c":4111.035},{"t":1794186000000,"o":4111.035,"h":4128.895,"l":4105.015,"c":4126.415},{"t":1794189600000,"o":4126.805,"h":4135.435,"l":4122.665,"c":4122.805},{"t":1794193200000,"o":4122.345,"h":4124.455,"l":4117.645,"c":4118.335},{"t":1794196800000,"o":4118.345,"h":4133.745,"l":4118.345,"c":4125.675},{"t":1794200400000,"o":4125.675,"h":4127.615,"l":4121.405,"c":4124.645},{"t":1794204000000,"o":4124.385,"h":4124.975,"l":4110.305,"c":4110.725},{"t":1794207600000,"o":4110.725,"h":4113.295,"l":4087.685,"c":4089.485},{"t":1794211200000,"o":4089.485,"h":4103.645,"l":4089.485,"c":4099.515},{"t":1794214800000,"o":4099.505,"h":4102.365,"l":4095.825,"c":4099.505},{"t":1794218400000,"o":4099.495,"h":4102.205,"l":4097.325,"c":4100.195},{"t":1794222000000,"o":4100.185,"h":4114.375,"l":4100.185,"c":4110.675},{"t":1794225600000,"o":4110.505,"h":4126.245,"l":4108.585,"c":4123.925},{"t":1794229200000,"o":4123.555,"h":4130.165,"l":4119.065,"c":4126.675},{"t":1794232800000,"o":4126.395,"h":4130.345,"l":4114.475,"c":4122.025},{"t":1794236400000,"o":4122.025,"h":4123.245,"l":4114.795,"c":4121.865},{"t":1794240000000,"o":4121.875,"h":4130.125,"l":4108.245,"c":4111.805},{"t":1794243600000,"o":4112.235,"h":4114.045,"l":4101.935,"c":4103.995},{"t":1794247200000,"o":4104.075,"h":4108.985,"l":4102.175,"c":4104.605},{"t":1794250800000,"o":4104.595,"h":4136.755,"l":4101.125,"c":4135.255},{"t":1794254400000,"o":4134.465,"h":4145.745,"l":4132.165,"c":4139.385},{"t":1794258000000,"o":4138.795,"h":4143.365,"l":4133.765,"c":4139.165},{"t":1794261600000,"o":4138.855,"h":4138.855,"l":4134.675,"c":4135.835},{"t":1794265200000,"o":4135.825,"h":4142.755,"l":4133.045,"c":4137.045},{"t":1794268800000,"o":4136.355,"h":4136.355,"l":4120.185,"c":4120.725},{"t":1794272400000,"o":4120.735,"h":4138.865,"l":4120.195,"c":4127.485},{"t":1794276000000,"o":4126.225,"h":4126.335,"l":4110.485,"c":4111.415},{"t":1794279600000,"o":4110.945,"h":4117.215,"l":4109.765,"c":4110.575}]}</script>
+  <script type="application/json" id="pg-quotes">{"updatedAt":"2026-11-10T03:47:28Z","spot":{"price":4110.575,"symbol":"XAU","currency":"USD","currencySymbol":"$","source":"swissquote"},"thai":[{"GoldType":"HSH","GoldCode":"96.50","Buy":"64,970","Sell":"65,050","TimeUpdate":"2026-11-10T10:46:40","BuyChange":-10.0,"SellChange":-10.0,"PresentDate":"","FxAsk":null,"FxBid":null,"Bid":null,"Ask":null,"QtyBid":null,"QtyAsk":null,"Discount":null,"Premium":null,"Increment":null,"SourcePrice":null,"StrTimeUpdate":"อัพเดตล่าสุด วันที่ 10 พ.ย. 2569 เวลา 10:46:40 น."},{"GoldType":"REF","GoldCode":"96.50","Buy":"64,950","Sell":"65,150","TimeUpdate":"2026-11-10T10:26:24","BuyChange":50.0,"SellChange":50.0,"PresentDate":"","FxAsk":null,"FxBid":null,"Bid":null,"Ask":null,"QtyBid":null,"QtyAsk":null,"Discount":null,"Premium":null,"Increment":null,"SourcePrice":null,"StrTimeUpdate":"อัพเดตล่าสุด วันที่ 10 พ.ย. 2569 เวลา 10:26:24 น."},{"GoldType":"JEWEL","GoldCode":"96.50","Buy":"63,656.84","Sell":"65,950","TimeUpdate":"2026-11-10T10:47:33","BuyChange":0.0,"SellChange":0.0,"PresentDate":"","FxAsk":null,"FxBid":null,"Bid":null,"Ask":null,"QtyBid":null,"QtyAsk":null,"Discount":null,"Premium":null,"Increment":null,"SourcePrice":null,"StrTimeUpdate":"อัพเดตล่าสุด วันที่ 10 พ.ย. 2569 เวลา 10:47:33 น."}]}</script>
+  <script type="application/json" id="pg-levels">{"symbol":"XAUUSD","updatedAt":"2026-11-10T03:47:28Z","updatedAtBangkok":"2026-11-10 10:47","spot":4110.575,"spotSource":"swissquote","offset":11.755,"daily":{"high":4145.745,"low":4063.165,"close":4137.045,"pp":4115.318,"r1":4167.472,"s1":4084.892,"r2":4197.898,"s2":4032.738,"r3":4250.052,"s3":4002.312},"h4":{"high":4145.745,"low":4132.165,"close":4137.045,"pp":4138.318,"r1":4144.472,"s1":4130.892,"r2":4151.898,"s2":4124.738,"r3":4158.052,"s3":4117.312},"swings":{"highs":[{"t":1794009600000,"price":4083.445},{"t":1794096000000,"price":4080.755},{"t":1794182400000,"price":4135.435}],"lows":[{"t":1793692800000,"price":3916.765},{"t":1793966400000,"price":4029.755},{"t":1794168000000,"price":4044.095}]},"nearest":{"name":"Pivot","price":4115.318,"distance":4.743,"side":"resistance"},"bias":"down","biasTh":"เอียงลงต่ำกว่าจุดพิวอต","biasEn":"Tilt down, below the pivot","note":"Daily and H4 floor pivots from the prior completed session, aligned to FX spot. Education only — not investment advice.","noteTh":"จุดพิวอต รายวันและ H4 จากแท่งที่ปิดแล้ว ปรับให้ตรงราคาทองสปอต — เพื่อการศึกษา ไม่ใช่คำแนะนำการลงทุน"}</script>
   <script>
     let LANG = 'th';
     let LAST_THAI = null;
@@ -801,6 +649,9 @@
       if (window.__bias) paintBias(window.__bias);
       if (window.__chartMeta) setChartNote(window.__chartMeta);
       try { if (typeof syncDashLinks === 'function') syncDashLinks(); } catch (_) {}
+      try { if (typeof renderLevels === 'function') renderLevels(); } catch (_) {}
+      const navDash = document.getElementById('navDash');
+      if (navDash) navDash.href = 'https://dashboard.purefxai.store/?lang=' + (L === 'en' ? 'en' : 'th');
       if (persist) {
         try { localStorage.setItem('pg_lang', L === 'en' ? 'en' : 'th'); } catch (_) {}
       }
@@ -950,9 +801,24 @@
         ctx.beginPath(); ctx.moveTo(0, y); ctx.lineTo(w, y); ctx.stroke();
       }
       if (bars.length < 2) return false;
-      const min = Math.min(...bars.map(b => b.l));
-      const max = Math.max(...bars.map(b => b.h));
-      const pad = 18;
+      let min = Math.min(...bars.map(b => b.l));
+      let max = Math.max(...bars.map(b => b.h));
+      const lvLines = (function(){
+        const L = window.__levels && window.__levels.daily;
+        if (!L) return [];
+        const rows = [
+          {k:'R3', v:L.r3, kind:'res'}, {k:'R2', v:L.r2, kind:'res'}, {k:'R1', v:L.r1, kind:'res'},
+          {k:'PP', v:L.pp, kind:'pp'},
+          {k:'S1', v:L.s1, kind:'sup'}, {k:'S2', v:L.s2, kind:'sup'}, {k:'S3', v:L.s3, kind:'sup'}
+        ].filter(x => Number.isFinite(x.v));
+        const mid = (min + max) / 2, span = Math.max(40, max - min);
+        return rows.filter(x => Math.abs(x.v - mid) < span * 1.8 + 40);
+      })();
+      if (lvLines.length) {
+        min = Math.min(min, ...lvLines.map(x => x.v));
+        max = Math.max(max, ...lvLines.map(x => x.v));
+      }
+      const pad = 22;
       const yOf = (v) => h - pad - ((v - min) / (max - min || 1)) * (h - pad * 2);
       const hasOHLC = bars.some(b => b.h !== b.l || b.o !== b.c);
       if (hasOHLC) {
@@ -1002,6 +868,22 @@
       ctx.font = '600 12px Manrope, sans-serif';
       ctx.textAlign = 'right';
       ctx.fillText(f2(lastBar.c), w - 10, Math.max(16, yOf(lastBar.c) - 8));
+      if (lvLines.length) {
+        ctx.setLineDash([4, 4]);
+        ctx.font = '600 10px Manrope, sans-serif';
+        ctx.textAlign = 'left';
+        lvLines.forEach((lv) => {
+          const y = yOf(lv.v);
+          ctx.strokeStyle = lv.kind === 'res' ? 'rgba(224,91,102,.55)' : lv.kind === 'sup' ? 'rgba(61,186,122,.55)' : 'rgba(212,175,95,.7)';
+          ctx.lineWidth = 1;
+          ctx.beginPath(); ctx.moveTo(0, y); ctx.lineTo(w, y); ctx.stroke();
+          ctx.fillStyle = lv.kind === 'res' ? '#e05b66' : lv.kind === 'sup' ? '#3dba7a' : '#d4b15f';
+          const label = lv.k + '  ' + f2(lv.v);
+          const ty = Math.min(h - 6, Math.max(10, y - 3));
+          ctx.fillText(label, 6, ty);
+        });
+        ctx.setLineDash([]);
+      }
       return true;
     }
 
@@ -1078,6 +960,10 @@
         window.__lastPx = px;
         const xau = document.getElementById('xauPx');
         if (xau) xau.textContent = '$' + f2(px);
+        const hero = document.getElementById('heroPx');
+        if (hero) hero.textContent = '$' + f2(px);
+        const lvSpot = document.getElementById('lvSpot');
+        if (lvSpot) lvSpot.textContent = '$' + f2(px);
         painted = true;
       }
       const el = document.getElementById('xauCh');
@@ -1085,8 +971,11 @@
         const dir = chp > 0.12 ? 'up' : chp < -0.12 ? 'down' : 'flat';
         window.__bias = dir;
         el.className = 'chg ' + (dir === 'flat' ? 'flat' : dir === 'up' ? 'up' : 'dn');
-        el.textContent = (chp >= 0 ? '+' : '') + Number(chp).toFixed(2) + '% · 24h'
+        const chTxt = (chp >= 0 ? '+' : '') + Number(chp).toFixed(2) + '% · 24h'
           + (ch && Number.isFinite(ch) ? ' · ' + (ch >= 0 ? '+' : '') + f2(ch) : '');
+        el.textContent = chTxt;
+        const heroCh = document.getElementById('heroCh');
+        if (heroCh) { heroCh.className = el.className; heroCh.textContent = chTxt; }
         paintBias(dir);
         painted = true;
       }
@@ -1126,13 +1015,12 @@
           const r = await fetchTimeout(u, 2500);
           if (!r.ok) continue;
           const j = await r.json();
-          let closes = extractCloses(j);
+          let closes = extractBars(j);
           const spot = window.__spotXau || await loadSpotXau();
           if (spot && closes.length >= 2) {
-            const last = closes[closes.length - 1];
-            const lc = typeof last === 'number' ? last : Number(last.c);
+            const lc = Number(closes[closes.length - 1].c);
             const off = spot - lc;
-            if (Number.isFinite(off)) closes = closes.map(b => typeof b === 'number' ? b + off : ({ ...b, o: b.o + off, h: b.h + off, l: b.l + off, c: b.c + off }));
+            if (Number.isFinite(off)) closes = closes.map(b => ({ t:b.t, o:b.o + off, h:b.h + off, l:b.l + off, c:b.c + off }));
           }
           if (closes.length >= 2) return { closes, source: 'live' };
         } catch (_) {}
@@ -1157,19 +1045,12 @@
     }
 
     async function loadSpotXau() {
-      try {
-        const r = await fetchTimeout('https://forex-data-feed.swissquote.com/public-quotes/bboquotes/instrument/XAU/USD', 3000);
-        if (r.ok) {
-          const j = await r.json();
-          const q = j && j[0] && j[0].spreadProfilePrices && j[0].spreadProfilePrices[0];
-          if (q && q.bid && q.ask) { window.__spotXau = (Number(q.bid) + Number(q.ask)) / 2; return window.__spotXau; }
-        }
-      } catch (_) {}
+      // Browser: gold-api.com (CORS). Swissquote is used in the scheduled levels job.
       try {
         const r = await fetchTimeout('https://api.gold-api.com/price/XAU', 3000);
         if (r.ok) { const j = await r.json(); if (j.price != null) { window.__spotXau = Number(j.price); return window.__spotXau; } }
       } catch (_) {}
-      return null;
+      return window.__spotXau || null;
     }
 
     async function loadQuotes() {
@@ -1350,8 +1231,8 @@
         if (unmuteBtn) unmuteBtn.classList.remove('hid');
       };
       const schedule = (delay) => setTimeout(showPromo, delay);
-      if (window.__pgLangReady) schedule(900);
-      else (window.__pgAfterLang = window.__pgAfterLang || []).push(() => schedule(450));
+      if (window.__pgLangReady) schedule(2400);
+      else (window.__pgAfterLang = window.__pgAfterLang || []).push(() => schedule(2000));
     })();
 
 
@@ -1429,7 +1310,9 @@
         } catch (_) { window.open(url, '_blank', 'noopener'); }
         modal.setAttribute('aria-hidden', 'false');
       };
-      openBtn.addEventListener('click', (e) => { e.preventDefault(); open(); });
+      window.__openDash = open;
+      openBtn.addEventListener('click', (e) => { e.preventDefault(); e.stopPropagation(); open(); });
+      document.getElementById('heroDashBtn')?.addEventListener('click', (e) => { e.preventDefault(); e.stopPropagation(); open(); });
       document.getElementById('dashClose')?.addEventListener('click', close);
       modal.addEventListener('click', (e) => { if (e.target === modal) close(); });
       document.addEventListener('keydown', (e) => {
@@ -1446,12 +1329,88 @@
       const play = () => {
         v.src = clips[i];
         v.muted = true;
+        try { v.playbackRate = 0.62; } catch (_) {}
         const run = v.play();
         if (run && run.catch) run.catch(() => {});
       };
       v.addEventListener('ended', () => { i = (i + 1) % clips.length; play(); });
       play();
     })();
+
+    window.__openDash = window.__openDash || function(){
+      const url = (typeof dashUrl === 'function') ? dashUrl(LANG) : ('https://dashboard.purefxai.store/?lang=' + (LANG === 'en' ? 'en' : 'th'));
+      const modal = document.getElementById('dashModal');
+      const frame = document.getElementById('dashFrame');
+      if (!modal || !frame) { window.open(url, '_blank', 'noopener'); return; }
+      try {
+        if (frame.getAttribute('src') !== url) frame.src = url;
+        modal.classList.add('open');
+        modal.setAttribute('aria-hidden', 'false');
+        document.body.style.overflow = 'hidden';
+      } catch (_) { window.open(url, '_blank', 'noopener'); }
+      const started = Date.now();
+      const watchdog = setTimeout(() => {
+        try {
+          if (!frame.getAttribute('src')) window.open(url, '_blank', 'noopener');
+        } catch (_) { window.open(url, '_blank', 'noopener'); }
+      }, 4000);
+      frame.addEventListener('load', () => clearTimeout(watchdog), { once:true });
+      frame.addEventListener('error', () => { clearTimeout(watchdog); window.open(url, '_blank', 'noopener'); }, { once:true });
+    };
+    document.addEventListener('click', (e) => {
+      const btn = e.target && e.target.closest && e.target.closest('#openDashBtn, #heroDashBtn, [data-open-dash]');
+      if (!btn) return;
+      e.preventDefault();
+      window.__openDash();
+    });
+
+    function renderLevels(data) {
+      const L = data || window.__levels;
+      if (!L) return;
+      window.__levels = L;
+      const th = LANG !== 'en';
+      const fmt = (n) => (Number.isFinite(Number(n)) ? f2(Number(n)) : '—');
+      const set = (id, v) => { const el = document.getElementById(id); if (el) el.textContent = v; };
+      if (L.spot != null) set('lvSpot', '$' + fmt(L.spot));
+      const srcMap = { swissquote: th ? 'สปอต FX · Swissquote' : 'FX spot · Swissquote', 'gold-api': th ? 'สปอต · gold-api.com' : 'Spot · gold-api.com' };
+      set('lvSrc', srcMap[L.spotSource] || (L.spotSource || ''));
+      const srcEl = document.getElementById('heroSrc');
+      if (srcEl) srcEl.textContent = srcMap[L.spotSource] || '';
+      if (L.nearest) {
+        const d = Number(L.nearest.distance);
+        const dir = d > 0 ? (th ? 'ต้านเหนือราคา ' : 'resistance +') : d < 0 ? (th ? 'รับใต้ราคา ' : 'support ') : (th ? 'ที่ระดับ' : 'at level');
+        set('lvNear', (L.nearest.name || '') + '  $' + fmt(L.nearest.price));
+        set('lvNearSub', dir + (d === 0 ? '' : (d > 0 ? '+' : '') + fmt(d)));
+      }
+      const biasLbl = L.bias === 'up' ? (th ? 'เอียงขึ้น' : 'Tilt up') : L.bias === 'down' ? (th ? 'เอียงลง' : 'Tilt down') : (th ? 'ทรงตัว' : 'Neutral');
+      set('lvBias', biasLbl);
+      set('lvBiasSub', th ? (L.biasTh || '') : (L.biasEn || ''));
+      const biasEl = document.getElementById('lvBias');
+      if (biasEl) biasEl.style.color = L.bias === 'up' ? 'var(--up)' : L.bias === 'down' ? 'var(--dn)' : 'var(--text)';
+      set('lvTime', L.updatedAtBangkok || '');
+      const grid = document.getElementById('lvGrid');
+      if (grid && L.daily) {
+        const nearName = (L.nearest && L.nearest.name) || '';
+        const rows = [
+          ['R3', L.daily.r3, 'res'], ['R2', L.daily.r2, 'res'], ['R1', L.daily.r1, 'res'],
+          ['Pivot', L.daily.pp, 'pp'],
+          ['S1', L.daily.s1, 'sup'], ['S2', L.daily.s2, 'sup'], ['S3', L.daily.s3, 'sup']
+        ];
+        grid.innerHTML = rows.map(([k, v, kind]) => {
+          const on = (k === nearName || (k === 'Pivot' && nearName === 'Pivot')) ? ' active' : '';
+          return '<div class="lv ' + kind + on + '"><div class="k">' + k + '</div><div class="v">$' + fmt(v) + '</div></div>';
+        }).join('');
+      }
+      if (window.__lastBars) drawChart(window.__lastBars);
+    }
+    async function loadLevels() {
+      const embedded = readEmbedded('pg-levels');
+      if (embedded && embedded.daily) { renderLevels(embedded); }
+      try {
+        const r = await fetchTimeout('assets/levels.json?t=' + Date.now(), 4000);
+        if (r && r.ok) renderLevels(await r.json());
+      } catch (_) {}
+    }
 
     applyQuotePayload(readEmbedded('pg-quotes'));
     const bootBars = extractBars(readEmbedded('pg-klines'));
@@ -1461,14 +1420,11 @@
       requestAnimationFrame(() => paintSeries(window.__lastBars || bootBars, 'static'));
     });
     loadLive();
+    loadLevels();
     loadNews();
     setInterval(loadLive, 60000);
   </script>
 
   
-  <div class="float-cta">
-    <a class="btn btn-gold btn-sm" href="downloads/PUREGOLD-0.9.3.apk">⬇ APK 0.9.3</a>
-    <a class="btn btn-ghost btn-sm" href="https://one.toexness.com/a/s2didh6p">Exness IB</a>
-  </div>
 </body>
 </html>

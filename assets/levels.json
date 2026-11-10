@@ -1,0 +1,73 @@
+{
+  "symbol": "XAUUSD",
+  "updatedAt": "2026-11-10T03:47:28Z",
+  "updatedAtBangkok": "2026-11-10 10:47",
+  "spot": 4110.575,
+  "spotSource": "swissquote",
+  "offset": 11.755,
+  "daily": {
+    "high": 4145.745,
+    "low": 4063.165,
+    "close": 4137.045,
+    "pp": 4115.318,
+    "r1": 4167.472,
+    "s1": 4084.892,
+    "r2": 4197.898,
+    "s2": 4032.738,
+    "r3": 4250.052,
+    "s3": 4002.312
+  },
+  "h4": {
+    "high": 4145.745,
+    "low": 4132.165,
+    "close": 4137.045,
+    "pp": 4138.318,
+    "r1": 4144.472,
+    "s1": 4130.892,
+    "r2": 4151.898,
+    "s2": 4124.738,
+    "r3": 4158.052,
+    "s3": 4117.312
+  },
+  "swings": {
+    "highs": [
+      {
+        "t": 1794009600000,
+        "price": 4083.445
+      },
+      {
+        "t": 1794096000000,
+        "price": 4080.755
+      },
+      {
+        "t": 1794182400000,
+        "price": 4135.435
+      }
+    ],
+    "lows": [
+      {
+        "t": 1793692800000,
+        "price": 3916.765
+      },
+      {
+        "t": 1793966400000,
+        "price": 4029.755
+      },
+      {
+        "t": 1794168000000,
+        "price": 4044.095
+      }
+    ]
+  },
+  "nearest": {
+    "name": "Pivot",
+    "price": 4115.318,
+    "distance": 4.743,
+    "side": "resistance"
+  },
+  "bias": "down",
+  "biasTh": "เอียงลงต่ำกว่าจุดพิวอต",
+  "biasEn": "Tilt down, below the pivot",
+  "note": "Daily and H4 floor pivots from the prior completed session, aligned to FX spot. Education only — not investment advice.",
+  "noteTh": "จุดพิวอต รายวันและ H4 จากแท่งที่ปิดแล้ว ปรับให้ตรงราคาทองสปอต — เพื่อการศึกษา ไม่ใช่คำแนะนำการลงทุน"
+}
