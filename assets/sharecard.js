@@ -1,7 +1,7 @@
 /* PUREGOLD share posters: purpose-built 1200x675 + 1080x1350 social graphics. */
 (function (global) {
   const SITE = "gold.purefxai.store";
-  const VERSION = "20261110h";
+  const VERSION = "20261110share1";
   const SITE_URL = "https://gold.purefxai.store/";
   const SIZES = { landscape: [1200, 675], portrait: [1080, 1350] };
   const TH_M = "ม.ค. ก.พ. มี.ค. เม.ย. พ.ค. มิ.ย. ก.ค. ส.ค. ก.ย. ต.ค. พ.ย. ธ.ค.".split(" ");
@@ -51,12 +51,12 @@
   function fmtBkk(date, lang, compact) {
     const d = date instanceof Date ? date : new Date(date);
     if (isNaN(d)) return "—";
-    const parts = new Intl.DateTimeFormat("en-GB", { timeZone: "Asia/Bangkok", year: "numeric", month: "numeric", day: "numeric", hour: "2-digit", minute: "2-digit", hour12: false }).formatToParts(d);
+    const parts = new Intl.DateTimeFormat("en-GB", { timeZone: "Asia/Bangkok", year: "numeric", month: "numeric", day: "numeric", hour: "2-digit", minute: "2-digit", second: "2-digit", hour12: false }).formatToParts(d);
     const g = k => +parts.find(p => p.type === k).value;
     const day = g("day"), mo = g("month"), yr = g("year");
-    const hh = String(g("hour")).padStart(2, "0"), mm = String(g("minute")).padStart(2, "0");
-    if (lang === "en") return compact ? `${day} ${EN_M[mo - 1]} ${yr} ${hh}:${mm} Bangkok` : `${day} ${EN_M[mo - 1]} ${yr} ${hh}:${mm} Bangkok time`;
-    return `${day} ${TH_M[mo - 1]} ${yr} ${hh}:${mm} น. เวลาไทย`;
+    const hh = String(g("hour")).padStart(2, "0"), mm = String(g("minute")).padStart(2, "0"), ss = String(g("second")).padStart(2, "0");
+    if (lang === "en") return compact ? `${day} ${EN_M[mo - 1]} ${yr} ${hh}:${mm}:${ss} Bangkok` : `${day} ${EN_M[mo - 1]} ${yr} ${hh}:${mm}:${ss} Bangkok time`;
+    return `${day} ${TH_M[mo - 1]} ${yr} ${hh}:${mm}:${ss} น. เวลาไทย`;
   }
   function parseBkkStamp(s) {
     if (!s) return null;
@@ -301,6 +301,119 @@
       if (pv) { attachMarket({ pivots: pv }); return pv; }
     }
     return null;
+  }
+
+  function biasFromSpot(spot, daily) {
+    const px = Number(spot);
+    if (!Number.isFinite(px) || !daily) return null;
+    const s1 = Number(daily.s1), r1 = Number(daily.r1);
+    let biasTh, biasEn;
+    if (Number.isFinite(r1) && px > r1) { biasTh = "ราคาอยู่เหนือแนวต้าน R1 — โมเมนตัมขาขึ้น"; biasEn = "Price is above resistance R1 — bullish momentum"; }
+    else if (Number.isFinite(s1) && px < s1) { biasTh = "ราคาอยู่ต่ำกว่าแนวรับ S1 — โมเมนตัมขาลง"; biasEn = "Price is below support S1 — bearish momentum"; }
+    else { biasTh = "ราคายืนในกรอบ S1–R1"; biasEn = "Price is holding inside the S1–R1 range"; }
+    return { biasTh, biasEn };
+  }
+
+  async function fetchLiveSpot() {
+    const hits = [];
+    try {
+      const r = await fetch("https://api.gold-api.com/price/XAU", { cache: "no-store" });
+      if (r && r.ok) {
+        const j = await r.json();
+        const px = Number(j && j.price);
+        const at = Date.parse(j && j.updatedAt) || Date.now();
+        if (px > 0) hits.push({ price: px, at, src: "gold-api.com" });
+      }
+    } catch (_) {}
+    const spots = ["spot.json", "/spot.json", "https://dashboard.purefxai.store/spot.json"];
+    for (const u of spots) {
+      try {
+        const r = await fetch(u + (u.includes("?") ? "&" : "?") + "t=" + Date.now(), { cache: "no-store" });
+        if (!r || !r.ok) continue;
+        const j = await r.json();
+        const px = Number(j && (j.price != null ? j.price : j.xau));
+        if (px > 0) {
+          const at = Date.parse(j.fetched_at || j.updated_utc || j.updated) || Date.now();
+          hits.push({ price: px, at, src: j.src || "spot.json" });
+          break;
+        }
+      } catch (_) {}
+    }
+    if (global.live && Number(global.live.price) > 0) {
+      hits.push({ price: Number(global.live.price), at: global.live.tickAt || Date.now(), src: global.live.src || "page" });
+    } else if (Number(global.__spotXau) > 0) {
+      hits.push({ price: Number(global.__spotXau), at: global.__liveSpotAt || Date.now(), src: "page" });
+    }
+    if (!hits.length) return null;
+    hits.sort((a, b) => (b.at || 0) - (a.at || 0));
+    return hits[0];
+  }
+
+  async function loadPerfData() {
+    if (global.__PERF_LIVE && global.__PERF_LIVE.periods) return global.__PERF_LIVE;
+    if (global.__PERF && global.__PERF.periods) return global.__PERF;
+    const urls = ["perf.json", "/perf.json", "assets/perf.json", "/assets/perf.json", "https://dashboard.purefxai.store/perf.json", "https://gold.purefxai.store/assets/perf.json"];
+    for (const u of urls) {
+      try {
+        const r = await fetch(u + (u.includes("?") ? "&" : "?") + "t=" + Date.now(), { cache: "no-store" });
+        if (!r || !r.ok) continue;
+        const j = await r.json();
+        if (j && j.periods) { global.__PERF_LIVE = j; return j; }
+      } catch (_) {}
+    }
+    return null;
+  }
+
+  function perfWithLive(data, livePx) {
+    if (!data || !Array.isArray(data.periods) || !(Number(livePx) > 0)) return data;
+    const periods = data.periods.map(pe => {
+      const ref = Number(pe && pe.ref_close);
+      if (!(ref > 0)) return null;
+      const change = Number(livePx) - ref;
+      return Object.assign({}, pe, { change, change_pct: change / ref * 100 });
+    }).filter(Boolean);
+    return Object.assign({}, data, { spot: Number(livePx), periods });
+  }
+
+  async function refreshLivePayload(kind, payload) {
+    const out = Object.assign({}, payload || {});
+    const lang = out.lang || (enLang() ? "en" : "th");
+    out.lang = lang;
+    try { await Promise.all([loadMarket(), loadPivots(), loadDollar(), loadPerfData()]); } catch (_) {}
+    const tick = await fetchLiveSpot();
+    const when = (tick && tick.at) ? new Date(tick.at) : new Date();
+    if (tick && tick.price > 0) {
+      out.price = tick.price;
+      out.source = tick.src;
+    }
+    out.asOf = when.toISOString();
+    out.asOfMs = when.getTime();
+    out.time = fmtBkk(when, lang, true);
+    const daily = ((global.__SHARE_MARKET || {}).levels || global.__levels || {}).daily;
+    if (daily && Number(out.price) > 0) {
+      const b = biasFromSpot(out.price, daily);
+      if (b) {
+        out.align = lang === "en" ? b.biasEn : b.biasTh;
+        out.alignEn = b.biasEn;
+        out.bias = out.align;
+      }
+    }
+    const perf = await loadPerfData();
+    if (perf && Number(out.price) > 0) out.perf = perfWithLive(perf, out.price);
+    if (out.prevClose == null) {
+      const m = global.__SHARE_MARKET || {};
+      if (m.prevClose != null) out.prevClose = m.prevClose;
+    }
+    if (out.prevClose != null && Number(out.price) > 0) {
+      const px = Number(out.price), prev = Number(out.prevClose);
+      if (prev) {
+        out.change = px - prev;
+        out.changePct = (px - prev) / prev * 100;
+        out.changeKnown = true;
+        out.changeBasis = "prevClose";
+      }
+    }
+    return enrich(kind, out);
   }
 
   function enrich(kind, p) {
@@ -556,7 +669,7 @@
     ctx.fillText(clipped, x + 12, y + h - 10);
     return h;
   }
-  function drawFooter(ctx, W, H, lang) {
+  function drawFooter(ctx, W, H, lang, when) {
     const dollar = ((global.__SHARE_MARKET || {}).dollar) || global.__DOLLAR;
     let reserve = 0;
     if (dollar && dollar.dxy) {
@@ -573,7 +686,8 @@
     ctx.textBaseline = "middle";
     ctx.fillStyle = MUTED;
     ctx.textAlign = "left";
-    ctx.fillText(fmtBkk(new Date(), lang, true), 48, y);
+    const stamp = when ? fmtBkk(when, lang, true) : fmtBkk(new Date(), lang, true);
+    ctx.fillText(stamp, 48, y);
     ctx.textAlign = "center";
     ctx.fillStyle = GOLD;
     ctx.fillText(SITE, W / 2, y);
@@ -585,10 +699,11 @@
     return rule - 18;
   }
 
-  function headerBox(ctx, W, H, lang, bars, scale) {
+  function headerBox(ctx, W, H, lang, bars, scale, p) {
     drawBackdrop(ctx, W, H, bars);
     const mark = drawLockup(ctx, 44, 28, scale || (H > 1000 ? 1.15 : 1));
-    const bottom = drawFooter(ctx, W, H, lang);
+    const when = p && (p.asOfMs || p.asOf || p.time) ? (p.asOfMs || p.asOf || p.time) : new Date();
+    const bottom = drawFooter(ctx, W, H, lang, when);
     return { top: 28 + mark + 18, bottom, left: 48, right: W - 48, mid: (48 + W - 48) / 2 };
   }
 
@@ -1128,7 +1243,7 @@
 
   function drawPrice(ctx, W, H, p, lang) {
     const portrait = H > 900;
-    const box = headerBox(ctx, W, H, lang, p.bars || p.barsH1, portrait ? 1.2 : 1.05);
+    const box = headerBox(ctx, W, H, lang, p.bars || p.barsH1, portrait ? 1.2 : 1.05, p);
     const info = trendInfo(p, lang);
     const headline = lang === "en" ? "XAUUSD spot — latest" : "ทองคำ XAUUSD ล่าสุด";
     ctx.fillStyle = TX;
@@ -1198,7 +1313,7 @@
   function drawForecast(ctx, W, H, p, lang) {
     const portrait = H > 900;
     const tgt = p.target || forecastTarget(p.updated, p.horizon);
-    const box = headerBox(ctx, W, H, lang, p.barsH1 || p.bars, portrait ? 1.15 : 1.0);
+    const box = headerBox(ctx, W, H, lang, p.barsH1 || p.bars, portrait ? 1.15 : 1.0, p);
     const headline = forecastHeadline(p, lang, tgt);
     ctx.fillStyle = TX;
     ctx.font = `800 ${portrait ? 38 : 28}px ${FONT}`;
@@ -1258,7 +1373,7 @@
 
   function drawTrend(ctx, W, H, p, lang) {
     const portrait = H > 900;
-    const box = headerBox(ctx, W, H, lang, p.barsH1 || p.bars, portrait ? 1.15 : 1.0);
+    const box = headerBox(ctx, W, H, lang, p.barsH1 || p.bars, portrait ? 1.15 : 1.0, p);
     const align = lang === "en" ? (p.alignEn || p.align || "") : (p.align || p.alignEn || "");
     const short = /ภาพรวม([^\s·]+)/.exec(align);
     const head = lang === "en"
@@ -1301,7 +1416,7 @@
 
   function drawSpdr(ctx, W, H, p, lang) {
     const portrait = H > 900;
-    const box = headerBox(ctx, W, H, lang, null, portrait ? 1.15 : 1.0);
+    const box = headerBox(ctx, W, H, lang, null, portrait ? 1.15 : 1.0, p);
     const side = p.side || (p.change > 0 ? "buy" : p.change < 0 ? "sell" : "flat");
     const scol = side === "buy" ? UP : side === "sell" ? DN : GOLD;
     const flow = side === "buy"
@@ -1398,7 +1513,7 @@
 
   function drawBrief(ctx, W, H, p, lang) {
     const portrait = H > 900;
-    const box = headerBox(ctx, W, H, lang, p.barsH1 || p.bars, portrait ? 1.15 : 1.0);
+    const box = headerBox(ctx, W, H, lang, p.barsH1 || p.bars, portrait ? 1.15 : 1.0, p);
     const title = p.title || (lang === "en" ? "Market brief" : "สรุปตลาด");
     ctx.fillStyle = TX;
     ctx.font = `800 ${portrait ? 40 : 30}px ${FONT}`;
@@ -1448,6 +1563,11 @@
 
   let saveUrlList = [];
   let sheetFiles = [];
+  let sheetKind = null;
+  let sheetPayload = null;
+  let sheetLang = "th";
+  let sheetTimer = null;
+  let sheetGen = 0;
 
   function toast(msg) {
     let el = document.getElementById("shareToast");
@@ -1480,13 +1600,19 @@
     const full = document.getElementById("shareFull");
     if (full) { full.classList.remove("on"); full.hidden = true; }
   }
+  function stopSheetTimer() {
+    if (sheetTimer) { clearInterval(sheetTimer); sheetTimer = null; }
+  }
   function closeSheet() {
+    stopSheetTimer();
     closeFullscreen();
     const sheet = document.getElementById("shareSave");
     if (sheet) { sheet.classList.remove("on"); sheet.hidden = true; }
     saveUrlList.forEach(u => { try { URL.revokeObjectURL(u); } catch (_) {} });
     saveUrlList = [];
     sheetFiles = [];
+    sheetKind = null;
+    sheetPayload = null;
     const box = document.getElementById("shareSaveImgs");
     if (box) box.innerHTML = "";
   }
@@ -1587,21 +1713,45 @@
     sheet.hidden = false; sheet.classList.add("on");
     return sheet;
   }
-  async function fillSheet(files, lang, kind) {
+  function revokeSheetUrls() {
+    saveUrlList.forEach(u => { try { URL.revokeObjectURL(u); } catch (_) {} });
+    saveUrlList = [];
+  }
+
+  async function fillSheet(files, lang, kind, opt) {
+    const gen = (opt && opt.gen) || sheetGen;
     const sheet = ensureSheet();
     setSheetChrome(lang);
     const box = document.getElementById("shareSaveImgs");
     const load = document.getElementById("shareSaveLoad");
     const goFiles = document.getElementById("shareGoFiles");
+    const hint = document.getElementById("shareSaveHint");
     if (load) load.hidden = true;
+    revokeSheetUrls();
     if (box) box.innerHTML = "";
     sheetFiles = files || [];
-    const fileObjs = files.map(f => new File([f.blob], f.name, { type: "image/png" }));
+    const stale = !!(opt && opt.stale);
+    const asOfLabel = (sheetPayload && sheetPayload.time) || fmtBkk(new Date(), lang, true);
+    if (hint) {
+      if (stale) {
+        hint.textContent = lang === "en"
+          ? ("Live poster failed. This fallback image is from " + asOfLabel + ". Do not treat it as the live price.")
+          : ("สร้างรูปสดไม่สำเร็จ รูปสำรองนี้อัปเดต " + asOfLabel + " อย่าใช้เป็นราคาล่าสุด");
+      } else {
+        hint.textContent = (lang === "en"
+          ? "On Android, tap Share / save to gallery, then choose Save to photos or Files. You can also long-press the web image."
+          : "บนแอนดรอยด์ กดแชร์/บันทึกลงแกลเลอรี่ แล้วเลือกบันทึกลงรูปภาพหรือไฟล์ หรือกดค้างที่รูปบนเว็บเพื่อบันทึก")
+          + "  ·  " + asOfLabel;
+      }
+    }
     const bindShare = ev => {
       ev.preventDefault();
       const title = "PureGold · " + SITE;
       const run = async () => {
         try {
+          const fresh = await filesReadyForShare();
+          const fileObjs = (fresh || []).map(f => new File([f.blob], f.name, { type: "image/png" }));
+          if (!fileObjs.length) throw new Error("empty");
           if (navigator.canShare && navigator.canShare({ files: fileObjs })) {
             await navigator.share({ files: fileObjs, title, text: title });
             return;
@@ -1617,13 +1767,14 @@
       run();
     };
     for (const f of files) {
-      const blobUrl = URL.createObjectURL(f.blob);
-      saveUrlList.push(blobUrl);
-      f.url = blobUrl;
-      const httpsUrl = staticPngUrl(kind || "price", f.w, f.h);
-      const httpsView = cacheBust(httpsUrl);
-      const hasHttps = await probeImg(httpsView);
-      const viewUrl = hasHttps ? httpsView : blobUrl;
+      if (gen !== sheetGen) return;
+      let viewUrl = f.url;
+      if (f.blob) {
+        viewUrl = URL.createObjectURL(f.blob);
+        saveUrlList.push(viewUrl);
+        f.url = viewUrl;
+      }
+      if (!viewUrl) continue;
       const wrap = document.createElement("div");
       wrap.className = "share-shot";
       const link = document.createElement("a");
@@ -1631,56 +1782,130 @@
       link.href = viewUrl;
       link.target = "_blank";
       link.rel = "noopener";
-      // Only attach download on the blob (same-origin file) when no https poster exists.
-      if (!hasHttps) link.setAttribute("download", f.name);
+      if (f.blob) link.setAttribute("download", f.name);
       const img = document.createElement("img");
       img.src = viewUrl;
       img.alt = f.name;
       img.setAttribute("draggable", "false");
       link.appendChild(img);
       wrap.appendChild(link);
+      const cap = document.createElement("p");
+      cap.className = "share-asof";
+      cap.textContent = (stale ? (lang === "en" ? "Fallback · " : "รูปสำรอง · ") : (lang === "en" ? "LIVE · " : "สด · ")) + (f.asOfLabel || asOfLabel);
+      wrap.appendChild(cap);
       const row = document.createElement("div");
       row.className = "share-dl-row";
       const aBlob = document.createElement("a");
-      aBlob.href = blobUrl;
-      aBlob.download = f.name;
+      aBlob.href = viewUrl;
+      if (f.blob) aBlob.download = f.name;
       aBlob.className = "btn pri";
       aBlob.textContent = (lang === "en" ? "Save " : "บันทึก ") + f.w + "×" + f.h;
+      aBlob.addEventListener("click", ev => {
+        if (!f.blob) return;
+        ev.preventDefault();
+        filesReadyForShare().then(fresh => {
+          const match = (fresh || []).find(x => x.w === f.w && x.h === f.h) || (fresh || [])[0];
+          if (!match || !match.url) return;
+          const a = document.createElement("a");
+          a.href = match.url;
+          a.download = match.name;
+          document.body.appendChild(a);
+          a.click();
+          a.remove();
+        });
+      });
       row.appendChild(aBlob);
-      if (hasHttps) {
-        const aWeb = document.createElement("a");
-        aWeb.href = httpsView;
-        aWeb.target = "_blank";
-        aWeb.rel = "noopener";
-        aWeb.className = "btn share-site";
-        aWeb.textContent = lang === "en" ? "Open web image (long-press to save)" : "เปิดรูปบนเว็บ (กดค้างเพื่อบันทึก)";
-        row.appendChild(aWeb);
-      }
       wrap.appendChild(row);
       box.appendChild(wrap);
     }
+    if (gen !== sheetGen) return;
+    const sample = (files[0] && files[0].blob) ? [new File([files[0].blob], files[0].name, { type: "image/png" })] : [];
     const can = !!(navigator.canShare && (function () {
-      try { return navigator.canShare({ files: fileObjs }); } catch (_) { return false; }
+      try { return sample.length && navigator.canShare({ files: sample }); } catch (_) { return false; }
     })()) || !!navigator.share;
     if (goFiles) {
-      goFiles.hidden = !can;
+      goFiles.hidden = !can || stale;
       goFiles.className = "btn pri share-gallery";
       goFiles.onclick = bindShare;
     }
     sheet.hidden = false; sheet.classList.add("on");
   }
 
+  async function tryStaticFallback(kind, lang) {
+    const sizes = [SIZES.landscape, SIZES.portrait];
+    const out = [];
+    for (const [w, h] of sizes) {
+      const url = staticPngUrl(kind || "price", w, h);
+      try {
+        const r = await fetch(url + "?t=" + Date.now(), { method: "HEAD", cache: "no-store" });
+        if (!r || !r.ok) continue;
+        const lm = Date.parse(r.headers.get("Last-Modified") || "") || 0;
+        if (!lm || (Date.now() - lm) > 10 * 60 * 1000) continue;
+        out.push({
+          size: (h > w ? "portrait" : "landscape"),
+          w, h,
+          url: cacheBust(url),
+          name: "puregold-" + (kind || "price") + "-" + w + "x" + h + ".png",
+          asOfLabel: fmtBkk(new Date(lm), lang, true),
+          stale: true
+        });
+      } catch (_) {}
+    }
+    return out.length ? out : null;
+  }
+
+  async function renderSheetFromLive(kind, payload, lang) {
+    const gen = ++sheetGen;
+    const live = await refreshLivePayload(kind, payload);
+    if (gen !== sheetGen) return null;
+    sheetKind = kind;
+    sheetPayload = live;
+    sheetLang = lang || live.lang || "th";
+    const files = await blobsFor(kind, live);
+    if (!files || !files.length) throw new Error("empty");
+    if (gen !== sheetGen) return null;
+    await fillSheet(files, sheetLang, kind, { gen, live: true });
+    return { live, files };
+  }
+
+  async function filesReadyForShare() {
+    const kind = sheetKind || "price";
+    const base = sheetPayload || {};
+    try {
+      const tick = await fetchLiveSpot();
+      const prev = Number(base.price);
+      if (tick && tick.price > 0 && (!Number.isFinite(prev) || Math.abs(tick.price - prev) > 0.005)) {
+        const again = await renderSheetFromLive(kind, Object.assign({}, base, { price: tick.price }), sheetLang);
+        return (again && again.files) || sheetFiles;
+      }
+    } catch (_) {}
+    return sheetFiles;
+  }
+
   async function openSaveFlow(kind, payload) {
     const lang = (payload && payload.lang) || (enLang() ? "en" : "th");
+    stopSheetTimer();
     openSheetLoading(lang);
     try {
       await waitAssets();
-      const files = await blobsFor(kind, payload);
-      if (!files || !files.length) throw new Error("empty");
-      await fillSheet(files, lang, kind);
-      return files;
+      await renderSheetFromLive(kind, payload, lang);
+      stopSheetTimer();
+      sheetTimer = setInterval(() => {
+        const sheet = document.getElementById("shareSave");
+        if (!sheet || sheet.hidden || !sheet.classList.contains("on")) { stopSheetTimer(); return; }
+        renderSheetFromLive(kind, payload, lang).catch(() => {});
+      }, 15000);
+      return sheetFiles;
     } catch (e) {
       console.warn("sharecard save failed", e);
+      try {
+        const fallback = await tryStaticFallback(kind, lang);
+        if (fallback) {
+          sheetPayload = { time: fallback[0].asOfLabel };
+          await fillSheet(fallback, lang, kind, { stale: true, gen: sheetGen });
+          return fallback;
+        }
+      } catch (_) {}
       const msg = lang === "en"
         ? "Could not create the image. Please try again, or long-press a picture to save."
         : "บันทึกรูปไม่สำเร็จ กรุณาลองอีกครั้ง หรือกดค้างที่รูปเพื่อบันทึก";
@@ -1747,7 +1972,7 @@
 .share-save .share-shot{display:grid;gap:8px}
 .share-save .share-dl-row{display:flex;flex-wrap:wrap;gap:8px}
 .share-save .share-dl-row .btn{flex:1 1 140px;min-height:44px;display:inline-flex;align-items:center;justify-content:center;text-decoration:none}
-.share-save p{margin:0 0 10px;font-size:13px;color:#d7cdb8;line-height:1.55}
+.share-save p{margin:0 0 10px;font-size:13px;color:#d7cdb8;line-height:1.55}.share-save .share-asof{margin:0;font-size:12px;color:#f5c542;font-weight:600}
 .share-save .row{display:flex;gap:8px;margin-top:12px;flex-wrap:wrap}
 .share-save .share-nav{position:sticky;bottom:0;z-index:2;padding-top:10px;pointer-events:none;background:linear-gradient(180deg,rgba(20,16,10,.0),rgba(20,16,10,.88) 30%,rgba(20,16,10,.96))}
 .share-save .share-nav .btn,.share-save .share-nav a.btn,.share-save a.btn{pointer-events:auto;display:inline-flex;align-items:center;justify-content:center;margin-top:0;text-decoration:none;flex:1 1 120px;min-height:44px;border-radius:12px}
@@ -1781,7 +2006,7 @@
   global.ShareCard = {
     SIZES, SITE, SITE_URL, VERSION, render, blobsFor, download, share, mount, buttonsHtml, toast,
     forecastTarget, fmtBkk, fmt, chg, closeSheet, loadMarket, attachMarket, enrich,
-    loadThaiGold, loadPivots, loadDollar, staticPngUrl,
+    loadThaiGold, loadPivots, loadDollar, staticPngUrl, fetchLiveSpot, refreshLivePayload, fmtBkk,
     async ready() {
       ensureFonts();
       try { await preloadBrand(); } catch (_) {}
