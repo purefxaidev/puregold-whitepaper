@@ -1,7 +1,7 @@
 /* PUREGOLD share posters: purpose-built 1200x675 + 1080x1350 social graphics. */
 (function (global) {
   const SITE = "gold.purefxai.store";
-  const VERSION = "20261110share1";
+  const VERSION = "20261111plan1";
   const SITE_URL = "https://gold.purefxai.store/";
   const SIZES = { landscape: [1200, 675], portrait: [1080, 1350] };
   const TH_M = "ม.ค. ก.พ. มี.ค. เม.ย. พ.ค. มิ.ย. ก.ค. ส.ค. ก.ย. ต.ค. พ.ย. ธ.ค.".split(" ");
@@ -457,6 +457,7 @@
       out.support = [{ price: pv.s1, label: "S1" }, { price: pv.s2, label: "S2" }, { price: pv.s3, label: "S3" }].filter(x => Number.isFinite(x.price));
     }
     if (!out.dollar) out.dollar = m2.dollar || global.__DOLLAR || null;
+    if (!out.plan) out.plan = p && p.plan || global.__TRADE_PLAN || null;
     if (!out.mtf || !out.mtf.length) {
       const D = global.D;
       if (D && D.mtf) out.mtf = (out.lang === "en" ? (D.mtf_en || D.mtf) : D.mtf);
@@ -640,63 +641,66 @@
 
   function drawDollarStrip(ctx, x, y, w, h, dollar, lang) {
     if (!dollar || !dollar.dxy) return 0;
-    glassPanel(ctx, x, y, w, h, 12);
+    glassPanel(ctx, x, y, w, h, 10);
     const dxy = dollar.dxy;
     const fed = dollar.fed || {};
     const an = dollar.analysis || {};
     const ch = dxy.change;
     const chs = ch == null ? "" : ("  " + chg(ch, 2));
-    ctx.textAlign = "left";
-    ctx.textBaseline = "alphabetic";
-    ctx.fillStyle = GOLD;
-    ctx.font = `700 13px ${FONT}`;
-    ctx.fillText("DXY  " + fmt(dxy.price, 2) + chs, x + 12, y + 18);
     const probs = fed.probs || [];
     const top = probs.reduce((a, b) => (!a || (b.p || 0) > (a.p || 0)) ? b : a, null);
-    ctx.fillStyle = MUTED;
-    ctx.font = `600 12px ${FONT}`;
     let fedL = "";
     if (top && fed.next_fomc) {
       fedL = lang === "en"
         ? ("Next FOMC " + (fed.next_fomc_en || fed.next_fomc) + " · " + Math.round(top.p * 100) + "% " + (top.label_en || ""))
         : ("เฟดครั้งถัดไป " + (fed.next_fomc_th || fed.next_fomc) + " · " + Math.round(top.p * 100) + "% " + (top.label_th || ""));
     }
-    ctx.fillText(fedL, x + Math.min(w * 0.42, 280), y + 18);
-    ctx.fillStyle = TX;
-    ctx.font = `500 12px ${FONT}`;
-    const line = (lang === "en" ? (an.en || "") : (an.th || "")).replace(/\s*·\s*(For education only|ข้อมูลเพื่อการศึกษา)[^.。]*$/, "");
-    const clipped = line.length > 110 ? line.slice(0, 108) + "…" : line;
-    ctx.fillText(clipped, x + 12, y + h - 10);
+    const analysis = (lang === "en" ? (an.en || "") : (an.th || "")).replace(/\s*·\s*(For education only|ข้อมูลเพื่อการศึกษา)[^.。]*$/, "");
+    const parts = ["DXY  " + fmt(dxy.price, 2) + chs];
+    if (fedL) parts.push(fedL);
+    if (analysis) parts.push(analysis);
+    ctx.textAlign = "left";
+    ctx.textBaseline = "middle";
+    ctx.fillStyle = GOLD2;
+    ctx.font = `600 12px ${FONT}`;
+    fillFit(ctx, parts.join("  ·  "), x + 12, y + h / 2, w - 24);
+    ctx.textBaseline = "alphabetic";
+    ctx.textAlign = "left";
     return h;
   }
+
   function drawFooter(ctx, W, H, lang, when) {
     const dollar = ((global.__SHARE_MARKET || {}).dollar) || global.__DOLLAR;
     let reserve = 0;
     if (dollar && dollar.dxy) {
-      reserve = H > 1000 ? 58 : 46;
-      drawDollarStrip(ctx, 44, H - 54 - reserve, W - 88, reserve - 8, dollar, lang);
+      reserve = 36;
+      drawDollarStrip(ctx, 44, H - 54 - reserve, W - 88, 28, dollar, lang);
     }
     const y = H - 32;
     const rule = H - 54 - reserve;
     ctx.strokeStyle = "rgba(245,197,66,0.20)";
     ctx.lineWidth = 1;
     ctx.beginPath(); ctx.moveTo(44, rule); ctx.lineTo(W - 44, rule); ctx.stroke();
-    const size = H > 1000 ? 16 : 14;
-    ctx.font = `500 ${size}px ${FONT}`;
+    const size = H > 1000 ? 15 : 13;
     ctx.textBaseline = "middle";
+    const stamp = when ? fmtBkk(when, lang, true) : fmtBkk(new Date(), lang, true);
+    const disc = lang === "en" ? "Education only — not investment advice" : "เพื่อการศึกษา ไม่ใช่คำแนะนำการลงทุน";
+    const leftMax = W * 0.34, rightMax = W * 0.34;
     ctx.fillStyle = MUTED;
     ctx.textAlign = "left";
-    const stamp = when ? fmtBkk(when, lang, true) : fmtBkk(new Date(), lang, true);
-    ctx.fillText(stamp, 48, y);
+    fitFont(ctx, stamp, leftMax, "500", size, FONT, 10);
+    fillFit(ctx, stamp, 48, y, leftMax);
     ctx.textAlign = "center";
     ctx.fillStyle = GOLD;
-    ctx.fillText(SITE, W / 2, y);
+    ctx.font = `500 ${size}px ${FONT}`;
+    fillFit(ctx, SITE, W / 2, y, W * 0.26);
     ctx.textAlign = "right";
     ctx.fillStyle = MUTED;
-    ctx.fillText(lang === "en" ? "Education only — not investment advice" : "เพื่อการศึกษา ไม่ใช่คำแนะนำการลงทุน", W - 48, y);
+    fitFont(ctx, disc, rightMax, "500", size, FONT, 10);
+    fillFit(ctx, disc, W - 48, y, rightMax);
     ctx.textAlign = "left";
     ctx.textBaseline = "alphabetic";
-    return rule - 18;
+    return rule - 16;
   }
 
   function headerBox(ctx, W, H, lang, bars, scale, p) {
@@ -724,6 +728,42 @@
     if (lines.length > use.length) use[use.length - 1] = use[use.length - 1].replace(/[.…]*$/, "…");
     use.forEach((ln, i) => ctx.fillText(ln, x, y + i * lh));
     return y + use.length * lh;
+  }
+
+  function fontSizeOf(ctx) {
+    const m = String(ctx.font || "").match(/([\d.]+)px/);
+    return m ? parseFloat(m[1]) : 14;
+  }
+  function ellipsize(ctx, text, maxW) {
+    const s = String(text == null ? "" : text);
+    if (!(maxW > 0)) return "";
+    if (ctx.measureText(s).width <= maxW) return s;
+    const ell = "…";
+    if (ctx.measureText(ell).width > maxW) return "";
+    let lo = 0, hi = s.length;
+    while (lo < hi) {
+      const mid = Math.ceil((lo + hi) / 2);
+      if (ctx.measureText(s.slice(0, mid) + ell).width <= maxW) lo = mid;
+      else hi = mid - 1;
+    }
+    return s.slice(0, lo) + ell;
+  }
+  function fitFont(ctx, text, maxW, weight, size, family, minSize) {
+    let s = size;
+    const fam = family || FONT;
+    const min = minSize || 10;
+    while (s > min) {
+      ctx.font = `${weight} ${s}px ${fam}`;
+      if (ctx.measureText(String(text || "")).width <= maxW) return s;
+      s -= 1;
+    }
+    ctx.font = `${weight} ${min}px ${fam}`;
+    return min;
+  }
+  function fillFit(ctx, text, x, y, maxW) {
+    const t = ellipsize(ctx, text, maxW);
+    ctx.fillText(t, x, y);
+    return t;
   }
 
   function glassPanel(ctx, x, y, w, h, r) {
@@ -769,7 +809,7 @@
     const rows = packBars(bars);
     if (rows.length < 2) return;
     pane(ctx, x, y, w, h);
-    const padL = 12, padR = o.labels === false ? 12 : 78, padT = 14, padB = 22;
+    const padL = 12, padR = o.labels === false ? 12 : 86, padT = 14, padB = 22;
     const cx = x + padL, cy = y + padT, cw = w - padL - padR, ch = h - padT - padB;
     const extras = [];
     (o.support || []).forEach(s => extras.push(s.price));
@@ -829,32 +869,65 @@
     }
     ctx.restore();
 
-    ctx.font = `600 12px ${FONT}`;
-    ctx.textBaseline = "middle";
-    const tag = (lv, color) => {
-      if (!lv || !Number.isFinite(lv.price)) return;
-      const yy = Math.min(cy + ch - 6, Math.max(cy + 6, sc.y(lv.price, cy, ch)));
-      ctx.fillStyle = color;
+    if (o.last != null && rows.length) {
+      const yy = Math.min(cy + ch - 8, Math.max(cy + 8, sc.y(o.last, cy, ch)));
+      const lab = fmt(o.last, 2);
+      ctx.font = `700 11px ${MONO}`;
+      const tw = ctx.measureText(lab).width + 10;
+      const lastX = cx + (rows.length - 0.5) * step;
+      const tagX = Math.max(cx + 4, Math.min(lastX - tw - 8, cx + cw - tw - 4));
+      ctx.fillStyle = "rgba(7,8,13,0.78)";
+      rr(ctx, tagX, yy - 8, tw, 16, 4); ctx.fill();
+      ctx.strokeStyle = GOLD;
+      ctx.lineWidth = 1;
+      rr(ctx, tagX, yy - 8, tw, 16, 4); ctx.stroke();
+      ctx.fillStyle = GOLD;
       ctx.textAlign = "left";
-      const lab = (lv.label ? lv.label + " " : "") + fmt(lv.price, 1);
-      ctx.fillText(lab, cx + cw + 6, yy);
-    };
+      ctx.textBaseline = "middle";
+      ctx.fillText(lab, tagX + 5, yy);
+    }
+
     if (o.labels !== false) {
-      (o.resistance || []).slice(0, 3).forEach(lv => tag(lv, DN));
-      (o.support || []).slice(0, 3).forEach(lv => tag(lv, UP));
-      if (o.last != null) {
-        const yy = Math.min(cy + ch - 6, Math.max(cy + 6, sc.y(o.last, cy, ch)));
-        ctx.fillStyle = GOLD;
-        ctx.textAlign = "left";
-        ctx.fillText(fmt(o.last, 2), cx + cw + 6, yy);
+      const tags = [];
+      (o.resistance || []).slice(0, 3).forEach(lv => { if (lv && Number.isFinite(lv.price)) tags.push({ lv, color: DN }); });
+      (o.support || []).slice(0, 3).forEach(lv => { if (lv && Number.isFinite(lv.price)) tags.push({ lv, color: UP }); });
+      tags.forEach(tg => {
+        tg.y = Math.min(cy + ch - 7, Math.max(cy + 7, sc.y(tg.lv.price, cy, ch)));
+        tg.lab = (tg.lv.label ? tg.lv.label + " " : "") + fmt(tg.lv.price, 1);
+      });
+      tags.sort((a, b) => a.y - b.y);
+      const minGap = 15;
+      for (let i = 1; i < tags.length; i++) {
+        if (tags[i].y - tags[i - 1].y < minGap) tags[i].y = tags[i - 1].y + minGap;
       }
+      if (tags.length && tags[tags.length - 1].y > cy + ch - 7) {
+        tags[tags.length - 1].y = cy + ch - 7;
+        for (let i = tags.length - 2; i >= 0; i--) {
+          if (tags[i + 1].y - tags[i].y < minGap) tags[i].y = tags[i + 1].y - minGap;
+        }
+      }
+      if (tags.length && tags[0].y < cy + 7) {
+        tags[0].y = cy + 7;
+        for (let i = 1; i < tags.length; i++) {
+          if (tags[i].y - tags[i - 1].y < minGap) tags[i].y = tags[i - 1].y + minGap;
+        }
+      }
+      ctx.font = `600 11px ${FONT}`;
+      ctx.textAlign = "left";
+      ctx.textBaseline = "middle";
+      const labMax = padR - 10;
+      tags.forEach(tg => {
+        if (tg.y < cy - 2 || tg.y > cy + ch + 2) return;
+        ctx.fillStyle = tg.color;
+        fillFit(ctx, tg.lab, cx + cw + 6, tg.y, labMax);
+      });
     }
     ctx.textAlign = "left";
     ctx.textBaseline = "alphabetic";
     if (o.caption) {
       ctx.fillStyle = MUTED;
-      ctx.font = `500 12px ${FONT}`;
-      ctx.fillText(o.caption, x + 14, y + h - 8);
+      ctx.font = `500 11px ${FONT}`;
+      fillFit(ctx, o.caption, x + 14, y + h - 8, Math.max(40, w - padR - 20));
     }
   }
 
@@ -1104,113 +1177,105 @@
   }
 
   function drawSRTable(ctx, x, y, w, h, pivots, lang) {
-    if (!pivots) return;
-    glassPanel(ctx, x, y, w, h, 18);
+    if (!pivots) return 0;
+    if (h < 110 || w < 200) return 0;
+    glassPanel(ctx, x, y, w, h, 14);
     const th = lang !== "en";
-    ctx.textBaseline = "alphabetic";
+    const pad = 12;
+    const headerH = 22;
+    const footH = pivots.pp != null ? 20 : 0;
+    const bodyH = Math.max(64, h - pad - headerH - footH - 6);
+    const rowH = bodyH / 2;
+    ctx.textBaseline = "middle";
     ctx.fillStyle = MUTED;
-    ctx.font = `700 13px ${FONT}`;
-    ctx.fillText(th ? "แนวต้าน / แนวรับ  (S1–S3, R1–R3)" : "Resistance / Support  (S1–S3, R1–R3)", x + 16, y + 24);
+    ctx.font = `700 12px ${FONT}`;
+    fillFit(ctx, th ? "แนวต้าน / แนวรับ  (S1–S3, R1–R3)" : "Resistance / Support  (S1–S3, R1–R3)", x + pad, y + pad + 8, w - pad * 2);
+    const labelW = Math.min(90, Math.max(62, w * 0.16));
     const rows = [
       [th ? "แนวต้าน" : "Resist", DN, [["R1", pivots.r1], ["R2", pivots.r2], ["R3", pivots.r3]]],
       [th ? "แนวรับ" : "Support", UP, [["S1", pivots.s1], ["S2", pivots.s2], ["S3", pivots.s3]]]
     ];
-    const colW = (w - 120) / 3;
+    const colW = (w - pad * 2 - labelW) / 3;
     rows.forEach((row, ri) => {
-      const yy = y + 48 + ri * ((h - 60) / 2);
+      const ry = y + pad + headerH + ri * rowH;
+      const mid = ry + rowH / 2;
       ctx.fillStyle = row[1];
-      ctx.font = `800 16px ${FONT}`;
-      ctx.fillText(row[0], x + 16, yy + 8);
+      ctx.font = `800 13px ${FONT}`;
+      fillFit(ctx, row[0], x + pad, mid, labelW - 6);
       row[2].forEach((cell, ci) => {
-        const xx = x + 110 + ci * colW;
+        const cx0 = x + pad + labelW + ci * colW;
+        const labY = ry + Math.min(14, rowH * 0.30);
+        const valY = ry + rowH * 0.68;
         ctx.fillStyle = MUTED;
-        ctx.font = `700 12px ${FONT}`;
-        ctx.fillText(cell[0], xx, yy - 10);
+        ctx.font = `700 11px ${FONT}`;
+        ctx.fillText(cell[0], cx0, labY);
+        const val = cell[1] != null ? fmt(cell[1], 1) : "—";
         ctx.fillStyle = row[1];
-        ctx.font = `800 22px ${MONO}`;
-        ctx.fillText(cell[1] != null ? fmt(cell[1], 1) : "—", xx, yy + 16);
+        fitFont(ctx, val, colW - 8, "800", Math.min(18, Math.max(12, rowH * 0.38)), MONO, 11);
+        fillFit(ctx, val, cx0, valY, colW - 8);
       });
     });
     if (pivots.pp != null) {
       ctx.fillStyle = GOLD2;
-      ctx.font = `600 13px ${FONT}`;
-      ctx.fillText((th ? "พิวอต " : "Pivot ") + fmt(pivots.pp, 1), x + 16, y + h - 12);
+      ctx.font = `600 12px ${FONT}`;
+      fillFit(ctx, (th ? "พิวอต " : "Pivot ") + fmt(pivots.pp, 1), x + pad, y + h - 12, w - pad * 2);
     }
+    ctx.textBaseline = "alphabetic";
+    return h;
   }
 
   function drawThaiPanel(ctx, x, y, w, h, thai, lang) {
-    if (!thai || (thai.buy == null && thai.sell == null)) return false;
-    glassPanel(ctx, x, y, w, h, 18);
+    if (!thai || (thai.buy == null && thai.sell == null)) return 0;
+    if (h < 72 || w < 160) return 0;
+    glassPanel(ctx, x, y, w, h, 14);
     const th = lang !== "en";
-    const src = thai.isAssoc
-      ? (th ? "แท่งอ้างอิงสมาคมค้าทองคำ" : "Gold Traders Association bar (ref.)")
-      : (th ? "ทองคำแท่ง ฮั่วเซ่งเฮง" : "Hua Seng Heng bar");
-    const sourceRight = th ? "ที่มา: " + (thai.source || "ฮั่วเซ่งเฮง") : "Source: " + (thai.source || "Hua Seng Heng");
+    const pad = 12;
+    const title = th ? "ทองไทย 96.5%  ·  บาทละ" : "Thai gold 96.5%  ·  per baht-weight";
+    const src = th ? ("ที่มา: " + (thai.source || "ฮั่วเซ่งเฮง")) : ("Source: " + (thai.source || "Hua Seng Heng"));
     const chgT = (thai.change != null && Number.isFinite(thai.change))
       ? ((thai.change > 0 ? "▲ +" : thai.change < 0 ? "▼ " : "• ") + fmt(Math.abs(thai.change), 0) + (th ? " บาท" : " THB"))
       : "";
     const chgCol = (thai.change > 0) ? UP : (thai.change < 0) ? DN : GOLD;
-    const compact = h < 150;
-    if (compact) {
-      ctx.fillStyle = GOLD;
-      ctx.font = `800 14px ${FONT}`;
-      ctx.fillText(th ? "ทองไทย 96.5%  บาทละ" : "Thai gold 96.5%  per baht-weight", x + 16, y + 20);
+    ctx.textBaseline = "middle";
+    ctx.fillStyle = GOLD;
+    ctx.font = `800 13px ${FONT}`;
+    const titleY = y + 16;
+    ctx.font = `800 13px ${FONT}`;
+    const titleW = ctx.measureText(title).width;
+    ctx.font = `500 11px ${FONT}`;
+    const srcW = ctx.measureText(src).width;
+    ctx.font = `800 13px ${FONT}`;
+    if (titleW + srcW + 28 < w - pad * 2) {
+      fillFit(ctx, title, x + pad, titleY, w - pad * 2 - srcW - 16);
       ctx.fillStyle = MUTED;
       ctx.font = `500 11px ${FONT}`;
       ctx.textAlign = "right";
-      ctx.fillText(th ? "ที่มา: สมาคมค้าทองคำ" : "Source: Gold Traders Assoc.", x + w - 16, y + 20);
+      fillFit(ctx, src, x + w - pad, titleY, srcW + 4);
       ctx.textAlign = "left";
-      const left = x + 16, col = 200;
-      const numY = y + h - 18;
+    } else {
+      fillFit(ctx, title, x + pad, titleY, w - pad * 2);
+    }
+    const items = [
+      [th ? "รับซื้อ" : "Bid", thai.buy != null ? fmt(thai.buy, 0) : "—", TX],
+      [th ? "ขายออก" : "Ask", thai.sell != null ? fmt(thai.sell, 0) : "—", TX]
+    ];
+    if (chgT) items.push([th ? "เปลี่ยน" : "Change", chgT, chgCol]);
+    const colW = (w - pad * 2) / items.length;
+    const bodyY = y + 30;
+    const bodyH = h - 38;
+    items.forEach((it, i) => {
+      const cx0 = x + pad + i * colW;
       ctx.fillStyle = MUTED;
       ctx.font = `600 11px ${FONT}`;
-      ctx.fillText(th ? "รับซื้อ" : "Bid", left, numY - 28);
-      ctx.fillText(th ? "ขายออก" : "Ask", left + col, numY - 28);
-      ctx.fillStyle = TX;
-      ctx.font = `800 28px ${MONO}`;
-      ctx.fillText(thai.buy != null ? fmt(thai.buy, 0) : "—", left, numY);
-      ctx.fillText(thai.sell != null ? fmt(thai.sell, 0) : "—", left + col, numY);
-      if (chgT) {
-        ctx.fillStyle = chgCol;
-        ctx.font = `800 15px ${FONT}`;
-        ctx.textAlign = "right";
-        ctx.fillText(chgT, x + w - 16, numY);
-        ctx.textAlign = "left";
-      }
-      return true;
-    }
-    ctx.fillStyle = GOLD;
-    ctx.font = `800 16px ${FONT}`;
-    ctx.fillText(th ? "ทองไทย 96.5%  บาทละ" : "Thai gold 96.5%  per baht-weight", x + 16, y + 26);
-    ctx.fillStyle = MUTED;
-    ctx.font = `500 12px ${FONT}`;
-    ctx.fillText(src, x + 16, y + 46);
-    const mid = y + (h > 160 ? 100 : 92);
-    const left = x + 16, col = (w - 40) / 2;
-    ctx.fillStyle = MUTED;
-    ctx.font = `600 13px ${FONT}`;
-    ctx.fillText(th ? "รับซื้อ" : "Bid", left, mid - 36);
-    ctx.fillText(th ? "ขายออก" : "Ask", left + col, mid - 36);
-    ctx.fillStyle = TX;
-    ctx.font = `800 34px ${MONO}`;
-    ctx.fillText(thai.buy != null ? fmt(thai.buy, 0) : "—", left, mid);
-    ctx.fillText(thai.sell != null ? fmt(thai.sell, 0) : "—", left + col, mid);
-    ctx.fillStyle = GOLD2;
-    ctx.font = `600 14px ${FONT}`;
-    ctx.fillText(th ? "บาท" : "THB", left, mid + 22);
-    if (chgT) {
-      ctx.fillStyle = chgCol;
-      ctx.font = `800 18px ${FONT}`;
-      ctx.fillText(chgT, left, y + h - 16);
-    }
-    ctx.fillStyle = MUTED;
-    ctx.font = `500 11px ${FONT}`;
-    ctx.textAlign = "right";
-    ctx.fillText(sourceRight, x + w - 16, y + h - 16);
+      fillFit(ctx, it[0], cx0, bodyY + 8, colW - 8);
+      ctx.fillStyle = it[2];
+      fitFont(ctx, it[1], colW - 8, "800", Math.min(26, Math.max(14, bodyH * 0.48)), MONO, 13);
+      fillFit(ctx, it[1], cx0, bodyY + bodyH * 0.62, colW - 8);
+    });
+    ctx.textBaseline = "alphabetic";
     ctx.textAlign = "left";
-    return true;
+    return h;
   }
-
 
   function drawPerfRow(ctx, x, y, w, perf, lang) {
     const periods = (perf && perf.periods) || (Array.isArray(perf) ? perf : []);
@@ -1241,61 +1306,216 @@
     return rowH + 8;
   }
 
+  function planStatus(plan, px) {
+    const live = Number(px);
+    if (!plan) return { id: "wait", th: "รอเข้า", en: "Waiting" };
+    const side = plan.side || "wait";
+    const lo = Number(plan.entry_low != null ? plan.entry_low : plan.entry);
+    const hi = Number(plan.entry_high != null ? plan.entry_high : plan.entry);
+    const sl = Number(plan.sl);
+    const tp1 = plan.tps && plan.tps[0] ? Number(plan.tps[0].price) : NaN;
+    const inv = plan.invalidation != null ? Number(plan.invalidation) : sl;
+    if (!Number.isFinite(live)) return { id: "wait", th: "รอเข้า", en: "Waiting" };
+    if (side === "wait") {
+      if (Number.isFinite(inv) && ((plan.bias === "down" && live >= inv) || (plan.bias === "up" && live <= inv))) {
+        return { id: "cancelled", th: "ยกเลิก", en: "Invalidated" };
+      }
+      return { id: "wait", th: "รอเข้า", en: "Waiting" };
+    }
+    const approach = plan.approach || (side === "sell" ? "from_above" : "from_below");
+    const inZone = Number.isFinite(lo) && Number.isFinite(hi) && live >= Math.min(lo, hi) && live <= Math.max(lo, hi);
+    if (side === "sell") {
+      if (Number.isFinite(inv) && live >= inv) return { id: "cancelled", th: "ยกเลิก", en: "Invalidated" };
+      if (approach === "from_below" && !inZone && live < lo) return { id: "wait", th: "รอเข้า", en: "Waiting" };
+      if (approach === "from_above" && !inZone && live > hi) return { id: "wait", th: "รอเข้า", en: "Waiting" };
+      if (Number.isFinite(sl) && live >= sl) return { id: "sl", th: "โดน SL", en: "Stop hit" };
+      if (Number.isFinite(tp1) && live <= tp1) return { id: "tp1", th: "ชน TP1", en: "TP1 hit" };
+      return { id: "in", th: "เข้าแล้ว", en: "In trade" };
+    }
+    if (side === "buy") {
+      if (Number.isFinite(inv) && live <= inv) return { id: "cancelled", th: "ยกเลิก", en: "Invalidated" };
+      if (approach === "from_above" && !inZone && live > hi) return { id: "wait", th: "รอเข้า", en: "Waiting" };
+      if (approach === "from_below" && !inZone && live < lo) return { id: "wait", th: "รอเข้า", en: "Waiting" };
+      if (Number.isFinite(sl) && live <= sl) return { id: "sl", th: "โดน SL", en: "Stop hit" };
+      if (Number.isFinite(tp1) && live >= tp1) return { id: "tp1", th: "ชน TP1", en: "TP1 hit" };
+      return { id: "in", th: "เข้าแล้ว", en: "In trade" };
+    }
+    return { id: "wait", th: "รอเข้า", en: "Waiting" };
+  }
+
+  function drawPlanStrip(ctx, x, y, w, h, plan, lang, livePx) {
+    if (!plan || h < 32 || w < 200) return 0;
+    glassPanel(ctx, x, y, w, h, 12);
+    const st = planStatus(plan, livePx != null ? livePx : plan.spot);
+    const side = plan.side || "wait";
+    const col = side === "buy" ? UP : side === "sell" ? DN : GOLD;
+    const stCol = st.id === "sl" || st.id === "cancelled" ? DN : st.id === "tp1" || st.id === "in" ? UP : GOLD;
+    const pad = 10;
+    const mid = y + h / 2;
+    ctx.textBaseline = "middle";
+    const badge = lang === "en" ? (plan.side_en || "WAIT") : (plan.side_th || "รอ");
+    ctx.font = `800 12px ${FONT}`;
+    const bw = Math.min(90, ctx.measureText(badge).width + 16);
+    ctx.fillStyle = col + "24";
+    ctx.strokeStyle = col;
+    ctx.lineWidth = 1.2;
+    rr(ctx, x + pad, y + 8, bw, h - 16, 8); ctx.fill(); ctx.stroke();
+    ctx.fillStyle = col;
+    fillFit(ctx, badge, x + pad + 8, mid, bw - 14);
+    const bits = [];
+    bits.push(lang === "en" ? "Trade plan" : "แผนเทรด");
+    if (plan.entry_low != null && plan.entry_high != null) bits.push((lang === "en" ? "In " : "เข้า ") + fmt(plan.entry_low, 1) + "–" + fmt(plan.entry_high, 1));
+    else if (plan.entry != null) bits.push((lang === "en" ? "In " : "เข้า ") + fmt(plan.entry, 1));
+    if (plan.sl != null) bits.push("SL " + fmt(plan.sl, 1));
+    (plan.tps || []).forEach(tp => bits.push("TP" + tp.n + " " + fmt(tp.price, 1) + (tp.rr != null ? (" " + tp.rr + "R") : "")));
+    bits.push(lang === "en" ? st.en : st.th);
+    ctx.fillStyle = TX;
+    ctx.font = `600 12px ${FONT}`;
+    fillFit(ctx, bits.join("   ·   "), x + pad + bw + 10, mid, w - pad * 2 - bw - 10);
+    ctx.textBaseline = "alphabetic";
+    return h;
+  }
+
+  function drawPlanPanel(ctx, x, y, w, h, plan, lang, livePx) {
+    if (!plan || h < 120 || w < 240) return 0;
+    glassPanel(ctx, x, y, w, h, 16);
+    const st = planStatus(plan, livePx != null ? livePx : plan.spot);
+    const side = plan.side || "wait";
+    const col = side === "buy" ? UP : side === "sell" ? DN : GOLD;
+    const pad = 16;
+    ctx.textBaseline = "middle";
+    ctx.fillStyle = GOLD;
+    ctx.font = `700 12px ${FONT}`;
+    fillFit(ctx, lang === "en" ? "Trade plan" : "แผนเทรด", x + pad, y + 18, w * 0.45);
+    const badge = lang === "en" ? (plan.side_en || "WAIT") : (plan.side_th || "รอ");
+    const stLab = lang === "en" ? st.en : st.th;
+    ctx.font = `800 13px ${FONT}`;
+    const bw = ctx.measureText(badge).width + 16;
+    const sw = ctx.measureText(stLab).width + 16;
+    ctx.fillStyle = col + "24"; ctx.strokeStyle = col; ctx.lineWidth = 1.2;
+    rr(ctx, x + w - pad - bw - sw - 8, y + 8, bw, 22, 8); ctx.fill(); ctx.stroke();
+    ctx.fillStyle = col;
+    fillFit(ctx, badge, x + w - pad - bw - sw, y + 19, bw - 12);
+    const stCol = st.id === "sl" || st.id === "cancelled" ? DN : st.id === "tp1" ? UP : GOLD;
+    ctx.fillStyle = stCol + "24"; ctx.strokeStyle = stCol;
+    rr(ctx, x + w - pad - sw, y + 8, sw, 22, 8); ctx.fill(); ctx.stroke();
+    ctx.fillStyle = stCol;
+    fillFit(ctx, stLab, x + w - pad - sw + 8, y + 19, sw - 12);
+
+    ctx.fillStyle = TX;
+    ctx.font = `600 13px ${FONT}`;
+    fillFit(ctx, (lang === "en" ? (plan.thesis_en || plan.title_en) : (plan.thesis_th || plan.title_th)) || "", x + pad, y + 44, w - pad * 2);
+
+    const rows = [];
+    if (plan.entry_low != null) rows.push([lang === "en" ? "Entry" : "จุดเข้า", fmt(plan.entry_low, 1) + " – " + fmt(plan.entry_high, 1)]);
+    else if (plan.entry != null) rows.push([lang === "en" ? "Entry" : "จุดเข้า", fmt(plan.entry, 1)]);
+    if (plan.sl != null) rows.push(["SL", fmt(plan.sl, 1)]);
+    (plan.tps || []).forEach(tp => rows.push(["TP" + tp.n + (tp.label ? " " + (lang === "en" ? (tp.label_en || tp.label) : tp.label) : ""), fmt(tp.price, 1) + (tp.rr != null ? "  ·  " + tp.rr + "R" : "")]));
+    const inv = lang === "en" ? plan.invalidation_en : plan.invalidation_th;
+    const gridTop = y + 58;
+    const gridH = h - 88;
+    const cols = 2;
+    const cw = (w - pad * 2 - 10) / cols;
+    const rh = Math.max(28, Math.min(40, gridH / Math.ceil((rows.length + 1) / cols)));
+    rows.forEach((r, i) => {
+      const c = i % cols, row = Math.floor(i / cols);
+      const rx = x + pad + c * (cw + 10), ry = gridTop + row * rh;
+      ctx.fillStyle = MUTED;
+      ctx.font = `600 11px ${FONT}`;
+      fillFit(ctx, r[0], rx, ry + 8, cw);
+      ctx.fillStyle = TX;
+      ctx.font = `800 16px ${MONO}`;
+      fillFit(ctx, r[1], rx, ry + 24, cw);
+    });
+    ctx.fillStyle = MUTED;
+    ctx.font = `500 11px ${FONT}`;
+    const foot = [inv, lang === "en" ? (plan.timeframe_en || plan.timeframe) : (plan.timeframe_th || plan.timeframe), lang === "en" ? plan.disclaimer_en : plan.disclaimer_th].filter(Boolean).join("  ·  ");
+    fillFit(ctx, foot, x + pad, y + h - 14, w - pad * 2);
+    ctx.textBaseline = "alphabetic";
+    return h;
+  }
+
   function drawPrice(ctx, W, H, p, lang) {
     const portrait = H > 900;
     const box = headerBox(ctx, W, H, lang, p.bars || p.barsH1, portrait ? 1.2 : 1.05, p);
     const info = trendInfo(p, lang);
     const headline = lang === "en" ? "XAUUSD spot — latest" : "ทองคำ XAUUSD ล่าสุด";
-    ctx.fillStyle = TX;
-    ctx.font = `800 ${portrait ? 44 : 34}px ${FONT}`;
-    ctx.fillText(headline, box.left, box.top + (portrait ? 40 : 30));
-    const badge = drawTrendBadge(ctx, box.left, box.top + (portrait ? 56 : 44), info, lang, portrait ? 1.05 : 0.92);
-    ctx.fillStyle = MUTED;
-    ctx.font = `600 13px ${FONT}`;
-    ctx.fillText(info.strength, box.left + badge.w + 14, box.top + (portrait ? 56 : 44) + badge.h * 0.68);
-
+    const caption = lang === "en" ? "XAUUSD intraday" : "XAUUSD ระหว่างวัน";
+    const gutter = 14;
     const px = fmt(p.price, 2);
     const chgInfo = resolveChange(p);
-    const numY = box.top + (portrait ? 170 : 148);
-    heroNumber(ctx, px, box.left, numY, portrait ? 108 : 86);
-    const badgeY = numY + 16;
-    changeBadge(ctx, box.left, badgeY, chgInfo.change, chgInfo.changePct, chgInfo.known);
-    ctx.fillStyle = MUTED;
-    ctx.font = `500 ${portrait ? 16 : 14}px ${FONT}`;
-    let capY = badgeY + (chgInfo.known ? 72 : 24);
-    if (chgInfo.known && chgInfo.prevClose != null) {
-      ctx.fillText(lang === "en"
-        ? "vs previous close  " + fmt(chgInfo.prevClose, 2)
-        : "เทียบราคาปิดวันก่อน  " + fmt(chgInfo.prevClose, 2), box.left, capY);
-      capY += 22;
-    }
-    const perfH = drawPerfRow(ctx, box.left, capY + 4, box.right - box.left, p.perf, lang);
-    if (perfH) capY += perfH;
 
-    const caption = lang === "en" ? "XAUUSD intraday" : "XAUUSD ระหว่างวัน";
     if (portrait) {
-      const srH = 168;
-      drawSRTable(ctx, box.left, capY + 8, box.right - box.left, srH, p.pivots, lang);
-      let cy = capY + 8 + srH + 12;
-      const thaiH = p.thai ? 170 : 0;
-      const chartH = box.bottom - cy - (thaiH ? thaiH + 12 : 0);
-      drawCandleChart(ctx, p.bars || p.barsH1, box.left, cy, box.right - box.left, Math.max(240, chartH), {
+      ctx.fillStyle = TX;
+      ctx.font = `800 40px ${FONT}`;
+      fillFit(ctx, headline, box.left, box.top + 36, box.right - box.left);
+      const badge = drawTrendBadge(ctx, box.left, box.top + 52, info, lang, 1.05);
+      ctx.fillStyle = MUTED;
+      ctx.font = `600 13px ${FONT}`;
+      fillFit(ctx, info.strength, box.left + badge.w + 14, box.top + 52 + badge.h * 0.68, box.right - box.left - badge.w - 20);
+      const numY = box.top + 168;
+      heroNumber(ctx, px, box.left, numY, 96);
+      const badgeY = numY + 14;
+      changeBadge(ctx, box.left, badgeY, chgInfo.change, chgInfo.changePct, chgInfo.known);
+      ctx.fillStyle = MUTED;
+      ctx.font = `500 15px ${FONT}`;
+      let capY = badgeY + (chgInfo.known ? 64 : 22);
+      if (chgInfo.known && chgInfo.prevClose != null) {
+        fillFit(ctx, lang === "en" ? "vs previous close  " + fmt(chgInfo.prevClose, 2) : "เทียบราคาปิดวันก่อน  " + fmt(chgInfo.prevClose, 2), box.left, capY, box.right - box.left);
+        capY += 22;
+      }
+      const perfH = drawPerfRow(ctx, box.left, capY + 4, box.right - box.left, p.perf, lang);
+      if (perfH) capY += perfH;
+      const thaiH = p.thai ? 128 : 0;
+      const planH = p.plan ? 210 : 0;
+      const srH = 132;
+      let y = capY + 8;
+      if (planH) { drawPlanPanel(ctx, box.left, y, box.right - box.left, planH, p.plan, lang, num(p.price)); y += planH + 12; }
+      drawSRTable(ctx, box.left, y, box.right - box.left, srH, p.pivots, lang);
+      y += srH + 12;
+      const chartH = box.bottom - y - (thaiH ? thaiH + 12 : 0);
+      drawCandleChart(ctx, p.bars || p.barsH1, box.left, y, box.right - box.left, Math.max(220, chartH), {
         support: p.support, resistance: p.resistance, last: num(p.price), caption
       });
       if (thaiH) drawThaiPanel(ctx, box.left, box.bottom - thaiH, box.right - box.left, thaiH, p.thai, lang);
     } else {
-      const leftW = 560;
-      let srH = 150;
-      const thaiMin = p.thai ? 122 : 0;
-      const ty0 = capY + 6 + srH + 10;
-      if (thaiMin && (box.bottom - ty0) < thaiMin) {
-        srH = Math.max(120, srH - (thaiMin - (box.bottom - ty0)));
+      const bandH = p.thai ? 128 : 118;
+      const planH = p.plan ? 40 : 0;
+      const bandY = box.bottom - bandH;
+      const planY = bandY - (planH ? planH + 10 : 0);
+      const contentBottom = (planH ? planY : bandY) - 10;
+      const chartX = 616;
+      const leftW = chartX - box.left - gutter;
+      ctx.fillStyle = TX;
+      ctx.font = `800 30px ${FONT}`;
+      fillFit(ctx, headline, box.left, box.top + 26, leftW);
+      const badge = drawTrendBadge(ctx, box.left, box.top + 40, info, lang, 0.88);
+      ctx.fillStyle = MUTED;
+      ctx.font = `600 12px ${FONT}`;
+      fillFit(ctx, info.strength, box.left + badge.w + 10, box.top + 40 + badge.h * 0.68, leftW - badge.w - 12);
+      const numY = box.top + 128;
+      heroNumber(ctx, px, box.left, numY, 72);
+      const badgeY = numY + 12;
+      changeBadge(ctx, box.left, badgeY, chgInfo.change, chgInfo.changePct, chgInfo.known);
+      ctx.fillStyle = MUTED;
+      ctx.font = `500 13px ${FONT}`;
+      let capY = badgeY + (chgInfo.known ? 58 : 20);
+      if (chgInfo.known && chgInfo.prevClose != null) {
+        fillFit(ctx, lang === "en" ? "vs previous close  " + fmt(chgInfo.prevClose, 2) : "เทียบราคาปิดวันก่อน  " + fmt(chgInfo.prevClose, 2), box.left, capY, leftW);
+        capY += 18;
       }
-      drawSRTable(ctx, box.left, capY + 6, leftW, srH, p.pivots, lang);
-      const ty = capY + 6 + srH + 10;
-      drawThaiPanel(ctx, box.left, ty, leftW, box.bottom - ty, p.thai, lang);
-      const cx = 628, cy = box.top - 6;
-      drawCandleChart(ctx, p.bars || p.barsH1, cx, cy, box.right - cx, box.bottom - cy, {
+      if (capY + 28 < contentBottom) {
+        drawPerfRow(ctx, box.left, capY + 2, leftW, p.perf, lang);
+      }
+      if (p.plan) drawPlanStrip(ctx, box.left, planY, box.right - box.left, planH, p.plan, lang, num(p.price));
+      if (p.thai) {
+        const srW = Math.round((box.right - box.left - gutter) * 0.58);
+        drawSRTable(ctx, box.left, bandY, srW, bandH, p.pivots, lang);
+        drawThaiPanel(ctx, box.left + srW + gutter, bandY, box.right - (box.left + srW + gutter), bandH, p.thai, lang);
+      } else {
+        drawSRTable(ctx, box.left, bandY, box.right - box.left, bandH, p.pivots, lang);
+      }
+      drawCandleChart(ctx, p.bars || p.barsH1, chartX, box.top - 4, box.right - chartX, Math.max(160, contentBottom - (box.top - 4)), {
         support: p.support, resistance: p.resistance, last: num(p.price), caption
       });
     }
@@ -1327,22 +1547,23 @@
     const up = Math.round(Number(p.up ?? 50));
     const dn = Math.round(Number(p.down ?? 100 - up));
     const numY = afterH + tb.h + (portrait ? 90 : 70);
-    ctx.font = `800 ${portrait ? 100 : 78}px ${MONO}`;
+    ctx.font = `800 ${portrait ? 88 : 78}px ${MONO}`;
     ctx.fillStyle = UP;
     ctx.shadowColor = "rgba(0,0,0,0.45)"; ctx.shadowBlur = 16;
     ctx.fillText(up + "%", box.left, numY);
     ctx.shadowBlur = 0;
+    const capY = numY + (portrait ? 48 : 36);
     ctx.fillStyle = MUTED;
-    ctx.font = `600 18px ${FONT}`;
-    ctx.fillText(lang === "en" ? "Chance up" : "โอกาสขึ้น", box.left, numY + 32);
+    ctx.font = `600 16px ${FONT}`;
+    ctx.fillText(lang === "en" ? "Chance up" : "โอกาสขึ้น", box.left, capY);
     ctx.textAlign = "right";
-    ctx.font = `800 ${portrait ? 100 : 78}px ${MONO}`;
+    ctx.font = `800 ${portrait ? 88 : 78}px ${MONO}`;
     ctx.fillStyle = DN;
     const right = portrait ? box.right : 580;
     ctx.fillText(dn + "%", right, numY);
     ctx.fillStyle = MUTED;
-    ctx.font = `600 18px ${FONT}`;
-    ctx.fillText(lang === "en" ? "Chance down" : "โอกาสลง", right, numY + 32);
+    ctx.font = `600 16px ${FONT}`;
+    ctx.fillText(lang === "en" ? "Chance down" : "โอกาสลง", right, capY);
     ctx.textAlign = "left";
 
     const a7 = p.acc7 == null ? "—" : Math.round(Number(p.acc7)) + "%";
@@ -1350,9 +1571,9 @@
     ctx.fillStyle = GOLD2;
     ctx.font = `600 16px ${FONT}`;
     const acc = lang === "en" ? `7-day accuracy ${a7}  ·  30-day ${a30}` : `ความแม่นยำ 7 วัน ${a7}  ·  30 วัน ${a30}`;
-    ctx.fillText(acc, box.left, numY + 66);
+    ctx.fillText(acc, box.left, capY + 28);
 
-    const cy = numY + 86;
+    const cy = capY + 46;
     if (portrait) {
       drawForecastPath(ctx, p.barsH1 || p.bars, box.left, cy, box.right - box.left, Math.max(280, box.bottom - cy), p, lang, tgt);
     } else {
@@ -1394,9 +1615,10 @@
         caption: lang === "en" ? "Hourly with key levels" : "รายชั่วโมงกับระดับสำคัญ"
       });
     } else {
-      drawBiasMeter(ctx, box.left, after + 10, 520, 108, mtf, lang);
-      const ly = after + 136;
-      drawSRTable(ctx, box.left, ly, 520, Math.min(180, box.bottom - ly), p.pivots, lang);
+      drawBiasMeter(ctx, box.left, after + 10, 520, 100, mtf, lang);
+      const ly = after + 124;
+      const srH = Math.max(118, Math.min(150, box.bottom - ly));
+      drawSRTable(ctx, box.left, ly, 520, srH, p.pivots, lang);
       drawCandleChart(ctx, p.barsH1 || p.bars, 600, box.top - 8, box.right - 600, box.bottom - (box.top - 8), {
         support: p.support, resistance: p.resistance, last: num(p.price),
         caption: lang === "en" ? "Hourly with key levels" : "รายชั่วโมงกับระดับสำคัญ"
@@ -1431,24 +1653,21 @@
     ctx.fillStyle = MUTED;
     ctx.font = `600 16px ${FONT}`;
     ctx.fillText(lang === "en" ? "Latest holdings" : "ถือครองล่าสุด", box.left, after + 28);
-    heroNumber(ctx, fmt(p.tonnes, 2), box.left, after + (portrait ? 130 : 108), portrait ? 110 : 90);
-    ctx.fillStyle = GOLD2;
-    ctx.font = `700 ${portrait ? 36 : 30}px ${FONT}`;
-    const nw = (ctx.measureText(fmt(p.tonnes, 2)).width) || 360;
-    // unit next to number — measure with mono then place
-    ctx.font = `800 ${portrait ? 110 : 90}px ${MONO}`;
+    const numY = after + (portrait ? 118 : 96);
+    heroNumber(ctx, fmt(p.tonnes, 2), box.left, numY, portrait ? 84 : 72);
+    ctx.font = `800 ${portrait ? 84 : 72}px ${MONO}`;
     const numW = ctx.measureText(fmt(p.tonnes, 2)).width;
-    ctx.font = `700 ${portrait ? 36 : 28}px ${FONT}`;
+    ctx.font = `700 ${portrait ? 28 : 22}px ${FONT}`;
     ctx.fillStyle = GOLD2;
-    ctx.fillText(unitTon(lang), box.left + numW + 14, after + (portrait ? 130 : 108) - 8);
+    fillFit(ctx, unitTon(lang), box.left + numW + 12, numY - 6, 200);
 
     const asof = lang === "en"
       ? "Trade date  " + (p.asOfEn || p.asOf || "—")
       : "วันที่ซื้อขาย  " + (p.asOfTh || p.asOf || "—");
     ctx.fillStyle = TX;
-    ctx.font = `600 16px ${FONT}`;
-    const infoY = after + (portrait ? 164 : 140);
-    ctx.fillText(asof + (lang === "en" ? "  ·  trade-date basis, not live today" : "  ·  ฐานวันซื้อขาย ไม่ใช่ตัวเลขสดวันนี้"), box.left, infoY);
+    ctx.font = `600 14px ${FONT}`;
+    const infoY = numY + (portrait ? 42 : 32);
+    fillFit(ctx, asof + (lang === "en" ? "  ·  trade-date basis, not live today" : "  ·  ฐานวันซื้อขาย ไม่ใช่ตัวเลขสดวันนี้"), box.left, infoY, (portrait ? (box.right - box.left) : 540));
 
     const implied = p.implied_gold_usd != null ? Number(p.implied_gold_usd) : (p.impliedGold != null ? Number(p.impliedGold) : null);
     const flowUsd = p.flow_value_usd != null ? Number(p.flow_value_usd) : (p.flowValueUsd != null ? Number(p.flowValueUsd) : null);
@@ -1528,7 +1747,34 @@
     const note = p.note || p.text || p.text_th || "";
     wrapText(ctx, note, box.left, box.top + (portrait ? 280 : 230), box.right - box.left, portrait ? 34 : 28, portrait ? 16 : 8);
   }
-  const DRAW = { price: drawPrice, forecast: drawForecast, trend: drawTrend, spdr: drawSpdr, brief: drawBrief };
+  function drawPlan(ctx, W, H, p, lang) {
+    const portrait = H > 900;
+    const box = headerBox(ctx, W, H, lang, p.bars || p.barsH1, portrait ? 1.15 : 1.0, p);
+    ctx.fillStyle = TX;
+    ctx.font = `800 ${portrait ? 40 : 30}px ${FONT}`;
+    fillFit(ctx, lang === "en" ? "XAUUSD trade plan" : "แผนเทรด XAUUSD", box.left, box.top + (portrait ? 36 : 26), box.right - box.left);
+    if (p.price != null) {
+      ctx.fillStyle = MUTED;
+      ctx.font = `600 14px ${FONT}`;
+      fillFit(ctx, (lang === "en" ? "Live " : "ราคาสด ") + fmt(p.price, 2), box.left, box.top + (portrait ? 64 : 50), 400);
+    }
+    const top = box.top + (portrait ? 84 : 66);
+    if (portrait) {
+      drawPlanPanel(ctx, box.left, top, box.right - box.left, 260, p.plan || p, lang, num(p.price));
+      const cy = top + 272;
+      drawCandleChart(ctx, p.bars || p.barsH1, box.left, cy, box.right - box.left, box.bottom - cy, {
+        support: p.support, resistance: p.resistance, last: num(p.price),
+        caption: lang === "en" ? "Intraday with plan levels" : "ระหว่างวันกับจุดเข้า–จุดออก"
+      });
+    } else {
+      drawPlanPanel(ctx, box.left, top, 560, Math.max(200, box.bottom - top), p.plan || p, lang, num(p.price));
+      drawCandleChart(ctx, p.bars || p.barsH1, 616, box.top - 4, box.right - 616, box.bottom - (box.top - 4), {
+        support: p.support, resistance: p.resistance, last: num(p.price),
+        caption: lang === "en" ? "Intraday with plan levels" : "ระหว่างวันกับจุดเข้า–จุดออก"
+      });
+    }
+  }
+  const DRAW = { price: drawPrice, forecast: drawForecast, trend: drawTrend, spdr: drawSpdr, brief: drawBrief, plan: drawPlan };
 
   function render(kind, payload, sizeName) {
     const lang = (payload && payload.lang) || (enLang() ? "en" : "th");
@@ -1926,11 +2172,16 @@
   }
 
   function buttonsHtml(lang) {
-    const save = lang === "en" ? "Save image" : "บันทึกรูป";
+    const save = lang === "en" ? "Save" : "บันทึก";
     const sh = lang === "en" ? "Share" : "แชร์";
+    const saveA = lang === "en" ? "Save image" : "บันทึกรูป";
+    const shA = lang === "en" ? "Share" : "แชร์";
+    const ico = (d) => `<svg class="share-ico" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">${d}</svg>`;
+    const dl = ico('<path d="M12 3v12"/><path d="m7 11 5 5 5-5"/><path d="M5 21h14"/>');
+    const sr = ico('<circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/><path d="m8.6 13.5 6.8 4"/><path d="m15.4 6.5-6.8 4"/>');
     return `<div class="share-actions">
-      <button type="button" class="btn pri share-dl">${save}</button>
-      <button type="button" class="btn share-sh">${sh}</button>
+      <button type="button" class="share-pill share-dl" aria-label="${saveA}">${dl}<span>${save}</span></button>
+      <button type="button" class="share-pill share-sh" aria-label="${shA}">${sr}<span>${sh}</span></button>
     </div>`;
   }
   function mount(el, getPayload) {
@@ -1941,8 +2192,14 @@
       const L = ((getPayload && getPayload()) || {}).lang || (enLang() ? "en" : "th");
       const dl = el.querySelector(".share-dl");
       const sh = el.querySelector(".share-sh");
-      if (dl) dl.textContent = L === "en" ? "Save image" : "บันทึกรูป";
-      if (sh) sh.textContent = L === "en" ? "Share" : "แชร์";
+      const setLab = (btn, text, label) => {
+        if (!btn) return;
+        const span = btn.querySelector("span");
+        if (span) span.textContent = text; else btn.textContent = text;
+        btn.setAttribute("aria-label", label);
+      };
+      setLab(dl, L === "en" ? "Save" : "บันทึก", L === "en" ? "Save image" : "บันทึกรูป");
+      setLab(sh, L === "en" ? "Share" : "แชร์", L === "en" ? "Share" : "แชร์");
     };
     sync();
     el.querySelector(".share-dl").onclick = ev => {
@@ -1958,8 +2215,14 @@
     el._shareSync = sync;
   }
 
-  const css = `.share-actions{display:flex;flex-wrap:wrap;gap:8px;align-items:center;margin-top:10px}
-.share-actions .btn{flex:1 1 140px;min-height:44px}
+  const css = `.share-actions{display:inline-flex;flex-wrap:wrap;gap:6px;align-items:center;margin:0;width:auto;max-width:100%}
+.share-actions .share-pill,.share-actions .btn{flex:0 0 auto;box-sizing:border-box;height:32px;min-height:32px;max-height:36px;min-width:0;padding:0 10px;font-size:12px;font-weight:600;line-height:1;border-radius:999px;display:inline-flex;align-items:center;justify-content:center;gap:5px;cursor:pointer;background:rgba(255,255,255,.10);border:1px solid rgba(255,255,255,.22);color:#f4efe3;backdrop-filter:blur(14px) saturate(1.3);-webkit-backdrop-filter:blur(14px) saturate(1.3)}
+.share-actions .share-dl,.share-actions .btn.pri.share-dl{background:rgba(245,197,66,.16);border-color:rgba(245,197,66,.42);color:#f5c542}
+.share-actions .share-sh{background:rgba(255,255,255,.07);color:#ead7a2}
+.share-actions .share-pill:hover,.share-actions .share-pill:focus-visible{border-color:rgba(245,197,66,.7);color:#f5c542}
+.share-actions .share-ico{width:14px;height:14px;flex:0 0 auto;display:block}
+.share-host{display:inline-flex;align-items:center;margin:0;flex:0 0 auto}
+@media (pointer:coarse), (max-width:820px){.share-actions .share-pill,.share-actions .btn{height:36px;min-height:36px;padding:0 12px}} html.pg-mobile .share-actions .share-pill,html.pg-mobile .share-actions .btn{height:36px;min-height:36px;padding:0 12px}
 .share-save{display:none;position:fixed;inset:0;z-index:120;padding:16px;align-items:center;justify-content:center;background:rgba(6,5,4,.48);backdrop-filter:blur(22px) saturate(1.4);-webkit-backdrop-filter:blur(22px) saturate(1.4)}
 .share-save.on{display:flex}
 .share-save .box{width:min(640px,100%);background:linear-gradient(180deg,rgba(255,255,255,.14),rgba(255,255,255,.05));backdrop-filter:blur(28px) saturate(1.5);-webkit-backdrop-filter:blur(28px) saturate(1.5);border:1px solid rgba(255,255,255,.28);border-radius:22px;padding:16px;max-height:min(92vh,900px);overflow:auto;box-shadow:0 24px 64px rgba(0,0,0,.45),inset 0 1px 0 rgba(255,255,255,.28)}
@@ -2006,7 +2269,7 @@
   global.ShareCard = {
     SIZES, SITE, SITE_URL, VERSION, render, blobsFor, download, share, mount, buttonsHtml, toast,
     forecastTarget, fmtBkk, fmt, chg, closeSheet, loadMarket, attachMarket, enrich,
-    loadThaiGold, loadPivots, loadDollar, staticPngUrl, fetchLiveSpot, refreshLivePayload, fmtBkk,
+    loadThaiGold, loadPivots, loadDollar, staticPngUrl, fetchLiveSpot, refreshLivePayload, fmtBkk, planStatus,
     async ready() {
       ensureFonts();
       try { await preloadBrand(); } catch (_) {}
