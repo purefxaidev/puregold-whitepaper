@@ -4,7 +4,7 @@
 History is Yahoo Finance COMEX Gold futures (GC=F) daily close — a real gold
 series (Yahoo no longer serves XAUUSD=X). Live mid is Swissquote XAU/USD, then
 gold-api.com. Periods without a close on or before the target date are omitted.
-Thai gold (Hua Seng Heng) is omitted unless a real history exists (it does not).
+Thai gold is omitted unless a real history exists (it does not).
 Values are never invented.
 """
 from __future__ import annotations

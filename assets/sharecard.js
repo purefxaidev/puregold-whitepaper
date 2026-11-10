@@ -232,8 +232,8 @@
       type: primary.GoldType || "",
       isAssoc: String(primary.GoldType || "").toUpperCase() === "REF",
       source: String(primary.GoldType || "").toUpperCase() === "REF"
-        ? "สมาคมค้าทองคำ (อ้างอิงผ่านฮั่วเซ่งเฮง)"
-        : "ฮั่วเซ่งเฮง",
+        ? "ทองคำแท่งอ้างอิง"
+        : "ทองไทย",
       hsh: hsh ? { buy: parseBaht(hsh.Buy), sell: parseBaht(hsh.Sell), change: parseBaht(hsh.BuyChange) } : null
     };
   }
@@ -1231,7 +1231,7 @@
     const th = lang !== "en";
     const pad = 12;
     const title = th ? "ทองไทย 96.5%  ·  บาทละ" : "Thai gold 96.5%  ·  per baht-weight";
-    const src = th ? ("ที่มา: " + (thai.source || "ฮั่วเซ่งเฮง")) : ("Source: " + (thai.source || "Hua Seng Heng"));
+    const src = th ? ("ที่มา: " + (thai.source || "ราคาทองไทย")) : ("Source: " + (thai.source || "Thai gold"));
     const chgT = (thai.change != null && Number.isFinite(thai.change))
       ? ((thai.change > 0 ? "▲ +" : thai.change < 0 ? "▼ " : "• ") + fmt(Math.abs(thai.change), 0) + (th ? " บาท" : " THB"))
       : "";
