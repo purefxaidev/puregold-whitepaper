@@ -41,7 +41,8 @@ jobs:
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
           git add assets/levels.json assets/xau-klines.json assets/quotes.json assets/spdr.json \
             data/xau-klines.json data/quotes.json data/live.json \
-            data/events.json data/cot.json data/feargreed.json data/compare.json data/brief.json \
+            data/events.json data/cot.json data/feargreed.json data/compare.json data/brief.json data/dollar.json \
+            share/*.png \
             index.html || true
           if git diff --staged --quiet; then
             echo "No data changes"

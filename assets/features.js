@@ -1,6 +1,6 @@
 /* PureGold market desk: calendar, fear & greed, COT, Thai vs world, brief, calculators. */
 (function (global) {
-  const VERSION = "20261110f";
+  const VERSION = "20261110h";
   const GOLD = "#f5c542";
   const UP = "#22e39a";
   const DN = "#ff4d6d";
@@ -41,6 +41,15 @@
       hour: "ชม.", min: "น.", sec: "วินาที",
       day: "วัน",
       holdings: "ถือครอง",
+      dollar: "ดอลลาร์สหรัฐฯ และดอกเบี้ยเฟด",
+      dollarSub: "DXY และโอกาสดอกเบี้ยจากการประชุม FOMC ครั้งถัดไป",
+      corr20: "ความสัมพันธ์ 20 วัน",
+      corr60: "ความสัมพันธ์ 60 วัน",
+      nextFomc: "ประชุมเฟดครั้งถัดไป",
+      effr: "อัตราดอกเบี้ยที่มีผล",
+      target: "กรอบเป้าหมาย",
+      implied: "อัตราที่ตลาดส่งผ่านหลังประชุม",
+      method: "วิธีคำนวณ",
     },
     en: {
       brief: "Morning and evening brief", briefSub: "Generated at 08:00 and 20:00 Bangkok time",
@@ -75,6 +84,15 @@
       hour: "h", min: "m", sec: "s",
       day: "d",
       holdings: "Holdings",
+      dollar: "US dollar and Fed rate odds",
+      dollarSub: "DXY and probabilities for the next FOMC",
+      corr20: "20-day correlation",
+      corr60: "60-day correlation",
+      nextFomc: "Next FOMC",
+      effr: "Effective funds rate",
+      target: "Target range",
+      implied: "Implied post-meeting rate",
+      method: "How it is calculated",
     }
   };
 
@@ -177,7 +195,7 @@
 
   const CSS = `
 .ix-card[hidden],.ix-hide{display:none!important}
-#briefCard[hidden],#calCard[hidden],#fgCard[hidden],#cotCard[hidden],#compareCard[hidden],#calcCard[hidden]{display:none!important}
+#briefCard[hidden],#calCard[hidden],#fgCard[hidden],#cotCard[hidden],#compareCard[hidden],#calcCard[hidden],#dollarCard[hidden]{display:none!important}
 .ix-sub{margin-left:auto;font:400 11px 'Noto Sans Thai',system-ui;color:var(--mut,#9aa3b5);font-weight:400;letter-spacing:0}
 .ix-note,.ix-src{font-size:11px;color:var(--mut,#9aa3b5);line-height:1.65;margin:10px 0 0}
 .ix-src a{color:var(--gold,#f5c542);text-decoration:none}
@@ -220,6 +238,15 @@
 .ix-up{color:${UP}}.ix-dn{color:${DN}}.ix-flat{color:${GOLD}}
 .ix-calcs{display:grid;gap:14px;grid-template-columns:1fr}
 @media(min-width:860px){.ix-calcs{grid-template-columns:1fr 1fr}}
+.ix-dxy{display:flex;flex-wrap:wrap;gap:12px 18px;align-items:baseline;margin:0 0 8px}
+.ix-dxy b{font:800 28px 'JetBrains Mono',ui-monospace,monospace;color:var(--text,#f4efe3)}
+.ix-probs{display:grid;gap:6px;margin:8px 0}
+.ix-prob{display:grid;grid-template-columns:1fr 52px;gap:8px;align-items:center;font-size:12px}
+.ix-prob .ix-bar{grid-column:1/-1;height:8px;border-radius:99px;background:rgba(255,255,255,.08);overflow:hidden}
+.ix-prob .ix-bar i{display:block;height:100%;background:linear-gradient(90deg,#f5c542,#e0c36a)}
+.ix-meth{margin-top:8px;font-size:11px;color:var(--mut,#9aa3b5);line-height:1.55}
+.ix-meth summary{cursor:pointer;color:var(--gold2,#e0c36a)}
+
 .ix-form{display:grid;gap:8px}
 .ix-form label{display:grid;gap:4px;font-size:12px;color:var(--mut,#9aa3b5)}
 .ix-form input,.ix-form select{width:100%;background:rgba(0,0,0,.35);border:1px solid rgba(255,255,255,.12);border-radius:10px;color:var(--tx,#eef1f7);font:600 15px 'JetBrains Mono',ui-monospace,monospace;padding:9px 10px}
@@ -451,6 +478,64 @@
   }
 
   /* ---------- brief + share ---------- */
+  function renderDollar(data) {
+    const card = $("dollarCard"); const body = $("dollarBody");
+    if (!card || !body) return;
+    if (!data || !data.dxy) { showCard(card, false); return; }
+    showCard(card, true);
+    const L = lang();
+    const dxy = data.dxy, corr = data.corr || {}, fed = data.fed || {}, an = data.analysis || {};
+    const asOf = $("dollarAsOf");
+    if (asOf) asOf.textContent = (L === "en" ? (data.updated_en || dxy.as_of) : (data.updated_th || dxy.as_of)) || "";
+    const up = (dxy.change == null) ? MUTED : (dxy.change > 0 ? UP : (dxy.change < 0 ? DN : MUTED));
+    const chs = dxy.change == null ? "—" : ((dxy.change > 0 ? "+" : "") + Number(dxy.change).toFixed(2) + (dxy.change_pct != null ? "  (" + (dxy.change_pct > 0 ? "+" : "") + Number(dxy.change_pct).toFixed(2) + "%)" : ""));
+    const c20 = corr.n20 == null ? "—" : Number(corr.n20).toFixed(2);
+    const c60 = corr.n60 == null ? "—" : Number(corr.n60).toFixed(2);
+    const probs = fed.probs || [];
+    const probRows = probs.map(r => {
+      const lab = L === "en" ? r.label_en : r.label_th;
+      const pct = Math.round((r.p || 0) * 100);
+      return `<div class="ix-prob"><span>${esc(lab)}</span><b>${pct}%</b><div class="ix-bar"><i style="width:${Math.max(2, Math.min(100, pct))}%"></i></div></div>`;
+    }).join("");
+    const method = L === "en" ? (fed.method_en || "") : (fed.method_th || "");
+    body.innerHTML = `<div class="ix-dxy"><b>${esc(Number(dxy.price).toFixed(2))}</b><span style="color:${up};font:700 16px 'JetBrains Mono',monospace">${esc(chs)}</span><span class="mut">DXY</span></div>
+      <canvas id="ixDxyChart" width="640" height="84" aria-label="DXY chart"></canvas>
+      <div class="ix-comps" style="margin-top:8px">
+        <div class="ix-comp"><span>${esc(tr("corr20"))}</span><b>${esc(c20)}</b></div>
+        <div class="ix-comp"><span>${esc(tr("corr60"))}</span><b>${esc(c60)}</b></div>
+      </div>
+      <p style="margin:10px 0 4px;font:600 14px Prompt,sans-serif;color:var(--gold2,#e0c36a)">${esc(tr("nextFomc"))}: ${esc(L==="en" ? (fed.next_fomc_en || fed.next_fomc || "—") : (fed.next_fomc_th || fed.next_fomc || "—"))}</p>
+      <p class="mut" style="margin:0 0 6px">${esc(tr("effr"))} ${fed.effr != null ? fed.effr.toFixed(2)+"%" : "—"}
+        · ${esc(tr("target"))} ${fed.target_from != null ? fed.target_from.toFixed(2)+"–"+fed.target_to.toFixed(2)+"%" : "—"}
+        · ${esc(tr("implied"))} ${fed.implied_post != null ? fed.implied_post.toFixed(2)+"%" : "—"}</p>
+      <div class="ix-probs">${probRows}</div>
+      <p style="margin:10px 0 0;line-height:1.55">${esc(L==="en" ? (an.en||"") : (an.th||""))}</p>
+      <details class="ix-meth"><summary>${esc(tr("method"))} · ${esc(tr("source"))}</summary>
+        <p>${esc(method)}</p>
+        <p>DXY: ${esc(dxy.source || "")} · EFFR: ${esc(fed.effr_source || "")} · ${esc(fed.futures_source || "")}</p>
+      </details>
+      <p class="ix-src">${esc(tr("edu"))}</p>`;
+    const cv = $("ixDxyChart");
+    const series = dxy.series || [];
+    if (cv && series.length > 2) {
+      const ctx = cv.getContext("2d");
+      const W = cv.width, H = cv.height;
+      ctx.clearRect(0, 0, W, H);
+      const ys = series.map(p => Number(p.c)).filter(Number.isFinite);
+      const mn = Math.min(...ys), mx = Math.max(...ys);
+      const span = (mx - mn) || 1;
+      ctx.strokeStyle = "rgba(245,197,66,.85)";
+      ctx.lineWidth = 2;
+      ctx.beginPath();
+      ys.forEach((v, i) => {
+        const x = 8 + i * (W - 16) / Math.max(1, ys.length - 1);
+        const y = H - 10 - (v - mn) / span * (H - 20);
+        if (i === 0) ctx.moveTo(x, y); else ctx.lineTo(x, y);
+      });
+      ctx.stroke();
+    }
+  }
+
   function renderBrief(data) {
     const card = $("briefCard"); const body = $("briefBody");
     if (!card || !body) return;
@@ -476,14 +561,17 @@
     const shareHost = $("briefShare");
     if (shareHost && cur) {
       if (global.ShareCard && ShareCard.mount) {
-        shareHost.setAttribute("data-share", "trend");
+        shareHost.setAttribute("data-share", "brief");
         ShareCard.mount(shareHost, () => ({
-          kind: "trend",
+          kind: "brief",
           lang: L,
           title: L === "en" ? (cur.session_en + " brief") : ("สรุปตลาด" + (cur.session === "evening" ? "เย็น" : "เช้า")),
           price: cur.price,
           change: cur.change,
-          note: L === "en" ? cur.text_en : cur.text_th
+          changePct: cur.change_pct,
+          note: L === "en" ? cur.text_en : cur.text_th,
+          date: cur.date,
+          session: cur.session
         }));
       } else {
         shareHost.innerHTML = `<div class="share-actions ix-share-btns" style="display:flex;gap:8px;margin-top:10px;flex-wrap:wrap">
@@ -506,12 +594,6 @@
         shareHost.appendChild(extra);
         extra.querySelector("#ixBriefDl").onclick = () => posterSave(cur);
         extra.querySelector("#ixBriefSh").onclick = () => posterShare(cur);
-      } else if (shareHost.querySelector(".share-dl")) {
-        // Override ShareCard clicks with our brief poster (better fit than a trend card).
-        const dl = shareHost.querySelector(".share-dl");
-        const sh = shareHost.querySelector(".share-sh");
-        if (dl) dl.onclick = ev => { ev.preventDefault(); ev.stopPropagation(); posterSave(cur); };
-        if (sh) sh.onclick = ev => { ev.preventDefault(); ev.stopPropagation(); posterShare(cur); };
       }
     }
   }
@@ -803,19 +885,21 @@
     if (state.fg) renderFearGreed(state.fg);
     if (state.cot) renderCot(state.cot);
     if (state.compare) renderCompare(state.compare);
+    if (state.dollar) renderDollar(state.dollar);
     bindCalcs(state.compare || null);
   }
 
   async function boot() {
     injectCss();
-    const [events, cot, fg, compare, brief] = await Promise.all([
+    const [events, cot, fg, compare, brief, dollar] = await Promise.all([
       loadJSON("events.json"),
       loadJSON("cot.json"),
       loadJSON("feargreed.json"),
       loadJSON("compare.json"),
-      loadJSON("brief.json")
+      loadJSON("brief.json"),
+      loadJSON("dollar.json")
     ]);
-    state.events = events; state.cot = cot; state.fg = fg; state.compare = compare; state.brief = brief;
+    state.events = events; state.cot = cot; state.fg = fg; state.compare = compare; state.brief = brief; state.dollar = dollar;
     rerender();
   }
 

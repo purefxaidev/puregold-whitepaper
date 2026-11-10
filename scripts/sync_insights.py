@@ -11,7 +11,7 @@ from pathlib import Path
 ROOT = Path(__file__).resolve().parents[1]
 DATA = ROOT / "data"
 DASH = "https://dashboard.purefxai.store"
-FILES = ["events.json", "cot.json", "feargreed.json", "compare.json", "brief.json"]
+FILES = ["events.json", "cot.json", "feargreed.json", "compare.json", "brief.json", "dollar.json"]
 UA = "PureGoldLanding/1.0 (+https://gold.purefxai.store/)"
 
 
@@ -59,6 +59,26 @@ def main() -> int:
         dest.write_text(json.dumps(chosen, ensure_ascii=False, indent=1) + "\n", encoding="utf-8")
         print(f"[sync_insights] wrote data/{name}")
         ok += 1
+    share_dir = ROOT / "share"
+    share_dir.mkdir(parents=True, exist_ok=True)
+    for kind in ("price", "forecast", "trend", "spdr", "brief"):
+        for size in ("1200x675", "1080x1350"):
+            name = f"latest-{kind}-{size}.png"
+            dest = share_dir / name
+            remote = None
+            try:
+                req = urllib.request.Request(
+                    f"{DASH}/share/{name}",
+                    headers={"User-Agent": UA, "Accept": "image/png"},
+                )
+                with urllib.request.urlopen(req, timeout=20) as r:
+                    remote = r.read()
+            except Exception as e:
+                print(f"[sync_insights] {name}: dashboard fetch failed ({e})")
+            if remote and remote.startswith(b'\x89PNG') and len(remote) > 1000:
+                dest.write_bytes(remote)
+                print(f"[sync_insights] wrote share/{name} ({len(remote)} bytes)")
+                ok += 1
     return 0 if ok else 1
 
 

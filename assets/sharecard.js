@@ -1,7 +1,7 @@
 /* PUREGOLD share posters: purpose-built 1200x675 + 1080x1350 social graphics. */
 (function (global) {
   const SITE = "gold.purefxai.store";
-  const VERSION = "20261110e";
+  const VERSION = "20261110h";
   const SITE_URL = "https://gold.purefxai.store/";
   const SIZES = { landscape: [1200, 675], portrait: [1080, 1350] };
   const TH_M = "ม.ค. ก.พ. มี.ค. เม.ย. พ.ค. มิ.ย. ก.ค. ส.ค. ก.ย. ต.ค. พ.ย. ธ.ค.".split(" ");
@@ -140,6 +140,33 @@
   function attachMarket(m) {
     global.__SHARE_MARKET = Object.assign(global.__SHARE_MARKET || {}, m || {});
     return global.__SHARE_MARKET;
+  }
+  async function loadDollar() {
+    const urls = ["dollar.json", "/dollar.json", "data/dollar.json", "/data/dollar.json", "https://dashboard.purefxai.store/dollar.json", "https://gold.purefxai.store/data/dollar.json"];
+    for (const u of urls) {
+      try {
+        const r = await fetch(u + (u.includes("?") ? "&" : "?") + "t=" + Date.now(), { cache: "no-store" });
+        if (!r || !r.ok) continue;
+        const j = await r.json();
+        if (j && j.dxy) { attachMarket({ dollar: j }); global.__DOLLAR = j; return j; }
+      } catch (_) {}
+    }
+    return null;
+  }
+  function isAndroid() { return /Android/i.test(navigator.userAgent || ""); }
+  function staticPngUrl(kind, w, h) {
+    const name = "latest-" + kind + "-" + w + "x" + h + ".png";
+    try { return new URL("/share/" + name, location.origin).href; }
+    catch (_) { return "https://gold.purefxai.store/share/" + name; }
+  }
+  function cacheBust(url) { return url + (url.includes("?") ? "&" : "?") + "v=" + VERSION; }
+  function probeImg(url) {
+    return new Promise(resolve => {
+      const im = new Image();
+      im.onload = () => resolve(true);
+      im.onerror = () => resolve(false);
+      im.src = url;
+    });
   }
   async function loadMarket(urls) {
     const list = urls && urls.length ? urls : [
@@ -316,6 +343,7 @@
       out.resistance = [{ price: pv.r1, label: "R1" }, { price: pv.r2, label: "R2" }, { price: pv.r3, label: "R3" }].filter(x => Number.isFinite(x.price));
       out.support = [{ price: pv.s1, label: "S1" }, { price: pv.s2, label: "S2" }, { price: pv.s3, label: "S3" }].filter(x => Number.isFinite(x.price));
     }
+    if (!out.dollar) out.dollar = m2.dollar || global.__DOLLAR || null;
     if (!out.mtf || !out.mtf.length) {
       const D = global.D;
       if (D && D.mtf) out.mtf = (out.lang === "en" ? (D.mtf_en || D.mtf) : D.mtf);
@@ -497,9 +525,46 @@
     return mark;
   }
 
+  function drawDollarStrip(ctx, x, y, w, h, dollar, lang) {
+    if (!dollar || !dollar.dxy) return 0;
+    glassPanel(ctx, x, y, w, h, 12);
+    const dxy = dollar.dxy;
+    const fed = dollar.fed || {};
+    const an = dollar.analysis || {};
+    const ch = dxy.change;
+    const chs = ch == null ? "" : ("  " + chg(ch, 2));
+    ctx.textAlign = "left";
+    ctx.textBaseline = "alphabetic";
+    ctx.fillStyle = GOLD;
+    ctx.font = `700 13px ${FONT}`;
+    ctx.fillText("DXY  " + fmt(dxy.price, 2) + chs, x + 12, y + 18);
+    const probs = fed.probs || [];
+    const top = probs.reduce((a, b) => (!a || (b.p || 0) > (a.p || 0)) ? b : a, null);
+    ctx.fillStyle = MUTED;
+    ctx.font = `600 12px ${FONT}`;
+    let fedL = "";
+    if (top && fed.next_fomc) {
+      fedL = lang === "en"
+        ? ("Next FOMC " + (fed.next_fomc_en || fed.next_fomc) + " · " + Math.round(top.p * 100) + "% " + (top.label_en || ""))
+        : ("เฟดครั้งถัดไป " + (fed.next_fomc_th || fed.next_fomc) + " · " + Math.round(top.p * 100) + "% " + (top.label_th || ""));
+    }
+    ctx.fillText(fedL, x + Math.min(w * 0.42, 280), y + 18);
+    ctx.fillStyle = TX;
+    ctx.font = `500 12px ${FONT}`;
+    const line = (lang === "en" ? (an.en || "") : (an.th || "")).replace(/\s*·\s*(For education only|ข้อมูลเพื่อการศึกษา)[^.。]*$/, "");
+    const clipped = line.length > 110 ? line.slice(0, 108) + "…" : line;
+    ctx.fillText(clipped, x + 12, y + h - 10);
+    return h;
+  }
   function drawFooter(ctx, W, H, lang) {
+    const dollar = ((global.__SHARE_MARKET || {}).dollar) || global.__DOLLAR;
+    let reserve = 0;
+    if (dollar && dollar.dxy) {
+      reserve = H > 1000 ? 58 : 46;
+      drawDollarStrip(ctx, 44, H - 54 - reserve, W - 88, reserve - 8, dollar, lang);
+    }
     const y = H - 32;
-    const rule = H - 54;
+    const rule = H - 54 - reserve;
     ctx.strokeStyle = "rgba(245,197,66,0.20)";
     ctx.lineWidth = 1;
     ctx.beginPath(); ctx.moveTo(44, rule); ctx.lineTo(W - 44, rule); ctx.stroke();
@@ -1299,7 +1364,24 @@
     }
   }
 
-  const DRAW = { price: drawPrice, forecast: drawForecast, trend: drawTrend, spdr: drawSpdr };
+  function drawBrief(ctx, W, H, p, lang) {
+    const portrait = H > 900;
+    const box = headerBox(ctx, W, H, lang, p.barsH1 || p.bars, portrait ? 1.15 : 1.0);
+    const title = p.title || (lang === "en" ? "Market brief" : "สรุปตลาด");
+    ctx.fillStyle = TX;
+    ctx.font = `800 ${portrait ? 40 : 30}px ${FONT}`;
+    ctx.fillText(title, box.left, box.top + (portrait ? 40 : 28));
+    if (p.price != null) {
+      heroNumber(ctx, fmt(p.price, 2), box.left, box.top + (portrait ? 150 : 120), portrait ? 90 : 72);
+      const chgInfo = resolveChange(p);
+      changeBadge(ctx, box.left, box.top + (portrait ? 166 : 136), chgInfo.change, chgInfo.changePct, chgInfo.known);
+    }
+    ctx.fillStyle = TX;
+    ctx.font = `500 ${portrait ? 22 : 18}px ${FONT}`;
+    const note = p.note || p.text || p.text_th || "";
+    wrapText(ctx, note, box.left, box.top + (portrait ? 280 : 230), box.right - box.left, portrait ? 34 : 28, portrait ? 16 : 8);
+  }
+  const DRAW = { price: drawPrice, forecast: drawForecast, trend: drawTrend, spdr: drawSpdr, brief: drawBrief };
 
   function render(kind, payload, sizeName) {
     const lang = (payload && payload.lang) || (enLang() ? "en" : "th");
@@ -1350,6 +1432,7 @@
   }
 
   async function waitAssets() {
+    try { await loadDollar(); } catch (_) {}
     try { await preloadBrand(); } catch (_) {}
     try { if (document.fonts && document.fonts.ready) await document.fonts.ready; } catch (_) {}
     try {
@@ -1384,11 +1467,11 @@
     sheet.hidden = true;
     sheet.innerHTML = `<div class="box">
       <div class="share-brand"><img alt="PureGold by PureFxAi" src="assets/logo-lockup.svg" onerror="this.src='logo-lockup.svg'"></div>
+      <button type="button" class="btn pri share-gallery" id="shareGoFiles" hidden></button>
       <p id="shareSaveHint"></p>
       <p id="shareSaveLoad" class="share-load" hidden></p>
       <div id="shareSaveImgs" class="imgs"></div>
       <div class="row share-nav">
-        <button type="button" class="btn pri" id="shareGoFiles" hidden></button>
         <button type="button" class="btn pri" id="shareGoChart">ดูกราฟ</button>
         <a class="btn share-site" id="shareGoSite" href="https://gold.purefxai.store/" target="_blank" rel="noopener">เข้าสู่หน้าเว็บ</a>
         <button type="button" class="btn" id="shareSaveX">ปิด</button>
@@ -1397,6 +1480,7 @@
     <div id="shareFull" class="share-full" hidden>
       <p id="shareFullHint"></p>
       <img id="shareFullImg" alt="">
+      <a class="btn pri" id="shareFullOpen" target="_blank" rel="noopener"></a>
       <button type="button" class="btn" id="shareFullX"></button>
     </div>`;
     document.body.appendChild(sheet);
@@ -1417,11 +1501,11 @@
     const goSite = document.getElementById("shareGoSite");
     const goFiles = document.getElementById("shareGoFiles");
     if (hint) hint.textContent = lang === "en"
-      ? "Your image is ready. Tap Save, or long-press the picture and choose Save Image."
-      : "รูปพร้อมแล้ว กดบันทึก หรือกดค้างที่รูปแล้วเลือกบันทึกรูป";
+      ? "On Android, tap Share / save to gallery, then choose Save to photos or Files. You can also long-press the web image."
+      : "บนแอนดรอยด์ กดแชร์/บันทึกลงแกลเลอรี่ แล้วเลือกบันทึกลงรูปภาพหรือไฟล์ หรือกดค้างที่รูปบนเว็บเพื่อบันทึก";
     if (load) load.textContent = lang === "en" ? "Creating the image…" : "กำลังสร้างรูป…";
     if (closeLbl) closeLbl.textContent = lang === "en" ? "Close" : "ปิด";
-    if (goFiles) goFiles.textContent = lang === "en" ? "Share image" : "แชร์รูป";
+    if (goFiles) goFiles.textContent = lang === "en" ? "Share / save to gallery" : "แชร์/บันทึกลงแกลเลอรี่";
     if (goChart) {
       goChart.textContent = lang === "en" ? "View chart" : "ดูกราฟ";
       goChart.onclick = ev => {
@@ -1440,17 +1524,21 @@
     }
     const fh = document.getElementById("shareFullHint");
     const fx = document.getElementById("shareFullX");
+    const fo = document.getElementById("shareFullOpen");
     if (fh) fh.textContent = lang === "en"
-      ? "Long-press the image and choose Save Image."
-      : "กดค้างที่รูป แล้วเลือกบันทึกรูป";
+      ? "Long-press the web image and choose Save image, or use Share / save to gallery."
+      : "กดค้างที่รูปบนเว็บแล้วเลือกบันทึกรูป หรือกดแชร์/บันทึกลงแกลเลอรี่";
     if (fx) fx.textContent = lang === "en" ? "Close" : "ปิด";
+    if (fo) fo.textContent = lang === "en" ? "Open web image" : "เปิดรูปบนเว็บ";
   }
   function openFullscreen(url, name, lang) {
     ensureSheet();
     setSheetChrome(lang);
     const full = document.getElementById("shareFull");
     const img = document.getElementById("shareFullImg");
+    const fo = document.getElementById("shareFullOpen");
     if (img) { img.src = url; img.alt = name || ""; }
+    if (fo) { fo.href = url; fo.removeAttribute("download"); }
     if (full) { full.hidden = false; full.classList.add("on"); }
   }
   function openSheetLoading(lang) {
@@ -1467,7 +1555,7 @@
     sheet.hidden = false; sheet.classList.add("on");
     return sheet;
   }
-  function fillSheet(files, lang) {
+  async function fillSheet(files, lang, kind) {
     const sheet = ensureSheet();
     setSheetChrome(lang);
     const box = document.getElementById("shareSaveImgs");
@@ -1476,29 +1564,11 @@
     if (load) load.hidden = true;
     if (box) box.innerHTML = "";
     sheetFiles = files || [];
-    files.forEach(f => {
-      const url = URL.createObjectURL(f.blob);
-      saveUrlList.push(url);
-      f.url = url;
-      const img = document.createElement("img");
-      img.src = url; img.alt = f.name;
-      img.addEventListener("click", () => openFullscreen(url, f.name, lang));
-      const a = document.createElement("a");
-      a.href = url; a.download = f.name; a.className = "btn pri";
-      a.textContent = (lang === "en" ? "Save " : "บันทึก ") + f.w + "×" + f.h;
-      const wrap = document.createElement("div");
-      wrap.appendChild(img); wrap.appendChild(a);
-      box.appendChild(wrap);
-    });
-    if (goFiles) {
-      const fileObjs = files.map(f => new File([f.blob], f.name, { type: "image/png" }));
-      const can = !!(navigator.canShare && (function () {
-        try { return navigator.canShare({ files: fileObjs }); } catch (_) { return false; }
-      })()) || !!navigator.share;
-      goFiles.hidden = !can;
-      goFiles.onclick = async ev => {
-        ev.preventDefault();
-        const title = "PureGold · " + SITE;
+    const fileObjs = files.map(f => new File([f.blob], f.name, { type: "image/png" }));
+    const bindShare = ev => {
+      ev.preventDefault();
+      const title = "PureGold · " + SITE;
+      const run = async () => {
         try {
           if (navigator.canShare && navigator.canShare({ files: fileObjs })) {
             await navigator.share({ files: fileObjs, title, text: title });
@@ -1507,9 +1577,63 @@
           if (navigator.share) await navigator.share({ title, text: title, url: SITE_URL });
         } catch (e) {
           if (e && e.name === "AbortError") return;
-          toast(lang === "en" ? "Share did not complete. Long-press the image to save." : "แชร์ไม่สำเร็จ กดค้างที่รูปเพื่อบันทึก");
+          toast(lang === "en"
+            ? "Share did not complete. Open the web image and long-press to save."
+            : "แชร์ไม่สำเร็จ เปิดรูปบนเว็บแล้วกดค้างเพื่อบันทึก");
         }
       };
+      run();
+    };
+    for (const f of files) {
+      const blobUrl = URL.createObjectURL(f.blob);
+      saveUrlList.push(blobUrl);
+      f.url = blobUrl;
+      const httpsUrl = staticPngUrl(kind || "price", f.w, f.h);
+      const httpsView = cacheBust(httpsUrl);
+      const hasHttps = await probeImg(httpsView);
+      const viewUrl = hasHttps ? httpsView : blobUrl;
+      const wrap = document.createElement("div");
+      wrap.className = "share-shot";
+      const link = document.createElement("a");
+      link.className = "share-img-link";
+      link.href = viewUrl;
+      link.target = "_blank";
+      link.rel = "noopener";
+      // Only attach download on the blob (same-origin file) when no https poster exists.
+      if (!hasHttps) link.setAttribute("download", f.name);
+      const img = document.createElement("img");
+      img.src = viewUrl;
+      img.alt = f.name;
+      img.setAttribute("draggable", "false");
+      link.appendChild(img);
+      wrap.appendChild(link);
+      const row = document.createElement("div");
+      row.className = "share-dl-row";
+      const aBlob = document.createElement("a");
+      aBlob.href = blobUrl;
+      aBlob.download = f.name;
+      aBlob.className = "btn pri";
+      aBlob.textContent = (lang === "en" ? "Save " : "บันทึก ") + f.w + "×" + f.h;
+      row.appendChild(aBlob);
+      if (hasHttps) {
+        const aWeb = document.createElement("a");
+        aWeb.href = httpsView;
+        aWeb.target = "_blank";
+        aWeb.rel = "noopener";
+        aWeb.className = "btn share-site";
+        aWeb.textContent = lang === "en" ? "Open web image (long-press to save)" : "เปิดรูปบนเว็บ (กดค้างเพื่อบันทึก)";
+        row.appendChild(aWeb);
+      }
+      wrap.appendChild(row);
+      box.appendChild(wrap);
+    }
+    const can = !!(navigator.canShare && (function () {
+      try { return navigator.canShare({ files: fileObjs }); } catch (_) { return false; }
+    })()) || !!navigator.share;
+    if (goFiles) {
+      goFiles.hidden = !can;
+      goFiles.className = "btn pri share-gallery";
+      goFiles.onclick = bindShare;
     }
     sheet.hidden = false; sheet.classList.add("on");
   }
@@ -1521,7 +1645,7 @@
       await waitAssets();
       const files = await blobsFor(kind, payload);
       if (!files || !files.length) throw new Error("empty");
-      fillSheet(files, lang);
+      await fillSheet(files, lang, kind);
       return files;
     } catch (e) {
       console.warn("sharecard save failed", e);
@@ -1585,11 +1709,16 @@
 .share-save .share-brand{display:flex;align-items:center;margin:0 0 10px}
 .share-save .share-brand img{height:36px;width:auto;background:transparent;border-radius:0}
 .share-save .imgs{display:grid;gap:12px}
-.share-save .imgs img{display:block;width:100%;border-radius:14px;background:#07080d;border:1px solid rgba(255,255,255,.16)}
+.share-save .share-gallery{width:100%;min-height:48px;margin:0 0 10px;font-weight:800}
+.share-save .imgs img{display:block;width:100%;border-radius:14px;background:#07080d;border:1px solid rgba(255,255,255,.16);pointer-events:auto;-webkit-touch-callout:default !important;-webkit-user-select:auto;user-select:auto;touch-action:manipulation}
+.share-save .imgs a.share-img-link{display:block;pointer-events:auto;-webkit-touch-callout:default !important;-webkit-user-select:auto;user-select:auto}
+.share-save .share-shot{display:grid;gap:8px}
+.share-save .share-dl-row{display:flex;flex-wrap:wrap;gap:8px}
+.share-save .share-dl-row .btn{flex:1 1 140px;min-height:44px;display:inline-flex;align-items:center;justify-content:center;text-decoration:none}
 .share-save p{margin:0 0 10px;font-size:13px;color:#d7cdb8;line-height:1.55}
 .share-save .row{display:flex;gap:8px;margin-top:12px;flex-wrap:wrap}
-.share-save .share-nav{position:sticky;bottom:0;z-index:2;padding-top:10px;background:linear-gradient(180deg,rgba(20,16,10,.0),rgba(20,16,10,.88) 30%,rgba(20,16,10,.96))}
-.share-save .share-nav .btn,.share-save a.btn{display:inline-flex;align-items:center;justify-content:center;margin-top:0;text-decoration:none;flex:1 1 120px;min-height:44px;border-radius:12px}
+.share-save .share-nav{position:sticky;bottom:0;z-index:2;padding-top:10px;pointer-events:none;background:linear-gradient(180deg,rgba(20,16,10,.0),rgba(20,16,10,.88) 30%,rgba(20,16,10,.96))}
+.share-save .share-nav .btn,.share-save .share-nav a.btn,.share-save a.btn{pointer-events:auto;display:inline-flex;align-items:center;justify-content:center;margin-top:0;text-decoration:none;flex:1 1 120px;min-height:44px;border-radius:12px}
 .share-save a.share-site{border:1px solid rgba(245,197,66,.45);color:#f5c542;background:transparent}
 .share-load{margin:0 0 10px;font-size:13px;color:#f5c542}
 .share-toast{position:fixed;left:50%;bottom:24px;transform:translateX(-50%);z-index:140;max-width:min(92vw,420px);padding:12px 16px;border-radius:14px;background:linear-gradient(180deg,rgba(20,16,10,.92),rgba(10,8,6,.92));border:1px solid rgba(245,197,66,.45);color:#f4efe3;font-size:14px;line-height:1.5;box-shadow:0 16px 40px rgba(0,0,0,.45);opacity:0;pointer-events:none;transition:opacity .2s}
@@ -1620,7 +1749,7 @@
   global.ShareCard = {
     SIZES, SITE, SITE_URL, VERSION, render, blobsFor, download, share, mount, buttonsHtml, toast,
     forecastTarget, fmtBkk, fmt, chg, closeSheet, loadMarket, attachMarket, enrich,
-    loadThaiGold, loadPivots,
+    loadThaiGold, loadPivots, loadDollar, staticPngUrl,
     async ready() {
       ensureFonts();
       try { await preloadBrand(); } catch (_) {}
@@ -1632,7 +1761,7 @@
           document.fonts.load(`800 80px ${MONO}`)
         ]);
       } catch (_) {}
-      try { await Promise.all([loadThaiGold(), loadPivots()]); } catch (_) {}
+      try { await Promise.all([loadThaiGold(), loadPivots(), loadDollar()]); } catch (_) {}
       try { await preloadBrand(); } catch (_) {}
     }
   };
