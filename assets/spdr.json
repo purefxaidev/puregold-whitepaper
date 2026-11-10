@@ -10,8 +10,8 @@
   "as_of_en": "9 Nov 2026",
   "as_of_label_th": "9 พ.ย. 2026 (รอบการซื้อขายสหรัฐฯ)",
   "as_of_label_en": "9 Nov 2026 (US trading session)",
-  "updated_at": "2026-11-10T06:05:41Z",
-  "updated_at_bkk": "2026-11-10 13:05",
+  "updated_at": "2026-11-10T06:32:32Z",
+  "updated_at_bkk": "2026-11-10 13:32",
   "cached": false,
   "tonnes": 1042.51,
   "ounces": 33517665.76,
@@ -20,6 +20,23 @@
   "change": 1.14,
   "change_pct": 0.11,
   "side": "buy",
+  "gld_close": 379.53,
+  "oz_per_share": 0.09163832,
+  "nav_per_share": 377.274961,
+  "nav_total": 137931725738.42,
+  "lbma_pm": null,
+  "lbma_pm_available": false,
+  "lbma_pm_note_th": "คลังข้อมูลทางการของ SPDR (US GLD Historical Archive) ได้ถอดคอลัมน์ LBMA Gold Price ออกตามคำขอของ ICE Benchmark Administration จึงไม่มีตัวเลข LBMA PM ในไฟล์ทางการ",
+  "lbma_pm_note_en": "The official US GLD Historical Archive no longer includes an LBMA Gold Price column. A Disclaimer sheet in the same workbook states the LBMA Gold Price was removed at the request of ICE Benchmark Administration.",
+  "implied_gold_usd": 4115.195,
+  "implied_gold_method": "total_nav_div_total_ounces",
+  "implied_gold_label_th": "ราคาทองคำโดยนัยจาก NAV ของกองทุน (ไม่ใช่ราคาซื้อจริง)",
+  "implied_gold_label_en": "Gold price implied from the Trust NAV (not an execution price)",
+  "implied_gold_note_th": "คำนวณจากมูลค่าสินทรัพย์สุทธิรวม ÷ จำนวนออนซ์ในคลังข้อมูลทางการของวันซื้อขายนั้น ไม่ใช่ราคาที่กองทุนซื้อหรือขายจริง และไม่ใช่ตัวเลข LBMA Gold Price PM โดยตรง เพราะคอลัมน์นั้นถูกถอดออกจากไฟล์ทางการ",
+  "implied_gold_note_en": "Derived from official Total Net Asset Value divided by Total Ounces of Gold in the Trust on that trade date. This is not the Trust's execution price, and it is not a direct LBMA Gold Price PM print (that column was removed from the official archive).",
+  "flow_value_usd": 150829530.0,
+  "flow_value_method": "change_tonnes * 32150.75 oz * implied_gold_usd",
+  "oz_per_tonne": 32150.75,
   "periods": {
     "1W": {
       "from": "2026-11-02",
@@ -60,1277 +77,2552 @@
     {
       "date": "2025-11-04",
       "tonnes": 1038.63,
-      "change": -3.15
+      "change": -3.15,
+      "implied_gold_usd": 3949.558,
+      "nav_per_share": 363.526593,
+      "nav_total": 131887447803.45,
+      "gld_close": 362.32,
+      "flow_value_usd": -399990943.0
     },
     {
       "date": "2025-11-05",
       "tonnes": 1038.63,
-      "change": 0.0
+      "change": 0.0,
+      "implied_gold_usd": 3966.615,
+      "nav_per_share": 365.096516,
+      "nav_total": 132457015826.24,
+      "gld_close": 366.51,
+      "flow_value_usd": 0.0
     },
     {
       "date": "2025-11-06",
       "tonnes": 1040.35,
-      "change": 1.72
+      "change": 1.72,
+      "implied_gold_usd": 3984.874,
+      "nav_per_share": 366.776871,
+      "nav_total": 133286714834.19,
+      "gld_close": 366.07,
+      "flow_value_usd": 220360703.0
     },
     {
       "date": "2025-11-07",
       "tonnes": 1042.06,
-      "change": 1.71
+      "change": 1.71,
+      "implied_gold_usd": 3992.433,
+      "nav_per_share": 367.472365,
+      "nav_total": 133759940839.02,
+      "gld_close": 368.31,
+      "flow_value_usd": 219495113.0
     },
     {
       "date": "2025-11-10",
       "tonnes": 1042.06,
-      "change": 0.0
+      "change": 0.0,
+      "implied_gold_usd": 4088.451,
+      "nav_per_share": 376.310046,
+      "nav_total": 136976856589.9,
+      "gld_close": 378.38,
+      "flow_value_usd": 0.0
     },
     {
       "date": "2025-11-11",
       "tonnes": 1046.36,
-      "change": 4.3
+      "change": 4.3,
+      "implied_gold_usd": 4121.463,
+      "nav_per_share": 379.347883,
+      "nav_total": 138651651400.95,
+      "gld_close": 379.87,
+      "flow_value_usd": 569784944.0
     },
     {
       "date": "2025-11-12",
       "tonnes": 1046.64,
-      "change": 0.28
+      "change": 0.28,
+      "implied_gold_usd": 4134.868,
+      "nav_per_share": 380.581678,
+      "nav_total": 139140661525.21,
+      "gld_close": 385.99,
+      "flow_value_usd": 37222950.0
     },
     {
       "date": "2025-11-13",
       "tonnes": 1048.93,
-      "change": 2.29
+      "change": 2.29,
+      "implied_gold_usd": 4193.727,
+      "nav_per_share": 385.998724,
+      "nav_total": 141429932343.02,
+      "gld_close": 382.87,
+      "flow_value_usd": 308764063.0
     },
     {
       "date": "2025-11-14",
       "tonnes": 1044.0,
-      "change": -4.93
+      "change": -4.93,
+      "implied_gold_usd": 4070.482,
+      "nav_per_share": 374.530796,
+      "nav_total": 136628834229.7,
+      "gld_close": 375.96,
+      "flow_value_usd": -645184412.0
     },
     {
       "date": "2025-11-17",
       "tonnes": 1041.43,
-      "change": -2.57
+      "change": -2.57,
+      "implied_gold_usd": 4071.746,
+      "nav_per_share": 374.647297,
+      "nav_total": 136334151344.31,
+      "gld_close": 371.65,
+      "flow_value_usd": -336437897.0
     },
     {
       "date": "2025-11-18",
       "tonnes": 1041.43,
-      "change": 0.0
+      "change": 0.0,
+      "implied_gold_usd": 4060.052,
+      "nav_per_share": 373.571269,
+      "nav_total": 135942584938.94,
+      "gld_close": 374.35,
+      "flow_value_usd": 0.0
     },
     {
       "date": "2025-11-19",
       "tonnes": 1043.72,
-      "change": 2.29
+      "change": 2.29,
+      "implied_gold_usd": 4126.108,
+      "nav_per_share": 379.649066,
+      "nav_total": 138458014511.74,
+      "gld_close": 374.96,
+      "flow_value_usd": 303785599.0
     },
     {
       "date": "2025-11-20",
       "tonnes": 1039.43,
-      "change": -4.29
+      "change": -4.29,
+      "implied_gold_usd": 4089.71,
+      "nav_per_share": 376.300327,
+      "nav_total": 136672278943.37,
+      "gld_close": 374.85,
+      "flow_value_usd": -564080276.0
     },
     {
       "date": "2025-11-21",
       "tonnes": 1040.57,
-      "change": 1.14
+      "change": 1.14,
+      "implied_gold_usd": 4071.916,
+      "nav_per_share": 374.663017,
+      "nav_total": 136227473122.65,
+      "gld_close": 374.27,
+      "flow_value_usd": 149243275.0
     },
     {
       "date": "2025-11-24",
       "tonnes": 1040.86,
-      "change": 0.29
+      "change": 0.29,
+      "implied_gold_usd": 4080.982,
+      "nav_per_share": 375.497196,
+      "nav_total": 136568330245.53,
+      "gld_close": 380.2,
+      "flow_value_usd": 38049923.0
     },
     {
       "date": "2025-11-25",
       "tonnes": 1040.86,
-      "change": 0.0
+      "change": 0.0,
+      "implied_gold_usd": 4125.337,
+      "nav_per_share": 379.578346,
+      "nav_total": 138052644337.42,
+      "gld_close": 380.08,
+      "flow_value_usd": 0.0
     },
     {
       "date": "2025-11-26",
       "tonnes": 1045.43,
-      "change": 4.57
+      "change": 4.57,
+      "implied_gold_usd": 4138.447,
+      "nav_per_share": 380.784124,
+      "nav_total": 139100440340.76,
+      "gld_close": 383.12,
+      "flow_value_usd": 608057579.0
     },
     {
       "date": "2025-11-28",
       "tonnes": 1045.43,
-      "change": 0.0
+      "change": 0.0,
+      "implied_gold_usd": 4189.805,
+      "nav_per_share": 385.509696,
+      "nav_total": 140826691858.26,
+      "gld_close": 387.88,
+      "flow_value_usd": 0.0
     },
     {
       "date": "2025-12-01",
       "tonnes": 1050.01,
-      "change": 4.58
+      "change": 4.58,
+      "implied_gold_usd": 4237.473,
+      "nav_per_share": 389.895116,
+      "nav_total": 143052518177.14,
+      "gld_close": 389.75,
+      "flow_value_usd": 623969743.0
     },
     {
       "date": "2025-12-02",
       "tonnes": 1048.3,
-      "change": -1.71
+      "change": -1.71,
+      "implied_gold_usd": 4213.325,
+      "nav_per_share": 387.673397,
+      "nav_total": 142004765401.91,
+      "gld_close": 387.24,
+      "flow_value_usd": -231639265.0
     },
     {
       "date": "2025-12-03",
       "tonnes": 1046.58,
-      "change": -1.72
+      "change": -1.72,
+      "implied_gold_usd": 4208.826,
+      "nav_per_share": 387.259703,
+      "nav_total": 141620873409.93,
+      "gld_close": 386.88,
+      "flow_value_usd": -232745090.0
     },
     {
       "date": "2025-12-04",
       "tonnes": 1050.58,
-      "change": 4.0
+      "change": 4.0,
+      "implied_gold_usd": 4199.086,
+      "nav_per_share": 386.362959,
+      "nav_total": 141833842535.88,
+      "gld_close": 387.13,
+      "flow_value_usd": 540015057.0
     },
     {
       "date": "2025-12-05",
       "tonnes": 1050.25,
-      "change": -0.33
+      "change": -0.33,
+      "implied_gold_usd": 4242.769,
+      "nav_per_share": 390.259958,
+      "nav_total": 143264430585.3,
+      "gld_close": 386.44,
+      "flow_value_usd": -45014708.0
     },
     {
       "date": "2025-12-08",
       "tonnes": 1049.11,
-      "change": -1.14
+      "change": -1.14,
+      "implied_gold_usd": 4187.88,
+      "nav_per_share": 385.211148,
+      "nav_total": 141256928064.95,
+      "gld_close": 385.42,
+      "flow_value_usd": -153493571.0
     },
     {
       "date": "2025-12-09",
       "tonnes": 1047.97,
-      "change": -1.14
+      "change": -1.14,
+      "implied_gold_usd": 4197.583,
+      "nav_per_share": 386.103745,
+      "nav_total": 141429801831.04,
+      "gld_close": 387.4,
+      "flow_value_usd": -153849203.0
     },
     {
       "date": "2025-12-10",
       "tonnes": 1046.82,
-      "change": -1.15
+      "change": -1.15,
+      "implied_gold_usd": 4199.687,
+      "nav_per_share": 386.297274,
+      "nav_total": 141346172474.77,
+      "gld_close": 389.05,
+      "flow_value_usd": -155276550.0
     },
     {
       "date": "2025-12-11",
       "tonnes": 1050.83,
-      "change": 4.01
+      "change": 4.01,
+      "implied_gold_usd": 4229.843,
+      "nav_per_share": 389.070878,
+      "nav_total": 142905733606.67,
+      "gld_close": 393.24,
+      "flow_value_usd": 545330426.0
     },
     {
       "date": "2025-12-12",
       "tonnes": 1053.11,
-      "change": 2.28
+      "change": 2.28,
+      "implied_gold_usd": 4346.396,
+      "nav_per_share": 399.79164,
+      "nav_total": 147163302537.55,
+      "gld_close": 395.44,
+      "flow_value_usd": 318606952.0
     },
     {
       "date": "2025-12-15",
       "tonnes": 1051.68,
-      "change": -1.43
+      "change": -1.43,
+      "implied_gold_usd": 4315.153,
+      "nav_per_share": 396.917877,
+      "nav_total": 145907011508.71,
+      "gld_close": 395.8,
+      "flow_value_usd": -198391630.0
     },
     {
       "date": "2025-12-16",
       "tonnes": 1051.68,
-      "change": 0.0
+      "change": 0.0,
+      "implied_gold_usd": 4323.455,
+      "nav_per_share": 397.681571,
+      "nav_total": 146187745576.88,
+      "gld_close": 395.89,
+      "flow_value_usd": 0.0
     },
     {
       "date": "2025-12-17",
       "tonnes": 1052.54,
-      "change": 0.86
+      "change": 0.86,
+      "implied_gold_usd": 4341.308,
+      "nav_per_share": 399.323679,
+      "nav_total": 146911181524.49,
+      "gld_close": 399.29,
+      "flow_value_usd": 120035625.0
     },
     {
       "date": "2025-12-18",
       "tonnes": 1052.54,
-      "change": 0.0
+      "change": 0.0,
+      "implied_gold_usd": 4332.511,
+      "nav_per_share": 398.514466,
+      "nav_total": 146613472146.4,
+      "gld_close": 398.57,
+      "flow_value_usd": 0.0
     },
     {
       "date": "2025-12-19",
       "tonnes": 1052.54,
-      "change": 0.0
+      "change": 0.0,
+      "implied_gold_usd": 4336.713,
+      "nav_per_share": 398.90102,
+      "nav_total": 146755685128.37,
+      "gld_close": 399.02,
+      "flow_value_usd": 0.0
     },
     {
       "date": "2025-12-22",
       "tonnes": 1064.56,
-      "change": 12.02
+      "change": 12.02,
+      "implied_gold_usd": 4420.631,
+      "nav_per_share": 406.618936,
+      "nav_total": 151302906124.1,
+      "gld_close": 408.23,
+      "flow_value_usd": 1708361758.0
     },
     {
       "date": "2025-12-23",
       "tonnes": 1064.56,
-      "change": 0.0
+      "change": 0.0,
+      "implied_gold_usd": 4448.333,
+      "nav_per_share": 409.166955,
+      "nav_total": 152251024010.17,
+      "gld_close": 413.64,
+      "flow_value_usd": 0.0
     },
     {
       "date": "2025-12-24",
       "tonnes": 1068.27,
-      "change": 3.71
+      "change": 3.71,
+      "implied_gold_usd": 4479.687,
+      "nav_per_share": 412.050677,
+      "nav_total": 153859722899.67,
+      "gld_close": 411.93,
+      "flow_value_usd": 534333851.0
     },
     {
       "date": "2025-12-26",
       "tonnes": 1071.13,
-      "change": 2.86
+      "change": 2.86,
+      "implied_gold_usd": 4479.593,
+      "nav_per_share": 412.041646,
+      "nav_total": 154268392292.78,
+      "gld_close": 416.74,
+      "flow_value_usd": 411903705.0
     },
     {
       "date": "2025-12-29",
       "tonnes": 1071.99,
-      "change": 0.86
+      "change": 0.86,
+      "implied_gold_usd": 4335.698,
+      "nav_per_share": 398.80584,
+      "nav_total": 149432548072.06,
+      "gld_close": 398.6,
+      "flow_value_usd": 119880511.0
     },
     {
       "date": "2025-12-30",
       "tonnes": 1071.99,
-      "change": 0.0
+      "change": 0.0,
+      "implied_gold_usd": 4366.4,
+      "nav_per_share": 401.629882,
+      "nav_total": 150490716880.74,
+      "gld_close": 398.89,
+      "flow_value_usd": 0.0
     },
     {
       "date": "2025-12-31",
       "tonnes": 1070.56,
-      "change": -1.43
+      "change": -1.43,
+      "implied_gold_usd": 4306.501,
+      "nav_per_share": 396.120423,
+      "nav_total": 148228262258.13,
+      "gld_close": 396.31,
+      "flow_value_usd": -197993849.0
     },
     {
       "date": "2026-01-02",
       "tonnes": 1065.13,
-      "change": -5.43
+      "change": -5.43,
+      "implied_gold_usd": 4351.398,
+      "nav_per_share": 400.250884,
+      "nav_total": 149013404123.31,
+      "gld_close": 398.28,
+      "flow_value_usd": -759660851.0
     },
     {
       "date": "2026-01-05",
       "tonnes": 1065.13,
-      "change": 0.0
+      "change": 0.0,
+      "implied_gold_usd": 4454.704,
+      "nav_per_share": 409.753173,
+      "nav_total": 152551106159.45,
+      "gld_close": 408.76,
+      "flow_value_usd": 0.0
     },
     {
       "date": "2026-01-06",
       "tonnes": 1067.13,
-      "change": 2.0
+      "change": 2.0,
+      "implied_gold_usd": 4488.608,
+      "nav_per_share": 412.871441,
+      "nav_total": 154001047611.31,
+      "gld_close": 413.18,
+      "flow_value_usd": 288624227.0
     },
     {
       "date": "2026-01-07",
       "tonnes": 1067.13,
-      "change": 0.0
+      "change": 0.0,
+      "implied_gold_usd": 4436.209,
+      "nav_per_share": 408.051708,
+      "nav_total": 152203287205.82,
+      "gld_close": 409.23,
+      "flow_value_usd": 0.0
     },
     {
       "date": "2026-01-08",
       "tonnes": 1067.13,
-      "change": 0.0
+      "change": 0.0,
+      "implied_gold_usd": 4427.511,
+      "nav_per_share": 407.2516,
+      "nav_total": 151904846940.89,
+      "gld_close": 411.49,
+      "flow_value_usd": 0.0
     },
     {
       "date": "2026-01-09",
       "tonnes": 1064.56,
-      "change": -2.57
+      "change": -2.57,
+      "implied_gold_usd": 4491.957,
+      "nav_per_share": 413.179916,
+      "nav_total": 153744246563.42,
+      "gld_close": 414.47,
+      "flow_value_usd": -371158851.0
     },
     {
       "date": "2026-01-12",
       "tonnes": 1070.8,
-      "change": 6.24
+      "change": 6.24,
+      "implied_gold_usd": 4612.369,
+      "nav_per_share": 424.121287,
+      "nav_total": 158791009720.09,
+      "gld_close": 422.23,
+      "flow_value_usd": 925336605.0
     },
     {
       "date": "2026-01-13",
       "tonnes": 1074.23,
-      "change": 3.43
+      "change": 3.43,
+      "implied_gold_usd": 4622.42,
+      "nav_per_share": 425.045354,
+      "nav_total": 159647035012.14,
+      "gld_close": 421.63,
+      "flow_value_usd": 509746945.0
     },
     {
       "date": "2026-01-14",
       "tonnes": 1074.23,
-      "change": 0.0
+      "change": 0.0,
+      "implied_gold_usd": 4605.82,
+      "nav_per_share": 423.518891,
+      "nav_total": 159073695383.3,
+      "gld_close": 425.94,
+      "flow_value_usd": 0.0
     },
     {
       "date": "2026-01-15",
       "tonnes": 1074.8,
-      "change": 0.57
+      "change": 0.57,
+      "implied_gold_usd": 4610.12,
+      "nav_per_share": 423.914241,
+      "nav_total": 159306971619.0,
+      "gld_close": 423.33,
+      "flow_value_usd": 84484725.0
     },
     {
       "date": "2026-01-16",
       "tonnes": 1085.67,
-      "change": 10.87
+      "change": 10.87,
+      "implied_gold_usd": 4610.277,
+      "nav_per_share": 423.927985,
+      "nav_total": 160923063278.22,
+      "gld_close": 421.29,
+      "flow_value_usd": 1611193394.0
     },
     {
       "date": "2026-01-20",
       "tonnes": 1081.66,
-      "change": -4.01
+      "change": -4.01,
+      "implied_gold_usd": 4746.819,
+      "nav_per_share": 436.483758,
+      "nav_total": 165078157092.61,
+      "gld_close": 437.23,
+      "flow_value_usd": -611981302.0
     },
     {
       "date": "2026-01-21",
       "tonnes": 1077.66,
-      "change": -4.0
+      "change": -4.0,
+      "implied_gold_usd": 4865.462,
+      "nav_per_share": 447.393663,
+      "nav_total": 168577932354.36,
+      "gld_close": 443.6,
+      "flow_value_usd": -625713010.0
     },
     {
       "date": "2026-01-22",
       "tonnes": 1079.66,
-      "change": 2.0
+      "change": 2.0,
+      "implied_gold_usd": 4830.961,
+      "nav_per_share": 444.221015,
+      "nav_total": 167693433310.21,
+      "gld_close": 451.79,
+      "flow_value_usd": 310638039.0
     },
     {
       "date": "2026-01-23",
       "tonnes": 1086.53,
-      "change": 6.87
+      "change": 6.87,
+      "implied_gold_usd": 4945.114,
+      "nav_per_share": 454.717057,
+      "nav_total": 172747009909.85,
+      "gld_close": 458.0,
+      "flow_value_usd": 1092255281.0
     },
     {
       "date": "2026-01-26",
       "tonnes": 1086.53,
-      "change": 0.0
+      "change": 0.0,
+      "implied_gold_usd": 5089.5,
+      "nav_per_share": 467.993738,
+      "nav_total": 177790821241.98,
+      "gld_close": 464.7,
+      "flow_value_usd": 0.0
     },
     {
       "date": "2026-01-27",
       "tonnes": 1087.38,
-      "change": 0.85
+      "change": 0.85,
+      "implied_gold_usd": 5062.895,
+      "nav_per_share": 465.54729,
+      "nav_total": 177001079573.61,
+      "gld_close": 476.1,
+      "flow_value_usd": 138359491.0
     },
     {
       "date": "2026-01-28",
       "tonnes": 1089.96,
-      "change": 2.58
+      "change": 2.58,
+      "implied_gold_usd": 5305.541,
+      "nav_per_share": 487.858882,
+      "nav_total": 185923020025.66,
+      "gld_close": 494.56,
+      "flow_value_usd": 440088976.0
     },
     {
       "date": "2026-01-29",
       "tonnes": 1086.53,
-      "change": -3.43
+      "change": -3.43,
+      "implied_gold_usd": 5403.527,
+      "nav_per_share": 496.869401,
+      "nav_total": 188760685515.92,
+      "gld_close": 495.9,
+      "flow_value_usd": -595885139.0
     },
     {
       "date": "2026-01-30",
       "tonnes": 1087.1,
-      "change": 0.57
+      "change": 0.57,
+      "implied_gold_usd": 4980.323,
+      "nav_per_share": 457.954556,
+      "nav_total": 174068528290.71,
+      "gld_close": 444.95,
+      "flow_value_usd": 91269038.0
     },
     {
       "date": "2026-02-02",
       "tonnes": 1087.1,
-      "change": 0.0
+      "change": 0.0,
+      "implied_gold_usd": 4713.062,
+      "nav_per_share": 433.379185,
+      "nav_total": 164727428231.21,
+      "gld_close": 427.13,
+      "flow_value_usd": 0.0
     },
     {
       "date": "2026-02-03",
       "tonnes": 1083.38,
-      "change": -3.72
+      "change": -3.72,
+      "implied_gold_usd": 4919.202,
+      "nav_per_share": 452.334892,
+      "nav_total": 171344456973.62,
+      "gld_close": 454.29,
+      "flow_value_usd": -588340445.0
     },
     {
       "date": "2026-02-04",
       "tonnes": 1081.95,
-      "change": -1.43
+      "change": -1.43,
+      "implied_gold_usd": 4983.295,
+      "nav_per_share": 458.228648,
+      "nav_total": 173347897595.28,
+      "gld_close": 453.97,
+      "flow_value_usd": -229109841.0
     },
     {
       "date": "2026-02-05",
       "tonnes": 1077.95,
-      "change": -4.0
+      "change": -4.0,
+      "implied_gold_usd": 4845.385,
+      "nav_per_share": 445.548053,
+      "nav_total": 167927061070.22,
+      "gld_close": 441.88,
+      "flow_value_usd": -623131047.0
     },
     {
       "date": "2026-02-06",
       "tonnes": 1076.23,
-      "change": -1.72
+      "change": -1.72,
+      "implied_gold_usd": 4946.078,
+      "nav_per_share": 454.80734,
+      "nav_total": 171144002125.75,
+      "gld_close": 455.46,
+      "flow_value_usd": -273514602.0
     },
     {
       "date": "2026-02-09",
       "tonnes": 1079.66,
-      "change": 3.43
+      "change": 3.43,
+      "implied_gold_usd": 5037.471,
+      "nav_per_share": 463.210604,
+      "nav_total": 174862003100.13,
+      "gld_close": 467.03,
+      "flow_value_usd": 555517555.0
     },
     {
       "date": "2026-02-10",
       "tonnes": 1079.32,
-      "change": -0.34
+      "change": -0.34,
+      "implied_gold_usd": 5030.858,
+      "nav_per_share": 462.456119,
+      "nav_total": 174577184989.29,
+      "gld_close": 462.4,
+      "flow_value_usd": -54993592.0
     },
     {
       "date": "2026-02-11",
       "tonnes": 1081.32,
-      "change": 2.0
+      "change": 2.0,
+      "implied_gold_usd": 5077.254,
+      "nav_per_share": 466.72087,
+      "nav_total": 176513832895.48,
+      "gld_close": 467.63,
+      "flow_value_usd": 326475048.0
     },
     {
       "date": "2026-02-12",
       "tonnes": 1076.18,
-      "change": -5.14
+      "change": -5.14,
+      "implied_gold_usd": 5042.495,
+      "nav_per_share": 463.526031,
+      "nav_total": 174471198083.26,
+      "gld_close": 451.39,
+      "flow_value_usd": -833296780.0
     },
     {
       "date": "2026-02-13",
       "tonnes": 1077.03,
-      "change": 0.85
+      "change": 0.85,
+      "implied_gold_usd": 4994.241,
+      "nav_per_share": 459.090266,
+      "nav_total": 172939303206.02,
+      "gld_close": 462.62,
+      "flow_value_usd": 136483305.0
     },
     {
       "date": "2026-02-17",
       "tonnes": 1075.61,
-      "change": -1.42
+      "change": -1.42,
+      "implied_gold_usd": 4860.523,
+      "nav_per_share": 446.798455,
+      "nav_total": 168085578743.31,
+      "gld_close": 448.2,
+      "flow_value_usd": -221902633.0
     },
     {
       "date": "2026-02-18",
       "tonnes": 1075.61,
-      "change": 0.0
+      "change": 0.0,
+      "implied_gold_usd": 5002.318,
+      "nav_per_share": 459.832828,
+      "nav_total": 172989109934.18,
+      "gld_close": 458.28,
+      "flow_value_usd": 0.0
     },
     {
       "date": "2026-02-19",
       "tonnes": 1078.75,
-      "change": 3.14
+      "change": 3.14,
+      "implied_gold_usd": 5003.766,
+      "nav_per_share": 459.965673,
+      "nav_total": 173545048543.31,
+      "gld_close": 459.56,
+      "flow_value_usd": 505146965.0
     },
     {
       "date": "2026-02-20",
       "tonnes": 1078.75,
-      "change": 0.0
+      "change": 0.0,
+      "implied_gold_usd": 5052.111,
+      "nav_per_share": 464.4097,
+      "nav_total": 175221779961.29,
+      "gld_close": 468.62,
+      "flow_value_usd": 0.0
     },
     {
       "date": "2026-02-23",
       "tonnes": 1086.47,
-      "change": 7.72
+      "change": 7.72,
+      "implied_gold_usd": 5190.152,
+      "nav_per_share": 477.098175,
+      "nav_total": 181297306681.74,
+      "gld_close": 481.28,
+      "flow_value_usd": 1288215397.0
     },
     {
       "date": "2026-02-24",
       "tonnes": 1094.19,
-      "change": 7.72
+      "change": 7.72,
+      "implied_gold_usd": 5118.955,
+      "nav_per_share": 470.552645,
+      "nav_total": 180080497196.67,
+      "gld_close": 474.61,
+      "flow_value_usd": 1270544032.0
     },
     {
       "date": "2026-02-25",
       "tonnes": 1097.62,
-      "change": 3.43
+      "change": 3.43,
+      "implied_gold_usd": 5190.202,
+      "nav_per_share": 477.101567,
+      "nav_total": 183159291597.21,
+      "gld_close": 473.42,
+      "flow_value_usd": 572360282.0
     },
     {
       "date": "2026-02-26",
       "tonnes": 1097.9,
-      "change": 0.28
+      "change": 0.28,
+      "implied_gold_usd": 5165.946,
+      "nav_per_share": 474.871814,
+      "nav_total": 182350776687.67,
+      "gld_close": 477.48,
+      "flow_value_usd": 46504931.0
     },
     {
       "date": "2026-02-27",
       "tonnes": 1101.33,
-      "change": 3.43
+      "change": 3.43,
+      "implied_gold_usd": 5220.844,
+      "nav_per_share": 479.917751,
+      "nav_total": 184864317602.52,
+      "gld_close": 483.75,
+      "flow_value_usd": 575739392.0
     },
     {
       "date": "2026-03-02",
       "tonnes": 1101.33,
-      "change": 0.0
+      "change": 0.0,
+      "implied_gold_usd": 5312.271,
+      "nav_per_share": 488.322065,
+      "nav_total": 188101659748.2,
+      "gld_close": 490.0,
+      "flow_value_usd": 0.0
     },
     {
       "date": "2026-03-03",
       "tonnes": 1099.04,
-      "change": -2.29
+      "change": -2.29,
+      "implied_gold_usd": 5031.962,
+      "nav_per_share": 462.555461,
+      "nav_total": 177806319096.24,
+      "gld_close": 468.14,
+      "flow_value_usd": -370479297.0
     },
     {
       "date": "2026-03-04",
       "tonnes": 1081.04,
-      "change": -18.0
+      "change": -18.0,
+      "implied_gold_usd": 5146.777,
+      "nav_per_share": 473.112283,
+      "nav_total": 178883754110.81,
+      "gld_close": 471.8,
+      "flow_value_usd": -2978509331.0
     },
     {
       "date": "2026-03-05",
       "tonnes": 1075.89,
-      "change": -5.15
+      "change": -5.15,
+      "implied_gold_usd": 5102.212,
+      "nav_per_share": 469.016525,
+      "nav_total": 176490918402.13,
+      "gld_close": 466.13,
+      "flow_value_usd": -844805704.0
     },
     {
       "date": "2026-03-06",
       "tonnes": 1073.32,
-      "change": -2.57
+      "change": -2.57,
+      "implied_gold_usd": 5125.651,
+      "nav_per_share": 471.171579,
+      "nav_total": 176877810779.5,
+      "gld_close": 473.51,
+      "flow_value_usd": -423519356.0
     },
     {
       "date": "2026-03-09",
       "tonnes": 1070.71,
-      "change": -2.61
+      "change": -2.61,
+      "implied_gold_usd": 5085.835,
+      "nav_per_share": 467.368852,
+      "nav_total": 175076371887.13,
+      "gld_close": 472.53,
+      "flow_value_usd": -426769999.0
     },
     {
       "date": "2026-03-10",
       "tonnes": 1073.57,
-      "change": 2.86
+      "change": 2.86,
+      "implied_gold_usd": 5209.13,
+      "nav_per_share": 478.699,
+      "nav_total": 179799344395.68,
+      "gld_close": 477.86,
+      "flow_value_usd": 478985468.0
     },
     {
       "date": "2026-03-11",
       "tonnes": 1077.28,
-      "change": 3.71
+      "change": 3.71,
+      "implied_gold_usd": 5181.775,
+      "nav_per_share": 476.185016,
+      "nav_total": 179474132697.99,
+      "gld_close": 476.24,
+      "flow_value_usd": 618078404.0
     },
     {
       "date": "2026-03-12",
       "tonnes": 1075.85,
-      "change": -1.43
+      "change": -1.43,
+      "implied_gold_usd": 5129.418,
+      "nav_per_share": 471.373684,
+      "nav_total": 177425054530.25,
+      "gld_close": 466.88,
+      "flow_value_usd": -235827929.0
     },
     {
       "date": "2026-03-13",
       "tonnes": 1071.56,
-      "change": -4.29
+      "change": -4.29,
+      "implied_gold_usd": 5043.86,
+      "nav_per_share": 463.511485,
+      "nav_total": 173770455578.69,
+      "gld_close": 460.84,
+      "flow_value_usd": -695683053.0
     },
     {
       "date": "2026-03-16",
       "tonnes": 1070.71,
-      "change": -0.85
+      "change": -0.85,
+      "implied_gold_usd": 4993.944,
+      "nav_per_share": 458.924461,
+      "nav_total": 171913103006.53,
+      "gld_close": 460.43,
+      "flow_value_usd": -136475188.0
     },
     {
       "date": "2026-03-17",
       "tonnes": 1069.56,
-      "change": -1.15
+      "change": -1.15,
+      "implied_gold_usd": 5015.838,
+      "nav_per_share": 460.936531,
+      "nav_total": 172482449901.96,
+      "gld_close": 459.27,
+      "flow_value_usd": -185452397.0
     },
     {
       "date": "2026-03-18",
       "tonnes": 1066.99,
-      "change": -2.57
+      "change": -2.57,
+      "implied_gold_usd": 4868.932,
+      "nav_per_share": 447.436668,
+      "nav_total": 167028107992.37,
+      "gld_close": 444.74,
+      "flow_value_usd": -402307326.0
     },
     {
       "date": "2026-03-19",
       "tonnes": 1062.13,
-      "change": -4.86
+      "change": -4.86,
+      "implied_gold_usd": 4599.277,
+      "nav_per_share": 422.656802,
+      "nav_total": 157059267719.45,
+      "gld_close": 426.41,
+      "flow_value_usd": -718649196.0
     },
     {
       "date": "2026-03-20",
       "tonnes": 1056.99,
-      "change": -5.14
+      "change": -5.14,
+      "implied_gold_usd": 4561.421,
+      "nav_per_share": 419.178526,
+      "nav_total": 155012218868.94,
+      "gld_close": 413.38,
+      "flow_value_usd": -753796966.0
     },
     {
       "date": "2026-03-23",
       "tonnes": 1052.7,
-      "change": -4.29
+      "change": -4.29,
+      "implied_gold_usd": 4464.967,
+      "nav_per_share": 410.315211,
+      "nav_total": 151119092362.02,
+      "gld_close": 404.04,
+      "flow_value_usd": -615838242.0
     },
     {
       "date": "2026-03-24",
       "tonnes": 1052.99,
-      "change": 0.29
+      "change": 0.29,
+      "implied_gold_usd": 4412.219,
+      "nav_per_share": 405.467818,
+      "nav_total": 149374344165.38,
+      "gld_close": 404.13,
+      "flow_value_usd": 41138284.0
     },
     {
       "date": "2026-03-25",
       "tonnes": 1052.42,
-      "change": -0.57
+      "change": -0.57,
+      "implied_gold_usd": 4563.168,
+      "nav_per_share": 419.339605,
+      "nav_total": 154400842611.17,
+      "gld_close": 416.29,
+      "flow_value_usd": -83624286.0
     },
     {
       "date": "2026-03-26",
       "tonnes": 1052.7,
-      "change": 0.28
+      "change": 0.28,
+      "implied_gold_usd": 4455.02,
+      "nav_per_share": 409.401097,
+      "nav_total": 150782424112.64,
+      "gld_close": 400.64,
+      "flow_value_usd": 40105026.0
     },
     {
       "date": "2026-03-27",
       "tonnes": 1049.56,
-      "change": -3.14
+      "change": -3.14,
+      "implied_gold_usd": 4502.666,
+      "nav_per_share": 413.780029,
+      "nav_total": 151940026822.54,
+      "gld_close": 414.7,
+      "flow_value_usd": -454559239.0
     },
     {
       "date": "2026-03-30",
       "tonnes": 1046.13,
-      "change": -3.43
+      "change": -3.43,
+      "implied_gold_usd": 4527.512,
+      "nav_per_share": 416.063818,
+      "nav_total": 152279357229.33,
+      "gld_close": 414.58,
+      "flow_value_usd": -499280769.0
     },
     {
       "date": "2026-03-31",
       "tonnes": 1047.28,
-      "change": 1.15
+      "change": 1.15,
+      "implied_gold_usd": 4606.664,
+      "nav_per_share": 423.337403,
+      "nav_total": 155110824523.87,
+      "gld_close": 430.29,
+      "flow_value_usd": 170323858.0
     },
     {
       "date": "2026-04-01",
       "tonnes": 1050.99,
-      "change": 3.71
+      "change": 3.71,
+      "implied_gold_usd": 4737.268,
+      "nav_per_share": 435.338942,
+      "nav_total": 160074128898.75,
+      "gld_close": 437.82,
+      "flow_value_usd": 565057928.0
     },
     {
       "date": "2026-04-02",
       "tonnes": 1050.99,
-      "change": 0.0
+      "change": 0.0,
+      "implied_gold_usd": 4637.567,
+      "nav_per_share": 426.176773,
+      "nav_total": 156705199334.2,
+      "gld_close": 429.41,
+      "flow_value_usd": 0.0
     },
     {
       "date": "2026-04-06",
       "tonnes": 1054.42,
-      "change": 3.43
+      "change": 3.43,
+      "implied_gold_usd": 4637.37,
+      "nav_per_share": 426.158091,
+      "nav_total": 157209719864.48,
+      "gld_close": 427.65,
+      "flow_value_usd": 511395588.0
     },
     {
       "date": "2026-04-07",
       "tonnes": 1054.42,
-      "change": 0.0
+      "change": 0.0,
+      "implied_gold_usd": 4609.67,
+      "nav_per_share": 423.612511,
+      "nav_total": 156270655220.01,
+      "gld_close": 431.81,
+      "flow_value_usd": 0.0
     },
     {
       "date": "2026-04-08",
       "tonnes": 1052.99,
-      "change": -1.43
+      "change": -1.43,
+      "implied_gold_usd": 4790.465,
+      "nav_per_share": 440.227168,
+      "nav_total": 162179688551.69,
+      "gld_close": 434.53,
+      "flow_value_usd": -220244371.0
     },
     {
       "date": "2026-04-09",
       "tonnes": 1052.42,
-      "change": -0.57
+      "change": -0.57,
+      "implied_gold_usd": 4760.461,
+      "nav_per_share": 437.470072,
+      "nav_total": 161076480402.87,
+      "gld_close": 437.91,
+      "flow_value_usd": -87239863.0
     },
     {
       "date": "2026-04-10",
       "tonnes": 1052.42,
-      "change": 0.0
+      "change": 0.0,
+      "implied_gold_usd": 4757.304,
+      "nav_per_share": 438.489913,
+      "nav_total": 160969647109.11,
+      "gld_close": 437.13,
+      "flow_value_usd": 0.0
     },
     {
       "date": "2026-04-13",
       "tonnes": 1047.19,
-      "change": -5.23
+      "change": -5.23,
+      "implied_gold_usd": 4721.978,
+      "nav_per_share": 433.781283,
+      "nav_total": 158980840138.29,
+      "gld_close": 435.36,
+      "flow_value_usd": -793993152.0
     },
     {
       "date": "2026-04-14",
       "tonnes": 1049.48,
-      "change": 2.29
+      "change": 2.29,
+      "implied_gold_usd": 4794.027,
+      "nav_per_share": 440.399874,
+      "nav_total": 161758873776.97,
+      "gld_close": 445.09,
+      "flow_value_usd": 352961281.0
     },
     {
       "date": "2026-04-15",
       "tonnes": 1051.76,
-      "change": 2.28
+      "change": 2.28,
+      "implied_gold_usd": 4822.476,
+      "nav_per_share": 443.013152,
+      "nav_total": 163073141066.22,
+      "gld_close": 440.46,
+      "flow_value_usd": 353505382.0
     },
     {
       "date": "2026-04-16",
       "tonnes": 1052.91,
-      "change": 1.15
+      "change": 1.15,
+      "implied_gold_usd": 4792.774,
+      "nav_per_share": 440.284551,
+      "nav_total": 162244857069.48,
+      "gld_close": 440.08,
+      "flow_value_usd": 177204970.0
     },
     {
       "date": "2026-04-17",
       "tonnes": 1060.62,
-      "change": 7.71
+      "change": 7.71,
+      "implied_gold_usd": 4869.627,
+      "nav_per_share": 447.344009,
+      "nav_total": 166054096165.0,
+      "gld_close": 445.93,
+      "flow_value_usd": 1207094256.0
     },
     {
       "date": "2026-04-20",
       "tonnes": 1059.76,
-      "change": -0.86
+      "change": -0.86,
+      "implied_gold_usd": 4812.517,
+      "nav_per_share": 442.097698,
+      "nav_total": 163974036026.73,
+      "gld_close": 442.09,
+      "flow_value_usd": -133064387.0
     },
     {
       "date": "2026-04-21",
       "tonnes": 1055.48,
-      "change": -4.28
+      "change": -4.28,
+      "implied_gold_usd": 4775.66,
+      "nav_per_share": 438.712289,
+      "nav_total": 162060319702.07,
+      "gld_close": 429.57,
+      "flow_value_usd": -657155697.0
     },
     {
       "date": "2026-04-22",
       "tonnes": 1050.91,
-      "change": -4.57
+      "change": -4.57,
+      "implied_gold_usd": 4740.953,
+      "nav_per_share": 435.524421,
+      "nav_total": 160185882089.78,
+      "gld_close": 435.26,
+      "flow_value_usd": -696583140.0
     },
     {
       "date": "2026-04-23",
       "tonnes": 1049.19,
-      "change": -1.72
+      "change": -1.72,
+      "implied_gold_usd": 4717.949,
+      "nav_per_share": 433.411385,
+      "nav_total": 159148660640.46,
+      "gld_close": 431.04,
+      "flow_value_usd": -260899230.0
     },
     {
       "date": "2026-04-24",
       "tonnes": 1046.62,
-      "change": -2.57
+      "change": -2.57,
+      "implied_gold_usd": 4710.395,
+      "nav_per_share": 432.71766,
+      "nav_total": 158504478988.86,
+      "gld_close": 433.25,
+      "flow_value_usd": -389207821.0
     },
     {
       "date": "2026-04-27",
       "tonnes": 1044.34,
-      "change": -2.28
+      "change": -2.28,
+      "implied_gold_usd": 4690.837,
+      "nav_per_share": 430.921284,
+      "nav_total": 157501729313.81,
+      "gld_close": 429.89,
+      "flow_value_usd": -343855755.0
     },
     {
       "date": "2026-04-28",
       "tonnes": 1040.91,
-      "change": -3.43
+      "change": -3.43,
+      "implied_gold_usd": 4563.432,
+      "nav_per_share": 419.217749,
+      "nav_total": 152721025809.65,
+      "gld_close": 421.91,
+      "flow_value_usd": -503241922.0
     },
     {
       "date": "2026-04-29",
       "tonnes": 1039.2,
-      "change": -1.71
+      "change": -1.71,
+      "implied_gold_usd": 4520.58,
+      "nav_per_share": 415.281394,
+      "nav_total": 151037842880.36,
+      "gld_close": 417.41,
+      "flow_value_usd": -248531464.0
     },
     {
       "date": "2026-04-30",
       "tonnes": 1035.77,
-      "change": -3.43
+      "change": -3.43,
+      "implied_gold_usd": 4609.774,
+      "nav_per_share": 423.475671,
+      "nav_total": 153509930615.84,
+      "gld_close": 423.66,
+      "flow_value_usd": -508352382.0
     },
     {
       "date": "2026-05-01",
       "tonnes": 1035.77,
-      "change": 0.0
+      "change": 0.0,
+      "implied_gold_usd": 4635.274,
+      "nav_per_share": 425.818151,
+      "nav_total": 154359079833.4,
+      "gld_close": 423.18,
+      "flow_value_usd": 0.0
     },
     {
       "date": "2026-05-04",
       "tonnes": 1035.77,
-      "change": 0.0
+      "change": 0.0,
+      "implied_gold_usd": 4635.121,
+      "nav_per_share": 425.804152,
+      "nav_total": 154354005069.99,
+      "gld_close": 414.71,
+      "flow_value_usd": 0.0
     },
     {
       "date": "2026-05-05",
       "tonnes": 1034.05,
-      "change": -1.72
+      "change": -1.72,
+      "implied_gold_usd": 4574.968,
+      "nav_per_share": 420.278476,
+      "nav_total": 152098780397.93,
+      "gld_close": 418.27,
+      "flow_value_usd": -252992482.0
     },
     {
       "date": "2026-05-06",
       "tonnes": 1033.2,
-      "change": -0.85
+      "change": -0.85,
+      "implied_gold_usd": 4705.015,
+      "nav_per_share": 432.225348,
+      "nav_total": 156292685938.73,
+      "gld_close": 430.96,
+      "flow_value_usd": -128579297.0
     },
     {
       "date": "2026-05-07",
       "tonnes": 1033.48,
-      "change": 0.28
+      "change": 0.28,
+      "implied_gold_usd": 4741.413,
+      "nav_per_share": 435.569048,
+      "nav_total": 157545324517.1,
+      "gld_close": 431.68,
+      "flow_value_usd": 42683196.0
     },
     {
       "date": "2026-05-08",
       "tonnes": 1034.0,
-      "change": 0.52
+      "change": 0.52,
+      "implied_gold_usd": 4740.991,
+      "nav_per_share": 435.38514,
+      "nav_total": 157609420611.4,
+      "gld_close": 433.77,
+      "flow_value_usd": 79261737.0
     },
     {
       "date": "2026-05-11",
       "tonnes": 1036.28,
-      "change": 2.28
+      "change": 2.28,
+      "implied_gold_usd": 4728.586,
+      "nav_per_share": 434.245869,
+      "nav_total": 157544401358.75,
+      "gld_close": 434.65,
+      "flow_value_usd": 346622897.0
     },
     {
       "date": "2026-05-12",
       "tonnes": 1038.28,
-      "change": 2.0
+      "change": 2.0,
+      "implied_gold_usd": 4677.786,
+      "nav_per_share": 429.580577,
+      "nav_total": 156152539599.82,
+      "gld_close": 432.93,
+      "flow_value_usd": 300788656.0
     },
     {
       "date": "2026-05-13",
       "tonnes": 1039.99,
-      "change": 1.71
+      "change": 1.71,
+      "implied_gold_usd": 4675.036,
+      "nav_per_share": 429.327919,
+      "nav_total": 156318295440.83,
+      "gld_close": 430.5,
+      "flow_value_usd": 257023112.0
     },
     {
       "date": "2026-05-14",
       "tonnes": 1039.99,
-      "change": 0.0
+      "change": 0.0,
+      "implied_gold_usd": 4682.335,
+      "nav_per_share": 429.998188,
+      "nav_total": 156562340222.71,
+      "gld_close": 427.21,
+      "flow_value_usd": 0.0
     },
     {
       "date": "2026-05-15",
       "tonnes": 1037.42,
-      "change": -2.57
+      "change": -2.57,
+      "implied_gold_usd": 4527.233,
+      "nav_per_share": 415.754748,
+      "nav_total": 151002124639.16,
+      "gld_close": 417.29,
+      "flow_value_usd": -374073616.0
     },
     {
       "date": "2026-05-18",
       "tonnes": 1038.85,
-      "change": 1.43
+      "change": 1.43,
+      "implied_gold_usd": 4564.485,
+      "nav_per_share": 419.175641,
+      "nav_total": 152454180455.08,
+      "gld_close": 418.43,
+      "flow_value_usd": 209854811.0
     },
     {
       "date": "2026-05-19",
       "tonnes": 1036.85,
-      "change": -2.0
+      "change": -2.0,
+      "implied_gold_usd": 4495.734,
+      "nav_per_share": 412.86211,
+      "nav_total": 149868945820.15,
+      "gld_close": 411.5,
+      "flow_value_usd": -289082440.0
     },
     {
       "date": "2026-05-20",
       "tonnes": 1036.85,
-      "change": 0.0
+      "change": 0.0,
+      "implied_gold_usd": 4481.835,
+      "nav_per_share": 411.585696,
+      "nav_total": 149405607500.62,
+      "gld_close": 417.4,
+      "flow_value_usd": 0.0
     },
     {
       "date": "2026-05-21",
       "tonnes": 1037.71,
-      "change": 0.86
+      "change": 0.86,
+      "implied_gold_usd": 4504.187,
+      "nav_per_share": 413.638248,
+      "nav_total": 150274775637.73,
+      "gld_close": 416.99,
+      "flow_value_usd": 124539172.0
     },
     {
       "date": "2026-05-22",
       "tonnes": 1034.85,
-      "change": -2.86
+      "change": -2.86,
+      "implied_gold_usd": 4505.034,
+      "nav_per_share": 413.716365,
+      "nav_total": 149889439135.27,
+      "gld_close": 413.82,
+      "flow_value_usd": -414243035.0
     },
     {
       "date": "2026-05-26",
       "tonnes": 1034.85,
-      "change": 0.0
+      "change": 0.0,
+      "implied_gold_usd": 4514.187,
+      "nav_per_share": 414.556871,
+      "nav_total": 150193954265.98,
+      "gld_close": 414.0,
+      "flow_value_usd": 0.0
     },
     {
       "date": "2026-05-27",
       "tonnes": 1034.85,
-      "change": 0.0
+      "change": 0.0,
+      "implied_gold_usd": 4424.638,
+      "nav_per_share": 406.333254,
+      "nav_total": 147214537832.56,
+      "gld_close": 408.49,
+      "flow_value_usd": 0.0
     },
     {
       "date": "2026-05-28",
       "tonnes": 1032.57,
-      "change": -2.28
+      "change": -2.28,
+      "implied_gold_usd": 4418.037,
+      "nav_per_share": 405.727293,
+      "nav_total": 146670416465.33,
+      "gld_close": 412.77,
+      "flow_value_usd": -323858503.0
     },
     {
       "date": "2026-05-29",
       "tonnes": 1029.14,
-      "change": -3.43
+      "change": -3.43,
+      "implied_gold_usd": 4544.482,
+      "nav_per_share": 417.339758,
+      "nav_total": 150367514927.21,
+      "gld_close": 417.12,
+      "flow_value_usd": -501152171.0
     },
     {
       "date": "2026-06-01",
       "tonnes": 1028.86,
-      "change": -0.28
+      "change": -0.28,
+      "implied_gold_usd": 4447.683,
+      "nav_per_share": 408.45034,
+      "nav_total": 147123812637.79,
+      "gld_close": 411.26,
+      "flow_value_usd": -40038976.0
     },
     {
       "date": "2026-06-02",
       "tonnes": 1028.0,
-      "change": -0.86
+      "change": -0.86,
+      "implied_gold_usd": 4502.182,
+      "nav_per_share": 413.455376,
+      "nav_total": 148802589932.33,
+      "gld_close": 411.95,
+      "flow_value_usd": -124483734.0
     },
     {
       "date": "2026-06-03",
       "tonnes": 1026.86,
-      "change": -1.14
+      "change": -1.14,
+      "implied_gold_usd": 4442.882,
+      "nav_per_share": 408.009715,
+      "nav_total": 146679492415.74,
+      "gld_close": 407.87,
+      "flow_value_usd": -162839867.0
     },
     {
       "date": "2026-06-04",
       "tonnes": 1025.14,
-      "change": -1.72
+      "change": -1.72,
+      "implied_gold_usd": 4495.18,
+      "nav_per_share": 412.812725,
+      "nav_total": 148158487135.41,
+      "gld_close": 411.27,
+      "flow_value_usd": -248580262.0
     },
     {
       "date": "2026-06-05",
       "tonnes": 1019.92,
-      "change": -5.22
+      "change": -5.22,
+      "implied_gold_usd": 4364.904,
+      "nav_per_share": 400.704542,
+      "nav_total": 143131662538.61,
+      "gld_close": 396.24,
+      "flow_value_usd": -732548373.0
     },
     {
       "date": "2026-06-08",
       "tonnes": 1019.92,
-      "change": 0.0
+      "change": 0.0,
+      "implied_gold_usd": 4320.211,
+      "nav_per_share": 396.60166,
+      "nav_total": 141666113077.39,
+      "gld_close": 397.27,
+      "flow_value_usd": 0.0
     },
     {
       "date": "2026-06-09",
       "tonnes": 1016.49,
-      "change": -3.43
+      "change": -3.43,
+      "implied_gold_usd": 4327.212,
+      "nav_per_share": 397.244507,
+      "nav_total": 141419044539.5,
+      "gld_close": 390.78,
+      "flow_value_usd": -477192271.0
     },
     {
       "date": "2026-06-10",
       "tonnes": 1013.64,
-      "change": -2.85
+      "change": -2.85,
+      "implied_gold_usd": 4170.465,
+      "nav_per_share": 382.855019,
+      "nav_total": 135913531902.03,
+      "gld_close": 374.58,
+      "flow_value_usd": -382138196.0
     },
     {
       "date": "2026-06-11",
       "tonnes": 1013.64,
-      "change": 0.0
+      "change": 0.0,
+      "implied_gold_usd": 4074.321,
+      "nav_per_share": 374.028795,
+      "nav_total": 132780222324.9,
+      "gld_close": 386.32,
+      "flow_value_usd": 0.0
     },
     {
       "date": "2026-06-12",
       "tonnes": 1013.64,
-      "change": 0.0
+      "change": 0.0,
+      "implied_gold_usd": 4185.375,
+      "nav_per_share": 384.223732,
+      "nav_total": 136399424999.79,
+      "gld_close": 386.54,
+      "flow_value_usd": 0.0
     },
     {
       "date": "2026-06-15",
       "tonnes": 1012.21,
-      "change": -1.43
+      "change": -1.43,
+      "implied_gold_usd": 4354.484,
+      "nav_per_share": 399.748336,
+      "nav_total": 141710785077.42,
+      "gld_close": 396.55,
+      "flow_value_usd": -200199895.0
     },
     {
       "date": "2026-06-16",
       "tonnes": 1012.21,
-      "change": 0.0
+      "change": 0.0,
+      "implied_gold_usd": 4335.037,
+      "nav_per_share": 397.963025,
+      "nav_total": 141077892326.34,
+      "gld_close": 397.63,
+      "flow_value_usd": 0.0
     },
     {
       "date": "2026-06-17",
       "tonnes": 1013.07,
-      "change": 0.86
+      "change": 0.86,
+      "implied_gold_usd": 4341.04,
+      "nav_per_share": 398.514057,
+      "nav_total": 141392787366.09,
+      "gld_close": 388.6,
+      "flow_value_usd": 120028215.0
     },
     {
       "date": "2026-06-18",
       "tonnes": 1020.49,
-      "change": 7.42
+      "change": 7.42,
+      "implied_gold_usd": 4235.3,
+      "nav_per_share": 388.806376,
+      "nav_total": 138959398635.97,
+      "gld_close": 387.12,
+      "flow_value_usd": 1010367090.0
     },
     {
       "date": "2026-06-22",
       "tonnes": 1022.2,
-      "change": 1.71
+      "change": 1.71,
+      "implied_gold_usd": 4195.919,
+      "nav_per_share": 385.191015,
+      "nav_total": 137898383325.08,
+      "gld_close": 384.59,
+      "flow_value_usd": 230682322.0
     },
     {
       "date": "2026-06-23",
       "tonnes": 1017.64,
-      "change": -4.56
+      "change": -4.56,
+      "implied_gold_usd": 4134.419,
+      "nav_per_share": 379.545663,
+      "nav_total": 135270074252.63,
+      "gld_close": 377.32,
+      "flow_value_usd": -606136503.0
     },
     {
       "date": "2026-06-24",
       "tonnes": 1013.35,
-      "change": -4.29
+      "change": -4.29,
+      "implied_gold_usd": 4023.32,
+      "nav_per_share": 369.347065,
+      "nav_total": 131081273466.02,
+      "gld_close": 365.92,
+      "flow_value_usd": -554923321.0
     },
     {
       "date": "2026-06-25",
       "tonnes": 1007.08,
-      "change": -6.27
+      "change": -6.27,
+      "implied_gold_usd": 4000.619,
+      "nav_per_share": 367.263735,
+      "nav_total": 129533919321.39,
+      "gld_close": 369.46,
+      "flow_value_usd": -806465591.0
     },
     {
       "date": "2026-06-26",
       "tonnes": 1005.08,
-      "change": -2.0
+      "change": -2.0,
+      "implied_gold_usd": 4070.822,
+      "nav_per_share": 373.708711,
+      "nav_total": 131545466221.94,
+      "gld_close": 373.63,
+      "flow_value_usd": -261759961.0
     },
     {
       "date": "2026-06-29",
       "tonnes": 1005.08,
-      "change": 0.0
+      "change": 0.0,
+      "implied_gold_usd": 4025.089,
+      "nav_per_share": 369.51031,
+      "nav_total": 130067629154.16,
+      "gld_close": 368.58,
+      "flow_value_usd": 0.0
     },
     {
       "date": "2026-06-30",
       "tonnes": 1005.08,
-      "change": 0.0
+      "change": 0.0,
+      "implied_gold_usd": 4024.644,
+      "nav_per_share": 369.46954,
+      "nav_total": 130053278206.09,
+      "gld_close": 368.38,
+      "flow_value_usd": 0.0
     },
     {
       "date": "2026-07-01",
       "tonnes": 1005.36,
-      "change": 0.28
+      "change": 0.28,
+      "implied_gold_usd": 4088.0,
+      "nav_per_share": 375.285661,
+      "nav_total": 132138081113.97,
+      "gld_close": 370.6,
+      "flow_value_usd": 36801034.0
     },
     {
       "date": "2026-07-02",
       "tonnes": 1001.37,
-      "change": -3.99
+      "change": -3.99,
+      "implied_gold_usd": 4127.699,
+      "nav_per_share": 378.930629,
+      "nav_total": 132890971417.05,
+      "gld_close": 378.13,
+      "flow_value_usd": -529507388.0
     },
     {
       "date": "2026-07-06",
       "tonnes": 1002.79,
-      "change": 1.42
+      "change": 1.42,
+      "implied_gold_usd": 4139.269,
+      "nav_per_share": 379.992574,
+      "nav_total": 133453392018.02,
+      "gld_close": 382.13,
+      "flow_value_usd": 188974456.0
     },
     {
       "date": "2026-07-07",
       "tonnes": 1002.51,
-      "change": -0.28
+      "change": -0.28,
+      "implied_gold_usd": 4154.073,
+      "nav_per_share": 381.351652,
+      "nav_total": 133892565143.81,
+      "gld_close": 377.49,
+      "flow_value_usd": -37395838.0
     },
     {
       "date": "2026-07-08",
       "tonnes": 1002.51,
-      "change": 0.0
+      "change": 0.0,
+      "implied_gold_usd": 4064.429,
+      "nav_per_share": 373.122116,
+      "nav_total": 131003175020.46,
+      "gld_close": 374.45,
+      "flow_value_usd": 0.0
     },
     {
       "date": "2026-07-09",
       "tonnes": 1005.65,
-      "change": 3.14
+      "change": 3.14,
+      "implied_gold_usd": 4128.339,
+      "nav_per_share": 378.988692,
+      "nav_total": 133479817354.88,
+      "gld_close": 378.18,
+      "flow_value_usd": 416769673.0
     },
     {
       "date": "2026-07-10",
       "tonnes": 1002.45,
-      "change": -3.2
+      "change": -3.2,
+      "implied_gold_usd": 4098.697,
+      "nav_per_share": 376.138716,
+      "nav_total": 132099917107.96,
+      "gld_close": 377.01,
+      "flow_value_usd": -421683784.0
     },
     {
       "date": "2026-07-13",
       "tonnes": 1002.45,
-      "change": 0.0
+      "change": 0.0,
+      "implied_gold_usd": 4039.163,
+      "nav_per_share": 370.675254,
+      "nav_total": 130181149035.23,
+      "gld_close": 367.13,
+      "flow_value_usd": 0.0
     },
     {
       "date": "2026-07-14",
       "tonnes": 1004.45,
-      "change": 2.0
+      "change": 2.0,
+      "implied_gold_usd": 4074.87,
+      "nav_per_share": 373.951944,
+      "nav_total": 131593689051.16,
+      "gld_close": 372.15,
+      "flow_value_usd": 262020253.0
     },
     {
       "date": "2026-07-15",
       "tonnes": 1001.88,
-      "change": -2.57
+      "change": -2.57,
+      "implied_gold_usd": 4061.524,
+      "nav_per_share": 372.727314,
+      "nav_total": 130827287357.6,
+      "gld_close": 372.35,
+      "flow_value_usd": -335593280.0
     },
     {
       "date": "2026-07-16",
       "tonnes": 1001.88,
-      "change": 0.0
+      "change": 0.0,
+      "implied_gold_usd": 3992.83,
+      "nav_per_share": 366.423267,
+      "nav_total": 128614566801.74,
+      "gld_close": 364.96,
+      "flow_value_usd": 0.0
     },
     {
       "date": "2026-07-17",
       "tonnes": 999.02,
-      "change": -2.86
+      "change": -2.86,
+      "implied_gold_usd": 3994.584,
+      "nav_per_share": 366.584436,
+      "nav_total": 128304552749.39,
+      "gld_close": 368.41,
+      "flow_value_usd": -367306573.0
     },
     {
       "date": "2026-07-20",
       "tonnes": 1003.59,
-      "change": 4.57
+      "change": 4.57,
+      "implied_gold_usd": 4002.657,
+      "nav_per_share": 367.324893,
+      "nav_total": 129151432494.94,
+      "gld_close": 367.6,
+      "flow_value_usd": 588106100.0
     },
     {
       "date": "2026-07-21",
       "tonnes": 1005.87,
-      "change": 2.28
+      "change": 2.28,
+      "implied_gold_usd": 4051.364,
+      "nav_per_share": 371.79462,
+      "nav_total": 131020424009.65,
+      "gld_close": 374.81,
+      "flow_value_usd": 296980012.0
     },
     {
       "date": "2026-07-22",
       "tonnes": 1007.87,
-      "change": 2.0
+      "change": 2.0,
+      "implied_gold_usd": 4154.121,
+      "nav_per_share": 381.224421,
+      "nav_total": 134610343165.45,
+      "gld_close": 379.12,
+      "flow_value_usd": 267116211.0
     },
     {
       "date": "2026-07-23",
       "tonnes": 1009.3,
-      "change": 1.43
+      "change": 1.43,
+      "implied_gold_usd": 4043.878,
+      "nav_per_share": 371.10728,
+      "nav_total": 131223534224.92,
+      "gld_close": 371.52,
+      "flow_value_usd": 185919606.0
     },
     {
       "date": "2026-07-24",
       "tonnes": 1009.3,
-      "change": 0.0
+      "change": 0.0,
+      "implied_gold_usd": 4066.233,
+      "nav_per_share": 373.158842,
+      "nav_total": 131948966523.96,
+      "gld_close": 371.9,
+      "flow_value_usd": 0.0
     },
     {
       "date": "2026-07-27",
       "tonnes": 1009.3,
-      "change": 0.0
+      "change": 0.0,
+      "implied_gold_usd": 4073.799,
+      "nav_per_share": 373.853196,
+      "nav_total": 132194490211.34,
+      "gld_close": 374.63,
+      "flow_value_usd": 0.0
     },
     {
       "date": "2026-07-28",
       "tonnes": 1008.73,
-      "change": -0.57
+      "change": -0.57,
+      "implied_gold_usd": 4020.955,
+      "nav_per_share": 369.003688,
+      "nav_total": 130405903473.87,
+      "gld_close": 369.37,
+      "flow_value_usd": -73687730.0
     },
     {
       "date": "2026-07-29",
       "tonnes": 1009.3,
-      "change": 0.57
+      "change": 0.57,
+      "implied_gold_usd": 3999.562,
+      "nav_per_share": 367.040373,
+      "nav_total": 129785475860.22,
+      "gld_close": 371.08,
+      "flow_value_usd": 73295683.0
     },
     {
       "date": "2026-07-30",
       "tonnes": 1007.87,
-      "change": -1.43
+      "change": -1.43,
+      "implied_gold_usd": 4109.715,
+      "nav_per_share": 377.14931,
+      "nav_total": 133171421462.97,
+      "gld_close": 377.16,
+      "flow_value_usd": -188946500.0
     },
     {
       "date": "2026-07-31",
       "tonnes": 1007.01,
-      "change": -0.86
+      "change": -0.86,
+      "implied_gold_usd": 4025.219,
+      "nav_per_share": 369.395269,
+      "nav_total": 130322651014.21,
+      "gld_close": 371.54,
+      "flow_value_usd": -111295876.0
     },
     {
       "date": "2026-08-03",
       "tonnes": 1005.87,
-      "change": -1.14
+      "change": -1.14,
+      "implied_gold_usd": 4026.635,
+      "nav_per_share": 369.525368,
+      "nav_total": 130220739713.21,
+      "gld_close": 371.71,
+      "flow_value_usd": -147583642.0
     },
     {
       "date": "2026-08-04",
       "tonnes": 1009.3,
-      "change": 3.43
+      "change": 3.43,
+      "implied_gold_usd": 4082.646,
+      "nav_per_share": 374.664985,
+      "nav_total": 132481538738.23,
+      "gld_close": 374.16,
+      "flow_value_usd": 450222249.0
     },
     {
       "date": "2026-08-05",
       "tonnes": 1014.15,
-      "change": 4.85
+      "change": 4.85,
+      "implied_gold_usd": 4205.007,
+      "nav_per_share": 385.893421,
+      "nav_total": 137107932549.38,
+      "gld_close": 389.64,
+      "flow_value_usd": 655691525.0
     },
     {
       "date": "2026-08-06",
       "tonnes": 1014.72,
-      "change": 0.57
+      "change": 0.57,
+      "implied_gold_usd": 4266.212,
+      "nav_per_share": 391.510041,
+      "nav_total": 139181819732.15,
+      "gld_close": 389.67,
+      "flow_value_usd": 78182292.0
     },
     {
       "date": "2026-08-07",
       "tonnes": 1017.54,
-      "change": 2.82
+      "change": 2.82,
+      "implied_gold_usd": 4335.235,
+      "nav_per_share": 397.718509,
+      "nav_total": 141826420187.76,
+      "gld_close": 398.47,
+      "flow_value_usd": 393054580.0
     },
     {
       "date": "2026-08-10",
       "tonnes": 1020.96,
-      "change": 3.42
+      "change": 3.42,
+      "implied_gold_usd": 4323.994,
+      "nav_per_share": 396.68712,
+      "nav_total": 141934651513.69,
+      "gld_close": 402.54,
+      "flow_value_usd": 475447203.0
     },
     {
       "date": "2026-08-11",
       "tonnes": 1022.67,
-      "change": 1.71
+      "change": 1.71,
+      "implied_gold_usd": 4382.847,
+      "nav_per_share": 402.086252,
+      "nav_total": 144107712877.1,
+      "gld_close": 400.96,
+      "flow_value_usd": 240959209.0
     },
     {
       "date": "2026-08-12",
       "tonnes": 1025.81,
-      "change": 3.14
+      "change": 3.14,
+      "implied_gold_usd": 4426.1,
+      "nav_per_share": 406.054183,
+      "nav_total": 145976478648.44,
+      "gld_close": 404.92,
+      "flow_value_usd": 446829645.0
     },
     {
       "date": "2026-08-13",
       "tonnes": 1023.24,
-      "change": -2.57
+      "change": -2.57,
+      "implied_gold_usd": 4372.401,
+      "nav_per_share": 401.12789,
+      "nav_total": 143844461429.95,
+      "gld_close": 398.96,
+      "flow_value_usd": -361280247.0
     },
     {
       "date": "2026-08-14",
       "tonnes": 1023.53,
-      "change": 0.29
+      "change": 0.29,
+      "implied_gold_usd": 4390.053,
+      "nav_per_share": 402.74729,
+      "nav_total": 144465452932.74,
+      "gld_close": 401.48,
+      "flow_value_usd": 40931614.0
     },
     {
       "date": "2026-08-17",
       "tonnes": 1030.66,
-      "change": 7.13
+      "change": 7.13,
+      "implied_gold_usd": 4405.014,
+      "nav_per_share": 404.119322,
+      "nav_total": 145967899101.56,
+      "gld_close": 405.49,
+      "flow_value_usd": 1009782713.0
     },
     {
       "date": "2026-08-18",
       "tonnes": 1025.24,
-      "change": -5.42
+      "change": -5.42,
+      "implied_gold_usd": 4402.661,
+      "nav_per_share": 403.903892,
+      "nav_total": 145122668317.61,
+      "gld_close": 398.55,
+      "flow_value_usd": -767194784.0
     },
     {
       "date": "2026-08-19",
       "tonnes": 1034.65,
-      "change": 9.41
+      "change": 9.41,
+      "implied_gold_usd": 4459.82,
+      "nav_per_share": 409.146985,
+      "nav_total": 148356696692.68,
+      "gld_close": 413.84,
+      "flow_value_usd": 1349267510.0
     },
     {
       "date": "2026-08-20",
       "tonnes": 1038.93,
-      "change": 4.28
+      "change": 4.28,
+      "implied_gold_usd": 4482.025,
+      "nav_per_share": 411.183709,
+      "nav_total": 149711988403.89,
+      "gld_close": 415.26,
+      "flow_value_usd": 616749991.0
     },
     {
       "date": "2026-08-21",
       "tonnes": 1047.21,
-      "change": 8.28
+      "change": 8.28,
+      "implied_gold_usd": 4581.133,
+      "nav_per_share": 420.275184,
+      "nav_total": 154240992702.79,
+      "gld_close": 423.36,
+      "flow_value_usd": 1219535216.0
     },
     {
       "date": "2026-08-24",
       "tonnes": 1049.49,
-      "change": 2.28
+      "change": 2.28,
+      "implied_gold_usd": 4662.584,
+      "nav_per_share": 427.747306,
+      "nav_total": 157325459244.09,
+      "gld_close": 426.69,
+      "flow_value_usd": 341784705.0
     },
     {
       "date": "2026-08-25",
       "tonnes": 1048.35,
-      "change": -1.14
+      "change": -1.14,
+      "implied_gold_usd": 4614.282,
+      "nav_per_share": 423.316193,
+      "nav_total": 155526369450.71,
+      "gld_close": 428.07,
+      "flow_value_usd": -169121995.0
     },
     {
       "date": "2026-08-26",
       "tonnes": 1045.5,
-      "change": -2.85
+      "change": -2.85,
+      "implied_gold_usd": 4630.278,
+      "nav_per_share": 424.783972,
+      "nav_total": 155640847391.59,
+      "gld_close": 421.32,
+      "flow_value_usd": -424270695.0
     },
     {
       "date": "2026-08-27",
       "tonnes": 1046.64,
-      "change": 1.14
+      "change": 1.14,
+      "implied_gold_usd": 4567.679,
+      "nav_per_share": 419.041013,
+      "nav_total": 153704243463.17,
+      "gld_close": 422.6,
+      "flow_value_usd": 167413908.0
     },
     {
       "date": "2026-08-28",
       "tonnes": 1042.36,
-      "change": -4.28
+      "change": -4.28,
+      "implied_gold_usd": 4561.424,
+      "nav_per_share": 418.467636,
+      "nav_total": 152866227351.11,
+      "gld_close": 408.89,
+      "flow_value_usd": -627675707.0
     },
     {
       "date": "2026-08-31",
       "tonnes": 1042.36,
-      "change": 0.0
+      "change": 0.0,
+      "implied_gold_usd": 4561.274,
+      "nav_per_share": 418.453878,
+      "nav_total": 152861201667.25,
+      "gld_close": 408.42,
+      "flow_value_usd": 0.0
     },
     {
       "date": "2026-09-01",
       "tonnes": 1046.64,
-      "change": 4.28
+      "change": 4.28,
+      "implied_gold_usd": 4351.632,
+      "nav_per_share": 399.220679,
+      "nav_total": 146434145096.89,
+      "gld_close": 396.75,
+      "flow_value_usd": 598807235.0
     },
     {
       "date": "2026-09-02",
       "tonnes": 1056.62,
-      "change": 9.98
+      "change": 9.98,
+      "implied_gold_usd": 4380.699,
+      "nav_per_share": 401.885922,
+      "nav_total": 148818356902.15,
+      "gld_close": 402.78,
+      "flow_value_usd": 1405610729.0
     },
     {
       "date": "2026-09-03",
       "tonnes": 1053.48,
-      "change": -3.14
+      "change": -3.14,
+      "implied_gold_usd": 4465.545,
+      "nav_per_share": 409.67017,
+      "nav_total": 151250226745.46,
+      "gld_close": 410.22,
+      "flow_value_usd": -450811750.0
     },
     {
       "date": "2026-09-04",
       "tonnes": 1052.06,
-      "change": -1.42
+      "change": -1.42,
+      "implied_gold_usd": 4413.745,
+      "nav_per_share": 404.918175,
+      "nav_total": 149293331231.18,
+      "gld_close": 406.77,
+      "flow_value_usd": -201505401.0
     },
     {
       "date": "2026-09-08",
       "tonnes": 1050.63,
-      "change": -1.43
+      "change": -1.43,
+      "implied_gold_usd": 4397.249,
+      "nav_per_share": 403.40509,
+      "nav_total": 148533754000.54,
+      "gld_close": 399.72,
+      "flow_value_usd": -202166040.0
     },
     {
       "date": "2026-09-09",
       "tonnes": 1050.63,
-      "change": 0.0
+      "change": 0.0,
+      "implied_gold_usd": 4413.001,
+      "nav_per_share": 404.85015,
+      "nav_total": 149065825278.27,
+      "gld_close": 403.35,
+      "flow_value_usd": 0.0
     },
     {
       "date": "2026-09-10",
       "tonnes": 1050.28,
-      "change": -0.35
+      "change": -0.35,
+      "implied_gold_usd": 4364.967,
+      "nav_per_share": 400.309204,
+      "nav_total": 147393848783.45,
+      "gld_close": 396.36,
+      "flow_value_usd": -49117937.0
     },
     {
       "date": "2026-09-11",
       "tonnes": 1047.42,
-      "change": -2.86
+      "change": -2.86,
+      "implied_gold_usd": 4385.718,
+      "nav_per_share": 402.212354,
+      "nav_total": 147692376545.11,
+      "gld_close": 398.77,
+      "flow_value_usd": -403271792.0
     },
     {
       "date": "2026-09-14",
       "tonnes": 1047.42,
-      "change": 0.0
+      "change": 0.0,
+      "implied_gold_usd": 4266.425,
+      "nav_per_share": 391.272054,
+      "nav_total": 143675098309.82,
+      "gld_close": 392.84,
+      "flow_value_usd": 0.0
     },
     {
       "date": "2026-09-15",
       "tonnes": 1050.28,
-      "change": 2.86
+      "change": 2.86,
+      "implied_gold_usd": 4295.43,
+      "nav_per_share": 393.9319,
+      "nav_total": 145045725759.15,
+      "gld_close": 394.15,
+      "flow_value_usd": 394969707.0
     },
     {
       "date": "2026-09-16",
       "tonnes": 1051.99,
-      "change": 1.71
+      "change": 1.71,
+      "implied_gold_usd": 4327.434,
+      "nav_per_share": 396.866842,
+      "nav_total": 146364491326.34,
+      "gld_close": 391.74,
+      "flow_value_usd": 237912725.0
     },
     {
       "date": "2026-09-17",
       "tonnes": 1052.84,
-      "change": 0.85
+      "change": 0.85,
+      "implied_gold_usd": 4367.287,
+      "nav_per_share": 400.521662,
+      "nav_total": 147832545537.86,
+      "gld_close": 398.36,
+      "flow_value_usd": 119349820.0
     },
     {
       "date": "2026-09-18",
       "tonnes": 1057.12,
-      "change": 4.28
+      "change": 4.28,
+      "implied_gold_usd": 4347.292,
+      "nav_per_share": 398.687689,
+      "nav_total": 147753657378.08,
+      "gld_close": 401.17,
+      "flow_value_usd": 598210029.0
     },
     {
       "date": "2026-09-21",
       "tonnes": 1055.41,
-      "change": -1.71
+      "change": -1.71,
+      "implied_gold_usd": 4323.248,
+      "nav_per_share": 396.48275,
+      "nav_total": 146698617464.76,
+      "gld_close": 398.38,
+      "flow_value_usd": -237682588.0
     },
     {
       "date": "2026-09-22",
       "tonnes": 1055.98,
-      "change": 0.57
+      "change": 0.57,
+      "implied_gold_usd": 4328.501,
+      "nav_per_share": 396.96446,
+      "nav_total": 146956242979.32,
+      "gld_close": 400.07,
+      "flow_value_usd": 79323796.0
     },
     {
       "date": "2026-09-23",
       "tonnes": 1056.84,
-      "change": 0.86
+      "change": 0.86,
+      "implied_gold_usd": 4283.355,
+      "nav_per_share": 392.824059,
+      "nav_total": 145541313704.6,
+      "gld_close": 392.88,
+      "flow_value_usd": 118433245.0
     },
     {
       "date": "2026-09-24",
       "tonnes": 1054.55,
-      "change": -2.29
+      "change": -2.29,
+      "implied_gold_usd": 4265.256,
+      "nav_per_share": 391.164417,
+      "nav_total": 144613484817.78,
+      "gld_close": 391.69,
+      "flow_value_usd": -314030401.0
     },
     {
       "date": "2026-09-25",
       "tonnes": 1054.55,
-      "change": 0.0
+      "change": 0.0,
+      "implied_gold_usd": 4259.859,
+      "nav_per_share": 390.66949,
+      "nav_total": 144430510273.1,
+      "gld_close": 393.41,
+      "flow_value_usd": 0.0
     },
     {
       "date": "2026-09-28",
       "tonnes": 1058.83,
-      "change": 4.28
+      "change": 4.28,
+      "implied_gold_usd": 4143.226,
+      "nav_per_share": 379.972608,
+      "nav_total": 141045832096.7,
+      "gld_close": 377.91,
+      "flow_value_usd": 570129484.0
     },
     {
       "date": "2026-09-29",
       "tonnes": 1057.41,
-      "change": -1.42
+      "change": -1.42,
+      "implied_gold_usd": 4162.028,
+      "nav_per_share": 381.697147,
+      "nav_total": 141495132210.25,
+      "gld_close": 382.89,
+      "flow_value_usd": -190013497.0
     },
     {
       "date": "2026-09-30",
       "tonnes": 1055.7,
-      "change": -1.71
+      "change": -1.71,
+      "implied_gold_usd": 4174.88,
+      "nav_per_share": 382.876002,
+      "nav_total": 141702408295.58,
+      "gld_close": 380.84,
+      "flow_value_usd": -229525645.0
     },
     {
       "date": "2026-10-01",
       "tonnes": 1056.55,
-      "change": 0.85
+      "change": 0.85,
+      "implied_gold_usd": 4150.186,
+      "nav_per_share": 380.611193,
+      "nav_total": 140978385771.09,
+      "gld_close": 382.76,
+      "flow_value_usd": 113416854.0
     },
     {
       "date": "2026-10-02",
       "tonnes": 1055.7,
-      "change": -0.85
+      "change": -0.85,
+      "implied_gold_usd": 4188.539,
+      "nav_per_share": 384.128625,
+      "nav_total": 142166004142.75,
+      "gld_close": 380.14,
+      "flow_value_usd": -114464970.0
     },
     {
       "date": "2026-10-05",
       "tonnes": 1056.27,
-      "change": 0.57
+      "change": 0.57,
+      "implied_gold_usd": 4140.003,
+      "nav_per_share": 379.677307,
+      "nav_total": 140594506906.19,
+      "gld_close": 379.55,
+      "flow_value_usd": 75869395.0
     },
     {
       "date": "2026-10-06",
       "tonnes": 1059.97,
-      "change": 3.7
+      "change": 3.7,
+      "implied_gold_usd": 4154.713,
+      "nav_per_share": 381.025846,
+      "nav_total": 141589204298.47,
+      "gld_close": 382.27,
+      "flow_value_usd": 494235414.0
     },
     {
       "date": "2026-10-07",
       "tonnes": 1061.11,
-      "change": 1.14
+      "change": 1.14,
+      "implied_gold_usd": 4093.67,
+      "nav_per_share": 375.427464,
+      "nav_total": 139659016552.18,
+      "gld_close": 375.88,
+      "flow_value_usd": 150040599.0
     },
     {
       "date": "2026-10-08",
       "tonnes": 1055.41,
-      "change": -5.7
+      "change": -5.7,
+      "implied_gold_usd": 4122.765,
+      "nav_per_share": 378.096645,
+      "nav_total": 139895758789.87,
+      "gld_close": 378.62,
+      "flow_value_usd": -755534925.0
     },
     {
       "date": "2026-10-09",
       "tonnes": 1053.13,
-      "change": -2.28
+      "change": -2.28,
+      "implied_gold_usd": 4184.465,
+      "nav_per_share": 383.7555,
+      "nav_total": 141682530606.86,
+      "gld_close": 384.58,
+      "flow_value_usd": -306736809.0
     },
     {
       "date": "2026-10-12",
       "tonnes": 1055.41,
-      "change": 2.28
+      "change": 2.28,
+      "implied_gold_usd": 4169.932,
+      "nav_per_share": 382.42228,
+      "nav_total": 141496243693.47,
+      "gld_close": 382.15,
+      "flow_value_usd": 305671486.0
     },
     {
       "date": "2026-10-13",
       "tonnes": 1054.2,
-      "change": -1.21
+      "change": -1.21,
+      "implied_gold_usd": 4168.906,
+      "nav_per_share": 382.197989,
+      "nav_total": 141298596529.96,
+      "gld_close": 381.67,
+      "flow_value_usd": -162180480.0
     },
     {
       "date": "2026-10-14",
       "tonnes": 1054.2,
-      "change": 0.0
+      "change": 0.0,
+      "implied_gold_usd": 4088.611,
+      "nav_per_share": 374.836702,
+      "nav_total": 138577128676.95,
+      "gld_close": 375.99,
+      "flow_value_usd": 0.0
     },
     {
       "date": "2026-10-15",
       "tonnes": 1053.91,
-      "change": -0.29
+      "change": -0.29,
+      "implied_gold_usd": 4151.565,
+      "nav_per_share": 380.60826,
+      "nav_total": 140672813004.78,
+      "gld_close": 382.71,
+      "flow_value_usd": -38708019.0
     },
     {
       "date": "2026-10-16",
       "tonnes": 1059.04,
-      "change": 5.13
+      "change": 5.13,
+      "implied_gold_usd": 4188.473,
+      "nav_per_share": 383.991564,
+      "nav_total": 142614466710.27,
+      "gld_close": 382.01,
+      "flow_value_usd": 690818873.0
     },
     {
       "date": "2026-10-19",
       "tonnes": 1058.47,
-      "change": -0.57
+      "change": -0.57,
+      "implied_gold_usd": 4146.935,
+      "nav_per_share": 380.183505,
+      "nav_total": 141124116892.55,
+      "gld_close": 379.69,
+      "flow_value_usd": -75996430.0
     },
     {
       "date": "2026-10-20",
       "tonnes": 1060.18,
-      "change": 1.71
+      "change": 1.71,
+      "implied_gold_usd": 4123.592,
+      "nav_per_share": 378.04326,
+      "nav_total": 140556484027.96,
+      "gld_close": 377.65,
+      "flow_value_usd": 226705944.0
     },
     {
       "date": "2026-10-21",
       "tonnes": 1057.62,
-      "change": -2.56
+      "change": -2.56,
+      "implied_gold_usd": 4126.444,
+      "nav_per_share": 378.304981,
+      "nav_total": 140313317335.31,
+      "gld_close": 378.95,
+      "flow_value_usd": -339630770.0
     },
     {
       "date": "2026-10-22",
       "tonnes": 1045.64,
-      "change": -11.98
+      "change": -11.98,
+      "implied_gold_usd": 4047.238,
+      "nav_per_share": 371.044585,
+      "nav_total": 136062049223.01,
+      "gld_close": 369.0,
+      "flow_value_usd": -1558858411.0
     },
     {
       "date": "2026-10-23",
       "tonnes": 1041.65,
-      "change": -3.99
+      "change": -3.99,
+      "implied_gold_usd": 4012.24,
+      "nav_per_share": 367.836402,
+      "nav_total": 134370637532.05,
+      "gld_close": 366.61,
+      "flow_value_usd": -514696135.0
     },
     {
       "date": "2026-10-26",
       "tonnes": 1040.8,
-      "change": -0.85
+      "change": -0.85,
+      "implied_gold_usd": 4022.507,
+      "nav_per_share": 368.777755,
+      "nav_total": 134603880605.93,
+      "gld_close": 367.82,
+      "flow_value_usd": -109927624.0
     },
     {
       "date": "2026-10-27",
       "tonnes": 1041.65,
-      "change": 0.85
+      "change": 0.85,
+      "implied_gold_usd": 4056.014,
+      "nav_per_share": 371.849496,
+      "nav_total": 135836620962.61,
+      "gld_close": 372.28,
+      "flow_value_usd": 110843308.0
     },
     {
       "date": "2026-10-28",
       "tonnes": 1043.36,
-      "change": 1.71
+      "change": 1.71,
+      "implied_gold_usd": 4040.722,
+      "nav_per_share": 370.447338,
+      "nav_total": 135546681153.06,
+      "gld_close": 373.51,
+      "flow_value_usd": 222149935.0
     },
     {
       "date": "2026-10-29",
       "tonnes": 1041.08,
-      "change": -2.28
+      "change": -2.28,
+      "implied_gold_usd": 4024.975,
+      "nav_per_share": 369.003942,
+      "nav_total": 134723339224.16,
+      "gld_close": 368.57,
+      "flow_value_usd": -295045600.0
     },
     {
       "date": "2026-10-30",
       "tonnes": 1041.65,
-      "change": 0.57
+      "change": 0.57,
+      "implied_gold_usd": 3911.883,
+      "nav_per_share": 358.635749,
+      "nav_total": 131009639166.03,
+      "gld_close": 355.78,
+      "flow_value_usd": 71688884.0
     },
     {
       "date": "2026-11-02",
       "tonnes": 1040.51,
-      "change": -1.14
+      "change": -1.14,
+      "implied_gold_usd": 3953.752,
+      "nav_per_share": 362.474416,
+      "nav_total": 132266914252.67,
+      "gld_close": 361.65,
+      "flow_value_usd": -144912345.0
     },
     {
       "date": "2026-11-03",
       "tonnes": 1037.66,
-      "change": -2.85
+      "change": -2.85,
+      "implied_gold_usd": 3935.105,
+      "nav_per_share": 360.76524,
+      "nav_total": 131282470895.39,
+      "gld_close": 359.26,
+      "flow_value_usd": -360572245.0
     },
     {
       "date": "2026-11-04",
       "tonnes": 1040.51,
-      "change": 2.85
+      "change": 2.85,
+      "implied_gold_usd": 4036.215,
+      "nav_per_share": 370.034485,
+      "nav_total": 135025583412.36,
+      "gld_close": 372.49,
+      "flow_value_usd": 369836917.0
     },
     {
       "date": "2026-11-05",
       "tonnes": 1040.51,
-      "change": 0.0
+      "change": 0.0,
+      "implied_gold_usd": 4111.22,
+      "nav_per_share": 376.910832,
+      "nav_total": 137534762708.85,
+      "gld_close": 375.49,
+      "flow_value_usd": 0.0
     },
     {
       "date": "2026-11-06",
       "tonnes": 1041.37,
-      "change": 0.86
+      "change": 0.86,
+      "implied_gold_usd": 4047.927,
+      "nav_per_share": 371.108094,
+      "nav_total": 135528676068.15,
+      "gld_close": 372.52,
+      "flow_value_usd": 111923745.0
     },
     {
       "date": "2026-11-09",
       "tonnes": 1042.51,
-      "change": 1.14
+      "change": 1.14,
+      "implied_gold_usd": 4115.195,
+      "nav_per_share": 377.274961,
+      "nav_total": 137931725738.42,
+      "gld_close": 379.53,
+      "flow_value_usd": 150829530.0
     }
   ],
   "basis": "trade_date",

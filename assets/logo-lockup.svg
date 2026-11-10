@@ -1,19 +1,24 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 280 64" role="img" aria-label="PureGold by PureFxAi">
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 420 64" role="img" aria-label="PureGold by PureFxAi">
   <defs>
-    <linearGradient id="pg" x1="0" y1="0" x2="1" y2="1">
-      <stop offset="0" stop-color="#fff4c2"/><stop offset=".45" stop-color="#f5d27a"/><stop offset="1" stop-color="#a8740a"/>
+    <linearGradient id="pgLockGold" x1="8" y1="8" x2="56" y2="56" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#fff4c2"/>
+      <stop offset="0.45" stop-color="#f5c542"/>
+      <stop offset="1" stop-color="#a8740a"/>
     </linearGradient>
-    <linearGradient id="txt" x1="0" y1="0" x2="1" y2="0">
-      <stop offset="0" stop-color="#ffe9b0"/><stop offset=".5" stop-color="#f5d27a"/><stop offset="1" stop-color="#c9a227"/>
+    <linearGradient id="pgLockWord" x1="84" y1="12" x2="360" y2="40" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#fff1c2"/>
+      <stop offset="0.55" stop-color="#f5c542"/>
+      <stop offset="1" stop-color="#c9a227"/>
     </linearGradient>
-    <filter id="gl" x="-40%" y="-40%" width="180%" height="180%">
-      <feGaussianBlur stdDeviation="1.4" result="b"/><feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge>
-    </filter>
   </defs>
-  <circle cx="32" cy="32" r="30" fill="#120d02"/>
-  <circle cx="32" cy="32" r="28.5" fill="none" stroke="url(#pg)" stroke-width="2.8" filter="url(#gl)"/>
-  <circle cx="32" cy="32" r="23.5" fill="none" stroke="#f5c54244" stroke-width="1" stroke-dasharray="2 3"/>
-  <path d="M24 47V17h11.5c6.6 0 10.5 3.6 10.5 9.4S42.1 36 35.5 36H30.5v11z M30.5 30.6h4.6c3 0 4.6-1.5 4.6-4.2s-1.6-4.1-4.6-4.1h-4.6z" fill="url(#pg)" fill-rule="evenodd" filter="url(#gl)"/>
-  <text x="74" y="30" font-family="Manrope,Arial,sans-serif" font-size="26" font-weight="800" letter-spacing="3.2" fill="url(#txt)">PUREGOLD</text>
-  <text x="74" y="48" font-family="Manrope,Arial,sans-serif" font-size="10" font-weight="600" letter-spacing="2.4" fill="#a89a7a">BY PUREFXAI · GOLD DESK</text>
+  <g id="pg-mark">
+    <circle cx="32" cy="32" r="30" fill="#120d02"/>
+    <circle cx="32" cy="32" r="28.5" fill="none" stroke="url(#pgLockGold)" stroke-width="2.8"/>
+    <circle cx="32" cy="32" r="24" fill="none" stroke="#f5c542" stroke-opacity="0.28" stroke-width="1"/>
+    <path fill="url(#pgLockGold)" fill-rule="evenodd" d="M24 47V17h11.5c6.6 0 10.5 3.6 10.5 9.4S42.1 36 35.5 36H30.5v11zm6.5-16.4h4.6c3 0 4.6-1.5 4.6-4.2s-1.6-4.1-4.6-4.1H30.5z"/>
+  </g>
+  <g id="pg-wordmark" transform="translate(80,0)">
+    <text x="0" y="32" fill="url(#pgLockWord)" font-family="Manrope, Prompt, 'Noto Sans Thai', Arial, sans-serif" font-size="28" font-weight="700" letter-spacing="0.6">PureGold</text>
+    <text x="0" y="52" fill="#c4b48a" font-family="Manrope, Prompt, Arial, sans-serif" font-size="11" font-weight="600" letter-spacing="1.8">by PureFxAi</text>
+  </g>
 </svg>
