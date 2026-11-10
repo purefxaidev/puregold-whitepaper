@@ -2,18 +2,37 @@
 <html lang="th">
 <head>
   <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
   <title>PUREGOLD — XAUUSD spot desk by PureFxAi</title>
-  <meta name="description" content="PUREGOLD by PureFxAi — XAUUSD spot price, daily support and resistance, Thai gold, news and charts. Download the Android APK.">
+  <meta name="description" content="PUREGOLD by PureFxAi — XAUUSD spot price, daily support and resistance, Thai gold, news and charts. Android app and iPhone web app.">
   <link rel="icon" type="image/svg+xml" href="assets/logo-mark.svg">
-  <link rel="icon" type="image/png" sizes="192x192" href="assets/logo-192.png">
-  <link rel="apple-touch-icon" href="assets/logo-192.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="icons/icon-32.png">
+  <link rel="icon" type="image/png" sizes="192x192" href="icons/icon-192.png">
+  <link rel="apple-touch-icon" href="icons/apple-touch-icon.png">
+  <link rel="manifest" href="manifest.webmanifest">
+  <meta name="theme-color" content="#100e0a">
+  <meta name="mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="apple-mobile-web-app-title" content="PureGold">
+  <link rel="apple-touch-startup-image" href="icons/splash/splash-1320x2868.png" media="(device-width: 440px) and (device-height: 956px) and (-webkit-device-pixel-ratio: 3) and (orientation: portrait)">
+  <link rel="apple-touch-startup-image" href="icons/splash/splash-1206x2622.png" media="(device-width: 402px) and (device-height: 874px) and (-webkit-device-pixel-ratio: 3) and (orientation: portrait)">
+  <link rel="apple-touch-startup-image" href="icons/splash/splash-1290x2796.png" media="(device-width: 430px) and (device-height: 932px) and (-webkit-device-pixel-ratio: 3) and (orientation: portrait)">
+  <link rel="apple-touch-startup-image" href="icons/splash/splash-1179x2556.png" media="(device-width: 393px) and (device-height: 852px) and (-webkit-device-pixel-ratio: 3) and (orientation: portrait)">
+  <link rel="apple-touch-startup-image" href="icons/splash/splash-1284x2778.png" media="(device-width: 428px) and (device-height: 926px) and (-webkit-device-pixel-ratio: 3) and (orientation: portrait)">
+  <link rel="apple-touch-startup-image" href="icons/splash/splash-1170x2532.png" media="(device-width: 390px) and (device-height: 844px) and (-webkit-device-pixel-ratio: 3) and (orientation: portrait)">
+  <link rel="apple-touch-startup-image" href="icons/splash/splash-1242x2688.png" media="(device-width: 414px) and (device-height: 896px) and (-webkit-device-pixel-ratio: 3) and (orientation: portrait)">
+  <link rel="apple-touch-startup-image" href="icons/splash/splash-828x1792.png" media="(device-width: 414px) and (device-height: 896px) and (-webkit-device-pixel-ratio: 2) and (orientation: portrait)">
+  <link rel="apple-touch-startup-image" href="icons/splash/splash-1125x2436.png" media="(device-width: 375px) and (device-height: 812px) and (-webkit-device-pixel-ratio: 3) and (orientation: portrait)">
+  <link rel="apple-touch-startup-image" href="icons/splash/splash-1242x2208.png" media="(device-width: 414px) and (device-height: 736px) and (-webkit-device-pixel-ratio: 3) and (orientation: portrait)">
+  <link rel="apple-touch-startup-image" href="icons/splash/splash-750x1334.png" media="(device-width: 375px) and (device-height: 667px) and (-webkit-device-pixel-ratio: 2) and (orientation: portrait)">
+  <link rel="apple-touch-startup-image" href="icons/splash/splash-640x1136.png" media="(device-width: 320px) and (device-height: 568px) and (-webkit-device-pixel-ratio: 2) and (orientation: portrait)">
   <link rel="canonical" href="https://gold.purefxai.store/">
   <meta property="og:url" content="https://gold.purefxai.store/">
   <meta property="og:title" content="PUREGOLD by PureFxAi">
-  <meta property="og:description" content="Live Thai gold + XAUUSD desk. Download the Android APK.">
-  <meta property="og:image" content="https://gold.purefxai.store/assets/logo-192.png">
-  <meta name="theme-color" content="#06050a">
+  <meta property="og:description" content="Live Thai gold + XAUUSD desk. Android APK and iPhone web app.">
+  <meta property="og:image" content="https://gold.purefxai.store/icons/icon-512.png">
+  <script>(function(){try{var s=(window.navigator&&window.navigator.standalone===true)||(window.matchMedia&&(window.matchMedia('(display-mode: standalone)').matches||window.matchMedia('(display-mode: fullscreen)').matches));if(s)document.documentElement.classList.add('pg-standalone');}catch(e){}})();</script>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Thai:wght@400;600;700&family=Manrope:wght@400;600;700;800&display=swap" rel="stylesheet">
   <style>
@@ -112,7 +131,7 @@
     .stage { position:relative; display:none }
     .stage video, .stage img.fallback { width:0; height:0 }
     .badge { display:none }
-    .block, .hero, #levels, #spdr, #outlook, #chart, #news, #reviews, #updates, #support { scroll-margin-top: 88px }
+    .block, .hero, #levels, #spdr, #outlook, #insights, #chart, #news, #reviews, #download, #signup, #updates, #support { scroll-margin-top: 88px }
     .block { margin:56px 0 0 }
     .block > h2, .block .th > h2, .block .en > h2 { margin:0 0 6px; font-size:22px; font-weight:700; letter-spacing:-.01em }
     .mut { color:var(--muted); font-size:13px; margin:0 0 16px }
@@ -292,7 +311,7 @@
       .lv:last-child { border-bottom:0 }
       .lv .k { font-size:11px }
       .lv .v { margin-top:0; font-size:13px }
-      .block, .hero, #levels, #spdr, #outlook, #chart, #news, #reviews, #updates, #support { scroll-margin-top: 80px }
+      .block, .hero, #levels, #spdr, #outlook, #insights, #chart, #news, #reviews, #download, #signup, #updates, #support { scroll-margin-top: 80px }
     }
     @media (max-width:480px){
       header.top {
@@ -310,7 +329,7 @@
       .lang .lang-full { display:none }
       .lang .lang-short { display:inline }
       header.top .btn-sm { padding:5px 8px; font-size:11px; white-space:nowrap; border-radius:7px }
-      .block, .hero, #levels, #spdr, #outlook, #chart, #news, #reviews, #updates, #support { scroll-margin-top: 72px }
+      .block, .hero, #levels, #spdr, #outlook, #insights, #chart, #news, #reviews, #download, #signup, #updates, #support { scroll-margin-top: 72px }
     }
     @media (prefers-reduced-motion: reduce) {
       .reveal, .reveal.in { opacity:1; transform:none; transition:none }
@@ -366,6 +385,139 @@
     .mtf-cell .k { font-size:11px; color:var(--muted); font-weight:700 }
     .mtf-cell .v { font-size:13px; font-weight:700; margin-top:4px }
     @media (max-width:900px){ .outlook-grid { grid-template-columns:1fr } }
+
+    /* PWA + platform download + signup */
+    .dl-pair { display:flex; flex-wrap:wrap; gap:10px; margin:24px 0 10px; }
+    .dl-btn {
+      display:inline-flex; align-items:center; gap:12px; flex:1 1 230px;
+      min-height:58px; padding:10px 16px; border-radius:16px; text-decoration:none;
+      color:var(--text); text-align:left; font:inherit; cursor:pointer;
+      background:linear-gradient(180deg,rgba(255,255,255,.14),rgba(20,16,10,.55));
+      border:1px solid rgba(255,255,255,.22);
+      box-shadow:0 10px 28px rgba(0,0,0,.28), inset 0 1px 0 rgba(255,255,255,.22);
+      backdrop-filter:blur(18px); -webkit-backdrop-filter:blur(18px);
+    }
+    .dl-btn svg { width:28px; height:28px; flex:0 0 auto; display:block; }
+    .dl-btn .dl-kicker { display:block; font-size:11px; letter-spacing:.06em; color:var(--muted); font-weight:700; }
+    .dl-btn .dl-label { display:block; font-size:15px; font-weight:700; color:var(--gold3); line-height:1.25; }
+    .dl-btn.preferred {
+      background:linear-gradient(180deg,var(--gold),var(--gold2));
+      border-color:transparent; color:#16120a;
+    }
+    .dl-btn.preferred .dl-kicker { color:rgba(22,18,10,.72) }
+    .dl-btn.preferred .dl-label { color:#16120a }
+    .dl-btn.hid { display:none !important }
+    #pwaInstallBtn { flex:1 1 100% }
+    .ios-sheet-modal {
+      position:fixed; inset:0; z-index:93; display:none;
+      flex-direction:column; justify-content:flex-end; align-items:center;
+      background:rgba(6,5,4,.62);
+    }
+    .ios-sheet-modal.open { display:flex !important }
+    .ios-sheet {
+      width:min(560px,100%); max-height:85vh; overflow:auto; flex:0 1 auto;
+      background:#16120c; border:1px solid rgba(255,255,255,.28);
+      box-shadow:0 24px 64px rgba(0,0,0,.45), inset 0 1px 0 rgba(255,255,255,.28);
+      border-radius:22px 22px 0 0; padding:10px 20px calc(18px + env(safe-area-inset-bottom,0px));
+      position:relative;
+    }
+    .signup-banner-wrap {
+      position:fixed; left:0; right:0; bottom:0; top:auto; z-index:70;
+      display:none; padding:0 12px calc(12px + env(safe-area-inset-bottom,0px));
+      pointer-events:none; background:transparent;
+    }
+    .signup-banner-wrap.open { display:block !important }
+    .signup-banner {
+      pointer-events:auto; width:min(560px,100%); margin:0 auto;
+      background:#16120c; border:1px solid rgba(255,255,255,.28);
+      box-shadow:0 16px 40px rgba(0,0,0,.45), inset 0 1px 0 rgba(255,255,255,.22);
+      border-radius:18px; padding:14px 16px; display:flex; gap:12px; align-items:flex-start;
+    }
+    .ios-handle { width:36px; height:5px; border-radius:99px; background:rgba(255,255,255,.28); margin:4px auto 12px; }
+    .ios-sheet h2, .signup-banner h2 { margin:0 0 6px; font-size:18px; }
+    .ios-sheet .sub, .signup-banner .sub { margin:0 0 14px; color:var(--muted); font-size:13px; line-height:1.5; }
+    .ios-warn {
+      display:flex; flex-wrap:wrap; gap:8px; align-items:center;
+      background:rgba(224,91,102,.10); border:1px solid rgba(224,91,102,.28);
+      border-radius:12px; padding:10px 12px; margin:0 0 14px; font-size:13px; color:#edd7d8;
+    }
+    .ios-steps { list-style:none; margin:0; padding:0; display:flex; flex-direction:column; gap:8px; }
+    .ios-steps li {
+      display:flex; gap:12px; align-items:flex-start;
+      background:rgba(255,255,255,.05); border:1px solid rgba(255,255,255,.12);
+      border-radius:14px; padding:10px 12px; font-size:14px; line-height:1.45;
+    }
+    .ios-ico {
+      width:36px; height:36px; flex:0 0 auto; border-radius:9px;
+      display:grid; place-items:center; background:rgba(16,14,10,.7);
+      border:1px solid rgba(255,255,255,.16); color:var(--gold);
+    }
+    .ios-ico svg { width:20px; height:20px; display:block }
+    .ios-n { display:inline-block; min-width:1.2em; color:var(--gold); font-weight:700; }
+    .signup-banner { display:flex; gap:12px; align-items:flex-start; }
+    .signup-banner img.logo { width:48px; height:48px; border-radius:12px; flex:0 0 auto; }
+    .signup-banner .grow { flex:1; min-width:0 }
+    .signup-banner .row { display:flex; flex-wrap:wrap; gap:8px; margin-top:10px }
+    .signup-x {
+      background:transparent; border:0; color:var(--muted); font-size:20px; cursor:pointer;
+      width:32px; height:32px; border-radius:8px; flex:0 0 auto;
+    }
+    .guide-grid { display:grid; grid-template-columns:repeat(3,1fr); gap:12px; margin-top:16px }
+    .guide-card {
+      background:linear-gradient(180deg,rgba(255,255,255,.10),rgba(18,14,10,.55));
+      border:1px solid rgba(255,255,255,.16); border-radius:16px; padding:16px 16px 14px;
+      box-shadow:inset 0 1px 0 rgba(255,255,255,.16);
+    }
+    .guide-top { display:flex; align-items:center; gap:10px; margin-bottom:8px }
+    .guide-n {
+      width:28px; height:28px; border-radius:50%; display:grid; place-items:center;
+      background:var(--gold); color:#16120a; font-weight:800; font-size:13px; flex:0 0 auto;
+    }
+    .guide-ico { color:var(--gold); display:grid; place-items:center }
+    .guide-ico svg { width:22px; height:22px }
+    .guide-card h3 { margin:0; text-transform:none; letter-spacing:0; font-size:15px; color:var(--text); }
+    .guide-card p { margin:8px 0 0; color:var(--muted); font-size:13px; line-height:1.5 }
+    .signup-cta-row { display:flex; flex-wrap:wrap; gap:10px; margin:16px 0 8px; align-items:center }
+    .pwa-tabbar { display:none }
+    html.pg-standalone .pwa-tabbar {
+      display:flex; position:fixed; left:0; right:0; bottom:0; z-index:50;
+      padding:6px 6px calc(8px + env(safe-area-inset-bottom,0px));
+      background:rgba(10,12,16,.94); border-top:1px solid var(--line);
+      backdrop-filter:blur(20px); -webkit-backdrop-filter:blur(20px);
+      justify-content:space-around; gap:2px;
+    }
+    .pwa-tab {
+      flex:1; display:flex; flex-direction:column; align-items:center; gap:2px;
+      color:var(--muted); text-decoration:none; font-size:10px; font-weight:700;
+      background:none; border:0; cursor:pointer; padding:6px 4px; border-radius:10px;
+    }
+    .pwa-tab svg { width:20px; height:20px; display:block }
+    .pwa-tab.on, .pwa-tab:hover { color:var(--gold) }
+    html.pg-standalone .pwa-hide-standalone { display:none !important }
+    html.pg-standalone .wrap { padding-top:0; padding-bottom:calc(88px + env(safe-area-inset-bottom,0px)); }
+    html.pg-standalone header.top {
+      top:0; margin-left:-20px; margin-right:-20px; margin-top:0; border-radius:0;
+      border-left:0; border-right:0; border-top:0;
+      padding-top:calc(8px + env(safe-area-inset-top,0px));
+      padding-left:max(14px, env(safe-area-inset-left,0px));
+      padding-right:max(14px, env(safe-area-inset-right,0px));
+      background:rgba(10,12,16,.94);
+    }
+    html.pg-standalone .block, html.pg-standalone .hero, html.pg-standalone #levels, html.pg-standalone #spdr,
+    html.pg-standalone #outlook, html.pg-standalone #insights, html.pg-standalone #chart, html.pg-standalone #news,
+    html.pg-standalone #reviews, html.pg-standalone #download, html.pg-standalone #signup, html.pg-standalone #updates,
+    html.pg-standalone #support { scroll-margin-top: calc(72px + env(safe-area-inset-top,0px)); }
+    @media (max-width:900px){
+      .guide-grid { grid-template-columns:1fr 1fr }
+    }
+    @media (max-width:720px){
+      html.pg-standalone header.top { margin-left:-14px; margin-right:-14px; }
+      .guide-grid { grid-template-columns:1fr }
+      .signup-banner-wrap.open { align-items:flex-end }
+    }
+    @media (max-width:480px){
+      html.pg-standalone header.top { height:auto; max-height:none; min-height:56px; }
+    }
   </style>
 </head>
 <body>
@@ -386,6 +538,8 @@
         <a href="#insights"><span class="th">ข้อมูลตลาด</span><span class="en hid">Market desk</span></a>
         <a href="#chart"><span class="th">กราฟ</span><span class="en hid">Chart</span></a>
         <a href="#news"><span class="th">ข่าว</span><span class="en hid">News</span></a>
+        <a href="#download"><span class="th">ดาวน์โหลด</span><span class="en hid">Download</span></a>
+        <a href="#signup"><span class="th">สมัครบัญชี</span><span class="en hid">Sign up</span></a>
         <a href="https://dashboard.purefxai.store/?lang=th" id="navDash" target="_blank" rel="noopener">Dashboard</a>
       </nav>
       <div class="nav-r">
@@ -393,7 +547,7 @@
           <button type="button" id="bth" class="on" onclick="setLang('th')">ไทย</button>
           <button type="button" id="ben" onclick="setLang('en')"><span class="lang-full">English</span><span class="lang-short">EN</span></button>
         </div>
-        <a class="btn btn-gold btn-sm" href="downloads/PUREGOLD-0.9.5.apk">APK 0.9.5</a>
+        <a class="btn btn-gold btn-sm pwa-hide-standalone" id="hdrDl" href="downloads/PUREGOLD.apk">APK 0.9.5</a>
       </div>
     </header>
 
@@ -403,19 +557,31 @@
         <p class="eyebrow en hid">Spot gold desk · XAUUSD</p>
         <div class="th">
           <h2>ราคาทองคำสปอต<br>แนวรับแนวต้าน และกราฟสด</h2>
-          <p class="lead">ติดตาม XAUUSD จากราคาทองสปอต ระดับแนวรับแนวต้านรายวัน ทองไทยฮั่วเซ่งเฮง และข่าวในหน้าเดียว — แล้วดาวน์โหลดแอป Android สำหรับแผน แชท PureFxAi และแจ้งเตือน</p>
+          <p class="lead">ติดตาม XAUUSD จากราคาทองสปอต ระดับแนวรับแนวต้านรายวัน ทองไทยฮั่วเซ่งเฮง และข่าวในหน้าเดียว — ดาวน์โหลดแอป Android หรือติดตั้งเว็บแอปบน iPhone จากหน้านี้</p>
         </div>
         <div class="en hid">
           <h2>Spot gold prices,<br>support, resistance and a live chart</h2>
-          <p class="lead">Follow XAUUSD from FX spot, daily support and resistance, Hua Seng Heng Thai gold, and news — then download the Android app for plans, PureFxAi chat and alerts.</p>
+          <p class="lead">Follow XAUUSD from FX spot, daily support and resistance, Hua Seng Heng Thai gold, and news — then get the Android app or install the iPhone web app from this page.</p>
+        </div>
+        <div class="dl-pair pwa-hide-standalone" id="heroDlRow">
+          <a class="dl-btn dl-android" id="dlBtn" href="downloads/PUREGOLD.apk">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M17.6 9.48 19.44 6.3a.64.64 0 0 0-.26-.85.64.64 0 0 0-.83.22l-1.88 3.24a11.43 11.43 0 0 0-8.94 0L5.65 5.67a.64.64 0 0 0-.87-.2.64.64 0 0 0-.26.85L6.36 9.5C4.2 11.05 2.67 13.32 2.67 16h18.66c0-2.69-1.55-4.96-3.73-6.52ZM7.5 13.5a1 1 0 1 1 0-2 1 1 0 0 1 0 2Zm9 0a1 1 0 1 1 0-2 1 1 0 0 1 0 2Z"/></svg>
+            <span><span class="dl-kicker">Android</span><span class="dl-label th">ดาวน์โหลด APK</span><span class="dl-label en hid">Download APK</span></span>
+          </a>
+          <button type="button" class="dl-btn dl-ios" id="iosInstallBtn" aria-haspopup="dialog">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M18.71 19.5c-.83 1.24-1.71 2.45-3.05 2.47-1.34.03-1.77-.79-3.29-.79-1.53 0-2 .77-3.27.82-1.31.05-2.3-1.32-3.14-2.53C4.25 17 2.94 12.45 4.7 9.39c.87-1.52 2.43-2.48 4.12-2.51 1.28-.02 2.5.87 3.29.87.78 0 2.26-1.07 3.81-.91.65.03 2.47.26 3.64 1.98-.09.06-2.17 1.28-2.15 3.81.03 3.02 2.65 4.03 2.68 4.04-.03.07-.42 1.44-1.38 2.83M13 3.5c.73-.83 1.94-1.46 2.94-1.5.13 1.17-.34 2.35-1.04 3.19-.69.85-1.83 1.51-2.95 1.42-.15-1.15.41-2.35 1.05-3.11z"/></svg>
+            <span><span class="dl-kicker">iPhone / iPad</span><span class="dl-label th">ติดตั้งเว็บแอป</span><span class="dl-label en hid">Install web app</span></span>
+          </button>
+          <button type="button" class="dl-btn hid" id="pwaInstallBtn">
+            <span><span class="dl-kicker">Android Chrome</span><span class="dl-label th">ติดตั้งเว็บแอป</span><span class="dl-label en hid">Install web app</span></span>
+          </button>
         </div>
         <div class="cta-row">
-          <a class="btn btn-gold" href="downloads/PUREGOLD-0.9.5.apk" id="dlBtn">Download APK 0.9.5</a>
           <button type="button" class="btn btn-ghost" id="heroDashBtn" data-open-dash="1">
             <span class="th">ดูกราฟ</span><span class="en hid">View chart</span>
           </button>
         </div>
-        <p class="ver" id="dlMeta">PUREGOLD-0.9.5.apk · signed release</p>
+        <p class="ver" id="dlMeta">PUREGOLD 0.9.5 · Android APK · iPhone web app</p>
       </div>
       <aside class="hero-quote reveal in" aria-label="XAUUSD spot">
         <div class="k">XAUUSD · SPOT</div>
@@ -632,8 +798,21 @@
     </section>
 
     <section class="block reveal" id="updates">
-      <div class="th"><h2>ประวัติเวอร์ชัน</h2><p class="mut">อัปเดตล่าสุดของแอป · <a href="downloads/PUREGOLD-0.9.5.apk">ดาวน์โหลด 0.9.5</a></p></div>
-      <div class="en hid"><h2>Version history</h2><p class="mut">Latest app updates · <a href="downloads/PUREGOLD-0.9.5.apk">Download 0.9.5</a></p></div>
+      <div class="th"><h2>ประวัติเวอร์ชัน</h2><p class="mut">อัปเดตล่าสุดของแอปและหน้าเว็บ · <a href="downloads/PUREGOLD.apk">ดาวน์โหลด 0.9.5</a></p></div>
+      <div class="en hid"><h2>Version history</h2><p class="mut">Latest app and website updates · <a href="downloads/PUREGOLD.apk">Download 0.9.5</a></p></div>
+      <div class="cl">
+        <b>เว็บไซต์</b> · 2026-11-10
+        <ul class="th">
+          <li>ติดตั้ง PureGold เป็นเว็บแอปบน iPhone และ iPad จากหน้านี้ — เปิดใน Safari แล้วเพิ่มไปยังหน้าจอโฮม</li>
+          <li>ปุ่มดาวน์โหลดแยก Android (APK 0.9.5) และ iPhone / iPad พร้อมวิธีติดตั้งทีละขั้น</li>
+          <li>แนะนำสมัครบัญชีพันธมิตร และคู่มือสมัครทีละขั้นตอน</li>
+        </ul>
+        <ul class="en hid">
+          <li>Install PureGold as an iPhone and iPad web app from this page — open in Safari, then Add to Home Screen</li>
+          <li>Separate Android (APK 0.9.5) and iPhone / iPad download buttons, with step-by-step setup</li>
+          <li>Partner account sign-up prompt and a step-by-step guide</li>
+        </ul>
+      </div>
       <div class="cl">
         <b>0.9.5</b> · 2026-11-10
         <ul class="th">
@@ -739,22 +918,104 @@
       <p class="mut"><a href="https://github.com/purefxaidev/puregold-app/releases">GitHub releases ↗</a></p>
     </section>
 
-    <section class="block reveal">
+    <section class="block reveal pwa-hide-standalone" id="download">
+      <div class="th"><h2>ดาวน์โหลดและติดตั้ง</h2><p class="mut">แอป Android เป็นไฟล์ APK · บน iPhone และ iPad ติดตั้งเป็นเว็บแอปจาก Safari ได้เลย</p></div>
+      <div class="en hid"><h2>Download and install</h2><p class="mut">The Android app is an APK. On iPhone and iPad, install the web app from Safari.</p></div>
+      <div class="dl-pair">
+        <a class="dl-btn dl-android" href="downloads/PUREGOLD.apk">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M17.6 9.48 19.44 6.3a.64.64 0 0 0-.26-.85.64.64 0 0 0-.83.22l-1.88 3.24a11.43 11.43 0 0 0-8.94 0L5.65 5.67a.64.64 0 0 0-.87-.2.64.64 0 0 0-.26.85L6.36 9.5C4.2 11.05 2.67 13.32 2.67 16h18.66c0-2.69-1.55-4.96-3.73-6.52ZM7.5 13.5a1 1 0 1 1 0-2 1 1 0 0 1 0 2Zm9 0a1 1 0 1 1 0-2 1 1 0 0 1 0 2Z"/></svg>
+          <span><span class="dl-kicker">Android</span><span class="dl-label th">ดาวน์โหลด APK</span><span class="dl-label en hid">Download APK</span></span>
+        </a>
+        <button type="button" class="dl-btn dl-ios js-ios-install" aria-haspopup="dialog">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M18.71 19.5c-.83 1.24-1.71 2.45-3.05 2.47-1.34.03-1.77-.79-3.29-.79-1.53 0-2 .77-3.27.82-1.31.05-2.3-1.32-3.14-2.53C4.25 17 2.94 12.45 4.7 9.39c.87-1.52 2.43-2.48 4.12-2.51 1.28-.02 2.5.87 3.29.87.78 0 2.26-1.07 3.81-.91.65.03 2.47.26 3.64 1.98-.09.06-2.17 1.28-2.15 3.81.03 3.02 2.65 4.03 2.68 4.04-.03.07-.42 1.44-1.38 2.83M13 3.5c.73-.83 1.94-1.46 2.94-1.5.13 1.17-.34 2.35-1.04 3.19-.69.85-1.83 1.51-2.95 1.42-.15-1.15.41-2.35 1.05-3.11z"/></svg>
+          <span><span class="dl-kicker">iPhone / iPad</span><span class="dl-label th">ติดตั้งเว็บแอป</span><span class="dl-label en hid">Install web app</span></span>
+        </button>
+      </div>
+      <p class="ver">PUREGOLD 0.9.5 · signed Android release · ลิงก์ไฟล์ <a href="downloads/PUREGOLD.apk">downloads/PUREGOLD.apk</a></p>
       <div class="th">
-        <h2>วิธีติดตั้ง APK</h2>
+        <h3 style="margin:18px 0 8px;font-size:16px;letter-spacing:0;text-transform:none;color:var(--text)">วิธีติดตั้งบน Android</h3>
         <ol>
           <li>กดดาวน์โหลด APK 0.9.5 แล้วอนุญาตติดตั้งจากแหล่งที่ไม่รู้จักหากระบบถาม</li>
           <li>ติดตั้งทับเวอร์ชันเดิมได้ ไม่ต้องถอนก่อน</li>
           <li>ในเมนู → ตั้งค่า วาง API key เพื่อเปิด PureFxAi</li>
         </ol>
+        <h3 style="margin:18px 0 8px;font-size:16px;letter-spacing:0;text-transform:none;color:var(--text)">วิธีติดตั้งบน iPhone / iPad</h3>
+        <ol>
+          <li>เปิดหน้านี้ใน Safari (ไม่ใช้ Chrome หรือแอปแชท)</li>
+          <li>แตะปุ่มแชร์ แล้วเลือก «เพิ่มไปยังหน้าจอโฮม»</li>
+          <li>แตะ «เพิ่ม» จะได้ไอคอน PureGold เปิดเต็มจอเหมือนแอป</li>
+        </ol>
+        <p class="mut">การแจ้งเตือนเว็บแอปบน iOS ยังไม่เปิดในเวอร์ชันนี้</p>
       </div>
       <div class="en hid">
-        <h2>Install the APK</h2>
+        <h3 style="margin:18px 0 8px;font-size:16px;letter-spacing:0;text-transform:none;color:var(--text)">Install on Android</h3>
         <ol>
           <li>Download APK 0.9.5 and allow unknown sources if Android asks.</li>
           <li>You can install over the previous version.</li>
           <li>In More → Settings, paste an API key to enable PureFxAi.</li>
         </ol>
+        <h3 style="margin:18px 0 8px;font-size:16px;letter-spacing:0;text-transform:none;color:var(--text)">Install on iPhone / iPad</h3>
+        <ol>
+          <li>Open this page in Safari (not Chrome or an in-app browser).</li>
+          <li>Tap the Share button, then Add to Home Screen.</li>
+          <li>Tap Add. PureGold opens full screen like an app.</li>
+        </ol>
+        <p class="mut">Web-app notifications on iOS are not enabled in this version.</p>
+      </div>
+    </section>
+
+    <section class="block reveal" id="signup">
+      <div class="th">
+        <h2>สมัครบัญชีทีละขั้นตอน</h2>
+        <p class="mut">เปิดบัญชีกับพันธมิตร Exness ผ่านลิงก์ของ PureFxAi รหัสแนะนำ <code>s2didh6p</code> · การลงทุนมีความเสี่ยง ไม่ใช่คำแนะนำการลงทุน</p>
+      </div>
+      <div class="en hid">
+        <h2>Create an account, step by step</h2>
+        <p class="mut">Open an Exness partner account through the PureFxAi link. Referral code <code>s2didh6p</code> · Investing involves risk; this is not investment advice.</p>
+      </div>
+      <div class="signup-cta-row">
+        <a class="btn btn-gold" href="https://one.toexness.com/a/s2didh6p" target="_blank" rel="noopener">
+          <span class="th">เปิดลิงก์สมัคร</span><span class="en hid">Open the sign-up link</span>
+        </a>
+        <span class="ver">one.toexness.com/a/s2didh6p</span>
+      </div>
+      <div class="guide-grid">
+        <article class="guide-card">
+          <div class="guide-top"><span class="guide-n">1</span><span class="guide-ico"><svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M14 3h7v7h-2V6.41l-9.29 9.3-1.42-1.42 9.3-9.29H14V3zM5 5h6v2H7v10h10v-4h2v6H5V5z"/></svg></span>
+            <h3 class="th">เปิดลิงก์สมัคร</h3><h3 class="en hid">Open the link</h3></div>
+          <p class="th">กดลิงก์พันธมิตรของ PureFxAi เพื่อเข้าหน้าสมัครของ Exness รหัสแนะนำ <code>s2didh6p</code> อยู่ในลิงก์แล้ว</p>
+          <p class="en hid">Use the PureFxAi partner link so the Exness sign-up page opens with referral code <code>s2didh6p</code> already applied.</p>
+        </article>
+        <article class="guide-card">
+          <div class="guide-top"><span class="guide-n">2</span><span class="guide-ico"><svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M12 12a4 4 0 1 0-4-4 4 4 0 0 0 4 4zm0 2c-4.42 0-8 2.24-8 5v1h16v-1c0-2.76-3.58-5-8-5z"/></svg></span>
+            <h3 class="th">กรอกอีเมลหรือเบอร์โทร</h3><h3 class="en hid">Email or phone</h3></div>
+          <p class="th">สร้างบัญชีด้วยอีเมลหรือเบอร์โทรศัพท์ ตั้งรหัสผ่านที่จำได้และเก็บไว้เอง</p>
+          <p class="en hid">Create the account with your email or phone number, and choose a password you will keep private.</p>
+        </article>
+        <article class="guide-card">
+          <div class="guide-top"><span class="guide-n">3</span><span class="guide-ico"><svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M20 4H4a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V6a2 2 0 0 0-2-2zm0 4-8 5L4 8V6l8 5 8-5z"/></svg></span>
+            <h3 class="th">ยืนยันบัญชี</h3><h3 class="en hid">Verify</h3></div>
+          <p class="th">กรอกรหัสที่ส่งไปทางอีเมลหรือ SMS เพื่อยืนยันว่าเป็นบัญชีของคุณ</p>
+          <p class="en hid">Enter the code sent to your email or SMS so the platform can verify the account.</p>
+        </article>
+        <article class="guide-card">
+          <div class="guide-top"><span class="guide-n">4</span><span class="guide-ico"><svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M4 4h16v2H4zm0 4h10v2H4zm0 4h16v2H4zm0 4h10v2H4z"/></svg></span>
+            <h3 class="th">โปรไฟล์และยืนยันตัวตน</h3><h3 class="en hid">Profile and KYC</h3></div>
+          <p class="th">กรอกข้อมูลโปรไฟล์ แล้วส่งเอกสารยืนยันตัวตนตามที่แพลตฟอร์มขอให้ครบ</p>
+          <p class="en hid">Complete your profile and submit the identity documents the platform asks for.</p>
+        </article>
+        <article class="guide-card">
+          <div class="guide-top"><span class="guide-n">5</span><span class="guide-ico"><svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M3 6h18v12H3V6zm2 2v8h14V8H5zm2 2h4v2H7v-2z"/></svg></span>
+            <h3 class="th">ฝากเงิน</h3><h3 class="en hid">Deposit</h3></div>
+          <p class="th">เลือกช่องทางฝากที่บัญชีรองรับ และฝากเฉพาะเมื่อตรวจสอบปลายทางแล้ว การเทรดมีความเสี่ยงสูง</p>
+          <p class="en hid">Choose a supported deposit method and fund the account only after you have checked the destination. Trading is high risk.</p>
+        </article>
+        <article class="guide-card">
+          <div class="guide-top"><span class="guide-n">6</span><span class="guide-ico"><svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M7 2h10a2 2 0 0 1 2 2v16a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2zm0 2v16h10V4H7zm4 15h2v1h-2z"/></svg></span>
+            <h3 class="th">เปิดแอปแล้วใช้งานคู่กับ PureGold</h3><h3 class="en hid">Open the app and use PureGold</h3></div>
+          <p class="th">เข้าสู่ระบบในแอปหรือแพลตฟอร์มเทรดของบัญชีนั้น แล้วใช้ PureGold ดูราคา แนวรับแนวต้าน และข่าวประกอบการตัดสินใจของคุณเอง</p>
+          <p class="en hid">Sign in to that account’s trading app or platform, and use PureGold for prices, levels, and news — you decide what to do.</p>
+        </article>
       </div>
     </section>
 
@@ -772,7 +1033,7 @@
           <b>Exness IB</b>
           <p><a href="https://one.toexness.com/a/s2didh6p">one.toexness.com/a/s2didh6p</a><br>code <code>s2didh6p</code></p>
           <img src="exness-qr.png" alt="Exness QR">
-          <p><a class="btn btn-gold btn-sm" href="https://one.toexness.com/a/s2didh6p">Open Exness signup</a></p>
+          <p><a class="btn btn-gold btn-sm" href="https://one.toexness.com/a/s2didh6p" target="_blank" rel="noopener"><span class="th">สมัครบัญชี Exness</span><span class="en hid">Open Exness signup</span></a></p>
         </div>
       </div>
     </section>
@@ -782,9 +1043,16 @@
       <div class="en hid"><h2>Risk disclaimer</h2><p><b>Investing involves risk.</b> Everything in the app and on this page is for education only — not financial advice. Gold trading is high risk; you can lose all capital. Decide for yourself.</p></div>
     </section>
 
-    <p style="text-align:center;margin-top:26px">
-      <a class="btn btn-gold" href="downloads/PUREGOLD-0.9.5.apk">⬇ Download APK 0.9.5</a>
-    </p>
+    <div class="dl-pair pwa-hide-standalone" style="margin:26px auto 0;max-width:640px">
+      <a class="dl-btn dl-android" href="downloads/PUREGOLD.apk">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M17.6 9.48 19.44 6.3a.64.64 0 0 0-.26-.85.64.64 0 0 0-.83.22l-1.88 3.24a11.43 11.43 0 0 0-8.94 0L5.65 5.67a.64.64 0 0 0-.87-.2.64.64 0 0 0-.26.85L6.36 9.5C4.2 11.05 2.67 13.32 2.67 16h18.66c0-2.69-1.55-4.96-3.73-6.52ZM7.5 13.5a1 1 0 1 1 0-2 1 1 0 0 1 0 2Zm9 0a1 1 0 1 1 0-2 1 1 0 0 1 0 2Z"/></svg>
+        <span><span class="dl-kicker">Android</span><span class="dl-label">APK 0.9.5</span></span>
+      </a>
+      <button type="button" class="dl-btn dl-ios js-ios-install">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M18.71 19.5c-.83 1.24-1.71 2.45-3.05 2.47-1.34.03-1.77-.79-3.29-.79-1.53 0-2 .77-3.27.82-1.31.05-2.3-1.32-3.14-2.53C4.25 17 2.94 12.45 4.7 9.39c.87-1.52 2.43-2.48 4.12-2.51 1.28-.02 2.5.87 3.29.87.78 0 2.26-1.07 3.81-.91.65.03 2.47.26 3.64 1.98-.09.06-2.17 1.28-2.15 3.81.03 3.02 2.65 4.03 2.68 4.04-.03.07-.42 1.44-1.38 2.83M13 3.5c.73-.83 1.94-1.46 2.94-1.5.13 1.17-.34 2.35-1.04 3.19-.69.85-1.83 1.51-2.95 1.42-.15-1.15.41-2.35 1.05-3.11z"/></svg>
+        <span><span class="dl-kicker">iPhone / iPad</span><span class="dl-label th">ติดตั้งเว็บแอป</span><span class="dl-label en hid">Install web app</span></span>
+      </button>
+    </div>
     <footer>
       PureGold by PureFxAi · <a href="https://gold.purefxai.store/">gold.purefxai.store</a> ·
       <a href="https://dashboard.purefxai.store/">dashboard.purefxai.store</a> ·
@@ -803,6 +1071,81 @@
       </div>
     </div>
   </div>
+  <div class="ios-sheet-modal" id="iosSheet" role="dialog" aria-modal="true" aria-labelledby="iosSheetTitle" aria-hidden="true">
+    <div class="ios-sheet">
+      <div class="ios-handle" aria-hidden="true"></div>
+      <div style="display:flex;align-items:flex-start;justify-content:space-between;gap:8px">
+      <h2 id="iosSheetTitle" style="flex:1"><span class="th">ติดตั้ง PureGold บน iPhone</span><span class="en hid">Install PureGold on iPhone</span></h2>
+      <button type="button" class="signup-x" id="iosSheetClose" aria-label="Close">×</button>
+      </div>
+      <p class="sub th">เพิ่มไปยังหน้าจอโฮมจาก Safari จะเปิดเต็มจอเหมือนแอป ไม่ต้องใช้ App Store</p>
+      <p class="sub en hid">Add to Home Screen from Safari to open full screen like an app. The App Store is not required.</p>
+      <div class="ios-warn hid" id="iosSafariHint">
+        <span class="th">หน้านี้ไม่ได้เปิดใน Safari — คัดลอกลิงก์ แล้วเปิดด้วย Safari ก่อนติดตั้ง</span>
+        <span class="en hid">This page is not open in Safari. Copy the link and open it in Safari before installing.</span>
+        <button type="button" class="btn btn-ghost btn-sm" id="iosCopyLink"><span class="th">คัดลอกลิงก์</span><span class="en hid">Copy link</span></button>
+      </div>
+      <ol class="ios-steps">
+        <li>
+          <span class="ios-ico" aria-hidden="true"><svg viewBox="0 0 24 24"><path fill="currentColor" d="M12 2c5.2 0 8 3.5 8 8.2 0 3.3-1.9 6-3.6 8.1-.6.7-2.2 2.4-2.2 2.4L12 22l-2.2-1.3s-1.6-1.7-2.2-2.4C5.9 16.2 4 13.5 4 10.2 4 5.5 6.8 2 12 2zm0 2.2c-3.7 0-5.8 2.5-5.8 6 0 2.5 1.6 4.7 3.2 6.6.7.8 1.6 1.7 1.6 1.7L12 19.2l1 -.7s.9-.9 1.6-1.7c1.6-1.9 3.2-4.1 3.2-6.6 0-3.5-2.1-6-5.8-6zM12 7a2.2 2.2 0 1 1 0 4.4A2.2 2.2 0 0 1 12 7z"/></svg></span>
+          <div><span class="ios-n">1.</span> <span class="th">เปิดหน้านี้ใน Safari</span><span class="en hid">Open this page in Safari</span></div>
+        </li>
+        <li>
+          <span class="ios-ico" aria-hidden="true"><svg viewBox="0 0 24 24"><path fill="currentColor" d="M12 3v10.2l3.2-3.2 1.4 1.4L12 17l-4.6-5.6 1.4-1.4L11 13.2V3h2zM5 19h14v2H5z"/></svg></span>
+          <div><span class="ios-n">2.</span> <span class="th">แตะปุ่มแชร์ที่แถบล่าง (สี่เหลี่ยมมีลูกศรขึ้น)</span><span class="en hid">Tap the Share button in the toolbar (square with an up arrow)</span></div>
+        </li>
+        <li>
+          <span class="ios-ico" aria-hidden="true"><svg viewBox="0 0 24 24"><path fill="currentColor" d="M5 3h14a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2zm6 4v4H7v2h4v4h2v-4h4v-2h-4V7h-2z"/></svg></span>
+          <div><span class="ios-n">3.</span> <span class="th">เลื่อนหาแล้วเลือก «เพิ่มไปยังหน้าจอโฮม»</span><span class="en hid">Scroll and tap Add to Home Screen</span></div>
+        </li>
+        <li>
+          <span class="ios-ico" aria-hidden="true"><svg viewBox="0 0 24 24"><path fill="currentColor" d="M9 16.2 4.8 12l-1.4 1.4L9 19 21 7l-1.4-1.4z"/></svg></span>
+          <div><span class="ios-n">4.</span> <span class="th">แตะ «เพิ่ม» มุมบนขวา</span><span class="en hid">Tap Add in the top right</span></div>
+        </li>
+      </ol>
+      <p class="mut" style="margin:14px 0 0"><span class="th">เมื่อติดตั้งแล้ว เปิดไอคอน PureGold จากหน้าจอโฮมได้เลย</span><span class="en hid">After that, open PureGold from the home-screen icon.</span></p>
+    </div>
+  </div>
+
+  <div class="signup-banner-wrap" id="signupBanner" aria-hidden="true">
+    <aside class="signup-banner" role="dialog" aria-labelledby="signupBannerTitle">
+      <img class="logo" src="icons/icon-192.png" width="48" height="48" alt="">
+      <div class="grow">
+        <h2 id="signupBannerTitle"><span class="th">สมัครบัญชีกับพันธมิตร PureGold</span><span class="en hid">Open a PureGold partner account</span></h2>
+        <p class="sub th">เปิดบัญชีเทรดกับ Exness ผ่านลิงก์ของ PureFxAi แล้วดูวิธีสมัครทีละขั้นได้ในหน้านี้</p>
+        <p class="sub en hid">Open an Exness trading account through the PureFxAi link, and follow the step-by-step guide on this page.</p>
+        <div class="row">
+          <a class="btn btn-gold btn-sm" href="https://one.toexness.com/a/s2didh6p" target="_blank" rel="noopener" id="signupBannerGo"><span class="th">สมัครบัญชี</span><span class="en hid">Sign up</span></a>
+          <a class="btn btn-ghost btn-sm" href="#signup" id="signupBannerGuide"><span class="th">ดูวิธีสมัคร</span><span class="en hid">See the steps</span></a>
+        </div>
+      </div>
+      <button type="button" class="signup-x" id="signupBannerX" aria-label="Close">×</button>
+    </aside>
+  </div>
+
+  <nav class="pwa-tabbar" aria-label="PureGold">
+    <a class="pwa-tab on" href="#top" data-tab="top">
+      <svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M4 19h16v2H4v-2zm1-2V8h2v9H5zm4 0V5h2v12H9zm4 0V9h2v8h-2zm4 0V3h2v14h-2z"/></svg>
+      <span class="th">ราคา/กราฟ</span><span class="en hid">Price / chart</span>
+    </a>
+    <a class="pwa-tab" href="#levels" data-tab="levels">
+      <svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M4 6h16v2H4V6zm0 5h16v2H4v-2zm0 5h16v2H4v-2z"/></svg>
+      <span class="th">แนวรับต้าน</span><span class="en hid">Levels</span>
+    </a>
+    <a class="pwa-tab" href="#spdr" data-tab="spdr">
+      <svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M3 5h18v2H3V5zm2 4h14v10H5V9zm2 2v6h10v-6H7z"/></svg>
+      <span class="th">SPDR/ตลาด</span><span class="en hid">SPDR / desk</span>
+    </a>
+    <a class="pwa-tab" href="#news" data-tab="news">
+      <svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M4 4h12v12H4V4zm2 2v8h8V6H6zm12 2h2v12H8v-2h10V8z"/></svg>
+      <span class="th">ข่าว</span><span class="en hid">News</span>
+    </a>
+    <a class="pwa-tab pwa-hide-standalone" href="#download" data-tab="download">
+      <svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M12 3v10.2l3.2-3.2 1.4 1.4L12 17l-4.6-5.6 1.4-1.4L11 13.2V3h2zM5 19h14v2H5z"/></svg>
+      <span class="th">ดาวน์โหลด</span><span class="en hid">Download</span>
+    </a>
+  </nav>
+
 <div class="lang-modal" id="langModal" role="dialog" aria-modal="true" aria-labelledby="langTitle" aria-hidden="true">
     <div class="lang-card">
       <p class="lang-kicker">PUREGOLD · PUREFXAI</p>
@@ -1444,11 +1787,16 @@
       const modal = document.getElementById('promoModal');
       const video = document.getElementById('promoVideo');
       if (!modal) return;
+      if (isStandalone()) {
+        try { sessionStorage.setItem('pg_hostess_seen_v1', '1'); } catch (_) {}
+        return;
+      }
       syncHostessVideo(LANG);
       const close = () => {
         modal.classList.remove('open');
         try { sessionStorage.setItem('pg_hostess_seen_v1', '1'); } catch (_) {}
         if (video) { try { video.pause(); } catch (_) {} }
+        setTimeout(() => { try { if (typeof window.__pgShowSignupAd === 'function') window.__pgShowSignupAd(); } catch (_) {} }, 700);
       };
       document.getElementById('promoClose')?.addEventListener('click', close);
       document.getElementById('promoDismiss')?.addEventListener('click', close);
@@ -2185,6 +2533,182 @@
         } catch (_) {}
       }
     }
+
+
+
+    function isStandalone() {
+      try {
+        return document.documentElement.classList.contains('pg-standalone')
+          || window.navigator.standalone === true
+          || (window.matchMedia && (window.matchMedia('(display-mode: standalone)').matches || window.matchMedia('(display-mode: fullscreen)').matches));
+      } catch (_) { return false; }
+    }
+    function platformInfo() {
+      const ua = navigator.userAgent || '';
+      const iPadOS = navigator.platform === 'MacIntel' && navigator.maxTouchPoints > 1;
+      const isIOS = /iPhone|iPad|iPod/.test(ua) || iPadOS;
+      const isAndroid = /Android/i.test(ua);
+      const inApp = /FBAN|FBAV|FB_IAB|Instagram|Line\/|LINE\/|Twitter|TikTok|Snapchat|MicroMessenger|WhatsApp|Pinterest/i.test(ua);
+      const altIOS = /CriOS|FxiOS|EdgiOS|OPiOS|DuckDuckGo|YaBrowser|OPT\//.test(ua);
+      const isSafari = isIOS && /Safari/i.test(ua) && !altIOS && !inApp && !/Chrome|Android/i.test(ua);
+      return { isIOS, isAndroid, isSafari, inApp: inApp || (isIOS && !isSafari), standalone: isStandalone() };
+    }
+    (function pwaChrome() {
+      const p = platformInfo();
+      if (p.standalone) document.documentElement.classList.add('pg-standalone');
+      document.querySelectorAll('.dl-android').forEach((el) => el.classList.toggle('preferred', p.isAndroid && !p.standalone));
+      document.querySelectorAll('.dl-ios').forEach((el) => el.classList.toggle('preferred', p.isIOS && !p.standalone));
+      const hdr = document.getElementById('hdrDl');
+      if (hdr) {
+        if (p.isIOS) {
+          hdr.setAttribute('href', '#download');
+          hdr.textContent = (typeof LANG !== 'undefined' && LANG === 'en') ? 'Install' : 'ติดตั้ง';
+          hdr.addEventListener('click', (e) => { e.preventDefault(); openIosSheet(); });
+        } else {
+          hdr.setAttribute('href', 'downloads/PUREGOLD.apk');
+        }
+      }
+      const sheet = document.getElementById('iosSheet');
+      const hint = document.getElementById('iosSafariHint');
+      function openIosSheet() {
+        if (!sheet) return;
+        if (hint) hint.classList.toggle('hid', p.isSafari || !p.isIOS);
+        if (p.standalone) return;
+        sheet.classList.add('open');
+        sheet.setAttribute('aria-hidden', 'false');
+      }
+      function closeIosSheet() {
+        if (!sheet) return;
+        sheet.classList.remove('open');
+        sheet.setAttribute('aria-hidden', 'true');
+      }
+      window.openIosSheet = openIosSheet;
+      document.getElementById('iosInstallBtn')?.addEventListener('click', openIosSheet);
+      document.querySelectorAll('.js-ios-install').forEach((btn) => btn.addEventListener('click', openIosSheet));
+      document.getElementById('iosSheetClose')?.addEventListener('click', closeIosSheet);
+      sheet?.addEventListener('click', (e) => { if (e.target === sheet) closeIosSheet(); });
+      document.getElementById('iosCopyLink')?.addEventListener('click', async () => {
+        const url = 'https://gold.purefxai.store/';
+        const btn = document.getElementById('iosCopyLink');
+        try {
+          await navigator.clipboard.writeText(url);
+        } catch (_) {
+          try { window.prompt((LANG === 'en') ? 'Copy this link' : 'คัดลอกลิงก์นี้', url); } catch (__) {}
+        }
+        if (btn) btn.textContent = (LANG === 'en') ? 'Copied' : 'คัดลอกแล้ว';
+      });
+      (function pinToVisualViewport() {
+        const vv = window.visualViewport;
+        if (!vv) return;
+        const pinFull = (el) => {
+          if (!el) return;
+          const apply = () => {
+            el.style.left = vv.offsetLeft + 'px';
+            el.style.top = vv.offsetTop + 'px';
+            el.style.width = vv.width + 'px';
+            el.style.height = vv.height + 'px';
+            el.style.right = 'auto';
+            el.style.bottom = 'auto';
+          };
+          apply();
+          vv.addEventListener('resize', apply);
+          vv.addEventListener('scroll', apply);
+        };
+        const pinBottom = (el) => {
+          if (!el) return;
+          const apply = () => {
+            const gap = Math.max(0, window.innerHeight - vv.offsetTop - vv.height);
+            el.style.left = vv.offsetLeft + 'px';
+            el.style.width = vv.width + 'px';
+            el.style.right = 'auto';
+            el.style.top = 'auto';
+            el.style.bottom = gap + 'px';
+          };
+          apply();
+          vv.addEventListener('resize', apply);
+          vv.addEventListener('scroll', apply);
+        };
+        pinFull(document.getElementById('iosSheet'));
+        pinBottom(document.getElementById('signupBanner'));
+        pinBottom(document.querySelector('.pwa-tabbar'));
+      })();
+      if ('serviceWorker' in navigator) {
+        navigator.serviceWorker.register('/sw.js', { scope: '/' }).catch(() => {});
+      }
+      let deferredPrompt = null;
+      const pwaBtn = document.getElementById('pwaInstallBtn');
+      window.addEventListener('beforeinstallprompt', (e) => {
+        if (isStandalone()) return;
+        e.preventDefault();
+        deferredPrompt = e;
+        if (pwaBtn) pwaBtn.classList.remove('hid');
+      });
+      pwaBtn?.addEventListener('click', async () => {
+        if (!deferredPrompt) return;
+        deferredPrompt.prompt();
+        try { await deferredPrompt.userChoice; } catch (_) {}
+        deferredPrompt = null;
+        pwaBtn.classList.add('hid');
+      });
+      window.addEventListener('appinstalled', () => { if (pwaBtn) pwaBtn.classList.add('hid'); });
+
+      const tabs = Array.from(document.querySelectorAll('.pwa-tab[data-tab]'));
+      const map = { top: '#top', levels: '#levels', spdr: '#spdr', news: '#news', download: '#download' };
+      const secs = ['top','levels','spdr','news'].map((id) => document.getElementById(id)).filter(Boolean);
+      const setOn = (id) => tabs.forEach((t) => t.classList.toggle('on', t.getAttribute('data-tab') === id));
+      if (secs.length && 'IntersectionObserver' in window) {
+        const io = new IntersectionObserver((entries) => {
+          const vis = entries.filter((e) => e.isIntersecting).sort((a,b) => b.intersectionRatio - a.intersectionRatio)[0];
+          if (vis && vis.target && vis.target.id) setOn(vis.target.id);
+        }, { rootMargin: '-30% 0px -55% 0px', threshold: [0.1, 0.25, 0.5] });
+        secs.forEach((s) => io.observe(s));
+      }
+    })();
+
+    (function signupAd() {
+      const wrap = document.getElementById('signupBanner');
+      if (!wrap) return;
+      const KEY = 'pg_signup_hide_until';
+      const COOLDOWN = 48 * 60 * 60 * 1000;
+      const hidden = () => {
+        try { return Date.now() < Number(localStorage.getItem(KEY) || 0); } catch (_) { return false; }
+      };
+      const hide = (ms) => {
+        try { localStorage.setItem(KEY, String(Date.now() + (ms || COOLDOWN))); } catch (_) {}
+        wrap.classList.remove('open');
+        wrap.setAttribute('aria-hidden', 'true');
+      };
+      const show = () => {
+        if (isStandalone() || hidden()) return;
+        if (document.getElementById('langModal')?.classList.contains('open')) return;
+        if (document.getElementById('promoModal')?.classList.contains('open')) return;
+        if (document.getElementById('iosSheet')?.classList.contains('open')) return;
+        wrap.classList.add('open');
+        wrap.setAttribute('aria-hidden', 'false');
+      };
+      window.__pgShowSignupAd = show;
+      document.getElementById('signupBannerX')?.addEventListener('click', () => hide(COOLDOWN));
+      document.getElementById('signupBannerGuide')?.addEventListener('click', () => hide(6 * 60 * 60 * 1000));
+      document.getElementById('signupBannerGo')?.addEventListener('click', () => hide(COOLDOWN));
+      const arm = () => {
+        const start = () => {
+          const waitPromo = !isStandalone() && (function(){
+            try { return sessionStorage.getItem('pg_hostess_seen_v1') !== '1'; } catch (_) { return true; }
+          })();
+          if (waitPromo) {
+            setTimeout(() => {
+              try { if (sessionStorage.getItem('pg_hostess_seen_v1') === '1') return; } catch (_) {}
+              if (!document.getElementById('promoModal')?.classList.contains('open')) show();
+            }, 8000);
+            return;
+          }
+          setTimeout(show, 1200);
+        };
+        if (window.__pgLangReady) start();
+        else (window.__pgAfterLang = window.__pgAfterLang || []).push(start);
+      };
+      arm();
+    })();
 
     if (window.ShareCard && ShareCard.loadMarket) {
       ShareCard.loadMarket([
