@@ -579,6 +579,37 @@
     }
     .ios-ico svg { width:20px; height:20px; display:block }
     .ios-n { display:inline-block; min-width:1.2em; color:var(--gold); font-weight:700; }
+
+    .apk-hint {
+      display:none; position:fixed; left:12px; right:12px; bottom:calc(12px + env(safe-area-inset-bottom,0px));
+      z-index:92; width:min(520px, calc(100% - 24px)); margin:0 auto;
+      background:linear-gradient(180deg,rgba(255,255,255,.14),rgba(20,16,10,.94));
+      border:1px solid rgba(255,255,255,.24); border-radius:16px; padding:12px 14px;
+      box-shadow:0 16px 40px rgba(0,0,0,.45), inset 0 1px 0 rgba(255,255,255,.2);
+      backdrop-filter:blur(20px) saturate(1.3); -webkit-backdrop-filter:blur(20px) saturate(1.3);
+    }
+    .apk-hint.open { display:block !important }
+    .apk-hint p { margin:0 0 8px; font-size:14px; line-height:1.45; color:var(--text); }
+    .apk-hint ol { margin:0; padding:0 0 0 18px; color:var(--muted); font-size:13px; line-height:1.5; }
+    .apk-hint .row { display:flex; justify-content:flex-end; margin-top:8px; }
+    .apk-sheet .row { display:flex; flex-wrap:wrap; gap:8px; margin:14px 0 0; }
+    .apk-sheet .row .btn { flex:1 1 140px; min-height:44px; display:inline-flex; align-items:center; justify-content:center; text-decoration:none; }
+    .apk-sheet ol { margin:8px 0 0; padding:0 0 0 18px; color:var(--muted); font-size:13px; line-height:1.5; }
+    .apk-sheet .line-row { display:flex; gap:12px; align-items:center; margin-top:14px; padding-top:14px; border-top:1px solid var(--line); text-align:left; }
+    .apk-sheet .line-row img.qr { width:72px; height:auto; border-radius:8px; background:#fff; padding:4px; flex:0 0 auto; }
+    .line-pill {
+      display:inline-flex; align-items:center; gap:6px;
+      height:32px; padding:0 11px; border-radius:999px;
+      background:rgba(6,199,85,.14); border:1px solid rgba(6,199,85,.42);
+      color:#c8f7d5; text-decoration:none; font-size:12px; font-weight:700;
+      letter-spacing:.02em; backdrop-filter:blur(12px); -webkit-backdrop-filter:blur(12px);
+      white-space:nowrap;
+    }
+    .line-pill img { width:16px; height:16px; border-radius:4px; display:block; }
+    .line-pill:hover { background:rgba(6,199,85,.24); color:#eafff0; }
+    a.line-pill { color:#c8f7d5; }
+    .qr.line-card img { width:180px; height:auto; object-fit:contain; }
+
     .signup-banner { display:flex; gap:12px; align-items:flex-start; }
     .signup-banner img.logo { width:48px; height:48px; border-radius:12px; flex:0 0 auto; }
     .signup-banner .grow { flex:1; min-width:0 }
@@ -672,7 +703,8 @@
           <button type="button" id="bth" class="on" onclick="setLang('th')">ไทย</button>
           <button type="button" id="ben" onclick="setLang('en')"><span class="lang-full">English</span><span class="lang-short">EN</span></button>
         </div>
-        <a class="btn btn-gold btn-sm pwa-hide-standalone" id="hdrDl" href="downloads/PUREGOLD.apk">APK 0.9.6</a>
+        <a class="line-pill" href="https://line.me/ti/p/H_Bxfi7so3" target="_blank" rel="noopener" title="LINE PureFxAi"><img src="assets/line-icon.png" width="16" height="16" alt=""> LINE</a>
+        <a class="btn btn-gold btn-sm pwa-hide-standalone" id="hdrDl" href="downloads/PUREGOLD.apk" download="PUREGOLD.apk">APK 0.9.7</a>
       </div>
     </header>
 
@@ -689,7 +721,7 @@
           <p class="lead">Follow XAUUSD from FX spot, daily support and resistance, Hua Seng Heng Thai gold, and news — then get the Android app or install the iPhone web app from this page.</p>
         </div>
         <div class="dl-pair pwa-hide-standalone" id="heroDlRow">
-          <a class="dl-btn dl-android" id="dlBtn" href="downloads/PUREGOLD.apk">
+          <a class="dl-btn dl-android" id="dlBtn" href="downloads/PUREGOLD.apk" download="PUREGOLD.apk">
             <svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M17.6 9.48 19.44 6.3a.64.64 0 0 0-.26-.85.64.64 0 0 0-.83.22l-1.88 3.24a11.43 11.43 0 0 0-8.94 0L5.65 5.67a.64.64 0 0 0-.87-.2.64.64 0 0 0-.26.85L6.36 9.5C4.2 11.05 2.67 13.32 2.67 16h18.66c0-2.69-1.55-4.96-3.73-6.52ZM7.5 13.5a1 1 0 1 1 0-2 1 1 0 0 1 0 2Zm9 0a1 1 0 1 1 0-2 1 1 0 0 1 0 2Z"/></svg>
             <span><span class="dl-kicker">Android</span><span class="dl-label th">ดาวน์โหลด APK</span><span class="dl-label en hid">Download APK</span></span>
           </a>
@@ -706,7 +738,7 @@
             <span class="th">ดูกราฟ</span><span class="en hid">View chart</span>
           </button>
         </div>
-        <p class="ver" id="dlMeta">PUREGOLD 0.9.6 · Android APK · iPhone web app</p>
+        <p class="ver" id="dlMeta">PUREGOLD 0.9.7 · Android APK · iPhone web app</p>
       </div>
       <aside class="hero-quote reveal in" aria-label="XAUUSD spot">
         <div class="k">XAUUSD · SPOT</div>
@@ -952,11 +984,13 @@
     </section>
 
     <section class="block reveal" id="updates">
-      <div class="th"><h2>ประวัติเวอร์ชัน</h2><p class="mut">อัปเดตล่าสุดของแอปและหน้าเว็บ · <a href="downloads/PUREGOLD.apk">ดาวน์โหลด 0.9.6</a></p></div>
-      <div class="en hid"><h2>Version history</h2><p class="mut">Latest app and website updates · <a href="downloads/PUREGOLD.apk">Download 0.9.6</a></p></div>
+      <div class="th"><h2>ประวัติเวอร์ชัน</h2><p class="mut">อัปเดตล่าสุดของแอปและหน้าเว็บ · <a href="downloads/PUREGOLD.apk" download="PUREGOLD.apk">ดาวน์โหลด 0.9.7</a></p></div>
+      <div class="en hid"><h2>Version history</h2><p class="mut">Latest app and website updates · <a href="downloads/PUREGOLD.apk" download="PUREGOLD.apk">Download 0.9.7</a></p></div>
       <div class="cl">
-        <b>เว็บไซต์</b> · 2026-11-10
+        <b>เว็บไซต์</b> · 2026-11-11
         <ul class="th">
+          <li>ดาวน์โหลด APK จากเบราว์เซอร์ในแอป (เช่น Facebook): เปิดใน Chrome อัตโนมัติ พร้อมปุ่มคัดลอกลิงก์ — ไม่ส่งไป GitHub</li>
+          <li>เพิ่มช่องทางติดต่อผู้พัฒนาผ่าน LINE (หัวเว็บ, ฟุตเตอร์, ส่วนสนับสนุน และชีตดาวน์โหลด)</li>
           <li>ติดตั้ง PureGold เป็นเว็บแอปบน iPhone และ iPad จากหน้านี้ — เปิดใน Safari แล้วเพิ่มไปยังหน้าจอโฮม</li>
           <li>ปุ่มดาวน์โหลดแยก Android (APK 0.9.5) และ iPhone / iPad พร้อมวิธีติดตั้งทีละขั้น</li>
           <li>แนะนำสมัครบัญชีพันธมิตร และคู่มือสมัครทีละขั้นตอน</li>
@@ -968,6 +1002,8 @@
           <li>ปุ่มบันทึกและแชร์เป็นปุ่มเล็กด้านหัวการ์ด ไม่เต็มความกว้าง</li>
         </ul>
         <ul class="en hid">
+          <li>APK downloads from in-app browsers (e.g. Facebook) now prompt to open in Chrome, with a copy-link button — no jump to GitHub</li>
+          <li>Contact the developer on LINE (header, footer, support section, and the download help sheet)</li>
           <li>Install PureGold as an iPhone and iPad web app from this page — open in Safari, then Add to Home Screen</li>
           <li>Separate Android (APK 0.9.5) and iPhone / iPad download buttons, with step-by-step setup</li>
           <li>Partner account sign-up prompt and a step-by-step guide</li>
@@ -977,6 +1013,15 @@
           <li>Save and share posters are drawn from the live gold price at tap time, with a Bangkok time stamp to the second — not from a stored image</li>
           <li>The trade plan states a clear entry, stop loss, and TP1–TP3 from real support and resistance, with a status that follows the live price — education only, not investment advice; always use a stop loss</li>
           <li>Save and Share are compact header pills, not full-width buttons</li>
+        </ul>
+      </div>
+      <div class="cl">
+        <b>0.9.7</b> · 2026-11-11
+        <ul class="th">
+          <li>เพิ่มปุ่มติดต่อผู้พัฒนาผ่าน LINE ในตั้งค่าและเมนูสนับสนุน</li>
+        </ul>
+        <ul class="en hid">
+          <li>Added a “Contact the developer on LINE” button in Settings and Support</li>
         </ul>
       </div>
       <div class="cl">
@@ -1092,14 +1137,13 @@
           <li>Online chat and plan · signal history · SMS-style alerts</li>
         </ul>
       </div>
-      <p class="mut"><a href="https://github.com/purefxaidev/puregold-app/releases">GitHub releases ↗</a></p>
     </section>
 
     <section class="block reveal pwa-hide-standalone" id="download">
       <div class="th"><h2>ดาวน์โหลดและติดตั้ง</h2><p class="mut">แอป Android เป็นไฟล์ APK · บน iPhone และ iPad ติดตั้งเป็นเว็บแอปจาก Safari ได้เลย</p></div>
       <div class="en hid"><h2>Download and install</h2><p class="mut">The Android app is an APK. On iPhone and iPad, install the web app from Safari.</p></div>
       <div class="dl-pair">
-        <a class="dl-btn dl-android" href="downloads/PUREGOLD.apk">
+        <a class="dl-btn dl-android" href="downloads/PUREGOLD.apk" download="PUREGOLD.apk">
           <svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M17.6 9.48 19.44 6.3a.64.64 0 0 0-.26-.85.64.64 0 0 0-.83.22l-1.88 3.24a11.43 11.43 0 0 0-8.94 0L5.65 5.67a.64.64 0 0 0-.87-.2.64.64 0 0 0-.26.85L6.36 9.5C4.2 11.05 2.67 13.32 2.67 16h18.66c0-2.69-1.55-4.96-3.73-6.52ZM7.5 13.5a1 1 0 1 1 0-2 1 1 0 0 1 0 2Zm9 0a1 1 0 1 1 0-2 1 1 0 0 1 0 2Z"/></svg>
           <span><span class="dl-kicker">Android</span><span class="dl-label th">ดาวน์โหลด APK</span><span class="dl-label en hid">Download APK</span></span>
         </a>
@@ -1108,11 +1152,11 @@
           <span><span class="dl-kicker">iPhone / iPad</span><span class="dl-label th">ติดตั้งเว็บแอป</span><span class="dl-label en hid">Install web app</span></span>
         </button>
       </div>
-      <p class="ver">PUREGOLD 0.9.6 · signed Android release · ลิงก์ไฟล์ <a href="downloads/PUREGOLD.apk">downloads/PUREGOLD.apk</a> · sha256 867e759fa01b8b1e20120489e4819cc86eb154af4c77f72bf7dab36d0f5e5713</p>
+      <p class="ver">PUREGOLD 0.9.7 · signed Android release · ลิงก์ไฟล์ <a href="downloads/PUREGOLD.apk" download="PUREGOLD.apk">downloads/PUREGOLD.apk</a> · sha256 a9f0690a721acedf6ebe774d27a37267cf4ae3d39892b5f0d081ac108a14c386</p>
       <div class="th">
         <h3 style="margin:18px 0 8px;font-size:16px;letter-spacing:0;text-transform:none;color:var(--text)">วิธีติดตั้งบน Android</h3>
         <ol>
-          <li>กดดาวน์โหลด APK 0.9.6 แล้วอนุญาตติดตั้งจากแหล่งที่ไม่รู้จักหากระบบถาม</li>
+          <li>กดดาวน์โหลด APK 0.9.7 แล้วอนุญาตติดตั้งจากแหล่งที่ไม่รู้จักหากระบบถาม</li>
           <li>ติดตั้งทับเวอร์ชันเดิมได้ ไม่ต้องถอนก่อน</li>
           <li>ในเมนู → ตั้งค่า วาง API key เพื่อเปิด PureFxAi</li>
         </ol>
@@ -1127,7 +1171,7 @@
       <div class="en hid">
         <h3 style="margin:18px 0 8px;font-size:16px;letter-spacing:0;text-transform:none;color:var(--text)">Install on Android</h3>
         <ol>
-          <li>Download APK 0.9.6 and allow unknown sources if Android asks.</li>
+          <li>Download APK 0.9.7 and allow unknown sources if Android asks.</li>
           <li>You can install over the previous version.</li>
           <li>In More → Settings, paste an API key to enable PureFxAi.</li>
         </ol>
@@ -1200,6 +1244,14 @@
       <div class="th"><h2>การสนับสนุน</h2><p>ถ้า PUREGOLD มีประโยชน์ สามารถสนับสนุนทีมได้ตามสบาย ไม่บังคับ และไม่มีผลตอบแทนการลงทุน</p></div>
       <div class="en hid"><h2>Support the project</h2><p>If PUREGOLD is useful, you are welcome to support the team. Optional — not an investment.</p></div>
       <div class="grid">
+        <div class="qr line-card" id="contactLine">
+          <b class="th">ติดต่อผู้พัฒนา</b>
+          <b class="en hid">Contact the developer</b>
+          <p class="mut th">สอบถามหรือแจ้งปัญหาได้ทาง LINE ของ PureFxAi</p>
+          <p class="mut en hid">Questions or issues? Message PureFxAi on LINE.</p>
+          <img src="assets/line-qr.png" alt="LINE QR · PureFxAi">
+          <p><a class="line-pill" href="https://line.me/ti/p/H_Bxfi7so3" target="_blank" rel="noopener"><img src="assets/line-icon.png" width="16" height="16" alt=""><span class="th">แชทใน LINE</span><span class="en hid">Chat on LINE</span></a></p>
+        </div>
         <div class="qr">
           <b>USDT · ERC20</b>
           <p class="addr">0x920deab53daf94ca2030ad5ceec2265bf5686941</p>
@@ -1221,9 +1273,9 @@
     </section>
 
     <div class="dl-pair pwa-hide-standalone" style="margin:26px auto 0;max-width:640px">
-      <a class="dl-btn dl-android" href="downloads/PUREGOLD.apk">
+      <a class="dl-btn dl-android" href="downloads/PUREGOLD.apk" download="PUREGOLD.apk">
         <svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M17.6 9.48 19.44 6.3a.64.64 0 0 0-.26-.85.64.64 0 0 0-.83.22l-1.88 3.24a11.43 11.43 0 0 0-8.94 0L5.65 5.67a.64.64 0 0 0-.87-.2.64.64 0 0 0-.26.85L6.36 9.5C4.2 11.05 2.67 13.32 2.67 16h18.66c0-2.69-1.55-4.96-3.73-6.52ZM7.5 13.5a1 1 0 1 1 0-2 1 1 0 0 1 0 2Zm9 0a1 1 0 1 1 0-2 1 1 0 0 1 0 2Z"/></svg>
-        <span><span class="dl-kicker">Android</span><span class="dl-label">APK 0.9.6</span></span>
+        <span><span class="dl-kicker">Android</span><span class="dl-label">APK 0.9.7</span></span>
       </a>
       <button type="button" class="dl-btn dl-ios js-ios-install">
         <svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M18.71 19.5c-.83 1.24-1.71 2.45-3.05 2.47-1.34.03-1.77-.79-3.29-.79-1.53 0-2 .77-3.27.82-1.31.05-2.3-1.32-3.14-2.53C4.25 17 2.94 12.45 4.7 9.39c.87-1.52 2.43-2.48 4.12-2.51 1.28-.02 2.5.87 3.29.87.78 0 2.26-1.07 3.81-.91.65.03 2.47.26 3.64 1.98-.09.06-2.17 1.28-2.15 3.81.03 3.02 2.65 4.03 2.68 4.04-.03.07-.42 1.44-1.38 2.83M13 3.5c.73-.83 1.94-1.46 2.94-1.5.13 1.17-.34 2.35-1.04 3.19-.69.85-1.83 1.51-2.95 1.42-.15-1.15.41-2.35 1.05-3.11z"/></svg>
@@ -1233,7 +1285,7 @@
     <footer>
       PureGold by PureFxAi · <a href="https://gold.purefxai.store/">gold.purefxai.store</a> ·
       <a href="https://dashboard.purefxai.store/">dashboard.purefxai.store</a> ·
-      <a href="https://github.com/purefxaidev/puregold-app">App repo</a>
+      <a href="https://line.me/ti/p/H_Bxfi7so3" target="_blank" rel="noopener">LINE</a>
     </footer>
   </div>
 
@@ -1284,6 +1336,51 @@
     </div>
   </div>
 
+  <div class="ios-sheet-modal" id="apkSheet" role="dialog" aria-modal="true" aria-labelledby="apkSheetTitle" aria-hidden="true">
+    <div class="ios-sheet apk-sheet">
+      <div class="ios-handle" aria-hidden="true"></div>
+      <div style="display:flex;align-items:flex-start;justify-content:space-between;gap:8px">
+        <h2 id="apkSheetTitle" style="flex:1"><span class="th">เปิดใน Chrome เพื่อดาวน์โหลด</span><span class="en hid">Open in Chrome to download</span></h2>
+        <button type="button" class="signup-x" id="apkSheetX" aria-label="Close">×</button>
+      </div>
+      <p class="sub th">เบราว์เซอร์ในแอป (เช่น Facebook, LINE) มักดาวน์โหลดไฟล์ APK ไม่ได้ ให้เปิดลิงก์นี้ใน Chrome แล้วกดดาวน์โหลดอีกครั้ง</p>
+      <p class="sub en hid">In-app browsers (Facebook, LINE, Instagram) often cannot download APK files. Open this link in Chrome, then tap download again.</p>
+      <div class="row">
+        <a class="btn btn-gold" id="apkOpenChrome" href="#"><span class="th">เปิดใน Chrome</span><span class="en hid">Open in Chrome</span></a>
+        <button type="button" class="btn btn-ghost" id="apkCopyLink"><span class="th">คัดลอกลิงก์</span><span class="en hid">Copy link</span></button>
+      </div>
+      <ol class="th">
+        <li>หรือแตะเมนู ⋮ มุมขวาบน แล้วเลือก «เปิดในเบราว์เซอร์»</li>
+        <li>เปิดไฟล์จากแถบแจ้งเตือน แล้วอนุญาตติดตั้งจากแหล่งนี้</li>
+      </ol>
+      <ol class="en hid">
+        <li>Or tap the ⋮ menu and choose “Open in browser”</li>
+        <li>Open the file from the notification bar and allow installs from this source</li>
+      </ol>
+      <div class="line-row">
+        <img class="qr" src="assets/line-qr.png" width="72" height="84" alt="LINE QR">
+        <div>
+          <div class="th"><strong>ติดต่อผู้พัฒนา</strong><br><a href="https://line.me/ti/p/H_Bxfi7so3" target="_blank" rel="noopener">แชท LINE · PureFxAi</a></div>
+          <div class="en hid"><strong>Contact the developer</strong><br><a href="https://line.me/ti/p/H_Bxfi7so3" target="_blank" rel="noopener">Chat on LINE · PureFxAi</a></div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="apk-hint" id="apkHint" hidden>
+    <p class="th"><strong>กำลังดาวน์โหลด…</strong> เปิดไฟล์จากแถบแจ้งเตือน แล้วอนุญาตติดตั้งจากแหล่งนี้</p>
+    <p class="en hid"><strong>Downloading…</strong> Open the file from the notification bar, then allow installs from this source.</p>
+    <ol class="th">
+      <li>เปิดแถบแจ้งเตือนของโทรศัพท์ แล้วแตะไฟล์ PUREGOLD.apk</li>
+      <li>ถ้าถามเรื่องแหล่งที่ไม่รู้จัก ให้กดอนุญาตสำหรับ Chrome หรือไฟล์นี้</li>
+      <li>แตะติดตั้ง แล้วเปิดแอป PUREGOLD</li>
+    </ol>
+    <ol class="en hid">
+      <li>Open the notification shade and tap PUREGOLD.apk</li>
+      <li>If asked about unknown sources, allow it for Chrome or this file</li>
+      <li>Tap Install, then open the PUREGOLD app</li>
+    </ol>
+    <div class="row"><button type="button" class="btn btn-ghost btn-sm" id="apkHintX">OK</button></div>
+  </div>
   <div class="signup-banner-wrap" id="signupBanner" aria-hidden="true">
     <aside class="signup-banner" role="dialog" aria-labelledby="signupBannerTitle">
       <img class="logo" src="icons/icon-192.png" width="48" height="48" alt="">
@@ -3116,7 +3213,7 @@
       const iPadOS = navigator.platform === 'MacIntel' && navigator.maxTouchPoints > 1;
       const isIOS = /iPhone|iPad|iPod/.test(ua) || iPadOS;
       const isAndroid = /Android/i.test(ua);
-      const inApp = /FBAN|FBAV|FB_IAB|Instagram|Line\/|LINE\/|Twitter|TikTok|Snapchat|MicroMessenger|WhatsApp|Pinterest/i.test(ua);
+      const inApp = /FBAN|FBAV|FB_IAB|FB4A|FBIOS|Instagram|Line\/|LINE\/|Twitter|TikTok|BytedanceWebview|musical_ly|Zalo|Snapchat|MicroMessenger|WhatsApp|Pinterest/i.test(ua);
       const altIOS = /CriOS|FxiOS|EdgiOS|OPiOS|DuckDuckGo|YaBrowser|OPT\//.test(ua);
       const isSafari = isIOS && /Safari/i.test(ua) && !altIOS && !inApp && !/Chrome|Android/i.test(ua);
       return { isIOS, isAndroid, isSafari, inApp: inApp || (isIOS && !isSafari), standalone: isStandalone() };
@@ -3134,6 +3231,7 @@
           hdr.addEventListener('click', (e) => { e.preventDefault(); openIosSheet(); });
         } else {
           hdr.setAttribute('href', 'downloads/PUREGOLD.apk');
+          hdr.setAttribute('download', 'PUREGOLD.apk');
         }
       }
       const sheet = document.getElementById('iosSheet');
@@ -3199,7 +3297,9 @@
           vv.addEventListener('scroll', apply);
         };
         pinFull(document.getElementById('iosSheet'));
+        pinFull(document.getElementById('apkSheet'));
         pinBottom(document.getElementById('signupBanner'));
+        pinBottom(document.getElementById('apkHint'));
         pinBottom(document.querySelector('.pwa-tabbar'));
       })();
       if ('serviceWorker' in navigator) {
@@ -3298,7 +3398,93 @@
     setInterval(loadLive, 60000);
     setInterval(loadTradePlan, 5 * 60 * 1000);
   </script>
-
-  
+  <script>
+  (function () {
+    var APK_URL = 'https://gold.purefxai.store/downloads/PUREGOLD.apk';
+    var APK_INTENT = 'intent://gold.purefxai.store/downloads/PUREGOLD.apk#Intent;scheme=https;package=com.android.chrome;S.browser_fallback_url=' + encodeURIComponent(APK_URL) + ';end';
+    function ua() { return navigator.userAgent || ''; }
+    function isAndroidInApp() {
+      return /Android/i.test(ua()) && /FBAN|FBAV|FB_IAB|FB4A|FBIOS|Instagram|Line\/|LINE\/|TikTok|BytedanceWebview|musical_ly|Zalo|MicroMessenger/i.test(ua());
+    }
+    function isIOS() {
+      return /iP(hone|ad|od)/.test(ua()) || (navigator.platform === 'MacIntel' && (navigator.maxTouchPoints || 0) > 1);
+    }
+    var sheet = document.getElementById('apkSheet');
+    var hint = document.getElementById('apkHint');
+    function openSheet() {
+      if (!sheet) return;
+      sheet.classList.add('open');
+      sheet.setAttribute('aria-hidden', 'false');
+      if (window.__pgLockBody) window.__pgLockBody(true);
+    }
+    function closeSheet() {
+      if (!sheet) return;
+      sheet.classList.remove('open');
+      sheet.setAttribute('aria-hidden', 'true');
+      if (window.__pgLockBody) window.__pgLockBody(false);
+    }
+    function showHint() {
+      if (!hint) return;
+      hint.hidden = false;
+      hint.classList.add('open');
+    }
+    function onApkClick(e) {
+      if (isIOS()) return;
+      if (isAndroidInApp()) {
+        e.preventDefault();
+        var open = document.getElementById('apkOpenChrome');
+        if (open) open.setAttribute('href', APK_INTENT);
+        openSheet();
+        try { window.location.href = APK_INTENT; } catch (err) {}
+        return;
+      }
+      setTimeout(showHint, 400);
+    }
+    document.querySelectorAll('a[href*="PUREGOLD.apk"], a[href$=".apk"]').forEach(function (a) {
+      a.setAttribute('download', 'PUREGOLD.apk');
+      a.addEventListener('click', onApkClick);
+    });
+    var openBtn = document.getElementById('apkOpenChrome');
+    if (openBtn) openBtn.setAttribute('href', APK_INTENT);
+    function copied() {
+      var btn = document.getElementById('apkCopyLink');
+      if (!btn) return;
+      var th = btn.querySelector('.th'); var en = btn.querySelector('.en');
+      if (th) th.textContent = 'คัดลอกแล้ว';
+      if (en) en.textContent = 'Copied';
+      setTimeout(function () {
+        if (th) th.textContent = 'คัดลอกลิงก์';
+        if (en) en.textContent = 'Copy link';
+      }, 1600);
+    }
+    function copyLink() {
+      var done = function () { copied(); };
+      if (navigator.clipboard && navigator.clipboard.writeText) {
+        navigator.clipboard.writeText(APK_URL).then(done).catch(function () {
+          try {
+            var ta = document.createElement('textarea');
+            ta.value = APK_URL; document.body.appendChild(ta); ta.select();
+            document.execCommand('copy'); document.body.removeChild(ta); done();
+          } catch (e) {}
+        });
+      } else {
+        try {
+          var ta = document.createElement('textarea');
+          ta.value = APK_URL; document.body.appendChild(ta); ta.select();
+          document.execCommand('copy'); document.body.removeChild(ta); done();
+        } catch (e) {}
+      }
+    }
+    var copyBtn = document.getElementById('apkCopyLink');
+    if (copyBtn) copyBtn.addEventListener('click', copyLink);
+    var x = document.getElementById('apkSheetX');
+    if (x) x.addEventListener('click', closeSheet);
+    if (sheet) sheet.addEventListener('click', function (e) { if (e.target === sheet) closeSheet(); });
+    var hx = document.getElementById('apkHintX');
+    if (hx) hx.addEventListener('click', function () {
+      if (hint) { hint.classList.remove('open'); hint.hidden = true; }
+    });
+  })();
+  </script>
 </body>
 </html>

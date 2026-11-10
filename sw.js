@@ -1,5 +1,5 @@
 /* PureGold landing service worker — versioned shell, network-first data. */
-const VERSION = '20261111plan1';
+const VERSION = '20261111apk1';
 const SHELL = 'puregold-shell-' + VERSION;
 const DATA = 'puregold-data-' + VERSION;
 const SHELL_URLS = [
