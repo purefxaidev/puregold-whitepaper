@@ -26,10 +26,12 @@ jobs:
         with:
           python-version: "3.12"
 
-      - name: Refresh spot, chart series, and support / resistance
+      - name: Refresh spot, chart series, support / resistance, and market desk
         env:
           TZ: Asia/Bangkok
-        run: python3 scripts/update_levels.py
+        run: |
+          python3 scripts/update_levels.py
+          python3 scripts/sync_insights.py || echo "insights sync skipped"
 
       - name: Commit and push
         env:
@@ -38,7 +40,9 @@ jobs:
           git config user.name "purefxaidev"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
           git add assets/levels.json assets/xau-klines.json assets/quotes.json assets/spdr.json \
-            data/xau-klines.json data/quotes.json data/live.json index.html || true
+            data/xau-klines.json data/quotes.json data/live.json \
+            data/events.json data/cot.json data/feargreed.json data/compare.json data/brief.json \
+            index.html || true
           if git diff --staged --quiet; then
             echo "No data changes"
             exit 0

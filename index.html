@@ -383,6 +383,7 @@
         <a href="#levels"><span class="th">แนวรับแนวต้าน</span><span class="en hid">Levels</span></a>
         <a href="#spdr"><span class="th">SPDR</span><span class="en hid">SPDR</span></a>
         <a href="#outlook"><span class="th">คาดการณ์</span><span class="en hid">Forecast</span></a>
+        <a href="#insights"><span class="th">ข้อมูลตลาด</span><span class="en hid">Market desk</span></a>
         <a href="#chart"><span class="th">กราฟ</span><span class="en hid">Chart</span></a>
         <a href="#news"><span class="th">ข่าว</span><span class="en hid">News</span></a>
         <a href="https://dashboard.purefxai.store/?lang=th" id="navDash" target="_blank" rel="noopener">Dashboard</a>
@@ -480,6 +481,48 @@
           <div class="mtf-row" id="outMtf"></div>
           <div class="mut" id="outBias"></div>
           <div id="landTrendShare" data-share="trend"></div>
+        </div>
+      </div>
+    </section>
+
+    <section class="block reveal" id="insights">
+      <div class="th"><h2>โต๊ะข้อมูลตลาด</h2><p class="mut">ปฏิทินข่าวที่กระทบทอง ดัชนีความกลัวและความโลภ สถานะกองทุนใหญ่ เทียบทองไทยกับทองโลก เครื่องคำนวณ และสรุปตลาดเช้า–เย็น · เวลาไทย (Asia/Bangkok) · เพื่อการศึกษา ไม่ใช่คำแนะนำการลงทุน</p></div>
+      <div class="en hid"><h2>Market desk</h2><p class="mut">Gold-moving US calendar, fear and greed, managed-money positioning, Thai vs world gold, calculators, and the morning and evening brief · Asia/Bangkok time · education only, not investment advice</p></div>
+      <div class="ix-grid ix-land">
+        <div class="card ix-c12" id="briefCard" hidden>
+          <div class="th"><h3>สรุปตลาดเช้า–เย็น</h3></div>
+          <div class="en hid"><h3>Morning and evening brief</h3></div>
+          <small class="mut" id="briefAsOf">—</small>
+          <div id="briefBody"></div>
+        </div>
+        <div class="card ix-c6" id="calCard" hidden>
+          <div class="th"><h3>ปฏิทินข่าวทอง</h3></div>
+          <div class="en hid"><h3>Gold economic calendar</h3></div>
+          <small class="mut" id="calAsOf">—</small>
+          <div id="calBody"></div>
+        </div>
+        <div class="card ix-c6" id="fgCard" hidden>
+          <div class="th"><h3>ความกลัวและความโลภของทอง</h3></div>
+          <div class="en hid"><h3>Gold fear and greed</h3></div>
+          <small class="mut" id="fgAsOf">—</small>
+          <div id="fgBody"></div>
+        </div>
+        <div class="card ix-c6" id="cotCard" hidden>
+          <div class="th"><h3>สถานะกองทุนใหญ่ (COT)</h3></div>
+          <div class="en hid"><h3>Large-fund positioning (COT)</h3></div>
+          <small class="mut" id="cotAsOf">—</small>
+          <div id="cotBody"></div>
+        </div>
+        <div class="card ix-c6" id="compareCard" hidden>
+          <div class="th"><h3>ทองไทย เทียบทองโลก</h3></div>
+          <div class="en hid"><h3>Thai vs world gold</h3></div>
+          <small class="mut" id="compareAsOf">—</small>
+          <div id="compareBody"></div>
+        </div>
+        <div class="card ix-c12" id="calcCard" hidden>
+          <div class="th"><h3>เครื่องคำนวณ</h3></div>
+          <div class="en hid"><h3>Calculators</h3></div>
+          <div id="calcBody"></div>
         </div>
       </div>
     </section>
@@ -807,6 +850,7 @@
   <script type="application/json" id="pg-quotes">{"updatedAt":"2026-11-10T06:01:02Z","spot":{"price":4123.74,"symbol":"XAU","currency":"USD","currencySymbol":"$","source":"swissquote"},"thai":[{"GoldType":"HSH","GoldCode":"96.50","Buy":"65,020","Sell":"65,100","TimeUpdate":"2026-11-10T13:00:30","BuyChange":-10.0,"SellChange":-10.0,"PresentDate":"","FxAsk":null,"FxBid":null,"Bid":null,"Ask":null,"QtyBid":null,"QtyAsk":null,"Discount":null,"Premium":null,"Increment":null,"SourcePrice":null,"StrTimeUpdate":"อัพเดตล่าสุด วันที่ 10 พ.ย. 2569 เวลา 13:00:30 น."},{"GoldType":"REF","GoldCode":"96.50","Buy":"64,900","Sell":"65,100","TimeUpdate":"2026-11-10T12:59:32","BuyChange":-50.0,"SellChange":-50.0,"PresentDate":"","FxAsk":null,"FxBid":null,"Bid":null,"Ask":null,"QtyBid":null,"QtyAsk":null,"Discount":null,"Premium":null,"Increment":null,"SourcePrice":null,"StrTimeUpdate":"อัพเดตล่าสุด วันที่ 10 พ.ย. 2569 เวลา 12:59:32 น."},{"GoldType":"JEWEL","GoldCode":"96.50","Buy":"63,596.2","Sell":"65,900","TimeUpdate":"2026-11-10T13:01:05","BuyChange":0.0,"SellChange":0.0,"PresentDate":"","FxAsk":null,"FxBid":null,"Bid":null,"Ask":null,"QtyBid":null,"QtyAsk":null,"Discount":null,"Premium":null,"Increment":null,"SourcePrice":null,"StrTimeUpdate":"อัพเดตล่าสุด วันที่ 10 พ.ย. 2569 เวลา 13:01:05 น."}]}</script>
   <script type="application/json" id="pg-levels">{"symbol":"XAUUSD","updatedAt":"2026-11-10T06:01:02Z","updatedAtBangkok":"2026-11-10 13:01","spot":4123.74,"spotSource":"swissquote","offset":11.0,"daily":{"high":4144.99,"low":4062.41,"close":4136.29,"pp":4114.563,"r1":4166.717,"s1":4084.137,"r2":4197.143,"s2":4031.983,"r3":4249.297,"s3":4001.557},"h4":{"high":4138.11,"low":4109.0,"close":4110.86,"pp":4119.323,"r1":4129.647,"s1":4100.537,"r2":4148.433,"s2":4090.213,"r3":4158.757,"s3":4071.427},"swings":{"highs":[{"t":1794009600000,"price":4082.69},{"t":1794096000000,"price":4080.0},{"t":1794182400000,"price":4134.68}],"lows":[{"t":1793692800000,"price":3916.01},{"t":1793966400000,"price":4029.0},{"t":1794168000000,"price":4043.34}]},"nearest":{"name":"Pivot","price":4114.563,"distance":-9.177,"side":"support"},"bias":"up","biasTh":"เอียงขึ้นเหนือจุดพิวอต","biasEn":"Tilt up, above the pivot","note":"Daily and H4 floor pivots from the prior completed session, aligned to FX spot. Education only — not investment advice.","noteTh":"จุดพิวอต รายวันและ H4 จากแท่งที่ปิดแล้ว ปรับให้ตรงราคาทองสปอต — เพื่อการศึกษา ไม่ใช่คำแนะนำการลงทุน"}</script>
     <script src="assets/sharecard.js?v=20261110d"></script>
+  <script src="assets/features.js?v=20261110f"></script>
 <script>
     let LANG = 'th';
     let LAST_THAI = null;

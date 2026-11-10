@@ -1,0 +1,61 @@
+{
+ "timezone": "Asia/Bangkok",
+ "schedule_th": "สร้างอัตโนมัติเวลา 08:00 น. และ 20:00 น. เวลาไทย จากข้อมูลจริงบนแดชบอร์ด",
+ "schedule_en": "Generated automatically at 08:00 and 20:00 Asia/Bangkok from live desk data.",
+ "updated_at": "2026-11-10T07:03:03Z",
+ "updated_at_bkk": "2026-11-10 14:03",
+ "morning": {
+  "id": "2026-11-10-morning",
+  "date": "2026-11-10",
+  "session": "morning",
+  "session_th": "เช้า",
+  "session_en": "Morning",
+  "generated_at": "2026-11-10T07:03:03Z",
+  "generated_at_bkk": "2026-11-10 14:03",
+  "generated_th": "10 พ.ย. 2026 14:03 น. (เวลาไทย)",
+  "generated_en": "10 Nov 2026 14:03 (Bangkok time)",
+  "price": 4123.795,
+  "change": -12.56,
+  "change_pct": -0.3,
+  "text_th": "สรุปตลาดเช้า 10 พ.ย. 2026 14:03 น. (เวลาไทย). ราคาทองโลก XAUUSD อยู่ที่ 4,123.80 ดอลลาร์ต่อออนซ์ (ลบ 12.56 ดอลลาร์ (-0.30%)) แหล่งราคา สปอต FX · Swissquote. มุมมองระบบ: ยังไม่ชัด · ขึ้น 50% ลง 50% · ราคา ~4,123.80. แนวรับใกล้สุดประมาณ 4,109.1 (แนวรับใกล้) และแนวต้านใกล้สุดประมาณ 4,129.6 (ต้านใกล้). กองทุน SPDR Gold Trust ถือครอง 1,042.51 ตัน ณ 9 พ.ย. 2026 ซื้อเข้า 1.14 ตัน ในรอบข้อมูลล่าสุด (ประกาศแบบ T+1). กองทุนบริหาร (CFTC Managed Money) สุทธิ 103,614 สัญญา ณ 3 พ.ย. 2026. เปลี่ยนแปลงรายสัปดาห์ -1,948 สัญญา. ดัชนีความกลัวและความโลภของทองอยู่ที่ 54 (กลาง ๆ) ณ 10 พ.ย. 2026. ทองแท่งไทย 96.5% ขาย 65,120 บาทต่อบาททอง เทียบค่าทฤษฎี 65,044 บาท (พรีเมียม +76 บาท) อัตรา USDTHB 33.35. ปฏิทินข่าวถัดไป: ดัชนีราคาผู้บริโภคพื้นฐาน (เดือนต่อเดือน) วันที่ 10 พ.ย. 2026 20:30 น. (เวลาไทย) (ผลกระทบ high); ดัชนีราคาผู้บริโภค (เดือนต่อเดือน) วันที่ 10 พ.ย. 2026 20:30 น. (เวลาไทย) (ผลกระทบ high). ข้อมูลเพื่อการศึกษา ไม่ใช่คำแนะนำการลงทุน.",
+  "text_en": "Morning market brief, 10 Nov 2026 14:03 (Bangkok time). Spot XAUUSD is at 4,123.80 an ounce (down 12.56 (-0.30%)), source FX spot · Swissquote. System view: Unclear · up 50% down 50% · price ~4,123.80. Nearest support is around 4,109.1 (nearest support) and nearest resistance around 4,129.6 (nearest resistance). SPDR Gold Trust held 1,042.51 tonnes as of 9 Nov 2026, bought 1.14 tonnes in the latest reported session (published T+1). CFTC managed money net is 103,614 contracts as of 3 Nov 2026, week-on-week -1,948 contracts. The gold fear-and-greed composite is 54 (Neutral) as of 10 Nov 2026. Thai 96.5% bar gold is offered at 65,120 THB per baht-weight versus a theoretical 65,044 THB (a premium of +76 THB), with USDTHB at 33.35. Upcoming calendar: Core CPI m/m at 10 Nov 2026 20:30 (Bangkok time) (high impact); CPI m/m at 10 Nov 2026 20:30 (Bangkok time) (high impact). For education only — not investment advice.",
+  "via": "template"
+ },
+ "evening": null,
+ "latest": {
+  "id": "2026-11-10-morning",
+  "date": "2026-11-10",
+  "session": "morning",
+  "session_th": "เช้า",
+  "session_en": "Morning",
+  "generated_at": "2026-11-10T07:03:03Z",
+  "generated_at_bkk": "2026-11-10 14:03",
+  "generated_th": "10 พ.ย. 2026 14:03 น. (เวลาไทย)",
+  "generated_en": "10 Nov 2026 14:03 (Bangkok time)",
+  "price": 4123.795,
+  "change": -12.56,
+  "change_pct": -0.3,
+  "text_th": "สรุปตลาดเช้า 10 พ.ย. 2026 14:03 น. (เวลาไทย). ราคาทองโลก XAUUSD อยู่ที่ 4,123.80 ดอลลาร์ต่อออนซ์ (ลบ 12.56 ดอลลาร์ (-0.30%)) แหล่งราคา สปอต FX · Swissquote. มุมมองระบบ: ยังไม่ชัด · ขึ้น 50% ลง 50% · ราคา ~4,123.80. แนวรับใกล้สุดประมาณ 4,109.1 (แนวรับใกล้) และแนวต้านใกล้สุดประมาณ 4,129.6 (ต้านใกล้). กองทุน SPDR Gold Trust ถือครอง 1,042.51 ตัน ณ 9 พ.ย. 2026 ซื้อเข้า 1.14 ตัน ในรอบข้อมูลล่าสุด (ประกาศแบบ T+1). กองทุนบริหาร (CFTC Managed Money) สุทธิ 103,614 สัญญา ณ 3 พ.ย. 2026. เปลี่ยนแปลงรายสัปดาห์ -1,948 สัญญา. ดัชนีความกลัวและความโลภของทองอยู่ที่ 54 (กลาง ๆ) ณ 10 พ.ย. 2026. ทองแท่งไทย 96.5% ขาย 65,120 บาทต่อบาททอง เทียบค่าทฤษฎี 65,044 บาท (พรีเมียม +76 บาท) อัตรา USDTHB 33.35. ปฏิทินข่าวถัดไป: ดัชนีราคาผู้บริโภคพื้นฐาน (เดือนต่อเดือน) วันที่ 10 พ.ย. 2026 20:30 น. (เวลาไทย) (ผลกระทบ high); ดัชนีราคาผู้บริโภค (เดือนต่อเดือน) วันที่ 10 พ.ย. 2026 20:30 น. (เวลาไทย) (ผลกระทบ high). ข้อมูลเพื่อการศึกษา ไม่ใช่คำแนะนำการลงทุน.",
+  "text_en": "Morning market brief, 10 Nov 2026 14:03 (Bangkok time). Spot XAUUSD is at 4,123.80 an ounce (down 12.56 (-0.30%)), source FX spot · Swissquote. System view: Unclear · up 50% down 50% · price ~4,123.80. Nearest support is around 4,109.1 (nearest support) and nearest resistance around 4,129.6 (nearest resistance). SPDR Gold Trust held 1,042.51 tonnes as of 9 Nov 2026, bought 1.14 tonnes in the latest reported session (published T+1). CFTC managed money net is 103,614 contracts as of 3 Nov 2026, week-on-week -1,948 contracts. The gold fear-and-greed composite is 54 (Neutral) as of 10 Nov 2026. Thai 96.5% bar gold is offered at 65,120 THB per baht-weight versus a theoretical 65,044 THB (a premium of +76 THB), with USDTHB at 33.35. Upcoming calendar: Core CPI m/m at 10 Nov 2026 20:30 (Bangkok time) (high impact); CPI m/m at 10 Nov 2026 20:30 (Bangkok time) (high impact). For education only — not investment advice.",
+  "via": "template"
+ },
+ "briefs": {
+  "2026-11-10-morning": {
+   "id": "2026-11-10-morning",
+   "date": "2026-11-10",
+   "session": "morning",
+   "session_th": "เช้า",
+   "session_en": "Morning",
+   "generated_at": "2026-11-10T07:03:03Z",
+   "generated_at_bkk": "2026-11-10 14:03",
+   "generated_th": "10 พ.ย. 2026 14:03 น. (เวลาไทย)",
+   "generated_en": "10 Nov 2026 14:03 (Bangkok time)",
+   "price": 4123.795,
+   "change": -12.56,
+   "change_pct": -0.3,
+   "text_th": "สรุปตลาดเช้า 10 พ.ย. 2026 14:03 น. (เวลาไทย). ราคาทองโลก XAUUSD อยู่ที่ 4,123.80 ดอลลาร์ต่อออนซ์ (ลบ 12.56 ดอลลาร์ (-0.30%)) แหล่งราคา สปอต FX · Swissquote. มุมมองระบบ: ยังไม่ชัด · ขึ้น 50% ลง 50% · ราคา ~4,123.80. แนวรับใกล้สุดประมาณ 4,109.1 (แนวรับใกล้) และแนวต้านใกล้สุดประมาณ 4,129.6 (ต้านใกล้). กองทุน SPDR Gold Trust ถือครอง 1,042.51 ตัน ณ 9 พ.ย. 2026 ซื้อเข้า 1.14 ตัน ในรอบข้อมูลล่าสุด (ประกาศแบบ T+1). กองทุนบริหาร (CFTC Managed Money) สุทธิ 103,614 สัญญา ณ 3 พ.ย. 2026. เปลี่ยนแปลงรายสัปดาห์ -1,948 สัญญา. ดัชนีความกลัวและความโลภของทองอยู่ที่ 54 (กลาง ๆ) ณ 10 พ.ย. 2026. ทองแท่งไทย 96.5% ขาย 65,120 บาทต่อบาททอง เทียบค่าทฤษฎี 65,044 บาท (พรีเมียม +76 บาท) อัตรา USDTHB 33.35. ปฏิทินข่าวถัดไป: ดัชนีราคาผู้บริโภคพื้นฐาน (เดือนต่อเดือน) วันที่ 10 พ.ย. 2026 20:30 น. (เวลาไทย) (ผลกระทบ high); ดัชนีราคาผู้บริโภค (เดือนต่อเดือน) วันที่ 10 พ.ย. 2026 20:30 น. (เวลาไทย) (ผลกระทบ high). ข้อมูลเพื่อการศึกษา ไม่ใช่คำแนะนำการลงทุน.",
+   "text_en": "Morning market brief, 10 Nov 2026 14:03 (Bangkok time). Spot XAUUSD is at 4,123.80 an ounce (down 12.56 (-0.30%)), source FX spot · Swissquote. System view: Unclear · up 50% down 50% · price ~4,123.80. Nearest support is around 4,109.1 (nearest support) and nearest resistance around 4,129.6 (nearest resistance). SPDR Gold Trust held 1,042.51 tonnes as of 9 Nov 2026, bought 1.14 tonnes in the latest reported session (published T+1). CFTC managed money net is 103,614 contracts as of 3 Nov 2026, week-on-week -1,948 contracts. The gold fear-and-greed composite is 54 (Neutral) as of 10 Nov 2026. Thai 96.5% bar gold is offered at 65,120 THB per baht-weight versus a theoretical 65,044 THB (a premium of +76 THB), with USDTHB at 33.35. Upcoming calendar: Core CPI m/m at 10 Nov 2026 20:30 (Bangkok time) (high impact); CPI m/m at 10 Nov 2026 20:30 (Bangkok time) (high impact). For education only — not investment advice.",
+   "via": "template"
+  }
+ }
+}
