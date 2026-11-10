@@ -69,6 +69,7 @@
     }
     .lang button:hover { color:var(--gold); border-color:var(--gold2) }
     .lang button.on { background:var(--gold); color:#16120a; border-color:transparent; font-weight:700 }
+    .lang .lang-short { display:none }
     a.btn, button.btn {
       display:inline-flex; align-items:center; justify-content:center; gap:8px;
       padding:12px 20px; border-radius:10px; font:inherit; font-weight:700;
@@ -246,19 +247,54 @@
     .reveal-delay-1 { transition-delay:.06s } .reveal-delay-2 { transition-delay:.12s } .reveal-delay-3 { transition-delay:.18s }
 
     @media (max-width:900px){
-      .hero, .desk, .feats, .reviews, .grid, .news-grid, .levels-stats { grid-template-columns:1fr }
-      .levels-grid { grid-template-columns:repeat(4,1fr) }
+      .hero, .desk, .feats, .reviews, .grid, .news-grid { grid-template-columns:1fr }
       .nav-links { display:none }
       .hero { gap:20px }
     }
     @media (max-width:720px){
-      .levels-grid { grid-template-columns:repeat(2,1fr) }
       .dash-frame { height:100dvh; border-radius:0; border:0 }
       .dash-modal { padding:0 }
       .promo-modal, .lang-modal { padding:8px; align-items:flex-start }
       .promo-card { width:100%; margin-top:8px }
       header.top { top:6px }
       .wrap { padding:12px 14px 64px }
+      .levels-stats { grid-template-columns:1fr 1fr; gap:8px }
+      .levels-stats .stat { padding:8px 10px; border-radius:8px }
+      .levels-stats .val { font-size:15px; margin-top:2px }
+      .levels-stats .sub { font-size:11px; margin-top:2px }
+      .levels-grid {
+        grid-template-columns:1fr 1fr; gap:0;
+        border:1px solid var(--line); border-radius:10px; overflow:hidden;
+        background:var(--card);
+      }
+      .lv {
+        display:flex; justify-content:space-between; align-items:center;
+        text-align:left; padding:8px 10px; margin:0; border-radius:0;
+        background:transparent; border:0; border-bottom:1px solid var(--line);
+      }
+      .lv:nth-child(odd) { border-right:1px solid var(--line) }
+      .lv:last-child { border-bottom:0 }
+      .lv .k { font-size:11px }
+      .lv .v { margin-top:0; font-size:13px }
+      .block, .hero, #levels, #chart, #news, #reviews, #updates, #support { scroll-margin-top: 80px }
+    }
+    @media (max-width:480px){
+      header.top {
+        flex-wrap:nowrap; gap:6px; padding:0 8px; margin:0 0 14px;
+        top:6px; height:56px; min-height:56px; max-height:56px;
+        border-radius:10px; align-items:center;
+      }
+      .brand { gap:6px; min-width:0; flex:1 1 auto; overflow:hidden }
+      .brand .logo-mark { width:28px; height:28px }
+      .brand h1 { font-size:13px; letter-spacing:.12em; line-height:1; white-space:nowrap }
+      .brand small { display:none }
+      .nav-r { flex-wrap:nowrap; gap:4px; flex:0 0 auto }
+      .lang { display:flex; gap:3px }
+      .lang button { padding:4px 7px; font-size:11px; border-radius:6px; line-height:1.2 }
+      .lang .lang-full { display:none }
+      .lang .lang-short { display:inline }
+      header.top .btn-sm { padding:5px 8px; font-size:11px; white-space:nowrap; border-radius:7px }
+      .block, .hero, #levels, #chart, #news, #reviews, #updates, #support { scroll-margin-top: 72px }
     }
     @media (prefers-reduced-motion: reduce) {
       .reveal, .reveal.in { opacity:1; transform:none; transition:none }
@@ -288,7 +324,7 @@
       <div class="nav-r">
         <div class="lang">
           <button type="button" id="bth" class="on" onclick="setLang('th')">ไทย</button>
-          <button type="button" id="ben" onclick="setLang('en')">English</button>
+          <button type="button" id="ben" onclick="setLang('en')"><span class="lang-full">English</span><span class="lang-short">EN</span></button>
         </div>
         <a class="btn btn-gold btn-sm" href="downloads/PUREGOLD-0.9.3.apk">APK 0.9.3</a>
       </div>
