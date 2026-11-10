@@ -5,7 +5,7 @@ Public site for **PureGold by PureFxAi**.
 - Custom domain: **https://gold.purefxai.store/**
 - Gold dashboard: **https://dashboard.purefxai.store/**
 - App repository: https://github.com/purefxaidev/puregold-app
-- Latest APK: [`downloads/PUREGOLD-0.9.2.apk`](downloads/PUREGOLD-0.9.2.apk) (also `downloads/PUREGOLD.apk`)
+- Latest APK: [`downloads/PUREGOLD-0.9.3.apk`](downloads/PUREGOLD-0.9.3.apk) (also `downloads/PUREGOLD.apk`)
 
 The page shows a cinematic hero (น้องหมี), live XAU / Thai gold / bias / chart / news (gold-dashboard + public quotes), TH+EN version history, Exness IB, donate, and a risk disclaimer.
 

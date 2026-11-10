@@ -336,8 +336,8 @@
       flex:1; width:100%; border:0; background:#07080d; min-height:420px;
     }
     @media (max-width:720px){
-      .dash-frame { height:92vh; border-radius:16px }
-      .dash-modal { padding:8px }
+      .dash-frame { height:100dvh; border-radius:0; border:0 }
+      .dash-modal { padding:0 }
     }
 
     .lang-modal {
@@ -392,7 +392,7 @@
     }
     .promo-modal.open { display:flex }
     .promo-card {
-      width:min(560px,100%); background:linear-gradient(165deg,#1a1520,#0c0a10);
+      width:min(1100px,100%,calc((100dvh - 210px) * 16 / 9)); min-width:min(100%,340px); background:linear-gradient(165deg,#1a1520,#0c0a10);
       border:1px solid var(--line); border-radius:24px; overflow:hidden;
       box-shadow:0 30px 80px #000c, 0 0 0 1px #f5d27a22;
     }
@@ -409,7 +409,7 @@
     }
     .promo-brand button:hover { color:var(--gold); border-color:var(--gold2) }
     .promo-card video {
-      display:block; width:100%; max-height:min(62vh,520px); aspect-ratio:9/16; object-fit:cover; background:#110e08;
+      display:block; width:100%; aspect-ratio:16/9; object-fit:cover; background:#110e08;
       border-top:1px solid #2a241855; border-bottom:1px solid #2a241855; margin:0 auto;
     }
     .promo-video-wrap { position:relative; background:#110e08 }
@@ -470,7 +470,7 @@
           <button type="button" id="bth" class="on" onclick="setLang('th')">ไทย</button>
           <button type="button" id="ben" onclick="setLang('en')">English</button>
         </div>
-        <a class="btn btn-gold btn-sm" href="downloads/PUREGOLD-0.9.2.apk">⬇ APK 0.9.2</a>
+        <a class="btn btn-gold btn-sm" href="downloads/PUREGOLD-0.9.3.apk">⬇ APK 0.9.3</a>
       </div>
     </header>
 
@@ -487,10 +487,10 @@
           <p class="lead">Hua Seng Heng Thai gold, XAUUSD, hourly chart, market bias and news in the browser — then download the Android app for plans, PureFxAi chat, widgets and alerts.</p>
         </div>
         <div class="cta-row">
-          <a class="btn btn-gold" href="downloads/PUREGOLD-0.9.2.apk" id="dlBtn">⬇ Download APK 0.9.2</a>
+          <a class="btn btn-gold" href="downloads/PUREGOLD-0.9.3.apk" id="dlBtn">⬇ Download APK 0.9.3</a>
           <a class="btn btn-ghost" href="https://one.toexness.com/a/s2didh6p">Exness IB · s2didh6p</a>
         </div>
-        <p class="ver" id="dlMeta">PUREGOLD-0.9.2.apk · signed release</p>
+        <p class="ver" id="dlMeta">PUREGOLD-0.9.3.apk · signed release</p>
       </div>
       <div class="stage reveal in">
         <video autoplay muted loop playsinline poster="assets/hero-poster.jpg" aria-label="Nong Mee hero">
@@ -597,8 +597,8 @@
     </section>
 
     <section class="block reveal" id="updates">
-      <div class="th"><h2>ประวัติเวอร์ชัน</h2><p class="mut">อัปเดตล่าสุดของแอป · <a href="downloads/PUREGOLD-0.9.2.apk">ดาวน์โหลด 0.9.2</a></p></div>
-      <div class="en hid"><h2>Version history</h2><p class="mut">Latest app updates · <a href="downloads/PUREGOLD-0.9.2.apk">Download 0.9.2</a></p></div>
+      <div class="th"><h2>ประวัติเวอร์ชัน</h2><p class="mut">อัปเดตล่าสุดของแอป · <a href="downloads/PUREGOLD-0.9.3.apk">ดาวน์โหลด 0.9.3</a></p></div>
+      <div class="en hid"><h2>Version history</h2><p class="mut">Latest app updates · <a href="downloads/PUREGOLD-0.9.3.apk">Download 0.9.3</a></p></div>
       <div class="cl">
         <b>0.9.2</b> · 2026-11-06
         <ul class="th">
@@ -671,7 +671,7 @@
       <div class="th">
         <h2>วิธีติดตั้ง APK</h2>
         <ol>
-          <li>กดดาวน์โหลด APK 0.9.2 แล้วอนุญาตติดตั้งจากแหล่งที่ไม่รู้จักหากระบบถาม</li>
+          <li>กดดาวน์โหลด APK 0.9.3 แล้วอนุญาตติดตั้งจากแหล่งที่ไม่รู้จักหากระบบถาม</li>
           <li>ติดตั้งทับเวอร์ชันเดิมได้ ไม่ต้องถอนก่อน</li>
           <li>ในเมนู → ตั้งค่า วาง API key เพื่อเปิด PureFxAi</li>
         </ol>
@@ -679,7 +679,7 @@
       <div class="en hid">
         <h2>Install the APK</h2>
         <ol>
-          <li>Download APK 0.9.2 and allow unknown sources if Android asks.</li>
+          <li>Download APK 0.9.3 and allow unknown sources if Android asks.</li>
           <li>You can install over the previous version.</li>
           <li>In More → Settings, paste an API key to enable PureFxAi.</li>
         </ol>
@@ -711,7 +711,7 @@
     </section>
 
     <p style="text-align:center;margin-top:26px">
-      <a class="btn btn-gold" href="downloads/PUREGOLD-0.9.2.apk">⬇ Download APK 0.9.2</a>
+      <a class="btn btn-gold" href="downloads/PUREGOLD-0.9.3.apk">⬇ Download APK 0.9.3</a>
     </p>
     <footer>
       PureGold by PureFxAi · <a href="https://gold.purefxai.store/">gold.purefxai.store</a> ·
@@ -732,6 +732,19 @@
     </div>
   </div>
 
+  <div class="dash-modal" id="dashModal" aria-hidden="true">
+    <div class="dash-frame" role="dialog" aria-modal="true" aria-labelledby="dashTitle">
+      <div class="dash-bar">
+        <strong id="dashTitle">PUREGOLD · Chart</strong>
+        <div class="dash-tools">
+          <a class="btn" id="dashExternal" href="https://dashboard.purefxai.store/?lang=th" target="_blank" rel="noopener">↗</a>
+          <button type="button" class="icon" id="dashClose" aria-label="Close">×</button>
+        </div>
+      </div>
+      <iframe id="dashFrame" title="PUREGOLD gold dashboard" loading="lazy" referrerpolicy="no-referrer"></iframe>
+    </div>
+  </div>
+
   <div class="promo-modal" id="promoModal" role="dialog" aria-modal="true" aria-label="PureGold welcome">
     <div class="promo-card">
       <div class="promo-brand">
@@ -740,7 +753,7 @@
       </div>
       <div class="promo-video-wrap">
         <video id="promoVideo" muted playsinline controls preload="metadata" poster="assets/hostess-poster.jpg">
-          <source id="promoSource" src="assets/hostess-welcome-th.mp4?v=20261106h" type="video/mp4">
+          <source id="promoSource" src="assets/hostess-welcome-th.mp4?v=20261110L" type="video/mp4">
         </video>
         <button type="button" class="promo-unmute" id="promoUnmute" aria-label="Unmute">🔊 เปิดเสียง</button>
       </div>
@@ -749,7 +762,7 @@
         <p class="en hid">Welcome — PureGold AI for XAUUSD analysis and the live gold desk</p>
         <div class="row">
           <a class="btn btn-gold btn-sm" id="promoDash" href="https://dashboard.purefxai.store/?lang=th" target="_blank" rel="noopener">ดูกราฟ</a>
-          <a class="btn btn-ghost btn-sm" href="downloads/PUREGOLD-0.9.2.apk">⬇ APK</a>
+          <a class="btn btn-ghost btn-sm" href="downloads/PUREGOLD-0.9.3.apk">⬇ APK</a>
           <button type="button" class="btn btn-ghost btn-sm" id="promoDismiss">ปิด</button>
         </div>
       </div>
@@ -824,6 +837,7 @@
       const finish = (L) => {
         setLang(L, true);
         modal.classList.remove('open');
+        document.body.style.overflow = '';
         modal.setAttribute('aria-hidden', 'true');
         window.__pgLangReady = true;
         const q = window.__pgAfterLang || [];
@@ -880,8 +894,8 @@
       const src = meta.source === 'live' ? (LANG === 'th' ? 'สด' : 'live')
         : (LANG === 'th' ? 'ชุดข้อมูลบนไซต์' : 'on-site series');
       el.textContent = LANG === 'th'
-        ? ('กราฟ PAXGUSDT 1 ชม. · ' + src + ' · ' + (meta.count || 0) + ' แท่ง')
-        : ('PAXGUSDT 1h chart · ' + src + ' · ' + (meta.count || 0) + ' bars');
+        ? ('กราฟ XAUUSD (ทองสปอต) 1 ชม. · ' + src + ' · ' + (meta.count || 0) + ' แท่ง')
+        : ('XAUUSD spot 1h chart · ' + src + ' · ' + (meta.count || 0) + ' bars');
     }
 
     function normalizeBars(input) {
@@ -1056,7 +1070,7 @@
         if (j.ticker.priceChange != null && j.ticker.priceChange !== '') {
           ch = Number(j.ticker.priceChange);
         }
-        if (px == null && j.ticker.lastPrice != null) px = Number(j.ticker.lastPrice);
+        if (px == null && j.ticker.lastPrice != null && !window.__spotXau && !window.__lastPx) px = Number(j.ticker.lastPrice);
       }
       if (Array.isArray(j.thai) && j.thai.length) renderThai(j.thai);
       let painted = false;
@@ -1112,7 +1126,14 @@
           const r = await fetchTimeout(u, 2500);
           if (!r.ok) continue;
           const j = await r.json();
-          const closes = extractCloses(j);
+          let closes = extractCloses(j);
+          const spot = window.__spotXau || await loadSpotXau();
+          if (spot && closes.length >= 2) {
+            const last = closes[closes.length - 1];
+            const lc = typeof last === 'number' ? last : Number(last.c);
+            const off = spot - lc;
+            if (Number.isFinite(off)) closes = closes.map(b => typeof b === 'number' ? b + off : ({ ...b, o: b.o + off, h: b.h + off, l: b.l + off, c: b.c + off }));
+          }
           if (closes.length >= 2) return { closes, source: 'live' };
         } catch (_) {}
       }
@@ -1135,6 +1156,22 @@
       return true;
     }
 
+    async function loadSpotXau() {
+      try {
+        const r = await fetchTimeout('https://forex-data-feed.swissquote.com/public-quotes/bboquotes/instrument/XAU/USD', 3000);
+        if (r.ok) {
+          const j = await r.json();
+          const q = j && j[0] && j[0].spreadProfilePrices && j[0].spreadProfilePrices[0];
+          if (q && q.bid && q.ask) { window.__spotXau = (Number(q.bid) + Number(q.ask)) / 2; return window.__spotXau; }
+        }
+      } catch (_) {}
+      try {
+        const r = await fetchTimeout('https://api.gold-api.com/price/XAU', 3000);
+        if (r.ok) { const j = await r.json(); if (j.price != null) { window.__spotXau = Number(j.price); return window.__spotXau; } }
+      } catch (_) {}
+      return null;
+    }
+
     async function loadQuotes() {
       for (const u of ['assets/quotes.json', 'data/quotes.json', 'data/live.json']) {
         try {
@@ -1144,11 +1181,8 @@
       }
       const jobs = [
         (async () => {
-          const spotR = await fetchTimeout('https://api.gold-api.com/price/XAU', 2500);
-          if (spotR && spotR.ok) {
-            const j = await spotR.json();
-            if (j.price != null) applyQuotePayload({ spot: { price: j.price } });
-          }
+          const px = await loadSpotXau();
+          if (px != null) applyQuotePayload({ spot: { price: px } });
         })(),
         (async () => {
           const urls = [
@@ -1249,7 +1283,7 @@
     }
 
     // Hostess welcome video — TH/EN by page lang; muted autoplay then unmute
-    const HOSTESS_V = '20261106h';
+    const HOSTESS_V = '20261110L';
     function hostessSrc(L) {
       const th = (L || LANG || 'th') !== 'en';
       return 'assets/hostess-welcome-' + (th ? 'th' : 'en') + '.mp4?v=' + HOSTESS_V;
@@ -1377,20 +1411,25 @@
       const modal = document.getElementById('dashModal');
       const frame = document.getElementById('dashFrame');
       const openBtn = document.getElementById('openDashBtn');
-      if (!modal || !frame || !openBtn) return;
+      if (!openBtn) return;
+      if (!modal || !frame) { openBtn.addEventListener('click', () => window.open(dashUrl(LANG), '_blank', 'noopener')); return; }
       const close = () => {
         modal.classList.remove('open');
+        document.body.style.overflow = '';
         modal.setAttribute('aria-hidden', 'true');
         // keep iframe loaded for snappy re-open; clear only on long idle not needed
       };
       const open = () => {
         const url = dashUrl(LANG);
         syncDashLinks();
-        if (frame.getAttribute('src') !== url) frame.src = url;
-        modal.classList.add('open');
+        try {
+          if (frame.getAttribute('src') !== url) frame.src = url;
+          modal.classList.add('open');
+          document.body.style.overflow = 'hidden';
+        } catch (_) { window.open(url, '_blank', 'noopener'); }
         modal.setAttribute('aria-hidden', 'false');
       };
-      openBtn.addEventListener('click', open);
+      openBtn.addEventListener('click', (e) => { e.preventDefault(); open(); });
       document.getElementById('dashClose')?.addEventListener('click', close);
       modal.addEventListener('click', (e) => { if (e.target === modal) close(); });
       document.addEventListener('keydown', (e) => {
@@ -1427,21 +1466,8 @@
   </script>
 
   
-  <div class="dash-modal" id="dashModal" aria-hidden="true">
-    <div class="dash-frame" role="dialog" aria-modal="true" aria-labelledby="dashTitle">
-      <div class="dash-bar">
-        <strong id="dashTitle">PUREGOLD · Chart</strong>
-        <div class="dash-tools">
-          <a class="btn" id="dashExternal" href="https://dashboard.purefxai.store/?lang=th" target="_blank" rel="noopener">↗</a>
-          <button type="button" class="icon" id="dashClose" aria-label="Close">×</button>
-        </div>
-      </div>
-      <iframe id="dashFrame" title="PUREGOLD gold dashboard" loading="lazy" referrerpolicy="no-referrer"></iframe>
-    </div>
-  </div>
-
   <div class="float-cta">
-    <a class="btn btn-gold btn-sm" href="downloads/PUREGOLD-0.9.2.apk">⬇ APK 0.9.2</a>
+    <a class="btn btn-gold btn-sm" href="downloads/PUREGOLD-0.9.3.apk">⬇ APK 0.9.3</a>
     <a class="btn btn-ghost btn-sm" href="https://one.toexness.com/a/s2didh6p">Exness IB</a>
   </div>
 </body>
