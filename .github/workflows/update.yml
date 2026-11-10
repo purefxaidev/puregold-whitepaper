@@ -1,8 +1,9 @@
 name: Update landing levels
+# GitHub cron is supplemented by a box-side refresh every ~5 minutes (xau-klines.json / quotes).
 
 on:
   schedule:
-    - cron: "12 * * * *"
+    - cron: "*/5 * * * *"
   workflow_dispatch:
 
 permissions:

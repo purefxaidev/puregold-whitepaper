@@ -3,6 +3,7 @@
 from __future__ import annotations
 
 import json
+import sys
 import math
 import urllib.request
 from datetime import datetime, timezone, timedelta
@@ -120,7 +121,7 @@ def bias_of(spot: float, daily: dict) -> tuple[str, str, str]:
     return "neutral", "ทรงตัวใกล้จุดพิวอต", "Neutral, near the pivot"
 
 
-def main() -> None:
+def main(json_only: bool = False) -> None:
     now = datetime.now(timezone.utc)
     spot = fetch_spot()
     px = spot["price"]
@@ -200,9 +201,9 @@ def main() -> None:
     live = {"updatedAt": payload["updatedAt"], "spot": quotes["spot"], "klines": klines, "levels": payload, "thai": quotes["thai"]}
     (ROOT / "data" / "live.json").write_text(json.dumps(live, ensure_ascii=False), encoding="utf-8")
 
-    # Patch embedded blobs in index.html if present
+    # Patch embedded blobs in index.html if present (skip in --json-only box refresh)
     index = ROOT / "index.html"
-    if index.exists():
+    if index.exists() and not json_only:
         html = index.read_text(encoding="utf-8")
         def replace_script(html: str, sid: str, obj: Any) -> str:
             start = html.find(f'<script type="application/json" id="{sid}">')
@@ -251,4 +252,4 @@ def refresh_spdr() -> None:
 
 
 if __name__ == "__main__":
-    main()
+    main(json_only="--json-only" in sys.argv)

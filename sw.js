@@ -1,5 +1,5 @@
 /* PureGold landing service worker — versioned shell, network-first data. */
-const VERSION = '20261110pwa1';
+const VERSION = '20261110live1';
 const SHELL = 'puregold-shell-' + VERSION;
 const DATA = 'puregold-data-' + VERSION;
 const SHELL_URLS = [
@@ -45,6 +45,8 @@ self.addEventListener('activate', (event) => {
 function isDataRequest(url) {
   if (url.pathname.endsWith('.json')) return true;
   if (url.pathname.startsWith('/data/')) return true;
+  // Price and market JSON must not be served stale from the shell cache.
+  if (/\/(xau-klines|quotes|live|levels|spot)\.json$/.test(url.pathname)) return true;
   return false;
 }
 

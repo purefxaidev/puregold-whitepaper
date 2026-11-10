@@ -128,6 +128,8 @@
     .hero-quote .k { font-size:12px; letter-spacing:.14em; color:var(--muted); font-weight:700 }
     .hero-quote .price { font-size:clamp(36px,5vw,52px); font-weight:700; letter-spacing:-.03em; line-height:1.1; margin:8px 0 6px; font-variant-numeric:tabular-nums }
     .hero-quote .meta { display:flex; flex-wrap:wrap; gap:10px 16px; align-items:baseline; color:var(--muted); font-size:13px }
+    .live-stamp { margin-top:6px; font-size:12px; font-weight:700; letter-spacing:.08em; color:var(--up); }
+    .live-stamp.delayed { color:#e0a14a; }
     .stage { position:relative; display:none }
     .stage video, .stage img.fallback { width:0; height:0 }
     .badge { display:none }
@@ -604,6 +606,7 @@
           <span id="heroCh" class="chg flat">…</span>
           <span id="heroSrc" class="ver"></span>
         </div>
+        <div class="live-stamp" id="heroLive" aria-live="polite"></div>
       </aside>
     </section>
 
@@ -643,6 +646,7 @@
           <div class="price" id="outPx">—</div>
           <div id="outCh" class="chg flat"></div>
           <div class="mut" id="outPxMeta"></div>
+          <div class="live-stamp" id="outLive" aria-live="polite"></div>
           <div id="landPriceShare" data-share="price"></div>
         </div>
         <div class="card" id="landForecastCard">
@@ -721,6 +725,7 @@
           <h3>XAUUSD</h3>
           <div class="price" id="xauPx">—</div>
           <div id="xauCh" class="chg flat">…</div>
+          <div class="live-stamp" id="xauLive" aria-live="polite"></div>
           <div style="margin:10px 0 8px"><span class="tag flat" id="biasTag">—</span></div>
           <div class="chart-shell">
             <canvas id="xauChart" width="720" height="300" aria-label="XAUUSD hourly chart with support and resistance"></canvas>
@@ -1556,6 +1561,7 @@
       if (!j) return false;
       let px = null, chp = null, ch = null;
       if (j.spot && j.spot.price != null) px = Number(j.spot.price);
+      if (px != null && window.__liveSpotAt && (Date.now() - window.__liveSpotAt) < 60000) px = null;
       if (j.ticker) {
         if (j.ticker.priceChangePercent != null && j.ticker.priceChangePercent !== '') {
           chp = Number(j.ticker.priceChangePercent);
@@ -1655,12 +1661,118 @@
       return true;
     }
 
-    async function loadSpotXau() {
-      // Browser: gold-api.com (CORS). Swissquote is used in the scheduled levels job.
+    function bkkHms(d) {
+      return (d || new Date()).toLocaleTimeString('th-TH', {timeZone: 'Asia/Bangkok', hour: '2-digit', minute: '2-digit', second: '2-digit', hour12: false});
+    }
+    function setLiveStamps(text, delayed) {
+      ['heroLive', 'xauLive', 'outLive', 'lvTime'].forEach((id) => {
+        const el = document.getElementById(id);
+        if (!el) return;
+        el.textContent = text;
+        el.classList.toggle('delayed', !!delayed);
+        if (id === 'lvTime') el.classList.add('live-stamp');
+      });
+    }
+    function applyChangeFromSpot(px) {
+      if (!Number.isFinite(px)) return;
+      let ref = null;
+      const bars = window.__lastBars || [];
+      const t24 = Date.now() - 24 * 3600 * 1000;
+      for (let i = bars.length - 1; i >= 0; i--) {
+        if (Number(bars[i].t) <= t24 && Number.isFinite(Number(bars[i].c))) { ref = Number(bars[i].c); break; }
+      }
+      if (ref == null && window.__openPx != null) ref = window.__openPx;
+      if (ref == null || !ref) return;
+      const ch = px - ref;
+      const chp = (ch / ref) * 100;
+      const dir = chp > 0.12 ? 'up' : chp < -0.12 ? 'down' : 'flat';
+      window.__bias = dir;
+      const chTxt = (chp >= 0 ? '+' : '') + chp.toFixed(2) + '% · 24h · ' + (ch >= 0 ? '+' : '') + f2(ch);
+      const cls = 'chg ' + (dir === 'flat' ? 'flat' : dir === 'up' ? 'up' : 'dn');
+      ['xauCh', 'heroCh', 'outCh'].forEach((id) => {
+        const el = document.getElementById(id);
+        if (!el) return;
+        el.className = cls;
+        el.textContent = chTxt;
+      });
+      paintBias(dir);
+    }
+    function applyLivePriceToChart(px) {
+      const bars = window.__lastBars;
+      if (!bars || !bars.length || !Number.isFinite(px)) return;
+      const next = bars.slice();
+      const last = Object.assign({}, next[next.length - 1]);
+      last.c = px;
+      last.h = Math.max(Number(last.h) || px, px);
+      last.l = Math.min(Number(last.l) || px, px);
+      next[next.length - 1] = last;
+      window.__lastBars = next;
+      window.__lastCloses = next.map(b => b.c);
+      try { drawChart(next); } catch (_) {}
+    }
+    function paintLiveSpot(px) {
+      if (!Number.isFinite(px)) return;
+      window.__spotXau = px;
+      window.__lastPx = px;
+      if (window.__openPx == null) window.__openPx = px;
+      const txt = '$' + f2(px);
+      ['heroPx', 'xauPx', 'lvSpot', 'outPx'].forEach((id) => {
+        const el = document.getElementById(id);
+        if (el) el.textContent = txt;
+      });
+      applyChangeFromSpot(px);
+      applyLivePriceToChart(px);
+      if (window.__levels) renderLevels(window.__levels);
+    }
+    async function fetchLiveXauTick() {
       try {
-        const r = await fetchTimeout('https://api.gold-api.com/price/XAU', 3000);
-        if (r.ok) { const j = await r.json(); if (j.price != null) { window.__spotXau = Number(j.price); return window.__spotXau; } }
+        const r = await fetchTimeout('https://api.gold-api.com/price/XAU', 3500);
+        if (r && r.ok) {
+          const j = await r.json();
+          const px = Number(j.price);
+          if (px > 0) return { price: px, at: Date.parse(j.updatedAt) || Date.now(), src: 'gold-api', labelTh: 'สปอต · สด', labelEn: 'Spot · live' };
+        }
       } catch (_) {}
+      try {
+        const r = await fetchTimeout('https://dashboard.purefxai.store/spot.json?t=' + Date.now(), 3000);
+        if (r && r.ok) {
+          const j = await r.json();
+          const px = Number(j.price);
+          const at = Date.parse(j.fetched_at || j.updated_utc) || 0;
+          if (px > 0 && at) return { price: px, at, src: j.src || 'spot.json', labelTh: j.src_label_th || 'สปอต FX', labelEn: j.src_label_en || 'FX spot', fromJson: true };
+        }
+      } catch (_) {}
+      return null;
+    }
+    async function pollLiveSpot() {
+      const tick = await fetchLiveXauTick();
+      const th = LANG !== 'en';
+      if (tick && tick.price > 0) {
+        window.__liveSpotAt = tick.at || Date.now();
+        const delayed = !tick.at || ((Date.now() - tick.at) / 1000 > 60);
+        paintLiveSpot(tick.price);
+        const srcEl = document.getElementById('heroSrc');
+        if (srcEl) srcEl.textContent = th ? (tick.labelTh || '') : (tick.labelEn || '');
+        const clock = bkkHms(new Date(tick.at || Date.now()));
+        setLiveStamps(delayed
+          ? ((th ? 'ล่าช้า · อัปเดต ' : 'Delayed · updated ') + clock + (th ? ' น. (เวลาไทย)' : ' (Bangkok)'))
+          : ((th ? 'LIVE · อัปเดต ' : 'LIVE · updated ') + clock + (th ? ' น. (เวลาไทย)' : ' (Bangkok)')), delayed);
+        return;
+      }
+      if (Number.isFinite(window.__spotXau) && window.__liveSpotAt && (Date.now() - window.__liveSpotAt) < 15 * 60 * 1000) {
+        const clock = bkkHms(new Date(window.__liveSpotAt));
+        setLiveStamps((th ? 'ล่าช้า · อัปเดต ' : 'Delayed · updated ') + clock + (th ? ' น. (เวลาไทย)' : ' (Bangkok)'), true);
+        return;
+      }
+      setLiveStamps(th ? 'ล่าช้า · ไม่มีราคาสด' : 'Delayed · live feed unavailable', true);
+    }
+    async function loadSpotXau() {
+      const tick = await fetchLiveXauTick();
+      if (tick && tick.price > 0) {
+        window.__spotXau = tick.price;
+        window.__liveSpotAt = tick.at || Date.now();
+        return tick.price;
+      }
       return window.__spotXau || null;
     }
 
@@ -2034,15 +2146,27 @@
       const th = LANG !== 'en';
       const fmt = (n) => (Number.isFinite(Number(n)) ? f2(Number(n)) : '—');
       const set = (id, v) => { const el = document.getElementById(id); if (el) el.textContent = v; };
-      if (L.spot != null) set('lvSpot', '$' + fmt(L.spot));
-      const srcMap = { swissquote: th ? 'สปอต FX · Swissquote' : 'FX spot · Swissquote', 'gold-api': th ? 'สปอต · gold-api.com' : 'Spot · gold-api.com' };
-      set('lvSrc', srcMap[L.spotSource] || (L.spotSource || ''));
+      const spotNow = Number.isFinite(window.__spotXau) ? window.__spotXau : L.spot;
+      if (spotNow != null) set('lvSpot', '$' + fmt(spotNow));
+      const srcMap = { swissquote: th ? 'สปอต FX · Swissquote' : 'FX spot · Swissquote', 'gold-api': th ? 'สปอต · gold-api.com' : 'Spot · gold-api.com', live: th ? 'สปอต · สด' : 'Spot · live' };
+      const srcKey = Number.isFinite(window.__spotXau) ? 'live' : L.spotSource;
+      set('lvSrc', srcMap[srcKey] || (L.spotSource || ''));
       const srcEl = document.getElementById('heroSrc');
-      if (srcEl) srcEl.textContent = srcMap[L.spotSource] || '';
-      if (L.nearest) {
-        const d = Number(L.nearest.distance);
+      if (srcEl && !window.__liveSpotAt) srcEl.textContent = srcMap[L.spotSource] || '';
+      let nearest = L.nearest;
+      if (Number.isFinite(spotNow) && L.daily) {
+        const named = [['R3', L.daily.r3],['R2', L.daily.r2],['R1', L.daily.r1],['Pivot', L.daily.pp],['S1', L.daily.s1],['S2', L.daily.s2],['S3', L.daily.s3]];
+        const swings = ((L.swings && (L.swings.highs || []).concat(L.swings.lows || [])) || []).map(s => [s.name || 'Swing', s.price]);
+        const pool = named.concat(swings).filter(x => Number.isFinite(Number(x[1])));
+        if (pool.length) {
+          const best = pool.reduce((a, b) => Math.abs(b[1] - spotNow) < Math.abs(a[1] - spotNow) ? b : a);
+          nearest = { name: best[0], price: best[1], distance: best[1] - spotNow, side: best[1] >= spotNow ? 'resistance' : 'support' };
+        }
+      }
+      if (nearest) {
+        const d = Number(nearest.distance);
         const dir = d > 0 ? (th ? 'ต้านเหนือราคา ' : 'resistance +') : d < 0 ? (th ? 'รับใต้ราคา ' : 'support ') : (th ? 'ที่ระดับ' : 'at level');
-        set('lvNear', (L.nearest.name || '') + '  $' + fmt(L.nearest.price));
+        set('lvNear', (nearest.name || '') + '  $' + fmt(nearest.price));
         set('lvNearSub', dir + (d === 0 ? '' : (d > 0 ? '+' : '') + fmt(d)));
       }
       const biasLbl = L.bias === 'up' ? (th ? 'เอียงขึ้น' : 'Tilt up') : L.bias === 'down' ? (th ? 'เอียงลง' : 'Tilt down') : (th ? 'ทรงตัว' : 'Neutral');
@@ -2050,7 +2174,7 @@
       set('lvBiasSub', th ? (L.biasTh || '') : (L.biasEn || ''));
       const biasEl = document.getElementById('lvBias');
       if (biasEl) biasEl.style.color = L.bias === 'up' ? 'var(--up)' : L.bias === 'down' ? 'var(--dn)' : 'var(--text)';
-      set('lvTime', L.updatedAtBangkok || '');
+      if (!window.__liveSpotAt) set('lvTime', L.updatedAtBangkok || '');
       const grid = document.getElementById('lvGrid');
       if (grid && L.daily) {
         const nearName = (L.nearest && L.nearest.name) || '';
@@ -2514,12 +2638,15 @@
       const D = OUTLOOK;
       if (!D || !window.ShareCard) return;
       const lang = landingShareLang();
-      const px = (D.spot && D.spot.price) || D.price_num || D.price;
+      const livePx = window.__spotXau;
+      const px = Number.isFinite(livePx) ? livePx : ((D.spot && D.spot.price) || D.price_num || D.price);
       const priceNum = typeof px === "number" ? px : Number(String(px || "").replace(/,/g, ""));
       const set = (id, v) => { const el = document.getElementById(id); if (el) el.textContent = v; };
       set("outPx", priceNum ? ("$" + ShareCard.fmt(priceNum, 2)) : "—");
-      const src = (D.spot && D.spot.source) || D.spot_source || "";
-      set("outPxMeta", (src ? (lang === "en" ? "FX spot · " : "สปอต FX · ") + src + " · " : "") + (D.updated_en && lang === "en" ? D.updated_en : (D.updated || "")));
+      const src = Number.isFinite(livePx) ? "live" : ((D.spot && D.spot.source) || D.spot_source || "");
+      if (!Number.isFinite(livePx)) {
+        set("outPxMeta", (src ? (lang === "en" ? "FX spot · " : "สปอต FX · ") + src + " · " : "") + (D.updated_en && lang === "en" ? D.updated_en : (D.updated || "")));
+      }
       const acc = D.accuracy || {};
       const tgt = ShareCard.forecastTarget(acc.updated, acc.horizon_minutes || 240);
       set("outTarget", lang === "en"
@@ -2781,6 +2908,8 @@
     loadSpdr();
     loadOutlook();
     loadNews();
+    pollLiveSpot();
+    setInterval(pollLiveSpot, 4000);
     setInterval(loadLive, 60000);
   </script>
 
