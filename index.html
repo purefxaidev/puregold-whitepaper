@@ -106,7 +106,7 @@
     .stage { position:relative; display:none }
     .stage video, .stage img.fallback { width:0; height:0 }
     .badge { display:none }
-    .block, .hero, #levels, #chart, #news, #reviews, #updates, #support { scroll-margin-top: 88px }
+    .block, .hero, #levels, #spdr, #chart, #news, #reviews, #updates, #support { scroll-margin-top: 88px }
     .block { margin:56px 0 0 }
     .block > h2, .block .th > h2, .block .en > h2 { margin:0 0 6px; font-size:22px; font-weight:700; letter-spacing:-.01em }
     .mut { color:var(--muted); font-size:13px; margin:0 0 16px }
@@ -276,7 +276,7 @@
       .lv:last-child { border-bottom:0 }
       .lv .k { font-size:11px }
       .lv .v { margin-top:0; font-size:13px }
-      .block, .hero, #levels, #chart, #news, #reviews, #updates, #support { scroll-margin-top: 80px }
+      .block, .hero, #levels, #spdr, #chart, #news, #reviews, #updates, #support { scroll-margin-top: 80px }
     }
     @media (max-width:480px){
       header.top {
@@ -294,12 +294,49 @@
       .lang .lang-full { display:none }
       .lang .lang-short { display:inline }
       header.top .btn-sm { padding:5px 8px; font-size:11px; white-space:nowrap; border-radius:7px }
-      .block, .hero, #levels, #chart, #news, #reviews, #updates, #support { scroll-margin-top: 72px }
+      .block, .hero, #levels, #spdr, #chart, #news, #reviews, #updates, #support { scroll-margin-top: 72px }
     }
     @media (prefers-reduced-motion: reduce) {
       .reveal, .reveal.in { opacity:1; transform:none; transition:none }
       html { scroll-behavior:auto }
       .page-bg video { transform:none }
+    }
+
+
+    .spdr-board { display:grid; gap:16px }
+    .spdr-hero { display:flex; flex-wrap:wrap; align-items:flex-end; gap:12px 24px }
+    .spdr-hero .val { font-size:clamp(32px,7vw,48px); font-weight:700; letter-spacing:-.03em; font-variant-numeric:tabular-nums }
+    .spdr-hero .unit { color:var(--muted); font-size:13px; margin-top:4px }
+    .spdr-periods { display:grid; grid-template-columns:repeat(5,1fr); gap:8px }
+    .spdr-p { background:var(--card); border:1px solid var(--line); border-radius:12px; padding:12px 12px }
+    .spdr-p .k { font-size:11px; letter-spacing:.1em; text-transform:uppercase; color:var(--muted); font-weight:700 }
+    .spdr-p .v { font-size:16px; font-weight:700; margin-top:6px; font-variant-numeric:tabular-nums }
+    .spdr-chart-wrap { position:relative; border-radius:10px; overflow:hidden; background:#0a0b10; border:1px solid rgba(255,255,255,.04); padding:8px }
+    #spdrChart { width:100% !important; height:220px !important; display:block; background:#0a0b10 }
+    .spdr-tip { position:absolute; display:none; pointer-events:none; background:#101218f2; border:1px solid var(--line); border-radius:8px; padding:6px 8px; font-size:12px; z-index:3; white-space:nowrap }
+    .spdr-actions { display:flex; flex-wrap:wrap; gap:8px; margin-top:12px }
+    .spdr-actions .btn { flex:1 1 140px; text-align:center; min-height:44px }
+    .spdr-ranges { display:flex; flex-wrap:wrap; gap:6px; margin:4px 0 8px }
+    .spdr-ranges button {
+      font:inherit; font-size:12px; font-weight:700; padding:6px 10px; border-radius:8px;
+      background:transparent; color:var(--muted); border:1px solid var(--line); cursor:pointer;
+    }
+    .spdr-ranges button.on { background:var(--gold); color:#16120a; border-color:transparent }
+    .spdr-note { font-size:12px; color:var(--muted); margin:8px 0 0; line-height:1.5 }
+    .spdr-note a { color:var(--gold); text-decoration:none; font-weight:600 }
+    .spdr-save {
+      position:fixed; inset:0; z-index:94; display:none; align-items:center; justify-content:center;
+      padding:16px; background:rgba(5,6,10,.82); backdrop-filter:blur(10px);
+    }
+    .spdr-save.on { display:flex }
+    .spdr-save .box { width:min(520px,100%); background:#12141b; border:1px solid var(--line); border-radius:14px; padding:14px; max-height:min(90vh,820px); overflow:auto }
+    .spdr-save img { display:block; width:100%; border-radius:10px; background:#0a0b10 }
+    .spdr-save p { margin:0 0 10px; color:var(--muted); font-size:13px; line-height:1.5 }
+    .spdr-save .row { display:flex; gap:8px; margin-top:12px; flex-wrap:wrap }
+    @media (max-width:720px){
+      .spdr-periods { grid-template-columns:1fr 1fr; gap:6px }
+      .spdr-p:last-child { grid-column:1 / -1 }
+      #spdrChart { height:200px !important }
     }
 
   </style>
@@ -317,6 +354,7 @@
       </a>
       <nav class="nav-links" aria-label="Page">
         <a href="#levels"><span class="th">แนวรับแนวต้าน</span><span class="en hid">Levels</span></a>
+        <a href="#spdr"><span class="th">SPDR</span><span class="en hid">SPDR</span></a>
         <a href="#chart"><span class="th">กราฟ</span><span class="en hid">Chart</span></a>
         <a href="#news"><span class="th">ข่าว</span><span class="en hid">News</span></a>
         <a href="https://dashboard.purefxai.store/?lang=th" id="navDash" target="_blank" rel="noopener">Dashboard</a>
@@ -373,6 +411,15 @@
         <div class="levels-grid" id="lvGrid" aria-label="Daily pivot levels"></div>
         <p class="levels-note th" id="lvNote">ข้อมูลเพื่อการศึกษาเท่านั้น ไม่ใช่คำแนะนำการลงทุน การเทรดทองมีความเสี่ยงสูง</p>
         <p class="levels-note en hid" id="lvNoteEn">For education only — not investment advice. Gold trading is high risk.</p>
+      </div>
+    </section>
+
+
+    <section class="block reveal" id="spdr">
+      <div class="th"><h2>กองทุน SPDR Gold Trust (GLD)</h2><p class="mut">ปริมาณทองที่กองทุนถือครอง และการซื้อเข้าหรือขายออกรายวัน สะสมย้อนหลัง 1 สัปดาห์ถึง 1 ปี</p></div>
+      <div class="en hid"><h2>SPDR Gold Trust (GLD)</h2><p class="mut">Official tonnes of gold held, with the daily inflow or outflow and cumulative change from 1 week to 1 year</p></div>
+      <div class="spdr-board">
+        <div id="spdrBody"><div class="mut">กำลังโหลด…</div></div>
       </div>
     </section>
 
@@ -618,7 +665,18 @@
     </footer>
   </div>
 
-  <div class="lang-modal" id="langModal" role="dialog" aria-modal="true" aria-labelledby="langTitle" aria-hidden="true">
+  
+  <div id="spdrSave" class="spdr-save" hidden>
+    <div class="box">
+      <p id="spdrSaveHint">หากไม่ดาวน์โหลดอัตโนมัติ ให้กดค้างที่รูป แล้วเลือกบันทึกรูป</p>
+      <img id="spdrSaveImg" alt="SPDR Gold Trust holdings chart">
+      <div class="row">
+        <a class="btn btn-gold" id="spdrSaveA" download="spdr-gld.png">บันทึกรูป</a>
+        <button type="button" class="btn btn-ghost" id="spdrSaveX">ปิด</button>
+      </div>
+    </div>
+  </div>
+<div class="lang-modal" id="langModal" role="dialog" aria-modal="true" aria-labelledby="langTitle" aria-hidden="true">
     <div class="lang-card">
       <p class="lang-kicker">PUREGOLD · PUREFXAI</p>
       <h2 id="langTitle">เลือกภาษา / Choose language</h2>
@@ -699,6 +757,7 @@
       if (window.__chartMeta) setChartNote(window.__chartMeta);
       try { if (typeof syncDashLinks === 'function') syncDashLinks(); } catch (_) {}
       try { if (typeof renderLevels === 'function') renderLevels(); } catch (_) {}
+      try { if (typeof renderSpdr === 'function') renderSpdr(); } catch (_) {}
       const navDash = document.getElementById('navDash');
       if (navDash) navDash.href = 'https://dashboard.purefxai.store/?lang=' + (L === 'en' ? 'en' : 'th');
       if (persist) {
@@ -1468,8 +1527,396 @@
       paintSeries(window.__lastBars || bootBars, 'static');
       requestAnimationFrame(() => paintSeries(window.__lastBars || bootBars, 'static'));
     });
+    /* SPDR Gold Trust holdings */
+    const SPDR_PERIODS = [
+      ["1W", "1 สัปดาห์", "1W"],
+      ["1M", "1 เดือน", "1M"],
+      ["3M", "3 เดือน", "3M"],
+      ["YTD", "ปีนี้", "YTD"],
+      ["1Y", "1 ปี", "1Y"]
+    ];
+    const SPDR_RANGES = ["1M", "3M", "YTD", "1Y"];
+    let SPDR = null;
+    let SPDR_RANGE = "1Y";
+    let spdrHover = null;
+    let spdrSaveUrl = null;
+
+    const spdrFmt = n => n == null || isNaN(n) ? "—" : Number(n).toLocaleString("en-US", {minimumFractionDigits: 2, maximumFractionDigits: 2});
+    const spdrChg = n => {
+      if (n == null || isNaN(n)) return "—";
+      const v = Number(n);
+      const abs = Math.abs(v).toLocaleString("en-US", {minimumFractionDigits: 2, maximumFractionDigits: 2});
+      if (Math.abs(v) < 0.0005) return "0.00";
+      return (v > 0 ? "+" : "−") + abs;
+    };
+    const spdrIOS = () => {
+      const ua = navigator.userAgent || "";
+      return /iP(ad|hone|od)/.test(ua) || ((navigator.platform === "MacIntel" || /Mac/.test(ua)) && navigator.maxTouchPoints > 1);
+    };
+    function spdrSide(v) { return v > 0.0005 ? "buy" : v < -0.0005 ? "sell" : "flat"; }
+    function spdrSideLabel(side) {
+      if (side === "buy") return LANG === "en" ? "Inflow" : "ซื้อเข้า";
+      if (side === "sell") return LANG === "en" ? "Outflow" : "ขายออก";
+      return LANG === "en" ? "Unchanged" : "ไม่เปลี่ยนแปลง";
+    }
+    function spdrColor(side) { return side === "buy" ? "var(--up)" : side === "sell" ? "var(--dn)" : "var(--gold)"; }
+    function spdrColorHex(side) { return side === "buy" ? "#3dba7a" : side === "sell" ? "#e05b66" : "#d4af5f"; }
+    function spdrShortDate(iso) {
+      if (!iso) return "";
+      const [y, m, d] = iso.split("-").map(Number);
+      if (LANG === "en") return `${d} ${["Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"][m-1]}`;
+      return `${d} ${["ม.ค.","ก.พ.","มี.ค.","เม.ย.","พ.ค.","มิ.ย.","ก.ค.","ส.ค.","ก.ย.","ต.ค.","พ.ย.","ธ.ค."][m-1]}`;
+    }
+    function spdrFilter(range) {
+      const all = (SPDR && SPDR.series) || [];
+      if (!all.length) return [];
+      const last = all[all.length - 1].date;
+      const end = new Date(last + "T00:00:00Z");
+      let start;
+      if (range === "1M") { start = new Date(end); start.setUTCDate(start.getUTCDate() - 30); }
+      else if (range === "3M") { start = new Date(end); start.setUTCDate(start.getUTCDate() - 90); }
+      else if (range === "YTD") start = new Date(Date.UTC(end.getUTCFullYear(), 0, 1));
+      else { start = new Date(end); start.setUTCDate(start.getUTCDate() - 365); }
+      return all.filter(p => p.date >= start.toISOString().slice(0, 10));
+    }
+
+    function renderSpdr() {
+      const el = document.getElementById("spdrBody");
+      if (!el) return;
+      if (!SPDR || SPDR.tonnes == null) {
+        el.innerHTML = `<div class="mut">${LANG === "en" ? "Could not load SPDR holdings." : "โหลดข้อมูล SPDR ไม่สำเร็จ"}</div>`;
+        return;
+      }
+      const en = LANG === "en";
+      const side = SPDR.side || spdrSide(SPDR.change);
+      const periods = SPDR_PERIODS.map(([k, th, enL]) => {
+        const p = (SPDR.periods || {})[k];
+        if (!p) return "";
+        const s = p.side || spdrSide(p.change);
+        const col = s === "buy" ? "var(--up)" : s === "sell" ? "var(--dn)" : "var(--text)";
+        return `<div class="spdr-p"><div class="k">${en ? enL : th}</div><div class="v" style="color:${col}">${spdrChg(p.change)} t</div></div>`;
+      }).join("");
+      const ranges = SPDR_RANGES.map(k => `<button type="button" data-r="${k}" class="${k === SPDR_RANGE ? "on" : ""}">${k}</button>`).join("");
+      const asof = (en ? "As of " : "ข้อมูล ณ ") + (en ? (SPDR.as_of_label_en || SPDR.as_of_en) : (SPDR.as_of_label_th || SPDR.as_of_th));
+      el.innerHTML = `
+        <div class="spdr-hero">
+          <div>
+            <div class="k" style="font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:var(--muted);font-weight:700">${en ? "Latest holdings" : "ถือครองล่าสุด"}</div>
+            <div class="val">${spdrFmt(SPDR.tonnes)}</div>
+            <div class="unit">${en ? "tonnes" : "ตัน"}${SPDR.ounces != null ? " · " + spdrFmt(SPDR.ounces) + (en ? " oz" : " ออนซ์") : ""}</div>
+          </div>
+          <div>
+            <span class="tag ${side === "buy" ? "up" : side === "sell" ? "dn" : "flat"}">${spdrSideLabel(side)} ${spdrChg(SPDR.change)} t${SPDR.change_pct != null ? " · " + spdrChg(SPDR.change_pct) + "%" : ""}</span>
+            <div class="unit" style="margin-top:8px">${asof}</div>
+          </div>
+        </div>
+        <div class="k" style="font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:var(--muted);font-weight:700">${en ? "Cumulative change" : "สะสมย้อนหลัง"}</div>
+        <div class="spdr-periods">${periods}</div>
+        <div class="spdr-ranges" id="spdrRanges">${ranges}</div>
+        <div class="spdr-chart-wrap">
+          <canvas id="spdrChart" width="720" height="220" aria-label="${en ? "Holdings and daily buy/sell chart" : "กราฟถือครองและซื้อขายรายวัน"}"></canvas>
+          <div id="spdrTip" class="spdr-tip"></div>
+        </div>
+        <div class="spdr-actions">
+          <button type="button" class="btn btn-gold" id="spdrDl">${en ? "Save image" : "บันทึกรูป"}</button>
+          <button type="button" class="btn btn-ghost" id="spdrShare">${en ? "Share" : "แชร์"}</button>
+        </div>
+        <p class="spdr-note">${en ? (SPDR.note_en || "") : (SPDR.note_th || "")}
+          ${en ? "Source:" : "ที่มา:"} <a href="${SPDR.source_url || "https://www.spdrgoldshares.com/usa/gld/"}" target="_blank" rel="noopener noreferrer">${en ? "official SPDR Gold Shares archive" : "คลังข้อมูลทางการของ SPDR Gold Shares"}</a>
+        </p>`;
+      const rangesEl = document.getElementById("spdrRanges");
+      if (rangesEl) rangesEl.addEventListener("click", e => {
+        const b = e.target.closest("[data-r]");
+        if (!b) return;
+        SPDR_RANGE = b.getAttribute("data-r");
+        rangesEl.querySelectorAll("button").forEach(x => x.classList.toggle("on", x === b));
+        spdrHover = null;
+        drawLandingSpdr();
+      });
+      const dl = document.getElementById("spdrDl");
+      const sh = document.getElementById("spdrShare");
+      if (dl) dl.addEventListener("click", downloadSpdrPng);
+      if (sh) sh.addEventListener("click", shareSpdrPng);
+      const canvas = document.getElementById("spdrChart");
+      if (canvas) {
+        canvas.addEventListener("mousemove", onSpdrHover);
+        canvas.addEventListener("mouseleave", () => { spdrHover = null; const tip = document.getElementById("spdrTip"); if (tip) tip.style.display = "none"; drawLandingSpdr(); });
+        canvas.addEventListener("touchstart", e => { if (e.touches[0]) onSpdrHover(e.touches[0]); }, {passive:true});
+      }
+      drawLandingSpdr();
+    }
+
+    function drawSpdrOn(ctx, series, w, h, pad) {
+      pad = pad || { l: 52, r: 16, t: 16, b: 28 };
+      const box = { x: pad.l, y: pad.t, w: w - pad.l - pad.r, h: h - pad.t - pad.b };
+      if (!series.length) return [];
+      const tonnes = series.map(p => p.tonnes);
+      let tMin = Math.min(...tonnes), tMax = Math.max(...tonnes);
+      const tPad = (tMax - tMin) * 0.12 || 2;
+      tMin -= tPad; tMax += tPad;
+      const chgs = series.map(p => p.change == null ? 0 : p.change);
+      const maxAbs = Math.max(1, ...chgs.map(v => Math.abs(v)));
+      const pts = series.map((p, i) => {
+        const x = box.x + (series.length === 1 ? box.w / 2 : (i / (series.length - 1)) * box.w);
+        const yT = box.y + (1 - (p.tonnes - tMin) / (tMax - tMin)) * box.h;
+        const chg = p.change == null ? 0 : p.change;
+        const zero = box.y + box.h * 0.62;
+        return { p, x, yT, yB: zero - (chg / maxAbs) * (box.h * 0.38), zero, chg };
+      });
+      ctx.strokeStyle = "rgba(255,255,255,.08)";
+      ctx.lineWidth = 1;
+      for (let i = 0; i <= 4; i++) {
+        const y = box.y + (box.h * i) / 4;
+        ctx.beginPath(); ctx.moveTo(box.x, y); ctx.lineTo(box.x + box.w, y); ctx.stroke();
+      }
+      const barW = Math.max(1, Math.min(8, (box.w / series.length) * 0.62));
+      pts.forEach(pt => {
+        ctx.fillStyle = pt.chg >= 0 ? "rgba(61,186,122,.55)" : "rgba(224,91,102,.55)";
+        const top = Math.min(pt.zero, pt.yB);
+        ctx.fillRect(pt.x - barW / 2, top, barW, Math.max(1, Math.abs(pt.yB - pt.zero)));
+      });
+      ctx.beginPath();
+      pts.forEach((pt, i) => { if (i === 0) ctx.moveTo(pt.x, pt.yT); else ctx.lineTo(pt.x, pt.yT); });
+      ctx.strokeStyle = "#d4af5f";
+      ctx.lineWidth = 2;
+      ctx.stroke();
+      const last = pts[pts.length - 1];
+      ctx.fillStyle = "#d4af5f";
+      ctx.beginPath(); ctx.arc(last.x, last.yT, 3, 0, Math.PI * 2); ctx.fill();
+      ctx.fillStyle = "#9aa3b5";
+      ctx.font = "10px ui-monospace, Menlo, monospace";
+      ctx.textBaseline = "top";
+      ctx.textAlign = "left";
+      ctx.fillText(spdrShortDate(series[0].date), box.x, box.y + box.h + 8);
+      ctx.textAlign = "center";
+      ctx.fillText(spdrShortDate(series[Math.floor((series.length - 1) / 2)].date), box.x + box.w / 2, box.y + box.h + 8);
+      ctx.textAlign = "right";
+      ctx.fillText(spdrShortDate(series[series.length - 1].date), box.x + box.w, box.y + box.h + 8);
+      ctx.textBaseline = "middle";
+      ctx.fillText(spdrFmt(tMax), box.x - 6, box.y);
+      ctx.fillText(spdrFmt(tMin), box.x - 6, box.y + box.h);
+      if (spdrHover && pts[spdrHover.i]) {
+        const pt = pts[spdrHover.i];
+        ctx.strokeStyle = "rgba(212,175,95,.45)";
+        ctx.beginPath(); ctx.moveTo(pt.x, box.y); ctx.lineTo(pt.x, box.y + box.h); ctx.stroke();
+        ctx.fillStyle = "#fff";
+        ctx.beginPath(); ctx.arc(pt.x, pt.yT, 3.5, 0, Math.PI * 2); ctx.fill();
+      }
+      return pts;
+    }
+
+    function drawLandingSpdr() {
+      const canvas = document.getElementById("spdrChart");
+      if (!canvas || !SPDR) return;
+      const series = spdrFilter(SPDR_RANGE);
+      const dpr = Math.min(2, window.devicePixelRatio || 1);
+      const w = Math.max(280, canvas.clientWidth || 720);
+      const h = window.matchMedia("(max-width:720px)").matches ? 200 : 220;
+      canvas.style.height = h + "px";
+      canvas.width = Math.round(w * dpr);
+      canvas.height = Math.round(h * dpr);
+      const ctx = canvas.getContext("2d");
+      ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+      ctx.clearRect(0, 0, w, h);
+      canvas._pts = drawSpdrOn(ctx, series, w, h);
+      if (spdrHover && canvas._pts && document.getElementById("spdrTip") && canvas._pts[spdrHover.i]) {
+        const pt = canvas._pts[spdrHover.i];
+        const tip = document.getElementById("spdrTip");
+        const p = pt.p;
+        const en = LANG === "en";
+        tip.innerHTML = `<b>${spdrShortDate(p.date)}</b><br>${en ? "Holdings" : "ถือครอง"} ${spdrFmt(p.tonnes)} t<br>${en ? "Change" : "เปลี่ยนแปลง"} ${spdrChg(p.change)} t`;
+        tip.style.display = "block";
+        const wrap = canvas.parentElement.getBoundingClientRect();
+        const cr = canvas.getBoundingClientRect();
+        tip.style.left = Math.min((cr.left - wrap.left) + pt.x + 10, wrap.width - 170) + "px";
+        tip.style.top = Math.max(6, (cr.top - wrap.top) + Math.min(pt.yT, pt.zero) - 64) + "px";
+      }
+    }
+    function onSpdrHover(ev) {
+      const canvas = document.getElementById("spdrChart");
+      if (!canvas || !canvas._pts) return;
+      const r = canvas.getBoundingClientRect();
+      const x = ev.clientX - r.left;
+      let best = 0, dist = Infinity;
+      canvas._pts.forEach((pt, i) => { const d = Math.abs(pt.x - x); if (d < dist) { dist = d; best = i; } });
+      spdrHover = { i: best };
+      drawLandingSpdr();
+    }
+
+    function composeSpdrPng() {
+      const series = spdrFilter(SPDR_RANGE);
+      const W = 1200, H = 980;
+      const c = document.createElement("canvas");
+      c.width = W; c.height = H;
+      const ctx = c.getContext("2d");
+      const en = LANG === "en";
+      ctx.fillStyle = "#0a0b10";
+      ctx.fillRect(0, 0, W, H);
+      const g = ctx.createLinearGradient(0, 0, W, 200);
+      g.addColorStop(0, "rgba(212,175,95,.16)");
+      g.addColorStop(1, "rgba(212,175,95,0)");
+      ctx.fillStyle = g; ctx.fillRect(0, 0, W, 220);
+      ctx.strokeStyle = "rgba(212,175,95,.22)";
+      ctx.lineWidth = 2;
+      ctx.strokeRect(24, 24, W - 48, H - 48);
+      ctx.fillStyle = "#d4af5f";
+      ctx.font = "700 18px Georgia, serif";
+      ctx.fillText("PUREGOLD", 56, 70);
+      ctx.font = "600 13px sans-serif";
+      ctx.fillStyle = "#c9a227";
+      ctx.fillText("SPDR Gold Trust (GLD)", 56, 92);
+      ctx.fillStyle = "#9aa3b5";
+      ctx.font = "400 13px sans-serif";
+      ctx.textAlign = "right";
+      ctx.fillText((en ? "As of " : "ข้อมูล ณ ") + (en ? (SPDR.as_of_label_en || SPDR.as_of_en) : (SPDR.as_of_label_th || SPDR.as_of_th)), W - 56, 70);
+      ctx.textAlign = "left";
+      ctx.fillStyle = "#f3efe4";
+      ctx.font = "700 64px ui-monospace, Menlo, monospace";
+      ctx.fillText(spdrFmt(SPDR.tonnes), 56, 180);
+      ctx.fillStyle = "#9aa3b5";
+      ctx.font = "400 16px sans-serif";
+      ctx.fillText(en ? "tonnes held" : "ตัน ที่กองทุนถือครอง", 56, 208);
+      const side = SPDR.side || spdrSide(SPDR.change);
+      const badge = `${spdrSideLabel(side)}  ${spdrChg(SPDR.change)} t`;
+      ctx.font = "700 20px ui-monospace, Menlo, monospace";
+      const tw = ctx.measureText(badge).width;
+      ctx.fillStyle = side === "buy" ? "rgba(61,186,122,.12)" : side === "sell" ? "rgba(224,91,102,.12)" : "rgba(212,175,95,.12)";
+      ctx.strokeStyle = spdrColorHex(side);
+      ctx.lineWidth = 1.5;
+      const bx = 560, by = 148, bw = tw + 36, bh = 40;
+      ctx.beginPath();
+      if (ctx.roundRect) ctx.roundRect(bx, by, bw, bh, 20); else ctx.rect(bx, by, bw, bh);
+      ctx.fill(); ctx.stroke();
+      ctx.fillStyle = spdrColorHex(side);
+      ctx.textBaseline = "middle";
+      ctx.fillText(badge, bx + 18, by + bh / 2);
+      ctx.textBaseline = "alphabetic";
+      SPDR_PERIODS.forEach(([k, th, enL], i) => {
+        const p = (SPDR.periods || {})[k];
+        if (!p) return;
+        const cellW = (W - 112) / SPDR_PERIODS.length;
+        const x = 56 + i * cellW;
+        const y = 236;
+        ctx.fillStyle = "rgba(255,255,255,.04)";
+        ctx.fillRect(x, y, cellW - 10, 78);
+        ctx.fillStyle = "#9aa3b5";
+        ctx.font = "700 12px sans-serif";
+        ctx.fillText(en ? enL : th, x + 12, y + 22);
+        ctx.fillStyle = spdrColorHex(p.side || spdrSide(p.change));
+        ctx.font = "700 22px ui-monospace, Menlo, monospace";
+        ctx.fillText(spdrChg(p.change) + " t", x + 12, y + 54);
+      });
+      ctx.save();
+      ctx.translate(0, 330);
+      ctx.fillStyle = "rgba(0,0,0,.25)";
+      ctx.fillRect(48, 0, W - 96, 500);
+      drawSpdrOn(ctx, series, W, 500, { l: 100, r: 64, t: 28, b: 40 });
+      ctx.restore();
+      ctx.fillStyle = "#9aa3b5";
+      ctx.font = "400 13px sans-serif";
+      const note = en
+        ? "Bars = daily change in tonnes (green inflow, red outflow). Line = tonnes held. Official SPDR Gold Shares archive. Education only."
+        : "แท่ง = เปลี่ยนแปลงรายวัน (เขียวซื้อเข้า แดงขายออก) เส้น = ปริมาณถือครอง ที่มา: คลังข้อมูลทางการของ SPDR Gold Shares ข้อมูลเพื่อการศึกษา";
+      ctx.fillText(note, 56, H - 56);
+      ctx.fillStyle = "#d4af5f";
+      const site = "gold.purefxai.store";
+      ctx.fillText(site, W - 56 - ctx.measureText(site).width, H - 56);
+      return c;
+    }
+
+    function spdrFileName() { return "puregold-spdr-gld-" + (SPDR && SPDR.as_of ? SPDR.as_of : "holdings") + ".png"; }
+    function spdrPngBlob() {
+      const canvas = composeSpdrPng();
+      return new Promise((resolve, reject) => canvas.toBlob(b => b ? resolve(b) : reject(new Error("png")), "image/png"));
+    }
+    function closeSpdrSave() {
+      const sheet = document.getElementById("spdrSave");
+      if (sheet) { sheet.classList.remove("on"); sheet.hidden = true; }
+      if (spdrSaveUrl) { try { URL.revokeObjectURL(spdrSaveUrl); } catch (_) {} spdrSaveUrl = null; }
+      const img = document.getElementById("spdrSaveImg");
+      if (img) img.removeAttribute("src");
+    }
+    function openSpdrSave(url, name) {
+      const sheet = document.getElementById("spdrSave");
+      const img = document.getElementById("spdrSaveImg");
+      const a = document.getElementById("spdrSaveA");
+      const hint = document.getElementById("spdrSaveHint");
+      if (hint) hint.textContent = LANG === "en"
+        ? "If the file does not download, long-press the image and choose Save Image."
+        : "หากไม่ดาวน์โหลดอัตโนมัติ ให้กดค้างที่รูป แล้วเลือกบันทึกรูป";
+      if (img) img.src = url;
+      if (a) { a.href = url; a.download = name; }
+      if (sheet) { sheet.hidden = false; sheet.classList.add("on"); }
+    }
+    async function downloadSpdrPng() {
+      try {
+        const blob = await spdrPngBlob();
+        const name = spdrFileName();
+        if (spdrSaveUrl) { try { URL.revokeObjectURL(spdrSaveUrl); } catch (_) {} }
+        const url = URL.createObjectURL(blob);
+        spdrSaveUrl = url;
+        const a = document.createElement("a");
+        a.href = url; a.download = name; a.rel = "noopener"; a.style.display = "none";
+        document.body.appendChild(a); a.click(); a.remove();
+        if (spdrIOS()) {
+          openSpdrSave(url, name);
+          try { window.open(url, "_blank", "noopener"); } catch (_) {}
+        } else {
+          setTimeout(() => { if (spdrSaveUrl === url) { URL.revokeObjectURL(url); spdrSaveUrl = null; } }, 8000);
+        }
+      } catch (e) { console.warn("spdr png download failed", e); }
+    }
+    async function shareSpdrPng() {
+      try {
+        const blob = await spdrPngBlob();
+        const name = spdrFileName();
+        const file = new File([blob], name, { type: "image/png" });
+        const title = "SPDR Gold Trust (GLD)";
+        const text = LANG === "en"
+          ? `SPDR Gold Trust held ${spdrFmt(SPDR.tonnes)} tonnes as of ${SPDR.as_of_en || SPDR.as_of}. Daily change ${spdrChg(SPDR.change)} t.`
+          : `กองทุน SPDR Gold Trust ถือครอง ${spdrFmt(SPDR.tonnes)} ตัน ณ ${SPDR.as_of_th || SPDR.as_of} เปลี่ยนแปลงรายวัน ${spdrChg(SPDR.change)} ตัน`;
+        if (navigator.canShare && navigator.canShare({ files: [file] })) {
+          await navigator.share({ files: [file], title, text });
+          return;
+        }
+        if (navigator.share) {
+          await navigator.share({ title, text, url: "https://gold.purefxai.store/#spdr" });
+          return;
+        }
+      } catch (e) {
+        if (e && e.name === "AbortError") return;
+        console.warn("spdr share failed", e);
+      }
+      return downloadSpdrPng();
+    }
+
+    async function loadSpdr() {
+      const urls = [
+        "https://dashboard.purefxai.store/spdr.json?t=" + Date.now(),
+        "assets/spdr.json?t=" + Date.now()
+      ];
+      for (const u of urls) {
+        try {
+          const r = await fetch(u, { cache: "no-store" });
+          if (r && r.ok) {
+            const d = await r.json();
+            if (d && d.tonnes != null) { SPDR = d; renderSpdr(); return; }
+          }
+        } catch (_) {}
+      }
+      renderSpdr();
+    }
+    (function bindSpdrSheet() {
+      const x = document.getElementById("spdrSaveX");
+      const sheet = document.getElementById("spdrSave");
+      if (x) x.addEventListener("click", closeSpdrSave);
+      if (sheet) sheet.addEventListener("click", e => { if (e.target === sheet) closeSpdrSave(); });
+    })();
+    window.addEventListener("resize", () => { if (SPDR) drawLandingSpdr(); });
+
     loadLive();
     loadLevels();
+    loadSpdr();
     loadNews();
     setInterval(loadLive, 60000);
   </script>

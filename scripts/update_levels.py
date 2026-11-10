@@ -225,8 +225,29 @@ def main() -> None:
                 html = html[:end + len("</script>")] + insert + html[end + len("</script>"):]
         index.write_text(html, encoding="utf-8")
 
+    try:
+        refresh_spdr()
+    except Exception as e:
+        print(f"spdr skipped: {e}")
+
     print(f"spot {px} ({spot['name']})  pivot {daily['pp']}  nearest {near['name']} {near['price']}  bias {bias}")
     print(f"wrote {levels_path.relative_to(ROOT)}")
+
+
+
+def refresh_spdr() -> None:
+    dest = ROOT / "assets" / "spdr.json"
+    url = "https://dashboard.purefxai.store/spdr.json"
+    try:
+        data = get_json(url)
+        if isinstance(data, dict) and data.get("tonnes") is not None:
+            dest.write_text(json.dumps(data, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
+            print(f"spdr {data.get('as_of')} {data.get('tonnes')} t")
+            return
+    except Exception as e:
+        print(f"spdr fetch skipped: {e}")
+    if dest.exists():
+        print("spdr kept cached copy")
 
 
 if __name__ == "__main__":
