@@ -1,7 +1,7 @@
 /* PUREGOLD share posters: purpose-built 1200x675 + 1080x1350 social graphics. */
 (function (global) {
   const SITE = "gold.purefxai.store";
-  const VERSION = "20261110d";
+  const VERSION = "20261110e";
   const SITE_URL = "https://gold.purefxai.store/";
   const SIZES = { landscape: [1200, 675], portrait: [1080, 1350] };
   const TH_M = "ม.ค. ก.พ. มี.ค. เม.ย. พ.ค. มิ.ย. ก.ค. ส.ค. ก.ย. ต.ค. พ.ย. ธ.ค.".split(" ");
@@ -328,10 +328,21 @@
 
   const brand = { lockup: null, bgLand: null, bgPort: null };
 
+  function isSameOrigin(url) {
+    try {
+      if (!url || /^(data:|blob:)/i.test(url)) return true;
+      if (!/^[a-z][a-z0-9+.-]*:/i.test(url)) return true;
+      return new URL(url, location.href).origin === location.origin;
+    } catch (_) { return false; }
+  }
   function loadImg(url) {
     return new Promise((resolve, reject) => {
+      if (!isSameOrigin(url)) return reject(new Error("cross-origin " + url));
       const im = new Image();
-      im.onload = () => resolve(im);
+      im.onload = async () => {
+        try { if (im.decode) await im.decode(); } catch (_) {}
+        resolve(im);
+      };
       im.onerror = () => reject(new Error(url));
       im.src = url;
     });
@@ -1305,8 +1316,8 @@
     return new Promise((resolve, reject) => canvas.toBlob(b => b ? resolve(b) : reject(new Error("png")), "image/png"));
   }
   function fileBase(kind, payload) {
-    const day = (payload && (payload.asOf || payload.date)) || fmtBkk(new Date(), "en").replace(/[^\dA-Za-z]+/g, "-").slice(0, 11);
-    const stamp = String(day).slice(0, 10).replace(/\s+/g, "-");
+    const raw = (payload && (payload.asOf || payload.date)) || fmtBkk(new Date(), "en");
+    const stamp = String(raw).replace(/[^\dA-Za-z]+/g, "-").replace(/-+$/g, "").slice(0, 11);
     return "puregold-" + kind + "-" + stamp;
   }
   async function blobsFor(kind, payload) {
@@ -1322,11 +1333,45 @@
   }
 
   let saveUrlList = [];
+  let sheetFiles = [];
+
+  function toast(msg) {
+    let el = document.getElementById("shareToast");
+    if (!el) {
+      el = document.createElement("div");
+      el.id = "shareToast";
+      el.className = "share-toast";
+      document.body.appendChild(el);
+    }
+    el.textContent = msg;
+    el.classList.add("on");
+    clearTimeout(toast._tm);
+    toast._tm = setTimeout(() => el.classList.remove("on"), 4500);
+  }
+
+  async function waitAssets() {
+    try { await preloadBrand(); } catch (_) {}
+    try { if (document.fonts && document.fonts.ready) await document.fonts.ready; } catch (_) {}
+    try {
+      await Promise.all([
+        document.fonts.load(`800 80px ${FONT}`),
+        document.fonts.load(`700 40px ${FONT}`),
+        document.fonts.load(`800 80px ${MONO}`)
+      ]);
+    } catch (_) {}
+  }
+
+  function closeFullscreen() {
+    const full = document.getElementById("shareFull");
+    if (full) { full.classList.remove("on"); full.hidden = true; }
+  }
   function closeSheet() {
+    closeFullscreen();
     const sheet = document.getElementById("shareSave");
     if (sheet) { sheet.classList.remove("on"); sheet.hidden = true; }
     saveUrlList.forEach(u => { try { URL.revokeObjectURL(u); } catch (_) {} });
     saveUrlList = [];
+    sheetFiles = [];
     const box = document.getElementById("shareSaveImgs");
     if (box) box.innerHTML = "";
   }
@@ -1340,30 +1385,43 @@
     sheet.innerHTML = `<div class="box">
       <div class="share-brand"><img alt="PureGold by PureFxAi" src="assets/logo-lockup.svg" onerror="this.src='logo-lockup.svg'"></div>
       <p id="shareSaveHint"></p>
+      <p id="shareSaveLoad" class="share-load" hidden></p>
       <div id="shareSaveImgs" class="imgs"></div>
       <div class="row share-nav">
+        <button type="button" class="btn pri" id="shareGoFiles" hidden></button>
         <button type="button" class="btn pri" id="shareGoChart">ดูกราฟ</button>
         <a class="btn share-site" id="shareGoSite" href="https://gold.purefxai.store/" target="_blank" rel="noopener">เข้าสู่หน้าเว็บ</a>
         <button type="button" class="btn" id="shareSaveX">ปิด</button>
       </div>
+    </div>
+    <div id="shareFull" class="share-full" hidden>
+      <p id="shareFullHint"></p>
+      <img id="shareFullImg" alt="">
+      <button type="button" class="btn" id="shareFullX"></button>
     </div>`;
     document.body.appendChild(sheet);
     sheet.addEventListener("click", e => { if (e.target === sheet) closeSheet(); });
     const x = document.getElementById("shareSaveX");
     if (x) x.addEventListener("click", closeSheet);
+    const fx = document.getElementById("shareFullX");
+    if (fx) fx.addEventListener("click", ev => { ev.preventDefault(); closeFullscreen(); });
+    const full = document.getElementById("shareFull");
+    if (full) full.addEventListener("click", e => { if (e.target === full) closeFullscreen(); });
     return sheet;
   }
-  function openSheet(files, lang) {
-    const sheet = ensureSheet();
+  function setSheetChrome(lang) {
     const hint = document.getElementById("shareSaveHint");
-    const box = document.getElementById("shareSaveImgs");
-    if (hint) hint.textContent = lang === "en"
-      ? "If the file does not download, long-press an image and choose Save Image."
-      : "หากไม่ดาวน์โหลดอัตโนมัติ ให้กดค้างที่รูป แล้วเลือกบันทึกรูป";
+    const load = document.getElementById("shareSaveLoad");
     const closeLbl = document.getElementById("shareSaveX");
-    if (closeLbl) closeLbl.textContent = lang === "en" ? "Close" : "ปิด";
     const goChart = document.getElementById("shareGoChart");
     const goSite = document.getElementById("shareGoSite");
+    const goFiles = document.getElementById("shareGoFiles");
+    if (hint) hint.textContent = lang === "en"
+      ? "Your image is ready. Tap Save, or long-press the picture and choose Save Image."
+      : "รูปพร้อมแล้ว กดบันทึก หรือกดค้างที่รูปแล้วเลือกบันทึกรูป";
+    if (load) load.textContent = lang === "en" ? "Creating the image…" : "กำลังสร้างรูป…";
+    if (closeLbl) closeLbl.textContent = lang === "en" ? "Close" : "ปิด";
+    if (goFiles) goFiles.textContent = lang === "en" ? "Share image" : "แชร์รูป";
     if (goChart) {
       goChart.textContent = lang === "en" ? "View chart" : "ดูกราฟ";
       goChart.onclick = ev => {
@@ -1380,12 +1438,51 @@
       goSite.textContent = lang === "en" ? "Enter the site" : "เข้าสู่หน้าเว็บ";
       goSite.href = SITE_URL;
     }
-    box.innerHTML = "";
+    const fh = document.getElementById("shareFullHint");
+    const fx = document.getElementById("shareFullX");
+    if (fh) fh.textContent = lang === "en"
+      ? "Long-press the image and choose Save Image."
+      : "กดค้างที่รูป แล้วเลือกบันทึกรูป";
+    if (fx) fx.textContent = lang === "en" ? "Close" : "ปิด";
+  }
+  function openFullscreen(url, name, lang) {
+    ensureSheet();
+    setSheetChrome(lang);
+    const full = document.getElementById("shareFull");
+    const img = document.getElementById("shareFullImg");
+    if (img) { img.src = url; img.alt = name || ""; }
+    if (full) { full.hidden = false; full.classList.add("on"); }
+  }
+  function openSheetLoading(lang) {
+    const sheet = ensureSheet();
+    setSheetChrome(lang);
+    const box = document.getElementById("shareSaveImgs");
+    const load = document.getElementById("shareSaveLoad");
+    const goFiles = document.getElementById("shareGoFiles");
+    const hint = document.getElementById("shareSaveHint");
+    if (box) box.innerHTML = "";
+    if (load) { load.hidden = false; }
+    if (goFiles) goFiles.hidden = true;
+    if (hint) hint.textContent = lang === "en" ? "Creating the image…" : "กำลังสร้างรูป…";
+    sheet.hidden = false; sheet.classList.add("on");
+    return sheet;
+  }
+  function fillSheet(files, lang) {
+    const sheet = ensureSheet();
+    setSheetChrome(lang);
+    const box = document.getElementById("shareSaveImgs");
+    const load = document.getElementById("shareSaveLoad");
+    const goFiles = document.getElementById("shareGoFiles");
+    if (load) load.hidden = true;
+    if (box) box.innerHTML = "";
+    sheetFiles = files || [];
     files.forEach(f => {
       const url = URL.createObjectURL(f.blob);
       saveUrlList.push(url);
+      f.url = url;
       const img = document.createElement("img");
       img.src = url; img.alt = f.name;
+      img.addEventListener("click", () => openFullscreen(url, f.name, lang));
       const a = document.createElement("a");
       a.href = url; a.download = f.name; a.className = "btn pri";
       a.textContent = (lang === "en" ? "Save " : "บันทึก ") + f.w + "×" + f.h;
@@ -1393,45 +1490,58 @@
       wrap.appendChild(img); wrap.appendChild(a);
       box.appendChild(wrap);
     });
+    if (goFiles) {
+      const fileObjs = files.map(f => new File([f.blob], f.name, { type: "image/png" }));
+      const can = !!(navigator.canShare && (function () {
+        try { return navigator.canShare({ files: fileObjs }); } catch (_) { return false; }
+      })()) || !!navigator.share;
+      goFiles.hidden = !can;
+      goFiles.onclick = async ev => {
+        ev.preventDefault();
+        const title = "PureGold · " + SITE;
+        try {
+          if (navigator.canShare && navigator.canShare({ files: fileObjs })) {
+            await navigator.share({ files: fileObjs, title, text: title });
+            return;
+          }
+          if (navigator.share) await navigator.share({ title, text: title, url: SITE_URL });
+        } catch (e) {
+          if (e && e.name === "AbortError") return;
+          toast(lang === "en" ? "Share did not complete. Long-press the image to save." : "แชร์ไม่สำเร็จ กดค้างที่รูปเพื่อบันทึก");
+        }
+      };
+    }
     sheet.hidden = false; sheet.classList.add("on");
   }
 
-  async function download(kind, payload) {
+  async function openSaveFlow(kind, payload) {
     const lang = (payload && payload.lang) || (enLang() ? "en" : "th");
-    const files = await blobsFor(kind, payload);
-    files.forEach(f => {
-      const url = URL.createObjectURL(f.blob);
-      const a = document.createElement("a");
-      a.href = url; a.download = f.name; a.rel = "noopener"; a.style.display = "none";
-      document.body.appendChild(a); a.click(); a.remove();
-      if (!isiOS()) setTimeout(() => URL.revokeObjectURL(url), 8000);
-      else saveUrlList.push(url);
-    });
-    if (isiOS()) {
-      openSheet(files, lang);
-      try { window.open(saveUrlList[0], "_blank", "noopener"); } catch (_) {}
+    openSheetLoading(lang);
+    try {
+      await waitAssets();
+      const files = await blobsFor(kind, payload);
+      if (!files || !files.length) throw new Error("empty");
+      fillSheet(files, lang);
+      return files;
+    } catch (e) {
+      console.warn("sharecard save failed", e);
+      const msg = lang === "en"
+        ? "Could not create the image. Please try again, or long-press a picture to save."
+        : "บันทึกรูปไม่สำเร็จ กรุณาลองอีกครั้ง หรือกดค้างที่รูปเพื่อบันทึก";
+      toast(msg);
+      const hint = document.getElementById("shareSaveHint");
+      const load = document.getElementById("shareSaveLoad");
+      if (load) load.hidden = true;
+      if (hint) hint.textContent = msg;
+      return [];
     }
-    return files;
+  }
+
+  async function download(kind, payload) {
+    return openSaveFlow(kind, payload);
   }
   async function share(kind, payload) {
-    const lang = (payload && payload.lang) || (enLang() ? "en" : "th");
-    const files = await blobsFor(kind, payload);
-    const fileObjs = files.map(f => new File([f.blob], f.name, { type: "image/png" }));
-    const title = "PureGold · " + (kind === "price" ? "XAUUSD" : kind === "forecast" ? "AI forecast" : kind === "trend" ? "Trend" : "SPDR GLD");
-    const text = title + " · " + SITE;
-    try {
-      if (navigator.canShare && navigator.canShare({ files: fileObjs })) {
-        await navigator.share({ files: fileObjs, title, text });
-        return files;
-      }
-      if (navigator.share) {
-        await navigator.share({ title, text, url: "https://" + SITE + "/" });
-        return files;
-      }
-    } catch (e) {
-      if (e && e.name === "AbortError") return files;
-    }
-    return download(kind, payload);
+    return openSaveFlow(kind, payload);
   }
 
   function buttonsHtml(lang) {
@@ -1469,7 +1579,7 @@
 
   const css = `.share-actions{display:flex;flex-wrap:wrap;gap:8px;align-items:center;margin-top:10px}
 .share-actions .btn{flex:1 1 140px;min-height:44px}
-.share-save{display:none;position:fixed;inset:0;z-index:80;padding:16px;align-items:center;justify-content:center;background:rgba(6,5,4,.48);backdrop-filter:blur(22px) saturate(1.4);-webkit-backdrop-filter:blur(22px) saturate(1.4)}
+.share-save{display:none;position:fixed;inset:0;z-index:120;padding:16px;align-items:center;justify-content:center;background:rgba(6,5,4,.48);backdrop-filter:blur(22px) saturate(1.4);-webkit-backdrop-filter:blur(22px) saturate(1.4)}
 .share-save.on{display:flex}
 .share-save .box{width:min(640px,100%);background:linear-gradient(180deg,rgba(255,255,255,.14),rgba(255,255,255,.05));backdrop-filter:blur(28px) saturate(1.5);-webkit-backdrop-filter:blur(28px) saturate(1.5);border:1px solid rgba(255,255,255,.28);border-radius:22px;padding:16px;max-height:min(92vh,900px);overflow:auto;box-shadow:0 24px 64px rgba(0,0,0,.45),inset 0 1px 0 rgba(255,255,255,.28)}
 .share-save .share-brand{display:flex;align-items:center;margin:0 0 10px}
@@ -1478,8 +1588,16 @@
 .share-save .imgs img{display:block;width:100%;border-radius:14px;background:#07080d;border:1px solid rgba(255,255,255,.16)}
 .share-save p{margin:0 0 10px;font-size:13px;color:#d7cdb8;line-height:1.55}
 .share-save .row{display:flex;gap:8px;margin-top:12px;flex-wrap:wrap}
+.share-save .share-nav{position:sticky;bottom:0;z-index:2;padding-top:10px;background:linear-gradient(180deg,rgba(20,16,10,.0),rgba(20,16,10,.88) 30%,rgba(20,16,10,.96))}
 .share-save .share-nav .btn,.share-save a.btn{display:inline-flex;align-items:center;justify-content:center;margin-top:0;text-decoration:none;flex:1 1 120px;min-height:44px;border-radius:12px}
-.share-save a.share-site{border:1px solid rgba(245,197,66,.45);color:#f5c542;background:transparent}`;
+.share-save a.share-site{border:1px solid rgba(245,197,66,.45);color:#f5c542;background:transparent}
+.share-load{margin:0 0 10px;font-size:13px;color:#f5c542}
+.share-toast{position:fixed;left:50%;bottom:24px;transform:translateX(-50%);z-index:140;max-width:min(92vw,420px);padding:12px 16px;border-radius:14px;background:linear-gradient(180deg,rgba(20,16,10,.92),rgba(10,8,6,.92));border:1px solid rgba(245,197,66,.45);color:#f4efe3;font-size:14px;line-height:1.5;box-shadow:0 16px 40px rgba(0,0,0,.45);opacity:0;pointer-events:none;transition:opacity .2s}
+.share-toast.on{opacity:1;pointer-events:auto}
+.share-full{display:none;position:fixed;inset:0;z-index:130;flex-direction:column;align-items:center;justify-content:center;gap:12px;padding:16px;background:rgba(6,5,4,.92)}
+.share-full.on{display:flex}
+.share-full img{max-width:100%;max-height:78vh;object-fit:contain;border-radius:12px;background:#07080d}
+.share-full p{margin:0;color:#f4efe3;font-size:14px;text-align:center}`;
 
   function injectCss() {
     if (document.getElementById("sharecard-css")) return;
@@ -1500,7 +1618,7 @@
   else boot();
 
   global.ShareCard = {
-    SIZES, SITE, SITE_URL, VERSION, render, blobsFor, download, share, mount, buttonsHtml,
+    SIZES, SITE, SITE_URL, VERSION, render, blobsFor, download, share, mount, buttonsHtml, toast,
     forecastTarget, fmtBkk, fmt, chg, closeSheet, loadMarket, attachMarket, enrich,
     loadThaiGold, loadPivots,
     async ready() {

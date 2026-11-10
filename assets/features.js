@@ -227,11 +227,14 @@
 .ix-result{margin-top:8px;padding:12px;border-radius:14px;background:linear-gradient(180deg,rgba(245,197,66,.12),rgba(255,255,255,.03));border:1px solid rgba(245,197,66,.22)}
 .ix-result b{font:800 28px/1.1 'JetBrains Mono',ui-monospace,monospace;color:var(--gold,#f5c542)}
 #ixFgChart,#ixCotChart{width:100%;height:84px;display:block}
-.ix-share-sheet{display:none;position:fixed;inset:0;z-index:80;padding:16px;align-items:center;justify-content:center;background:rgba(6,5,4,.48);backdrop-filter:blur(22px)}
+.ix-share-sheet{display:none;position:fixed;inset:0;z-index:120;padding:16px;align-items:center;justify-content:center;background:rgba(6,5,4,.48);backdrop-filter:blur(22px)}
 .ix-share-sheet.on{display:flex}
 .ix-share-sheet .box{width:min(640px,100%);background:linear-gradient(180deg,rgba(255,255,255,.14),rgba(255,255,255,.05));backdrop-filter:blur(28px);border:1px solid rgba(255,255,255,.28);border-radius:22px;padding:16px;max-height:min(92vh,900px);overflow:auto}
 .ix-share-sheet img{display:block;width:100%;border-radius:14px;margin:0 0 10px;background:#07080d}
 .ix-share-sheet .row{display:flex;gap:8px;flex-wrap:wrap;margin-top:8px}
+.ix-share-full{display:none;position:fixed;inset:0;z-index:130;flex-direction:column;align-items:center;justify-content:center;gap:12px;padding:16px;background:rgba(6,5,4,.92)}
+.ix-share-full.on{display:flex}
+.ix-share-full img{max-width:100%;max-height:78vh;object-fit:contain;border-radius:12px}
 .ix-land .card{margin:0}
 .ix-grid{display:grid;gap:14px;grid-template-columns:1fr;align-items:start}
 @media(min-width:900px){
@@ -598,57 +601,102 @@
     }
     return out;
   }
-  async function posterSave(cur) {
-    const items = await blobsFor(cur);
-    const isiOS = /iP(ad|hone|od)/.test(navigator.userAgent) || (navigator.platform === "MacIntel" && navigator.maxTouchPoints > 1);
-    if (!isiOS) {
-      for (const it of items) {
-        const a = document.createElement("a");
-        a.href = URL.createObjectURL(it.blob);
-        a.download = it.name;
-        document.body.appendChild(a); a.click(); a.remove();
-        posterUrls.push(a.href);
-      }
+  function ixToast(msg) {
+    if (global.ShareCard && typeof ShareCard.toast === "function") { ShareCard.toast(msg); return; }
+    let el = $("shareToast");
+    if (!el) {
+      el = document.createElement("div");
+      el.id = "shareToast";
+      el.className = "share-toast";
+      document.body.appendChild(el);
     }
+    el.textContent = msg;
+    el.classList.add("on");
+    clearTimeout(ixToast._tm);
+    ixToast._tm = setTimeout(() => el.classList.remove("on"), 4500);
+  }
+  async function posterSave(cur) {
+    const L = lang();
     const sheet = ensurePosterSheet();
     const box = $("ixShareImgs");
-    box.innerHTML = "";
-    items.forEach(it => {
-      const url = URL.createObjectURL(it.blob);
-      posterUrls.push(url);
-      const img = document.createElement("img");
-      img.src = url; img.alt = it.name;
-      box.appendChild(img);
-      const a = document.createElement("a");
-      a.className = "btn pri"; a.href = url; a.download = it.name;
-      a.textContent = tr("save") + ` ${it.w}×${it.h}`;
-      a.style.display = "inline-flex"; a.style.margin = "0 8px 8px 0";
-      box.appendChild(a);
-    });
-    $("ixShareHint").textContent = lang() === "en"
-      ? "If the file does not download, long-press the image and choose Save Image."
-      : "หากไม่ดาวน์โหลดอัตโนมัติ ให้กดค้างที่รูป แล้วเลือกบันทึกรูป";
+    if (box) box.innerHTML = "";
+    $("ixShareHint").textContent = L === "en" ? "Creating the image…" : "กำลังสร้างรูป…";
     $("ixShareX").textContent = tr("close");
     $("ixShareX").onclick = closePoster;
     sheet.hidden = false; sheet.classList.add("on");
+    try {
+      const items = await blobsFor(cur);
+      if (!items.length) throw new Error("empty");
+      box.innerHTML = "";
+      items.forEach(it => {
+        const url = URL.createObjectURL(it.blob);
+        posterUrls.push(url);
+        const img = document.createElement("img");
+        img.src = url; img.alt = it.name;
+        img.addEventListener("click", () => {
+          let full = $("ixShareFull");
+          if (!full) {
+            full = document.createElement("div");
+            full.id = "ixShareFull";
+            full.className = "ix-share-full";
+            full.innerHTML = `<p id="ixShareFullHint"></p><img id="ixShareFullImg" alt=""><button type="button" class="btn" id="ixShareFullX"></button>`;
+            document.body.appendChild(full);
+            $("ixShareFullX").onclick = () => { full.classList.remove("on"); full.hidden = true; };
+          }
+          $("ixShareFullHint").textContent = L === "en"
+            ? "Long-press the image and choose Save Image."
+            : "กดค้างที่รูป แล้วเลือกบันทึกรูป";
+          $("ixShareFullX").textContent = tr("close");
+          $("ixShareFullImg").src = url;
+          full.hidden = false; full.classList.add("on");
+        });
+        box.appendChild(img);
+        const a = document.createElement("a");
+        a.className = "btn pri"; a.href = url; a.download = it.name;
+        a.textContent = tr("save") + ` ${it.w}×${it.h}`;
+        a.style.display = "inline-flex"; a.style.margin = "0 8px 8px 0";
+        box.appendChild(a);
+      });
+      $("ixShareHint").textContent = L === "en"
+        ? "Your image is ready. Tap Save, or long-press the picture and choose Save Image."
+        : "รูปพร้อมแล้ว กดบันทึก หรือกดค้างที่รูปแล้วเลือกบันทึกรูป";
+      const fileObjs = items.map(it => new File([it.blob], it.name, { type: "image/png" }));
+      let sh = $("ixShareNative");
+      if (!sh) {
+        sh = document.createElement("button");
+        sh.type = "button";
+        sh.id = "ixShareNative";
+        sh.className = "btn pri";
+        $("ixShareX").parentNode.insertBefore(sh, $("ixShareX"));
+      }
+      const can = !!(navigator.canShare && (function () { try { return navigator.canShare({ files: fileObjs }); } catch (_) { return false; } })()) || !!navigator.share;
+      sh.hidden = !can;
+      sh.textContent = L === "en" ? "Share image" : "แชร์รูป";
+      sh.onclick = async ev => {
+        ev.preventDefault();
+        const title = "PureGold · " + (L === "en" ? "Market brief" : "สรุปตลาด");
+        const text = (L === "en" ? cur.text_en : cur.text_th);
+        try {
+          if (navigator.canShare && navigator.canShare({ files: fileObjs })) {
+            await navigator.share({ files: fileObjs, title, text });
+            return;
+          }
+          if (navigator.share) await navigator.share({ title, text, url: "https://gold.purefxai.store/" });
+        } catch (e) {
+          if (e && e.name === "AbortError") return;
+          ixToast(L === "en" ? "Share did not complete. Long-press the image to save." : "แชร์ไม่สำเร็จ กดค้างที่รูปเพื่อบันทึก");
+        }
+      };
+    } catch (e) {
+      console.warn("brief poster save failed", e);
+      const msg = L === "en"
+        ? "Could not create the image. Please try again, or long-press a picture to save."
+        : "บันทึกรูปไม่สำเร็จ กรุณาลองอีกครั้ง หรือกดค้างที่รูปเพื่อบันทึก";
+      ixToast(msg);
+      $("ixShareHint").textContent = msg;
+    }
   }
   async function posterShare(cur) {
-    const items = await blobsFor(cur);
-    const files = items.map(it => new File([it.blob], it.name, { type: "image/png" }));
-    const title = "PureGold · " + (lang() === "en" ? "Market brief" : "สรุปตลาด");
-    const text = (lang() === "en" ? cur.text_en : cur.text_th);
-    try {
-      if (navigator.canShare && navigator.canShare({ files })) {
-        await navigator.share({ files, title, text });
-        return;
-      }
-      if (navigator.share) {
-        await navigator.share({ title, text, url: "https://gold.purefxai.store/" });
-        return;
-      }
-    } catch (e) {
-      if (e && e.name === "AbortError") return;
-    }
     return posterSave(cur);
   }
 
