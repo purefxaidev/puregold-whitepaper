@@ -5,7 +5,7 @@ Public site for **PureGold by PureFxAi**.
 - Custom domain: **https://gold.purefxai.store/**
 - Gold dashboard: **https://dashboard.purefxai.store/**
 - App repository: https://github.com/purefxaidev/puregold-app
-- Latest APK: [`downloads/PUREGOLD-0.9.4.apk`](downloads/PUREGOLD-0.9.4.apk) (also `downloads/PUREGOLD.apk`)
+- Latest APK: [`downloads/PUREGOLD-0.9.5.apk`](downloads/PUREGOLD-0.9.5.apk) (also `downloads/PUREGOLD.apk`)
 
 The page is a spot gold desk: XAUUSD price, daily support / resistance, hourly chart, Thai gold, news, TH+EN version history, Exness IB, donate, and a risk disclaimer.
 
