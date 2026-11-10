@@ -184,8 +184,9 @@
 .ix-tabs{display:flex;gap:6px;flex-wrap:wrap;margin:0 0 12px}
 .ix-tabs button{appearance:none;border:1px solid rgba(245,197,66,.28);background:rgba(255,255,255,.04);color:var(--tx,#eef1f7);border-radius:999px;padding:6px 12px;font:600 12px Prompt,system-ui;cursor:pointer}
 .ix-tabs button.on{background:var(--gold,#f5c542);color:#16120a;border-color:transparent}
+.ix-tabs button:disabled{opacity:.45;cursor:not-allowed}
 .ix-brief{font-size:14.5px;line-height:1.75;color:var(--tx,#eef1f7)}
-.ix-event{display:grid;grid-template-columns:88px 1fr;gap:8px 12px;padding:10px 10px 10px 12px;border-radius:14px;background:rgba(0,0,0,.25);border:1px solid rgba(255,255,255,.06);border-left:3px solid rgba(255,255,255,.2);margin:0 0 8px}
+.ix-event{display:grid;grid-template-columns:108px 1fr;gap:8px 12px;padding:10px 10px 10px 12px;border-radius:14px;background:rgba(0,0,0,.25);border:1px solid rgba(255,255,255,.06);border-left:3px solid rgba(255,255,255,.2);margin:0 0 8px}
 .ix-event.high{border-left-color:${DN}}
 .ix-event.medium{border-left-color:${GOLD}}
 .ix-event.low{border-left-color:rgba(255,255,255,.2)}
@@ -232,7 +233,7 @@
 .ix-share-sheet img{display:block;width:100%;border-radius:14px;margin:0 0 10px;background:#07080d}
 .ix-share-sheet .row{display:flex;gap:8px;flex-wrap:wrap;margin-top:8px}
 .ix-land .card{margin:0}
-.ix-grid{display:grid;gap:14px;grid-template-columns:1fr}
+.ix-grid{display:grid;gap:14px;grid-template-columns:1fr;align-items:start}
 @media(min-width:900px){
   .ix-grid{grid-template-columns:repeat(12,1fr)}
   .ix-grid .ix-c12{grid-column:span 12}
@@ -681,7 +682,7 @@
         <div>
           <h3 id="calcPosTitle" style="margin:0 0 8px;font:600 15px Prompt,sans-serif;color:var(--gold2,#ffdf80)"></h3>
           <div class="ix-form">
-            <label>${esc(tr("balance"))}<input id="ixBal" type="number" step="any" inputmode="decimal" placeholder="10000"></label>
+            <label>${esc(tr("balance"))}<input id="ixBal" type="number" step="any" inputmode="decimal" value="10000" placeholder="10000"></label>
             <label>${esc(tr("risk"))}<input id="ixRisk" type="number" step="any" value="1" inputmode="decimal"></label>
             <label>${esc(tr("sl"))}<input id="ixSL" type="number" step="any" value="10" inputmode="decimal"></label>
           </div>
