@@ -2,7 +2,8 @@
 <html lang="th">
 <head>
   <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+  <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1, viewport-fit=cover">
+  <script>(function(){try{var ua=navigator.userAgent||"",mq=window.matchMedia,coarse=false,noHover=false;try{coarse=!!(mq&&mq("(pointer: coarse)").matches);noHover=!!(mq&&mq("(hover: none)").matches);}catch(e){}var sw=Math.min(screen.width||0,screen.height||0),touch=(navigator.maxTouchPoints||0)>0,ipad=navigator.platform==="MacIntel"&&(navigator.maxTouchPoints||0)>1,mobile=/Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini|Mobile|FBAN|FBAV|FB_IAB|FBIOS|Instagram|Line\/|LINE\/|Twitter|TikTok|MicroMessenger|WhatsApp|Pinterest|Snapchat/i.test(ua)||ipad||(touch&&sw>0&&sw<=920)||(coarse&&noHover&&sw>0&&sw<=1180);if(!mobile)return;document.documentElement.classList.add("pg-mobile");var c="width=device-width, initial-scale=1, minimum-scale=1, viewport-fit=cover",m=document.querySelector('meta[name="viewport"]');if(!m){m=document.createElement("meta");m.setAttribute("name","viewport");document.head.insertBefore(m,document.head.firstChild);}m.setAttribute("content",c);var iw=window.innerWidth||0;if(sw>=240&&sw<=920&&iw>sw+40){m.setAttribute("content","width="+sw+", initial-scale=1, minimum-scale=1, viewport-fit=cover");}}catch(e){}})();</script>
   <title>PUREGOLD — XAUUSD spot desk by PureFxAi</title>
   <meta name="description" content="PUREGOLD by PureFxAi — XAUUSD spot price, daily support and resistance, Thai gold, news and charts. Android app and iPhone web app.">
   <link rel="icon" type="image/svg+xml" href="assets/logo-mark.svg">
@@ -44,25 +45,34 @@
       --up:#3dba7a; --dn:#e05b66; --glow:transparent;
     }
     * { box-sizing:border-box }
-    html { scroll-behavior:smooth }
+    html { scroll-behavior:smooth; max-width:100%; overflow-x:hidden; -webkit-text-size-adjust:100%; text-size-adjust:100%; }
     html,body { margin:0; background:var(--bg); color:var(--text);
-      font-family:'IBM Plex Sans Thai',Manrope,system-ui,sans-serif; line-height:1.6; font-size:16px }
+      font-family:'IBM Plex Sans Thai',Manrope,system-ui,sans-serif; line-height:1.6; font-size:16px;
+      max-width:100%; overflow-x:hidden; }
     html[lang=en] body { font-family:Manrope,'IBM Plex Sans Thai',system-ui,sans-serif }
     body {
-      min-height:100vh; position:relative; overflow-x:hidden;
+      min-height:100vh; position:relative; overflow-x:hidden; width:100%;
+      touch-action:pan-y;
       background:linear-gradient(180deg,#0b0c11 0%, #07080c 40%, #08090d 100%);
     }
+    img, video, canvas, svg, iframe { max-width:100%; }
+    iframe { width:100%; }
+    .wrap, .card, .hero, .hero-quote, .block, .page-bg, .outlook-grid, .ix-grid, .desk, .feats,
+    .levels-board, .spdr-board, .news-grid, .reviews, .grid, .guide-grid { max-width:100%; min-width:0; }
+    .outlook-grid, .ix-grid, .desk, .feats, .grid, .news-grid, .reviews, .guide-grid { grid-template-columns: minmax(0,1fr); }
+    .perf-row, .share-actions { min-width:0; max-width:100%; }
+    .share-actions .btn { min-width:0; }
+    .tw, .sugg, .formula, .levels-grid, [data-scroll-x] { touch-action:pan-x pan-y; max-width:100%; }
     .page-bg { position:fixed; inset:0; z-index:0; overflow:hidden; pointer-events:none; }
     .page-bg video {
       width:100%; height:100%; object-fit:cover; display:block;
       filter:saturate(.7) contrast(1.02) brightness(.28);
-      transform:scale(1.04);
     }
     .page-bg-veil {
       position:absolute; inset:0;
       background:linear-gradient(180deg, rgba(7,8,12,.55) 0%, rgba(7,8,12,.78) 42%, rgba(7,8,12,.94) 78%, #07080c 100%);
     }
-    .wrap { max-width:1160px; margin:0 auto; padding:16px 20px 80px; position:relative; z-index:2 }
+    .wrap { max-width:min(1160px,100%); width:100%; margin:0 auto; padding:16px 20px 80px; position:relative; z-index:2; overflow-x:hidden }
     header.top {
       display:flex; align-items:center; justify-content:space-between; gap:16px; flex-wrap:wrap;
       margin:0 0 28px; padding:10px 14px; border-radius:12px;
@@ -305,8 +315,8 @@
     .reveal.in { opacity:1; transform:none }
     .reveal-delay-1 { transition-delay:.06s } .reveal-delay-2 { transition-delay:.12s } .reveal-delay-3 { transition-delay:.18s }
 
-    @media (max-width:900px){
-      .hero, .desk, .feats, .reviews, .grid, .news-grid { grid-template-columns:1fr }
+    @media (max-width:820px), (max-width:1180px) and (hover: none) and (pointer: coarse){
+      .hero, .desk, .feats, .reviews, .grid, .news-grid { grid-template-columns:minmax(0,1fr) }
       .nav-links { display:none }
       .hero { gap:20px }
     }
@@ -358,6 +368,60 @@
       header.top .btn-sm { padding:5px 8px; font-size:11px; white-space:nowrap; border-radius:7px }
       .block, .hero, #levels, #spdr, #outlook, #insights, #chart, #news, #reviews, #download, #signup, #updates, #support { scroll-margin-top: 72px }
     }
+
+    /* Forced mobile layout (phones, in-app browsers, Chrome "desktop site") */
+    html.pg-mobile .hero, html.pg-mobile .desk, html.pg-mobile .feats, html.pg-mobile .reviews,
+    html.pg-mobile .grid, html.pg-mobile .news-grid, html.pg-mobile .outlook-grid { grid-template-columns:minmax(0,1fr) }
+    html.pg-mobile .nav-links { display:none }
+    html.pg-mobile .hero { gap:20px }
+    html.pg-mobile .guide-grid { grid-template-columns:1fr 1fr }
+    html.pg-mobile .dash-frame { height:100dvh; height:100svh; border-radius:0; border:0 }
+    html.pg-mobile .dash-modal { padding:0 }
+    html.pg-mobile .promo-modal, html.pg-mobile .spdr-save { padding:0; align-items:flex-end }
+    html.pg-mobile .lang-modal { padding:12px; align-items:center }
+    html.pg-mobile .promo-card { width:100%; max-height:100dvh; overflow:auto; margin:0; border-radius:16px 16px 0 0 }
+    html.pg-mobile .spdr-save .box { width:100%; max-width:none; max-height:100dvh; max-height:100svh; border-radius:16px 16px 0 0; margin:0 }
+    html.pg-mobile .ios-sheet-modal { padding:0 }
+    html.pg-mobile header.top { top:6px }
+    html.pg-mobile .wrap { padding:12px 14px 64px }
+    html.pg-mobile .levels-stats { grid-template-columns:1fr 1fr; gap:8px }
+    html.pg-mobile .levels-stats .stat { padding:8px 10px; border-radius:8px }
+    html.pg-mobile .levels-stats .val { font-size:15px; margin-top:2px }
+    html.pg-mobile .levels-stats .sub { font-size:11px; margin-top:2px }
+    html.pg-mobile .levels-grid {
+      grid-template-columns:1fr 1fr; gap:0;
+      border:1px solid var(--line); border-radius:10px; overflow:hidden;
+      background:var(--card);
+    }
+    html.pg-mobile .lv {
+      display:flex; justify-content:space-between; align-items:center;
+      text-align:left; padding:8px 10px; margin:0; border-radius:0;
+      background:transparent; border:0; border-bottom:1px solid var(--line);
+    }
+    html.pg-mobile .lv:nth-child(odd) { border-right:1px solid var(--line) }
+    html.pg-mobile .lv:last-child { border-bottom:0 }
+    html.pg-mobile .lv .k { font-size:11px }
+    html.pg-mobile .lv .v { margin-top:0; font-size:13px }
+    html.pg-mobile .spdr-periods { grid-template-columns:1fr 1fr; gap:6px }
+    html.pg-mobile .signup-banner-wrap.open { align-items:flex-end }
+    html.pg-mobile header.top {
+      flex-wrap:nowrap; gap:6px; padding:0 8px; margin:0 0 14px;
+      top:6px; height:56px; min-height:56px; max-height:56px;
+      border-radius:10px; align-items:center;
+    }
+    html.pg-mobile .brand { gap:6px; min-width:0; flex:1 1 auto; overflow:hidden }
+    html.pg-mobile .brand .logo-mark { width:28px; height:28px }
+    html.pg-mobile .brand h1 { font-size:13px; letter-spacing:.12em; line-height:1; white-space:nowrap }
+    html.pg-mobile .brand small { display:none }
+    html.pg-mobile .nav-r { flex-wrap:nowrap; gap:4px; flex:0 0 auto }
+    html.pg-mobile .lang { display:flex; gap:3px }
+    html.pg-mobile .lang button { padding:4px 7px; font-size:11px; border-radius:6px; line-height:1.2 }
+    html.pg-mobile .lang .lang-full { display:none }
+    html.pg-mobile .lang .lang-short { display:inline }
+    html.pg-mobile header.top .btn-sm { padding:5px 8px; font-size:11px; white-space:nowrap; border-radius:7px }
+    html.pg-mobile.pg-standalone header.top { height:auto; max-height:none; min-height:56px; margin-left:-14px; margin-right:-14px; }
+    html.pg-mobile .guide-grid { grid-template-columns:minmax(0,1fr) }
+
     @media (prefers-reduced-motion: reduce) {
       .reveal, .reveal.in { opacity:1; transform:none; transition:none }
       html { scroll-behavior:auto }
@@ -413,7 +477,7 @@
     .mtf-cell { background:rgba(255,255,255,.03); border:1px solid var(--line); border-radius:10px; padding:8px 6px; text-align:center }
     .mtf-cell .k { font-size:11px; color:var(--muted); font-weight:700 }
     .mtf-cell .v { font-size:13px; font-weight:700; margin-top:4px }
-    @media (max-width:900px){ .outlook-grid { grid-template-columns:1fr } }
+    @media (max-width:820px), (max-width:1180px) and (hover: none) and (pointer: coarse){ .outlook-grid { grid-template-columns:minmax(0,1fr) } }
 
     /* PWA + platform download + signup */
     .dl-pair { display:flex; flex-wrap:wrap; gap:10px; margin:24px 0 10px; }
@@ -536,12 +600,12 @@
     html.pg-standalone #outlook, html.pg-standalone #insights, html.pg-standalone #chart, html.pg-standalone #news,
     html.pg-standalone #reviews, html.pg-standalone #download, html.pg-standalone #signup, html.pg-standalone #updates,
     html.pg-standalone #support { scroll-margin-top: calc(72px + env(safe-area-inset-top,0px)); }
-    @media (max-width:900px){
+    @media (max-width:820px), (max-width:1180px) and (hover: none) and (pointer: coarse){
       .guide-grid { grid-template-columns:1fr 1fr }
     }
     @media (max-width:720px){
       html.pg-standalone header.top { margin-left:-14px; margin-right:-14px; }
-      .guide-grid { grid-template-columns:1fr }
+      .guide-grid { grid-template-columns:minmax(0,1fr) }
       .signup-banner-wrap.open { align-items:flex-end }
     }
     @media (max-width:480px){
@@ -576,7 +640,7 @@
           <button type="button" id="bth" class="on" onclick="setLang('th')">ไทย</button>
           <button type="button" id="ben" onclick="setLang('en')"><span class="lang-full">English</span><span class="lang-short">EN</span></button>
         </div>
-        <a class="btn btn-gold btn-sm pwa-hide-standalone" id="hdrDl" href="downloads/PUREGOLD.apk">APK 0.9.5</a>
+        <a class="btn btn-gold btn-sm pwa-hide-standalone" id="hdrDl" href="downloads/PUREGOLD.apk">APK 0.9.6</a>
       </div>
     </header>
 
@@ -610,7 +674,7 @@
             <span class="th">ดูกราฟ</span><span class="en hid">View chart</span>
           </button>
         </div>
-        <p class="ver" id="dlMeta">PUREGOLD 0.9.5 · Android APK · iPhone web app</p>
+        <p class="ver" id="dlMeta">PUREGOLD 0.9.6 · Android APK · iPhone web app</p>
       </div>
       <aside class="hero-quote reveal in" aria-label="XAUUSD spot">
         <div class="k">XAUUSD · SPOT</div>
@@ -840,8 +904,8 @@
     </section>
 
     <section class="block reveal" id="updates">
-      <div class="th"><h2>ประวัติเวอร์ชัน</h2><p class="mut">อัปเดตล่าสุดของแอปและหน้าเว็บ · <a href="downloads/PUREGOLD.apk">ดาวน์โหลด 0.9.5</a></p></div>
-      <div class="en hid"><h2>Version history</h2><p class="mut">Latest app and website updates · <a href="downloads/PUREGOLD.apk">Download 0.9.5</a></p></div>
+      <div class="th"><h2>ประวัติเวอร์ชัน</h2><p class="mut">อัปเดตล่าสุดของแอปและหน้าเว็บ · <a href="downloads/PUREGOLD.apk">ดาวน์โหลด 0.9.6</a></p></div>
+      <div class="en hid"><h2>Version history</h2><p class="mut">Latest app and website updates · <a href="downloads/PUREGOLD.apk">Download 0.9.6</a></p></div>
       <div class="cl">
         <b>เว็บไซต์</b> · 2026-11-10
         <ul class="th">
@@ -850,6 +914,7 @@
           <li>แนะนำสมัครบัญชีพันธมิตร และคู่มือสมัครทีละขั้นตอน</li>
           <li>ราคาสปอตอัปเดตทุกไม่กี่วินาที มุมมองแนวรับแนวต้านคำนวณจากราคาล่าสุด</li>
           <li>ผลตอบแทนทองคำ XAUUSD 1 สัปดาห์ 1 เดือน 3 เดือน ปีนี้ และ 1 ปี สีเขียวเมื่อบวก สีแดงเมื่อลบ</li>
+          <li>หน้าเว็บบนมือถือล็อกเลย์เอาต์มือถือ ไม่สลับเป็นไซต์คอมพิวเตอร์หรือเลื่อนแนวนอน</li>
         </ul>
         <ul class="en hid">
           <li>Install PureGold as an iPhone and iPad web app from this page — open in Safari, then Add to Home Screen</li>
@@ -857,6 +922,18 @@
           <li>Partner account sign-up prompt and a step-by-step guide</li>
           <li>Spot price refreshes every few seconds; support/resistance bias follows the live mid</li>
           <li>XAUUSD performance for 1 week, 1 month, 3 months, year to date, and 1 year — green when up, red when down</li>
+          <li>The mobile site stays in the phone layout — no zoomed-out desktop view or sideways pan</li>
+        </ul>
+      </div>
+      <div class="cl">
+        <b>0.9.6</b> · 2026-11-10
+        <ul class="th">
+          <li>หน้า Home แสดงผลตอบแทนทองคำ XAUUSD 1 สัปดาห์ 1 เดือน 3 เดือน ปีนี้ และ 1 ปี สีเขียวเมื่อบวก สีแดงเมื่อลบ</li>
+          <li>ราคาและระยะแนวรับแนวต้านรีเฟรชจากสปอตสดทุกไม่กี่วินาที</li>
+        </ul>
+        <ul class="en hid">
+          <li>Home shows XAUUSD performance for 1 week, 1 month, 3 months, year to date, and 1 year — green when up, red when down</li>
+          <li>Price and support/resistance distances refresh from the live mid every few seconds</li>
         </ul>
       </div>
       <div class="cl">
@@ -977,11 +1054,11 @@
           <span><span class="dl-kicker">iPhone / iPad</span><span class="dl-label th">ติดตั้งเว็บแอป</span><span class="dl-label en hid">Install web app</span></span>
         </button>
       </div>
-      <p class="ver">PUREGOLD 0.9.5 · signed Android release · ลิงก์ไฟล์ <a href="downloads/PUREGOLD.apk">downloads/PUREGOLD.apk</a></p>
+      <p class="ver">PUREGOLD 0.9.6 · signed Android release · ลิงก์ไฟล์ <a href="downloads/PUREGOLD.apk">downloads/PUREGOLD.apk</a> · sha256 867e759fa01b8b1e20120489e4819cc86eb154af4c77f72bf7dab36d0f5e5713</p>
       <div class="th">
         <h3 style="margin:18px 0 8px;font-size:16px;letter-spacing:0;text-transform:none;color:var(--text)">วิธีติดตั้งบน Android</h3>
         <ol>
-          <li>กดดาวน์โหลด APK 0.9.5 แล้วอนุญาตติดตั้งจากแหล่งที่ไม่รู้จักหากระบบถาม</li>
+          <li>กดดาวน์โหลด APK 0.9.6 แล้วอนุญาตติดตั้งจากแหล่งที่ไม่รู้จักหากระบบถาม</li>
           <li>ติดตั้งทับเวอร์ชันเดิมได้ ไม่ต้องถอนก่อน</li>
           <li>ในเมนู → ตั้งค่า วาง API key เพื่อเปิด PureFxAi</li>
         </ol>
@@ -996,7 +1073,7 @@
       <div class="en hid">
         <h3 style="margin:18px 0 8px;font-size:16px;letter-spacing:0;text-transform:none;color:var(--text)">Install on Android</h3>
         <ol>
-          <li>Download APK 0.9.5 and allow unknown sources if Android asks.</li>
+          <li>Download APK 0.9.6 and allow unknown sources if Android asks.</li>
           <li>You can install over the previous version.</li>
           <li>In More → Settings, paste an API key to enable PureFxAi.</li>
         </ol>
@@ -1092,7 +1169,7 @@
     <div class="dl-pair pwa-hide-standalone" style="margin:26px auto 0;max-width:640px">
       <a class="dl-btn dl-android" href="downloads/PUREGOLD.apk">
         <svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M17.6 9.48 19.44 6.3a.64.64 0 0 0-.26-.85.64.64 0 0 0-.83.22l-1.88 3.24a11.43 11.43 0 0 0-8.94 0L5.65 5.67a.64.64 0 0 0-.87-.2.64.64 0 0 0-.26.85L6.36 9.5C4.2 11.05 2.67 13.32 2.67 16h18.66c0-2.69-1.55-4.96-3.73-6.52ZM7.5 13.5a1 1 0 1 1 0-2 1 1 0 0 1 0 2Zm9 0a1 1 0 1 1 0-2 1 1 0 0 1 0 2Z"/></svg>
-        <span><span class="dl-kicker">Android</span><span class="dl-label">APK 0.9.5</span></span>
+        <span><span class="dl-kicker">Android</span><span class="dl-label">APK 0.9.6</span></span>
       </a>
       <button type="button" class="dl-btn dl-ios js-ios-install">
         <svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M18.71 19.5c-.83 1.24-1.71 2.45-3.05 2.47-1.34.03-1.77-.79-3.29-.79-1.53 0-2 .77-3.27.82-1.31.05-2.3-1.32-3.14-2.53C4.25 17 2.94 12.45 4.7 9.39c.87-1.52 2.43-2.48 4.12-2.51 1.28-.02 2.5.87 3.29.87.78 0 2.26-1.07 3.81-.91.65.03 2.47.26 3.64 1.98-.09.06-2.17 1.28-2.15 3.81.03 3.02 2.65 4.03 2.68 4.04-.03.07-.42 1.44-1.38 2.83M13 3.5c.73-.83 1.94-1.46 2.94-1.5.13 1.17-.34 2.35-1.04 3.19-.69.85-1.83 1.51-2.95 1.42-.15-1.15.41-2.35 1.05-3.11z"/></svg>
