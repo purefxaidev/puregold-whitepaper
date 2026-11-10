@@ -130,6 +130,19 @@
     .hero-quote .meta { display:flex; flex-wrap:wrap; gap:10px 16px; align-items:baseline; color:var(--muted); font-size:13px }
     .live-stamp { margin-top:6px; font-size:12px; font-weight:700; letter-spacing:.08em; color:var(--up); }
     .live-stamp.delayed { color:#e0a14a; }
+    .perf-row { display:flex; flex-wrap:wrap; gap:6px; margin-top:8px; }
+    .perf-chip { display:inline-flex; align-items:baseline; gap:6px; padding:4px 9px; border-radius:8px; border:1px solid var(--line); background:rgba(12,14,20,.45); font-variant-numeric:tabular-nums; font-size:12px; font-weight:700; letter-spacing:.01em; }
+    .perf-chip .k { color:var(--muted); font-weight:600; font-size:11px; }
+    .perf-chip.up .v { color:var(--up); }
+    .perf-chip.dn .v { color:var(--dn); }
+    .perf-chip.flat .v { color:var(--muted); }
+    .perf-src { margin-top:6px; font-size:11px; color:var(--muted); line-height:1.4; }
+    .perf-table { width:100%; border-collapse:collapse; font-variant-numeric:tabular-nums; font-size:14px; }
+    .perf-table th { text-align:left; color:var(--muted); font-weight:600; font-size:11px; letter-spacing:.06em; text-transform:uppercase; padding:0 8px 8px 0; }
+    .perf-table td { padding:7px 8px 7px 0; border-top:1px solid var(--line); }
+    .perf-table .v.up { color:var(--up); font-weight:700; }
+    .perf-table .v.dn { color:var(--dn); font-weight:700; }
+    #perfCard[hidden]{display:none!important}
     .stage { position:relative; display:none }
     .stage video, .stage img.fallback { width:0; height:0 }
     .badge { display:none }
@@ -607,6 +620,7 @@
           <span id="heroSrc" class="ver"></span>
         </div>
         <div class="live-stamp" id="heroLive" aria-live="polite"></div>
+        <div class="perf-row" id="heroPerf" hidden></div>
       </aside>
     </section>
 
@@ -647,6 +661,7 @@
           <div id="outCh" class="chg flat"></div>
           <div class="mut" id="outPxMeta"></div>
           <div class="live-stamp" id="outLive" aria-live="polite"></div>
+          <div class="perf-row" id="outPerf" hidden></div>
           <div id="landPriceShare" data-share="price"></div>
         </div>
         <div class="card" id="landForecastCard">
@@ -655,6 +670,7 @@
           <div class="mut" id="outTarget"></div>
           <div style="display:flex;justify-content:space-between;margin:8px 0 4px;font-weight:800;font-variant-numeric:tabular-nums"><span class="chg up" id="outUp">—</span><span class="chg dn" id="outDn">—</span></div>
           <div class="mut" id="outAcc"></div>
+          <div class="live-stamp" id="outFresh" aria-live="polite"></div>
           <ul class="reasons" id="outReasons" style="margin:8px 0 0;padding-left:18px;color:#d5cdb8;font-size:13px;line-height:1.5"></ul>
           <div id="landForecastShare" data-share="forecast"></div>
         </div>
@@ -673,6 +689,12 @@
       <div class="th"><h2>โต๊ะข้อมูลตลาด</h2><p class="mut">ปฏิทินข่าวที่กระทบทอง ดัชนีความกลัวและความโลภ สถานะกองทุนใหญ่ เทียบทองไทยกับทองโลก ดัชนี DXY และโอกาสดอกเบี้ยเฟด เครื่องคำนวณ และสรุปตลาดเช้า–เย็น · เวลาไทย (Asia/Bangkok) · เพื่อการศึกษา ไม่ใช่คำแนะนำการลงทุน</p></div>
       <div class="en hid"><h2>Market desk</h2><p class="mut">Gold-moving US calendar, fear and greed, managed-money positioning, Thai vs world gold, DXY and Fed rate odds, calculators, and the morning and evening brief · Asia/Bangkok time · education only, not investment advice</p></div>
       <div class="ix-grid ix-land">
+        <div class="card ix-c12" id="perfCard" hidden>
+          <div class="th"><h3>ผลตอบแทนทองคำ XAUUSD</h3></div>
+          <div class="en hid"><h3>XAUUSD gold performance</h3></div>
+          <small class="mut" id="perfAsOf">—</small>
+          <div id="perfBody"></div>
+        </div>
         <div class="card ix-c12" id="briefCard" hidden>
           <div class="th"><h3>สรุปตลาดเช้า–เย็น</h3></div>
           <div class="en hid"><h3>Morning and evening brief</h3></div>
@@ -726,6 +748,7 @@
           <div class="price" id="xauPx">—</div>
           <div id="xauCh" class="chg flat">…</div>
           <div class="live-stamp" id="xauLive" aria-live="polite"></div>
+          <div class="perf-row" id="xauPerf" hidden></div>
           <div style="margin:10px 0 8px"><span class="tag flat" id="biasTag">—</span></div>
           <div class="chart-shell">
             <canvas id="xauChart" width="720" height="300" aria-label="XAUUSD hourly chart with support and resistance"></canvas>
@@ -825,11 +848,15 @@
           <li>ติดตั้ง PureGold เป็นเว็บแอปบน iPhone และ iPad จากหน้านี้ — เปิดใน Safari แล้วเพิ่มไปยังหน้าจอโฮม</li>
           <li>ปุ่มดาวน์โหลดแยก Android (APK 0.9.5) และ iPhone / iPad พร้อมวิธีติดตั้งทีละขั้น</li>
           <li>แนะนำสมัครบัญชีพันธมิตร และคู่มือสมัครทีละขั้นตอน</li>
+          <li>ราคาสปอตอัปเดตทุกไม่กี่วินาที มุมมองแนวรับแนวต้านคำนวณจากราคาล่าสุด</li>
+          <li>ผลตอบแทนทองคำ XAUUSD 1 สัปดาห์ 1 เดือน 3 เดือน ปีนี้ และ 1 ปี สีเขียวเมื่อบวก สีแดงเมื่อลบ</li>
         </ul>
         <ul class="en hid">
           <li>Install PureGold as an iPhone and iPad web app from this page — open in Safari, then Add to Home Screen</li>
           <li>Separate Android (APK 0.9.5) and iPhone / iPad download buttons, with step-by-step setup</li>
           <li>Partner account sign-up prompt and a step-by-step guide</li>
+          <li>Spot price refreshes every few seconds; support/resistance bias follows the live mid</li>
+          <li>XAUUSD performance for 1 week, 1 month, 3 months, year to date, and 1 year — green when up, red when down</li>
         </ul>
       </div>
       <div class="cl">
@@ -1217,7 +1244,7 @@
   <script type="application/json" id="pg-klines">{"symbol":"XAUUSD","interval":"1h","updatedAt":"2026-11-10T07:07:16Z","spot":4121.845,"spotSource":"swissquote","note":"Hourly XAUUSD series aligned to FX spot so the landing chart matches the live desk.","closes":[{"t":1794038400000,"o":4077.405,"h":4077.415,"l":4074.425,"c":4075.605},{"t":1794042000000,"o":4075.615,"h":4076.005,"l":4073.805,"c":4075.145},{"t":1794045600000,"o":4075.155,"h":4077.035,"l":4075.155,"c":4076.655},{"t":1794049200000,"o":4076.655,"h":4077.035,"l":4075.275,"c":4076.265},{"t":1794052800000,"o":4076.275,"h":4076.735,"l":4075.855,"c":4076.625},{"t":1794056400000,"o":4076.625,"h":4076.725,"l":4076.375,"c":4076.375},{"t":1794060000000,"o":4076.385,"h":4076.835,"l":4076.215,"c":4076.405},{"t":1794063600000,"o":4076.405,"h":4076.415,"l":4073.725,"c":4074.065},{"t":1794067200000,"o":4074.055,"h":4075.845,"l":4074.055,"c":4075.845},{"t":1794070800000,"o":4075.845,"h":4077.035,"l":4075.645,"c":4076.425},{"t":1794074400000,"o":4076.425,"h":4076.805,"l":4076.135,"c":4076.335},{"t":1794078000000,"o":4076.325,"h":4076.855,"l":4076.025,"c":4076.425},{"t":1794081600000,"o":4076.425,"h":4077.385,"l":4076.425,"c":4077.285},{"t":1794085200000,"o":4077.285,"h":4077.425,"l":4075.755,"c":4075.845},{"t":1794088800000,"o":4075.845,"h":4076.235,"l":4074.345,"c":4076.235},{"t":1794092400000,"o":4076.225,"h":4076.465,"l":4074.525,"c":4076.435},{"t":1794096000000,"o":4076.435,"h":4080.635,"l":4069.605,"c":4074.935},{"t":1794099600000,"o":4074.925,"h":4076.195,"l":4074.365,"c":4074.785},{"t":1794103200000,"o":4074.785,"h":4075.065,"l":4073.395,"c":4073.395},{"t":1794106800000,"o":4073.405,"h":4074.635,"l":4072.165,"c":4073.475},{"t":1794110400000,"o":4073.475,"h":4073.485,"l":4070.555,"c":4070.675},{"t":1794114000000,"o":4070.675,"h":4071.625,"l":4069.995,"c":4071.555},{"t":1794117600000,"o":4071.555,"h":4073.175,"l":4070.515,"c":4072.735},{"t":1794121200000,"o":4072.745,"h":4072.745,"l":4071.135,"c":4071.435},{"t":1794124800000,"o":4071.435,"h":4071.865,"l":4070.575,"c":4071.045},{"t":1794128400000,"o":4071.045,"h":4071.465,"l":4069.865,"c":4071.465},{"t":1794132000000,"o":4071.465,"h":4072.485,"l":4071.455,"c":4072.335},{"t":1794135600000,"o":4072.325,"h":4072.335,"l":4067.885,"c":4069.895},{"t":1794139200000,"o":4069.895,"h":4069.905,"l":4068.735,"c":4068.965},{"t":1794142800000,"o":4068.965,"h":4070.235,"l":4068.445,"c":4068.775},{"t":1794146400000,"o":4068.775,"h":4068.775,"l":4066.255,"c":4066.415},{"t":1794150000000,"o":4066.405,"h":4066.415,"l":4064.055,"c":4065.995},{"t":1794153600000,"o":4066.005,"h":4066.295,"l":4063.925,"c":4064.645},{"t":1794157200000,"o":4064.645,"h":4066.075,"l":4062.085,"c":4064.785},{"t":1794160800000,"o":4064.785,"h":4069.735,"l":4063.995,"c":4069.565},{"t":1794164400000,"o":4069.565,"h":4071.435,"l":4069.425,"c":4071.235},{"t":1794168000000,"o":4071.235,"h":4071.235,"l":4065.545,"c":4066.025},{"t":1794171600000,"o":4066.025,"h":4067.365,"l":4048.295,"c":4049.025},{"t":1794175200000,"o":4049.705,"h":4060.635,"l":4043.975,"c":4060.635},{"t":1794178800000,"o":4060.635,"h":4078.845,"l":4059.635,"c":4063.045},{"t":1794182400000,"o":4063.045,"h":4111.635,"l":4063.045,"c":4110.915},{"t":1794186000000,"o":4110.915,"h":4128.775,"l":4104.895,"c":4126.295},{"t":1794189600000,"o":4126.685,"h":4135.315,"l":4122.545,"c":4122.685},{"t":1794193200000,"o":4122.225,"h":4124.335,"l":4117.525,"c":4118.215},{"t":1794196800000,"o":4118.225,"h":4133.625,"l":4118.225,"c":4125.555},{"t":1794200400000,"o":4125.555,"h":4127.495,"l":4121.285,"c":4124.525},{"t":1794204000000,"o":4124.265,"h":4124.855,"l":4110.185,"c":4110.605},{"t":1794207600000,"o":4110.605,"h":4113.175,"l":4087.565,"c":4089.365},{"t":1794211200000,"o":4089.365,"h":4103.525,"l":4089.365,"c":4099.395},{"t":1794214800000,"o":4099.385,"h":4102.245,"l":4095.705,"c":4099.385},{"t":1794218400000,"o":4099.375,"h":4102.085,"l":4097.205,"c":4100.075},{"t":1794222000000,"o":4100.065,"h":4114.255,"l":4100.065,"c":4110.555},{"t":1794225600000,"o":4110.385,"h":4126.125,"l":4108.465,"c":4123.805},{"t":1794229200000,"o":4123.435,"h":4130.045,"l":4118.945,"c":4126.555},{"t":1794232800000,"o":4126.275,"h":4130.225,"l":4114.355,"c":4121.905},{"t":1794236400000,"o":4121.905,"h":4123.125,"l":4114.675,"c":4121.745},{"t":1794240000000,"o":4121.755,"h":4130.005,"l":4108.125,"c":4111.685},{"t":1794243600000,"o":4112.115,"h":4113.925,"l":4101.815,"c":4103.875},{"t":1794247200000,"o":4103.955,"h":4108.865,"l":4102.055,"c":4104.485},{"t":1794250800000,"o":4104.475,"h":4136.635,"l":4101.005,"c":4135.135},{"t":1794254400000,"o":4134.345,"h":4145.625,"l":4132.045,"c":4139.265},{"t":1794258000000,"o":4138.675,"h":4143.245,"l":4133.645,"c":4139.045},{"t":1794261600000,"o":4138.735,"h":4138.735,"l":4134.555,"c":4135.715},{"t":1794265200000,"o":4135.705,"h":4142.635,"l":4132.925,"c":4136.925},{"t":1794268800000,"o":4136.235,"h":4136.235,"l":4120.065,"c":4120.605},{"t":1794272400000,"o":4120.615,"h":4138.745,"l":4120.075,"c":4127.365},{"t":1794276000000,"o":4126.105,"h":4126.215,"l":4110.365,"c":4111.295},{"t":1794279600000,"o":4110.825,"h":4117.095,"l":4109.635,"c":4111.495},{"t":1794283200000,"o":4111.485,"h":4119.285,"l":4110.025,"c":4117.695},{"t":1794286800000,"o":4117.695,"h":4128.405,"l":4114.235,"c":4124.585},{"t":1794290400000,"o":4124.375,"h":4126.525,"l":4119.055,"c":4121.475},{"t":1794294000000,"o":4121.385,"h":4126.475,"l":4121.385,"c":4121.845}]}</script>
   <script type="application/json" id="pg-quotes">{"updatedAt":"2026-11-10T07:07:16Z","spot":{"price":4121.845,"symbol":"XAU","currency":"USD","currencySymbol":"$","source":"swissquote"},"thai":[{"GoldType":"HSH","GoldCode":"96.50","Buy":"65,050","Sell":"65,130","TimeUpdate":"2026-11-10T14:07:07","BuyChange":-10.0,"SellChange":-10.0,"PresentDate":"","FxAsk":null,"FxBid":null,"Bid":null,"Ask":null,"QtyBid":null,"QtyAsk":null,"Discount":null,"Premium":null,"Increment":null,"SourcePrice":null,"StrTimeUpdate":"อัพเดตล่าสุด วันที่ 10 พ.ย. 2569 เวลา 14:07:07 น."},{"GoldType":"REF","GoldCode":"96.50","Buy":"64,950","Sell":"65,150","TimeUpdate":"2026-11-10T14:04:38","BuyChange":50.0,"SellChange":50.0,"PresentDate":"","FxAsk":null,"FxBid":null,"Bid":null,"Ask":null,"QtyBid":null,"QtyAsk":null,"Discount":null,"Premium":null,"Increment":null,"SourcePrice":null,"StrTimeUpdate":"อัพเดตล่าสุด วันที่ 10 พ.ย. 2569 เวลา 14:04:38 น."},{"GoldType":"JEWEL","GoldCode":"96.50","Buy":"63,656.84","Sell":"65,950","TimeUpdate":"2026-11-10T14:07:18","BuyChange":0.0,"SellChange":0.0,"PresentDate":"","FxAsk":null,"FxBid":null,"Bid":null,"Ask":null,"QtyBid":null,"QtyAsk":null,"Discount":null,"Premium":null,"Increment":null,"SourcePrice":null,"StrTimeUpdate":"อัพเดตล่าสุด วันที่ 10 พ.ย. 2569 เวลา 14:07:18 น."}]}</script>
   <script type="application/json" id="pg-levels">{"symbol":"XAUUSD","updatedAt":"2026-11-10T07:07:16Z","updatedAtBangkok":"2026-11-10 14:07","spot":4121.845,"spotSource":"swissquote","offset":11.635,"daily":{"high":4145.625,"low":4063.045,"close":4136.925,"pp":4115.198,"r1":4167.352,"s1":4084.772,"r2":4197.778,"s2":4032.618,"r3":4249.932,"s3":4002.192},"h4":{"high":4138.745,"low":4109.635,"close":4111.495,"pp":4119.958,"r1":4130.282,"s1":4101.172,"r2":4149.068,"s2":4090.848,"r3":4159.392,"s3":4072.062},"swings":{"highs":[{"t":1794009600000,"price":4083.325},{"t":1794096000000,"price":4080.635},{"t":1794182400000,"price":4135.315}],"lows":[{"t":1793692800000,"price":3916.645},{"t":1793966400000,"price":4029.635},{"t":1794168000000,"price":4043.975}]},"nearest":{"name":"Pivot","price":4115.198,"distance":-6.647,"side":"support"},"bias":"up","biasTh":"เอียงขึ้นเหนือจุดพิวอต","biasEn":"Tilt up, above the pivot","note":"Daily and H4 floor pivots from the prior completed session, aligned to FX spot. Education only — not investment advice.","noteTh":"จุดพิวอต รายวันและ H4 จากแท่งที่ปิดแล้ว ปรับให้ตรงราคาทองสปอต — เพื่อการศึกษา ไม่ใช่คำแนะนำการลงทุน"}</script>
-    <script src="assets/sharecard.js?v=20261110h"></script>
+    <script src="assets/sharecard.js?v=20261110perf1"></script>
   <script src="assets/features.js?v=20261110h"></script>
 <script>
     let LANG = 'th';
@@ -1710,6 +1737,81 @@
       window.__lastCloses = next.map(b => b.c);
       try { drawChart(next); } catch (_) {}
     }
+
+    function fmtPerfPct(pct) {
+      if (!Number.isFinite(pct)) return '';
+      const abs = Math.abs(pct).toFixed(2);
+      return (pct > 0 ? '+' : pct < 0 ? '\u2212' : '') + abs + '%';
+    }
+    function perfWithLive(data, livePx) {
+      if (!data || !Array.isArray(data.periods)) return null;
+      const spot = Number(livePx != null ? livePx : data.spot);
+      const periods = data.periods.map((p) => {
+        const ref = Number(p.ref_close);
+        if (!(ref > 0) || !Number.isFinite(spot)) return null;
+        const change = spot - ref;
+        return Object.assign({}, p, { change: change, change_pct: change / ref * 100 });
+      }).filter(Boolean);
+      if (!periods.length) return null;
+      return Object.assign({}, data, { spot: spot, periods: periods });
+    }
+    function renderPerfChips(el, data, lang) {
+      if (!el) return;
+      if (!data || !data.periods || !data.periods.length) { el.hidden = true; el.innerHTML = ''; return; }
+      el.hidden = false;
+      el.innerHTML = data.periods.map((p) => {
+        const pct = Number(p.change_pct);
+        const cls = !Number.isFinite(pct) || Math.abs(pct) < 0.005 ? 'flat' : (pct > 0 ? 'up' : 'dn');
+        const lab = lang === 'en' ? (p.label_en || p.id) : (p.label_th || p.id);
+        return '<span class="perf-chip ' + cls + '"><span class="k">' + lab + '</span><span class="v">' + fmtPerfPct(pct) + '</span></span>';
+      }).join('');
+    }
+    function renderPerfInsights(data, lang) {
+      const card = document.getElementById('perfCard');
+      const body = document.getElementById('perfBody');
+      const asof = document.getElementById('perfAsOf');
+      if (!card || !body) return;
+      if (!data || !data.periods || !data.periods.length) { card.hidden = true; return; }
+      card.hidden = false;
+      const src = data.history_source || 'Yahoo Finance GC=F';
+      const spotSrc = data.spot_source || '';
+      if (asof) {
+        asof.textContent = lang === 'en'
+          ? ('As of ' + (data.as_of_bangkok || '') + ' (Bangkok) · live mid vs daily close')
+          : ('ณ ' + (data.as_of_bangkok || '') + ' น. (เวลาไทย) · สปอตล่าสุดเทียบราคาปิดรายวัน');
+      }
+      body.innerHTML = '<table class="perf-table"><thead><tr><th>' + (lang === 'en' ? 'Period' : 'ช่วง') + '</th><th>' + (lang === 'en' ? 'Change' : 'เปลี่ยนแปลง') + '</th><th>' + (lang === 'en' ? 'Ref close' : 'ราคาปิดอ้างอิง') + '</th></tr></thead><tbody>'
+        + data.periods.map((p) => {
+            const pct = Number(p.change_pct);
+            const cls = !Number.isFinite(pct) || Math.abs(pct) < 0.005 ? 'flat' : (pct > 0 ? 'up' : 'dn');
+            const lab = lang === 'en' ? (p.label_en || p.id) : (p.label_th || p.id);
+            const chg = Number.isFinite(p.change) ? ((p.change > 0 ? '+' : p.change < 0 ? '\u2212' : '') + Math.abs(p.change).toFixed(2)) : '\u2014';
+            return '<tr><td>' + lab + '</td><td class="v ' + cls + '">' + fmtPerfPct(pct) + ' <span class="mut">(' + chg + ')</span></td><td class="mut">$' + Number(p.ref_close).toLocaleString('en-US', {minimumFractionDigits: 2, maximumFractionDigits: 2}) + ' · ' + (p.ref_date || '') + '</td></tr>';
+          }).join('')
+        + '</tbody></table><p class="perf-src">' + (lang === 'en'
+          ? ('Source: ' + src + (spotSrc ? ' · compared with ' + spotSrc : '') + '. Thai gold is omitted — no equivalent daily history.')
+          : ('ที่มา: ' + src + (spotSrc ? ' · เทียบกับ ' + spotSrc : '') + ' ไม่แสดงทองไทย เพราะยังไม่มีประวัติรายวันที่ใช้ได้')) + '</p>';
+    }
+    function paintPerf(livePx) {
+      const data = perfWithLive(window.__PERF, livePx != null ? livePx : window.__spotXau);
+      window.__PERF_LIVE = data;
+      const lang = (typeof LANG !== 'undefined' && LANG === 'en') ? 'en' : 'th';
+      ['heroPerf', 'outPerf', 'xauPerf'].forEach((id) => renderPerfChips(document.getElementById(id), data, lang));
+      renderPerfInsights(data, lang);
+    }
+    async function loadPerf() {
+      const urls = ['assets/perf.json?t=' + Date.now(), 'data/perf.json?t=' + Date.now(), 'https://dashboard.purefxai.store/perf.json?t=' + Date.now()];
+      for (const u of urls) {
+        try {
+          const r = await fetchTimeout(u, 5000);
+          if (r && r.ok) {
+            const j = await r.json();
+            if (j && Array.isArray(j.periods) && j.periods.length) { window.__PERF = j; paintPerf(window.__spotXau); return; }
+          }
+        } catch (_) {}
+      }
+    }
+
     function paintLiveSpot(px) {
       if (!Number.isFinite(px)) return;
       window.__spotXau = px;
@@ -1723,6 +1825,8 @@
       applyChangeFromSpot(px);
       applyLivePriceToChart(px);
       if (window.__levels) renderLevels(window.__levels);
+      if (typeof OUTLOOK !== 'undefined' && OUTLOOK && window.ShareCard) renderOutlook(OUTLOOK);
+      paintPerf(px);
     }
     async function fetchLiveXauTick() {
       try {
@@ -2139,6 +2243,52 @@
       window.__openDash();
     });
 
+
+    function parseStampMs(s) {
+      if (!s) return 0;
+      const iso = Date.parse(s);
+      if (Number.isFinite(iso)) return iso;
+      const months = {'ม.ค.':0,'ก.พ.':1,'มี.ค.':2,'เม.ย.':3,'พ.ค.':4,'มิ.ย.':5,'ก.ค.':6,'ส.ค.':7,'ก.ย.':8,'ต.ค.':9,'พ.ย.':10,'ธ.ค.':11};
+      const m = String(s).match(/(\d{1,2})\s*(ม\.ค\.|ก\.พ\.|มี\.ค\.|เม\.ย\.|พ\.ค\.|มิ\.ย\.|ก\.ค\.|ส\.ค\.|ก\.ย\.|ต\.ค\.|พ\.ย\.|ธ\.ค\.)\s*(\d{4})\s*(\d{1,2}):(\d{2})/);
+      if (m) {
+        const mo = String(months[m[2]] + 1).padStart(2, '0');
+        const day = String(m[1]).padStart(2, '0');
+        return Date.parse(m[3] + '-' + mo + '-' + day + 'T' + String(m[4]).padStart(2,'0') + ':' + m[5] + ':00+07:00') || 0;
+      }
+      const m2 = String(s).match(/(\d{4})-(\d{2})-(\d{2})[ T](\d{2}):(\d{2})/);
+      if (m2) return Date.parse(m2[1] + '-' + m2[2] + '-' + m2[3] + 'T' + m2[4] + ':' + m2[5] + ':00+07:00') || 0;
+      return 0;
+    }
+    function biasFromSpot(spot, daily) {
+      if (!Number.isFinite(spot) || !daily || daily.pp == null) return null;
+      if (spot > Number(daily.r1)) return { bias: 'up', biasTh: 'เอียงขึ้นเหนือ R1', biasEn: 'Tilt up, above R1' };
+      if (spot > Number(daily.pp) + 1) return { bias: 'up', biasTh: 'เอียงขึ้นเหนือจุดพิวอต', biasEn: 'Tilt up, above the pivot' };
+      if (spot < Number(daily.s1)) return { bias: 'down', biasTh: 'เอียงลงต่ำกว่า S1', biasEn: 'Tilt down, below S1' };
+      if (spot < Number(daily.pp) - 1) return { bias: 'down', biasTh: 'เอียงลงต่ำกว่าจุดพิวอต', biasEn: 'Tilt down, below the pivot' };
+      return { bias: 'neutral', biasTh: 'ทรงตัวใกล้จุดพิวอต', biasEn: 'Neutral, near the pivot' };
+    }
+    function nearestFromSpot(spot, L) {
+      if (!Number.isFinite(spot) || !L || !L.daily) return null;
+      const named = [['R3', L.daily.r3],['R2', L.daily.r2],['R1', L.daily.r1],['Pivot', L.daily.pp],['S1', L.daily.s1],['S2', L.daily.s2],['S3', L.daily.s3]];
+      const swings = ((L.swings && (L.swings.highs || []).concat(L.swings.lows || [])) || []).map(s => [s.name || 'Swing', s.price]);
+      const pool = named.concat(swings).filter(x => Number.isFinite(Number(x[1])));
+      if (!pool.length) return null;
+      const best = pool.reduce((a, b) => Math.abs(b[1] - spot) < Math.abs(a[1] - spot) ? b : a);
+      const dist = Number(best[1]) - spot;
+      const side = dist > 0.15 ? 'resistance' : (dist < -0.15 ? 'support' : 'at-level');
+      return { name: best[0], price: Number(best[1]), distance: dist, side };
+    }
+    function analysisFreshness(updated, livePx, daily, analysisPx) {
+      const at = parseStampMs(updated);
+      const ageMin = at ? (Date.now() - at) / 60000 : 9999;
+      let crossed = false;
+      if (daily && Number.isFinite(livePx) && Number.isFinite(analysisPx) && analysisPx > 0) {
+        const a = biasFromSpot(analysisPx, daily);
+        const b = biasFromSpot(livePx, daily);
+        crossed = !!(a && b && a.bias !== b.bias);
+      }
+      return { ageMin, crossed, stale: ageMin > 30 || crossed, at };
+    }
     function renderLevels(data) {
       const L = data || window.__levels;
       if (!L) return;
@@ -2153,31 +2303,23 @@
       set('lvSrc', srcMap[srcKey] || (L.spotSource || ''));
       const srcEl = document.getElementById('heroSrc');
       if (srcEl && !window.__liveSpotAt) srcEl.textContent = srcMap[L.spotSource] || '';
-      let nearest = L.nearest;
-      if (Number.isFinite(spotNow) && L.daily) {
-        const named = [['R3', L.daily.r3],['R2', L.daily.r2],['R1', L.daily.r1],['Pivot', L.daily.pp],['S1', L.daily.s1],['S2', L.daily.s2],['S3', L.daily.s3]];
-        const swings = ((L.swings && (L.swings.highs || []).concat(L.swings.lows || [])) || []).map(s => [s.name || 'Swing', s.price]);
-        const pool = named.concat(swings).filter(x => Number.isFinite(Number(x[1])));
-        if (pool.length) {
-          const best = pool.reduce((a, b) => Math.abs(b[1] - spotNow) < Math.abs(a[1] - spotNow) ? b : a);
-          nearest = { name: best[0], price: best[1], distance: best[1] - spotNow, side: best[1] >= spotNow ? 'resistance' : 'support' };
-        }
-      }
+      const nearest = nearestFromSpot(spotNow, L) || L.nearest;
       if (nearest) {
         const d = Number(nearest.distance);
-        const dir = d > 0 ? (th ? 'ต้านเหนือราคา ' : 'resistance +') : d < 0 ? (th ? 'รับใต้ราคา ' : 'support ') : (th ? 'ที่ระดับ' : 'at level');
+        const dir = d > 0.15 ? (th ? 'ต้านเหนือราคา ' : 'resistance +') : d < -0.15 ? (th ? 'รับใต้ราคา ' : 'support ') : (th ? 'ที่ระดับ' : 'at level');
         set('lvNear', (nearest.name || '') + '  $' + fmt(nearest.price));
-        set('lvNearSub', dir + (d === 0 ? '' : (d > 0 ? '+' : '') + fmt(d)));
+        set('lvNearSub', dir + (Math.abs(d) < 0.005 ? '' : (d > 0 ? '+' : '') + fmt(d)));
       }
-      const biasLbl = L.bias === 'up' ? (th ? 'เอียงขึ้น' : 'Tilt up') : L.bias === 'down' ? (th ? 'เอียงลง' : 'Tilt down') : (th ? 'ทรงตัว' : 'Neutral');
+      const liveBias = biasFromSpot(spotNow, L.daily);
+      const bias = liveBias || { bias: L.bias, biasTh: L.biasTh, biasEn: L.biasEn };
+      const biasLbl = bias.bias === 'up' ? (th ? 'เอียงขึ้น' : 'Tilt up') : bias.bias === 'down' ? (th ? 'เอียงลง' : 'Tilt down') : (th ? 'ทรงตัว' : 'Neutral');
       set('lvBias', biasLbl);
-      set('lvBiasSub', th ? (L.biasTh || '') : (L.biasEn || ''));
+      set('lvBiasSub', th ? (bias.biasTh || '') : (bias.biasEn || ''));
       const biasEl = document.getElementById('lvBias');
-      if (biasEl) biasEl.style.color = L.bias === 'up' ? 'var(--up)' : L.bias === 'down' ? 'var(--dn)' : 'var(--text)';
-      if (!window.__liveSpotAt) set('lvTime', L.updatedAtBangkok || '');
+      if (biasEl) biasEl.style.color = bias.bias === 'up' ? 'var(--up)' : bias.bias === 'down' ? 'var(--dn)' : 'var(--text)';
       const grid = document.getElementById('lvGrid');
       if (grid && L.daily) {
-        const nearName = (L.nearest && L.nearest.name) || '';
+        const nearName = (nearest && nearest.name) || '';
         const rows = [
           ['R3', L.daily.r3, 'res'], ['R2', L.daily.r2, 'res'], ['R1', L.daily.r1, 'res'],
           ['Pivot', L.daily.pp, 'pp'],
@@ -2664,7 +2806,22 @@
         const s = Array.isArray(r) ? r[1] : String(r);
         return "<li>" + (d === "up" ? "▲ " : d === "down" ? "▼ " : "● ") + s + "</li>";
       }).join("");
-      const align = lang === "en" ? (D.mtf_align_en || D.mtf_align) : (D.mtf_align || D.mtf_align_en);
+      const daily = (window.__levels && window.__levels.daily) || null;
+      const liveBias = biasFromSpot(priceNum, daily);
+      const analysisPx = Number((D.spot && D.spot.price) || D.price_num || String(D.price || '').replace(/,/g, ''));
+      const asOf = (lang === "en" ? (D.updated_en || D.updated) : (D.updated || D.updated_en)) || (D.accuracy && D.accuracy.updated) || '';
+      const fresh = analysisFreshness(asOf || (D.accuracy && D.accuracy.updated), priceNum, daily, analysisPx);
+      const freshEl = document.getElementById('outFresh');
+      if (freshEl) {
+        const asOfTxt = asOf ? (lang === 'en' ? ('Analysis as of ' + asOf) : ('บทวิเคราะห์ ณ ' + asOf)) : '';
+        freshEl.textContent = fresh.stale
+          ? ((lang === 'en' ? 'Updating analysis' : 'กำลังอัปเดตการวิเคราะห์') + (asOfTxt ? ' · ' + asOfTxt : ''))
+          : asOfTxt;
+        freshEl.classList.toggle('delayed', !!fresh.stale);
+      }
+      const liveAlign = liveBias ? (lang === 'en' ? liveBias.biasEn : liveBias.biasTh) : '';
+      const alignRaw = lang === "en" ? (D.mtf_align_en || D.mtf_align) : (D.mtf_align || D.mtf_align_en);
+      const align = liveAlign ? (liveAlign + (alignRaw ? ' · ' + alignRaw : '')) : (alignRaw || '');
       set("outAlign", align || "");
       const mtf = (lang === "en" ? (D.mtf_en || D.mtf) : D.mtf) || [];
       const mtfEl = document.getElementById("outMtf");
@@ -2673,7 +2830,8 @@
         const lab = lang === "en" ? (m.trend === "up" ? "Up" : m.trend === "down" ? "Down" : "Sideways") : (m.label || m.trend);
         return '<div class="mtf-cell"><div class="k">' + (m.tf || "") + '</div><div class="v" style="color:' + col + '">' + lab + '</div></div>';
       }).join("");
-      set("outBias", lang === "en" ? (D.bias_en || D.bias || "") : (D.bias || ""));
+      const deskBias = lang === "en" ? (D.bias_en || D.bias || "") : (D.bias || "");
+      set("outBias", liveBias ? ((lang === "en" ? liveBias.biasEn : liveBias.biasTh) + (fresh.stale ? (lang === "en" ? " · updating analysis" : " · กำลังอัปเดตการวิเคราะห์") : "") + (deskBias ? " · " + deskBias : "")) : deskBias);
       const parseLevelList = arr => (arr || []).map(s => {
         if (s && typeof s === "object" && s.price != null) return s;
         const raw = String(s), m = raw.replace(/,/g, "").match(/(\d+(?:\.\d+)?)/);
@@ -2690,7 +2848,7 @@
           support: parseLevelList(D.support),
           resistance: parseLevelList(D.resistance),
           mtf: (lang === "en" ? (D.mtf_en || D.mtf) : D.mtf) || [],
-          align: D.mtf_align, alignEn: D.mtf_align_en,
+          align: liveAlign || D.mtf_align, alignEn: liveBias ? liveBias.biasEn : D.mtf_align_en,
           thai: m.thai || window.LAST_THAI || null
         };
       };
@@ -2698,10 +2856,11 @@
         const mkt = marketBits();
         const prev = mkt.prevClose, px = mkt.price;
         const chgV = (prev != null && px != null) ? (px - prev) : null;
-        return Object.assign({ kind: "price", lang, source: src ? ("FX spot · " + src) : (lang === "en" ? "FX spot" : "สปอต FX"), time: lang === "en" ? (D.updated_en || D.updated) : D.updated, change: chgV, changePct: (chgV != null && prev) ? (chgV / prev * 100) : null, changeKnown: prev != null, changeBasis: "prevClose" }, mkt);
+        const nowTxt = (typeof bkkHms === 'function' ? bkkHms() : '') + (lang === 'en' ? ' (Bangkok)' : ' น. (เวลาไทย)');
+        return Object.assign({ kind: "price", lang, source: Number.isFinite(livePx) ? (lang === "en" ? "FX spot · live" : "สปอต FX · สด") : (src ? ("FX spot · " + src) : (lang === "en" ? "FX spot" : "สปอต FX")), time: nowTxt, change: chgV, changePct: (chgV != null && prev) ? (chgV / prev * 100) : null, changeKnown: prev != null, changeBasis: "prevClose", perf: window.__PERF_LIVE || window.__PERF || null }, mkt);
       };
-      const forecastPayload = () => Object.assign({ kind: "forecast", lang, up: D.ai_up_pct, down: D.ai_down_pct, reasons: D.ai_reasons, reasonsEn: D.ai_reasons_en, updated: acc.updated, horizon: acc.horizon_minutes || 240, acc7: acc.acc_7d, acc30: acc.acc_30d }, marketBits());
-      const trendPayload = () => Object.assign({ kind: "trend", lang, mtf, align: D.mtf_align, alignEn: D.mtf_align_en, bias: lang === "en" ? (D.bias_en || D.bias) : D.bias }, marketBits());
+      const forecastPayload = () => Object.assign({ kind: "forecast", lang, up: D.ai_up_pct, down: D.ai_down_pct, reasons: D.ai_reasons, reasonsEn: D.ai_reasons_en, updated: acc.updated || asOf, horizon: acc.horizon_minutes || 240, acc7: acc.acc_7d, acc30: acc.acc_30d, stale: !!(fresh && fresh.stale), asOf }, marketBits());
+      const trendPayload = () => Object.assign({ kind: "trend", lang, mtf, align: liveAlign || D.mtf_align, alignEn: liveBias ? liveBias.biasEn : D.mtf_align_en, bias: liveBias ? (lang === "en" ? liveBias.biasEn : liveBias.biasTh) : (lang === "en" ? (D.bias_en || D.bias) : D.bias) }, marketBits());
       window.__LAND_SHARE = { price: pricePayload, forecast: forecastPayload, trend: trendPayload };
       ShareCard.mount(document.getElementById("landPriceShare"), pricePayload);
       ShareCard.mount(document.getElementById("landForecastShare"), forecastPayload);
@@ -2905,6 +3064,7 @@
     }
     loadLive();
     loadLevels();
+    loadPerf();
     loadSpdr();
     loadOutlook();
     loadNews();

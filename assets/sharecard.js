@@ -1096,6 +1096,36 @@
     return true;
   }
 
+
+  function drawPerfRow(ctx, x, y, w, perf, lang) {
+    const periods = (perf && perf.periods) || (Array.isArray(perf) ? perf : []);
+    const items = periods.filter(pe => pe && Number.isFinite(Number(pe.change_pct)));
+    if (!items.length) return 0;
+    let x0 = x, rowH = 0;
+    const y0 = y;
+    items.forEach(pe => {
+      const pct = Number(pe.change_pct);
+      const col = Math.abs(pct) < 0.005 ? GOLD : pct > 0 ? UP : DN;
+      const lab = (lang === "en" ? (pe.label_en || pe.id) : (pe.label_th || pe.id)) + "  " + (pct > 0 ? "+" : pct < 0 ? "\u2212" : "") + Math.abs(pct).toFixed(2) + "%";
+      ctx.font = `700 13px ${FONT}`;
+      const tw = ctx.measureText(lab).width;
+      const pw = tw + 20, ph = 28;
+      if (x0 + pw > x + w && x0 > x) { x0 = x; y += ph + 6; }
+      ctx.fillStyle = col + "22";
+      ctx.strokeStyle = col;
+      ctx.lineWidth = 1.2;
+      rr(ctx, x0, y, pw, ph, 8); ctx.fill(); ctx.stroke();
+      ctx.fillStyle = col;
+      ctx.textBaseline = "middle";
+      ctx.font = `700 13px ${FONT}`;
+      ctx.fillText(lab, x0 + 10, y + ph / 2);
+      ctx.textBaseline = "alphabetic";
+      x0 += pw + 8;
+      rowH = (y - y0) + ph;
+    });
+    return rowH + 8;
+  }
+
   function drawPrice(ctx, W, H, p, lang) {
     const portrait = H > 900;
     const box = headerBox(ctx, W, H, lang, p.bars || p.barsH1, portrait ? 1.2 : 1.05);
@@ -1124,6 +1154,8 @@
         : "เทียบราคาปิดวันก่อน  " + fmt(chgInfo.prevClose, 2), box.left, capY);
       capY += 22;
     }
+    const perfH = drawPerfRow(ctx, box.left, capY + 4, box.right - box.left, p.perf, lang);
+    if (perfH) capY += perfH;
 
     const caption = lang === "en" ? "XAUUSD intraday" : "XAUUSD ระหว่างวัน";
     if (portrait) {

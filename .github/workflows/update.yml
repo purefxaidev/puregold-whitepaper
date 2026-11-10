@@ -32,6 +32,7 @@ jobs:
           TZ: Asia/Bangkok
         run: |
           python3 scripts/update_levels.py
+          python3 scripts/update_perf.py --out assets/perf.json --out data/perf.json || echo "perf skipped"
           python3 scripts/sync_insights.py || echo "insights sync skipped"
 
       - name: Commit and push
@@ -40,8 +41,8 @@ jobs:
         run: |
           git config user.name "purefxaidev"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add assets/levels.json assets/xau-klines.json assets/quotes.json assets/spdr.json \
-            data/xau-klines.json data/quotes.json data/live.json \
+          git add assets/levels.json assets/xau-klines.json assets/quotes.json assets/spdr.json assets/perf.json \
+            data/xau-klines.json data/quotes.json data/live.json data/perf.json \
             data/events.json data/cot.json data/feargreed.json data/compare.json data/brief.json data/dollar.json \
             share/*.png \
             index.html || true
