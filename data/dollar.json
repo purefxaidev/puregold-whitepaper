@@ -1,13 +1,13 @@
 {
  "timezone": "Asia/Bangkok",
- "updated_at": "2026-11-10T12:07:01Z",
- "updated_at_bkk": "2026-11-10 19:07",
- "updated_th": "10 พ.ย. 2026 19:07 น. (เวลาไทย)",
- "updated_en": "10 Nov 2026 19:07 (Bangkok time)",
+ "updated_at": "2026-11-10T18:55:35Z",
+ "updated_at_bkk": "2026-11-11 01:55",
+ "updated_th": "11 พ.ย. 2026 01:55 น. (เวลาไทย)",
+ "updated_en": "11 Nov 2026 01:55 (Bangkok time)",
  "dxy": {
-  "price": 101.751,
-  "change": 0.101,
-  "change_pct": 0.099,
+  "price": 102.255,
+  "change": 0.605,
+  "change_pct": 0.595,
   "as_of": "2026-11-10",
   "source": "Yahoo Finance DX-Y.NYB (ICE US Dollar Index)",
   "source_url": "https://finance.yahoo.com/quote/DX-Y.NYB",
@@ -370,13 +370,13 @@
    },
    {
     "t": "2026-11-10",
-    "c": 101.751
+    "c": 102.255
    }
   ]
  },
  "corr": {
-  "n20": -0.276,
-  "n60": -0.436,
+  "n20": -0.378,
+  "n60": -0.463,
   "sample_20": 20,
   "sample_60": 60,
   "method_th": "สหสัมพันธ์เพียร์สันของผลตอบแทนรายวัน DXY กับ XAUUSD",
@@ -384,14 +384,14 @@
  },
  "fed": {
   "effr": 3.88,
-  "effr_as_of": "2026-11-06",
+  "effr_as_of": "2026-11-09",
   "target_from": 3.75,
   "target_to": 4.0,
   "effr_source": "Federal Reserve Bank of New York, Effective Federal Funds Rate",
   "effr_source_url": "https://markets.newyorkfed.org/markets/reference-rates/effr",
-  "implied_month_avg": 4.05,
-  "implied_post": 4.1195,
-  "futures_price": 95.95,
+  "implied_month_avg": 4.075,
+  "implied_post": 4.1548,
+  "futures_price": 95.925,
   "futures_symbol": "ZQZ26.CBT",
   "futures_source": "Yahoo Finance 30-day Fed funds futures (ZQZ26.CBT)",
   "futures_source_url": "https://finance.yahoo.com/quote/ZQZ26.CBT",
@@ -406,28 +406,28 @@
   },
   "probs": [
    {
-    "action": "hold",
-    "steps": 0,
-    "target_mid": 3.875,
-    "label_th": "คงอัตรา",
-    "label_en": "Hold",
-    "p": 0.022
-   },
-   {
     "action": "hike_25",
     "steps": 1,
     "target_mid": 4.125,
     "label_th": "ขึ้น 0.25%",
     "label_en": "25 bp hike",
-    "p": 0.978
+    "p": 0.881
+   },
+   {
+    "action": "hike_50",
+    "steps": 2,
+    "target_mid": 4.375,
+    "label_th": "ขึ้น 0.50%",
+    "label_en": "50 bp hike",
+    "p": 0.119
    }
   ],
   "method_th": "ดัชนี DXY จาก Yahoo Finance สัญลักษณ์ DX-Y.NYB ความสัมพันธ์คือสหสัมพันธ์เพียร์สันของผลตอบแทนรายวัน เทียบกับ XAUUSD (แท่ง D1). อัตราดอกเบี้ยนโยบายอ้างอิงจาก Effective Federal Funds Rate และกรอบเป้าหมายของ ธนาคารกลางนิวยอร์ก วันที่ประชุม FOMC จากปฏิทินของคณะกรรมการธนาคารกลางสหรัฐฯ โอกาสขึ้น/ลดดอกเบี้ยประมาณจากราคาฟิวเจอร์ส Fed Funds 30 วัน (Yahoo ZQZ26.CBT) ด้วยวิธีเดียวกับแนวคิดของ CME FedWatch: ราคาฟิวเจอร์ส = 100 − อัตราเฉลี่ยทั้งเดือน แล้วแยกเป็นอัตราก่อนและหลังวันที่มีผล (วันทำการถัดจากวันประกาศ) จากนั้นกระจายความน่าจะเป็นบนขั้นละ 0.25 จุดรอบกลางกรอบเป้าหมายปัจจุบัน นี่เป็นการประมาณจากข้อมูลสาธารณะ ไม่ใช่ตัวเลขทางการของ CME FedWatch",
   "method_en": "DXY is Yahoo Finance DX-Y.NYB. Correlation is Pearson on daily log returns versus XAUUSD daily closes. The effective federal funds rate and target range come from the Federal Reserve Bank of New York. FOMC dates come from the Federal Reserve Board calendar. Odds are inferred from 30-day Fed funds futures (Yahoo ZQZ26.CBT) using the same idea as CME FedWatch: the contract prices the month's average effective rate, which is split into the current rate before the effective date (the business day after the statement) and a post-meeting rate, then allocated across 25 bp steps around the current target midpoint. This is a public-data estimate, not CME's official FedWatch tool."
  },
  "analysis": {
-  "th": "DXY แข็งค่า → กดดันทอง · ความสัมพันธ์ 20 วันกับทองอยู่ที่ -0.28 (ผกผันตามปกติ) · ตลาดให้น้ำหนักขึ้น 0.25% 98% ในการประชุมเฟดครั้งถัดไป → อาจกดดันทอง · ข้อมูลเพื่อการศึกษา ไม่ใช่คำแนะนำการลงทุน",
-  "en": "A firmer DXY is a headwind for gold · 20-day correlation with gold is -0.28 (the usual inverse link) · The funds market puts 98% on a 25 bp hike at the next FOMC, which can weigh on gold · For education only — not investment advice",
+  "th": "DXY แข็งค่า → กดดันทอง · ความสัมพันธ์ 20 วันกับทองอยู่ที่ -0.38 (ผกผันตามปกติ) · ตลาดให้น้ำหนักขึ้น 0.25% 88% ในการประชุมเฟดครั้งถัดไป → อาจกดดันทอง · ข้อมูลเพื่อการศึกษา ไม่ใช่คำแนะนำการลงทุน",
+  "en": "A firmer DXY is a headwind for gold · 20-day correlation with gold is -0.38 (the usual inverse link) · The funds market puts 88% on a 25 bp hike at the next FOMC, which can weigh on gold · For education only — not investment advice",
   "via": "rules"
  },
  "edu_th": "เพื่อการศึกษา ไม่ใช่คำแนะนำการลงทุน",
