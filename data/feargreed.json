@@ -1,20 +1,20 @@
 {
  "source": "PureGold composite (RSI, moving averages, realized volatility, SPDR flows, momentum)",
- "as_of": "2026-11-11",
- "as_of_th": "11 พ.ย. 2026",
- "as_of_en": "11 Nov 2026",
- "updated_at": "2026-11-11T19:38:21Z",
- "updated_at_bkk": "2026-11-12 02:38",
- "score": 41.1,
+ "as_of": "2026-11-12",
+ "as_of_th": "12 พ.ย. 2026",
+ "as_of_en": "12 Nov 2026",
+ "updated_at": "2026-11-12T01:41:21Z",
+ "updated_at_bkk": "2026-11-12 08:41",
+ "score": 42.2,
  "label_th": "กลัว",
  "label_en": "Fear",
  "zone": "fear",
  "components": {
-  "rsi": 42.8,
-  "ma": 13.9,
-  "volatility": 23.7,
+  "rsi": 43.2,
+  "ma": 16.0,
+  "volatility": 24.3,
   "spdr": 95.6,
-  "momentum": 29.3
+  "momentum": 32.0
  },
  "component_labels_th": {
   "rsi": "RSI รายวัน 14 วัน",
@@ -33,10 +33,6 @@
  "formula_th": "ดัชนี 0–100 เท่ากับค่าเฉลี่ยอย่างง่ายขององค์ประกอบที่มีข้อมูลในวันนั้น (น้ำหนักเท่ากัน): 1) RSI รายวัน 14 วัน (ใช้ค่า RSI โดยตรง) 2) ระยะห่างจาก EMA20 และ EMA50 รายวัน โดย ±3% เทียบเท่า 0 หรือ 100 3) ความผันผวนที่เกิดขึ้นจริง 14 วัน เทียบกับ 60 วัน (ความผันผวนสูง = กลัวมากกว่า) 4) การเปลี่ยนแปลงถือครอง SPDR ย้อนหลัง 5 วันทำการ (±5 ตัน เทียบเท่า 0 หรือ 100) 5) โมเมนตัมราคา 5 วัน (±3%) และ 20 วัน (±6%). โซน: 0–24 กลัวสุดขีด, 25–44 กลัว, 45–55 กลาง ๆ, 56–74 โลภ, 75–100 โลภสุดขีด. เป็นดัชนีภายในของ PureGold จากข้อมูลสาธารณะ ไม่ใช่ดัชนี CNN Fear & Greed และไม่ใช่คำแนะนำการลงทุน.",
  "formula_en": "The 0–100 index is a simple average of whichever components are available that day (equal weights): 1) 14-day daily RSI (used as-is); 2) distance from the daily EMA20 and EMA50, with ±3% mapped to 0 or 100; 3) 14-day realized volatility versus the 60-day level (higher vol scores as more fear); 4) the 5-session change in SPDR holdings (±5 tonnes maps to 0 or 100); 5) 5-day (±3%) and 20-day (±6%) price momentum. Zones: 0–24 extreme fear, 25–44 fear, 45–55 neutral, 56–74 greed, 75–100 extreme greed. This is a PureGold composite from public inputs, not the CNN Fear & Greed Index, and not investment advice.",
  "history": [
-  {
-   "date": "2026-05-16",
-   "score": 37.5
-  },
   {
    "date": "2026-05-17",
    "score": 38.7
@@ -559,7 +555,7 @@
   },
   {
    "date": "2026-09-24",
-   "score": 42.0
+   "score": 41.9
   },
   {
    "date": "2026-09-25",
@@ -751,7 +747,11 @@
   },
   {
    "date": "2026-11-11",
-   "score": 41.1
+   "score": 39.2
+  },
+  {
+   "date": "2026-11-12",
+   "score": 42.2
   }
  ]
 }
