@@ -8,15 +8,15 @@
   "title_en": "No clear entry yet",
   "thesis_th": "ระยะจุดตัดขาดทุนยังไม่คุ้มกับเป้าใกล้สุด รอจังหวะรีเทสต์ที่ชัดกว่า",
   "thesis_en": "The nearest target does not yet pay for the stop. Wait for a cleaner retest.",
-  "spot": 3885.62,
-  "entry": 3893.7,
-  "entry_low": 3890.6,
-  "entry_high": 3896.8,
+  "spot": 3890.49,
+  "entry": 3893.4,
+  "entry_low": 3890.3,
+  "entry_high": 3896.5,
   "sl": null,
   "tps": [],
-  "invalidation": 3919.3,
-  "invalidation_th": "ยกเลิกแผนถ้าราคาผ่าน 3,919.3",
-  "invalidation_en": "Cancel if price trades through 3,919.3",
+  "invalidation": 3918.9,
+  "invalidation_th": "ยกเลิกแผนถ้าราคาผ่าน 3,918.9",
+  "invalidation_en": "Cancel if price trades through 3,918.9",
   "trigger_th": "รอ — ยังไม่เข้าโซน · Demand 3,882.8–3,895.1 / Supply 3,947.3–3,958.1",
   "trigger_en": "WAIT — no setup yet · Demand 3,882.8–3,895.1 / Supply 3,947.3–3,958.1",
   "timeframe": "H1–D1",
@@ -27,9 +27,9 @@
   "bias_en": "Tilt down, below the pivot",
   "atr": 12.4,
   "approach": null,
-  "updated": "2026-11-13T21:19:34.989900+07:00",
-  "updated_th": "13 พ.ย. 2026 21:19:34 น. เวลาไทย",
-  "updated_en": "13 Nov 2026 21:19:34 Bangkok",
+  "updated": "2026-11-13T22:30:40.848765+07:00",
+  "updated_th": "13 พ.ย. 2026 22:30:40 น. เวลาไทย",
+  "updated_en": "13 Nov 2026 22:30:40 Bangkok",
   "disclaimer_th": "เพื่อการศึกษา ไม่ใช่คำแนะนำการลงทุน ใช้ SL เสมอ",
   "disclaimer_en": "Education only — not investment advice. Always use a stop loss.",
   "spot_source": "swissquote",
@@ -56,13 +56,13 @@
     "รอราคาเข้า Supply Zone 3,947.3–3,958.1",
     "เมื่อราคาอยู่ในโซนแล้ว จึงพิจารณาเข้า SELL — ไม่ไล่ถ้าราคาพุ่งพ้นโซน",
     "วาง SL ที่ —",
-    "ยังไม่มีเป้าที่คุ้มกับ SL — ถ้าหลุด 3,919.3 ให้เลิกแผน ไม่ต้องเข้า"
+    "ยังไม่มีเป้าที่คุ้มกับ SL — ถ้าหลุด 3,918.9 ให้เลิกแผน ไม่ต้องเข้า"
   ],
   "steps_en": [
     "Wait for price to enter Supply Zone 3,947.3–3,958.1",
     "Only then consider a SELL — do not chase if price has already left the zone",
     "Place the stop loss at —",
-    "There is no target that yet pays for the stop — cancel if price goes through 3,919.3, and do not enter"
+    "There is no target that yet pays for the stop — cancel if price goes through 3,918.9, and do not enter"
   ],
   "confidence": {
     "score": 42,
@@ -76,44 +76,62 @@
   "position": null,
   "reversal": [
     {
-      "price": 3919.3,
-      "label_th": "ยกเลิกแผนถ้าราคาผ่าน 3,919.3",
-      "label_en": "Cancel if price trades through 3,919.3"
+      "price": 3918.9,
+      "label_th": "ยกเลิกแผนถ้าราคาผ่าน 3,918.9",
+      "label_en": "Cancel if price trades through 3,918.9"
     }
   ],
   "guide_disclaimer_th": "เพื่อการศึกษา ไม่ใช่คำแนะนำการลงทุน ใช้ SL เสมอ",
   "guide_disclaimer_en": "Education only — not investment advice. Always use a stop loss. Results are not guaranteed.",
   "h1": {
-    "confirmed": false,
+    "confirmed": true,
     "bar": {
-      "open_ts": 1794574800,
-      "open_iso": "2026-11-13T20:00:00+07:00",
-      "as_of_hm": "20:00",
-      "open": 3886.2,
-      "high": 3904.68,
-      "low": 3874.53,
-      "close": 3881.59,
-      "bullish": false
+      "open_ts": 1794578400,
+      "open_iso": "2026-11-13T21:00:00+07:00",
+      "as_of_hm": "21:00",
+      "open": 3882.59,
+      "high": 3899.32,
+      "low": 3880.72,
+      "close": 3894.61,
+      "bullish": true
     },
-    "note_th": "ยังรอแท่ง H1 ปิดยืนยัน (แท่งล่าสุดที่ปิด 20:00 ปิดที่ 3,881.59)",
-    "note_en": "Waiting for a confirming H1 close (last closed bar 20:00 at 3,881.59)",
+    "note_th": "ราคากลับตัวที่ Demand Zone 3,882.8–3,895.1 นี่คือจุดกลับตัว เปลี่ยนจากลงเป็นขึ้น ให้สัญญาณ BUY",
+    "note_en": "Price reversed at Demand Zone 3,882.8–3,895.1 — this is the reversal point, turning down to up, BUY signal",
     "sideways": {
-      "active": false,
-      "low": 3874.5,
-      "high": 3907.2,
+      "active": true,
+      "low": 3874.2,
+      "high": 3906.9,
       "bars": 8,
+      "rule_th": "กราฟไซด์เวย์ ราคาระหว่าง 3,874.2–3,906.9 ไม่มีทิศชัด แนะนำรอดูแท่ง H1 ปิดออกจากช่วงก่อนเข้า",
+      "rule_en": "Sideways: price is between 3,874.2–3,906.9 with no clear direction. Wait for a closed H1 bar to leave this range before entering.",
+      "note_th": "กราฟไซด์เวย์ ราคาระหว่าง 3,874.2–3,906.9 ไม่มีทิศชัด แนะนำรอดูแท่ง H1 ปิดออกจากช่วงก่อนเข้า",
+      "note_en": "Sideways: price is between 3,874.2–3,906.9 with no clear direction. Wait for a closed H1 bar to leave this range before entering.",
+      "displacement": 3.6,
+      "atr": 15.5,
+      "width": 32.7,
       "breakout": {
         "confirmed": false,
         "direction": "",
+        "low": 3874.2,
+        "high": 3906.9,
         "note_th": "",
         "note_en": ""
-      },
-      "eval_th": "ช่วง 3,874.5–3,907.2 ยังไม่เข้าเงื่อนไขไซด์เวย์"
+      }
     },
-    "reversal": null,
+    "reversal": {
+      "confirmed": true,
+      "zone": "demand",
+      "low": 3882.8,
+      "high": 3895.1,
+      "side": "buy",
+      "note_th": "ราคากลับตัวที่ Demand Zone 3,882.8–3,895.1 นี่คือจุดกลับตัว เปลี่ยนจากลงเป็นขึ้น ให้สัญญาณ BUY",
+      "note_en": "Price reversed at Demand Zone 3,882.8–3,895.1 — this is the reversal point, turning down to up, BUY signal"
+    },
     "breakout": {
       "confirmed": false,
       "direction": "",
+      "low": 3874.2,
+      "high": 3906.9,
       "note_th": "",
       "note_en": ""
     },
@@ -129,11 +147,11 @@
   },
   "suppress_entry": false,
   "alert": {
-    "stance": "รอ",
-    "stance_en": "waiting",
-    "kind": "wait",
-    "reason_th": "ยังรอแท่ง H1 ปิดยืนยันที่ Demand Zone 3,882.8–3,895.1",
-    "reason_en": "waiting for a confirming H1 close at Demand Zone 3,882.8–3,895.1",
+    "stance": "BUY",
+    "stance_en": "BUY",
+    "kind": "reversal",
+    "reason_th": "ราคากลับตัวที่ Demand Zone 3,882.8–3,895.1 นี่คือจุดกลับตัว เปลี่ยนจากลงเป็นขึ้น ให้สัญญาณ BUY",
+    "reason_en": "Price reversed at Demand Zone 3,882.8–3,895.1 — this is the reversal point, turning down to up, BUY signal",
     "lead_rule_th": "ราคาล่าสุด $X · ตอนนี้ BUY/SELL/รอ เพราะ…",
     "lead_rule_en": "Latest price $X · now BUY/SELL/waiting because …",
     "sideways_rule_th": "กราฟไซด์เวย์ ราคาระหว่าง A–B ไม่มีทิศชัด แนะนำรอดูแท่ง H1 ปิดออกจากช่วงก่อนเข้า",
