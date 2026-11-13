@@ -1,27 +1,31 @@
 {
   "name": "PUREGOLD",
-  "version": "0.9.10",
-  "versionCode": 23,
+  "version": "0.9.11",
+  "versionCode": 24,
   "apk": "https://gold.purefxai.store/downloads/PUREGOLD.apk",
-  "sha256": "61874e547fe5ed880081312e98e5f6c8d40bc2984b4d5ee13973f8fc5a490bec",
+  "sha256": "4abb43e08a0782f5fa3355823264a81baff94e9d7e9e3d52ef66c5f44a152e95",
   "released": "2026-11-13",
   "released_th": "13 พ.ย. 2026",
   "notes": {
     "th": [
-      "แผนเทรดติดป้ายโซนซื้อ · BUY (เขียว) โซนขาย · SELL (แดง) หรือ รอ · WAIT เมื่อยังไม่มีจุดเข้า",
-      "หน้า Home แสดงราคารับซื้อและขายออกของทองคำแท่ง 96.5% และทองรูปพรรณ จากประกาศราคาทองไทย พร้อมเวลาอัปเดต"
+      "แผนเทรดแสดง Demand Zone และ Supply Zone เป็นช่วงราคา และบอกว่าสัญญาณ BUY หรือ SELL มาจากโซนไหน",
+      "มีขั้นตอนเป็นข้อ ๆ อธิบายแบบเข้าใจง่าย ความมั่นใจ และตัวอย่างขนาดล็อตตามเงินทุนความเสี่ยง 1–2%",
+      "บล็อก «AI กำลังทำอะไรอยู่» อัปเดตตามราคาสด บอกขั้นถัดไปกับเวลาเช็กล่าสุด และแจ้งเตือนเมื่อสถานะเปลี่ยน"
     ],
     "en": [
-      "The trade plan labels the entry as Buy zone · BUY (green), Sell zone · SELL (red), or Wait · WAIT when there is no setup",
-      "Home shows buy-back and sell prices for 96.5% gold bar and jewelry from the Thai gold announcement, with the update time"
+      "The trade plan now shows Demand and Supply zones as price ranges, and which zone triggered a BUY or SELL",
+      "Numbered beginner steps, a confidence reading, and an example lot-size table at 1–2% of capital",
+      "A live “What the AI is doing” status follows the price, with the next step, last-check time, and alerts when that state changes"
     ],
     "zh": [
-      "交易计划将入场区标为买入 BUY（绿）、卖出 SELL（红），无机会则为等待 WAIT",
-      "首页显示泰国金 96.5% 金条与饰金的回收价与卖出价，并标明更新时间"
+      "交易计划现显示需求区与供给区的价格区间，并标明 BUY 或 SELL 来自哪一区",
+      "用分步说明、信心水平，以及按资金 1–2% 风险计算的示例手数",
+      "「AI 正在做什么」会随实时价格更新，并给出下一步、最近检查时间，以及状态变化时的提醒"
     ],
     "ja": [
-      "トレードプランのエントリーを「買いゾーン · BUY」（緑）「売りゾーン · SELL」（赤）、セットアップがなければ「待ち · WAIT」と表示",
-      "ホームにタイの金（96.5% バーとジュエリー）の買い取り・売値と更新時刻を表示"
+      "トレードプランに Demand Zone と Supply Zone の価格帯を表示し、BUY / SELL がどのゾーンから出たかを示す",
+      "初心者向けの手順、信頼度、資金の 1–2% リスクで見たロット例を追加",
+      "「AI が今していること」をライブ価格に合わせて更新し、次の一歩・最終確認時刻と、状態が変わったときの通知を出す"
     ]
   }
 }

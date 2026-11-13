@@ -1397,36 +1397,170 @@
     if (s === "sell") return th ? "โซนขาย · SELL" : "Sell zone · SELL";
     return th ? "รอ · WAIT" : "Wait · WAIT";
   }
-    function drawPlanStrip(ctx, x, y, w, h, plan, lang, livePx) {
+    function fmtPlanRange(z) {
+    if (!z || z.low == null || z.high == null) return "—";
+    const a = Number(z.low), b = Number(z.high);
+    if (!Number.isFinite(a) || !Number.isFinite(b)) return "—";
+    const f = n => n.toLocaleString("en-US", { minimumFractionDigits: 1, maximumFractionDigits: 1 });
+    return f(Math.min(a, b)) + "–" + f(Math.max(a, b));
+  }
+  function aiActivity(plan, px) {
+    const hm = new Date().toLocaleTimeString("th-TH", { timeZone: "Asia/Bangkok", hour: "2-digit", minute: "2-digit", hour12: false });
+    const empty = { id: "scan", th: "กำลังสแกนโครงสร้าง H1/H4", en: "Scanning H1/H4 structure", next_th: "รอโครงสร้างหรือโซนที่ชัดขึ้น", next_en: "Waiting for a clearer structure or zone", checked_hm: hm };
+    if (!plan) return empty;
+    const st = planStatus(plan, px);
+    const live = Number(px);
+    const side = plan.side || "wait";
+    const lo = Number(plan.entry_low != null ? plan.entry_low : plan.entry);
+    const hi = Number(plan.entry_high != null ? plan.entry_high : plan.entry);
+    const sl = Number(plan.sl);
+    const tp1 = plan.tps && plan.tps[0] ? Number(plan.tps[0].price) : NaN;
+    const trig = plan.trigger_zone;
+    const demand = plan.demand_zone, supply = plan.supply_zone;
+    const watchZ = trig === "demand" ? demand : trig === "supply" ? supply : (Number.isFinite(lo) && Number.isFinite(hi) ? { low: Math.min(lo, hi), high: Math.max(lo, hi) } : null);
+    const watchName = trig === "demand" ? "Demand Zone" : trig === "supply" ? "Supply Zone" : "โซนเข้า";
+    const watchNameEn = trig === "demand" ? "Demand Zone" : trig === "supply" ? "Supply Zone" : "the entry zone";
+    const mid = watchZ ? (Number(watchZ.low) + Number(watchZ.high)) / 2 : NaN;
+    const gap = Number.isFinite(live) && Number.isFinite(mid) ? Math.abs(live - mid) : null;
+    const inWatch = watchZ && Number.isFinite(live) && live >= Number(watchZ.low) && live <= Number(watchZ.high);
+    const act = side === "buy" ? "BUY" : side === "sell" ? "SELL" : "WAIT";
+    const fmtN = n => Number(n).toLocaleString("en-US", { minimumFractionDigits: 1, maximumFractionDigits: 1 });
+    if (st.id === "sl" || st.id === "cancelled") {
+      const whyTh = st.id === "sl" ? ("โดน SL ที่ " + fmtN(sl)) : (plan.invalidation_th || st.th);
+      const whyEn = st.id === "sl" ? ("the stop was hit at " + fmtN(sl)) : (plan.invalidation_en || st.en);
+      return { id: st.id, th: "แผนยกเลิกเพราะ" + whyTh, en: "Plan cancelled because " + whyEn, next_th: "รอแผนใหม่จากโครงสร้างล่าสุด", next_en: "Wait for a new plan from the latest structure", checked_hm: hm };
+    }
+    if (st.id === "tp1") {
+      const n2 = plan.tps && plan.tps[1] ? fmtN(plan.tps[1].price) : null;
+      return { id: "manage", th: "TP1 ถึงแล้ว เลื่อน SL มาจุดเข้า", en: "TP1 reached — move the stop to entry", next_th: n2 ? ("ถือส่วนที่เหลือไป TP2 " + n2) : "จัดการออเดอร์ที่เหลือตามแผน", next_en: n2 ? ("Hold the remainder toward TP2 " + n2) : "Manage the remaining position as planned", checked_hm: hm };
+    }
+    if (st.id === "in") {
+      const traveledOk = (() => {
+        if (!inWatch || !Number.isFinite(tp1) || !Number.isFinite(mid)) return true;
+        const traveled = side === "sell" ? (mid - live) : (live - mid);
+        const path = side === "sell" ? (mid - tp1) : (tp1 - mid);
+        return !(path > 0 && traveled < 0.25 * path);
+      })();
+      if (!traveledOk) {
+        return { id: "confirm", th: "รอแท่ง H1 ปิดยืนยัน", en: "Waiting for the H1 candle to close as confirmation", next_th: "ถ้าแท่งชั่วโมงปิดในโซน จึงพิจารณาเข้า " + act, next_en: "If the hourly candle closes in the zone, then consider " + act, checked_hm: hm };
+      }
+      const toTp = Number.isFinite(tp1) ? fmtN(Math.abs(live - tp1)) : "—";
+      const toSl = Number.isFinite(sl) ? fmtN(Math.abs(live - sl)) : "—";
+      return { id: "in", th: "สัญญาณ " + act + " ทำงานแล้ว ถืออยู่ ห่าง TP1 " + toTp + " จุด / SL " + toSl + " จุด", en: act + " is active — " + toTp + " pts to TP1 / " + toSl + " pts to the stop", next_th: "ถ้าถึง TP1 ให้ปิดบางส่วนแล้วเลื่อน SL มาจุดเข้า", next_en: "If TP1 is reached, close a portion and move the stop to entry", checked_hm: hm };
+    }
+    if (watchZ && Number.isFinite(gap)) {
+      return { id: "watch", th: "เฝ้าราคาเข้า " + watchName + " " + fmtPlanRange(watchZ) + " (ห่าง " + fmtN(gap) + " จุด)", en: "Watching for " + watchNameEn + " " + fmtPlanRange(watchZ) + " (" + fmtN(gap) + " pts away)", next_th: "รอราคาเข้าโซน แล้วค่อยพิจารณา " + (act === "WAIT" ? "ตามสัญญาณ" : act), next_en: "Wait for price to enter the zone, then consider " + (act === "WAIT" ? "the signal" : act), checked_hm: hm };
+    }
+    return empty;
+  }
+  function planGuideHtml(plan, px, lang, esc, opts) {
+    if (!plan) return "";
+    esc = esc || (s => String(s == null ? "" : s).replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;"));
+    const th = lang !== "en";
+    const compact = opts && opts.compact;
+    const demand = plan.demand_zone, supply = plan.supply_zone;
+    const act = aiActivity(plan, px);
+    const conf = plan.confidence || {};
+    const why = th ? (plan.why_th || plan.thesis_th || "") : (plan.why_en || plan.thesis_en || "");
+    const trigger = th ? (plan.trigger_th || "") : (plan.trigger_en || "");
+    const steps = (th ? plan.steps_th : plan.steps_en) || [];
+    const pos = plan.position;
+    const revs = plan.reversal || [];
+    const aiBox = `<div class="tp-ai" data-ai="${esc(act.id)}">
+      <div class="tp-ai-k">${th ? "AI กำลังทำอะไรอยู่" : "What the AI is doing"}</div>
+      <div class="tp-ai-v">${esc(th ? act.th : act.en)}</div>
+      <div class="tp-ai-next">${th ? "ขั้นถัดไป" : "Next"}: ${esc(th ? act.next_th : act.next_en)} · ${th ? "เช็กล่าสุด" : "Last check"} ${esc(act.checked_hm)}</div>
+    </div>`;
+    const zones = `<div class="tp-ds">
+      <div class="tp-ds-item demand"><span class="k">Demand Zone</span><span class="v">${esc(fmtPlanRange(demand))}</span>${demand && demand.source_th ? `<small>${esc(th ? demand.source_th : (demand.source_en || ""))}</small>` : ""}</div>
+      <div class="tp-ds-item supply"><span class="k">Supply Zone</span><span class="v">${esc(fmtPlanRange(supply))}</span>${supply && supply.source_th ? `<small>${esc(th ? supply.source_th : (supply.source_en || ""))}</small>` : ""}</div>
+    </div>`;
+    if (compact) {
+      return zones + (trigger ? `<p class="tp-trigger">${esc(trigger)}</p>` : "") + aiBox + (conf.text_th ? `<p class="tp-conf">${th ? "ความมั่นใจ" : "Confidence"} ${esc(th ? conf.text_th : conf.text_en)}</p>` : "");
+    }
+    const stepOl = steps.length ? `<ol class="tp-steps">${steps.map(s => `<li>${esc(s)}</li>`).join("")}</ol>` : "";
+    let lots = "";
+    if (pos && Array.isArray(pos.rows) && pos.rows.length && plan.sl != null) {
+      const rows = pos.rows.filter(r => r.risk_pct === 1 || r.risk_pct === 2);
+      lots = `<table class="tp-lots"><caption>${th ? "ตัวอย่างขนาดล็อต (ความเสี่ยง 1–2%)" : "Example lot size (1–2% risk)"}</caption>
+        <thead><tr><th>${th ? "ทุน (บาท)" : "Capital (THB)"}</th><th>1%</th><th>2%</th></tr></thead><tbody>` +
+        [10000, 50000, 100000].map(cap => {
+          const a = rows.find(r => r.capital_thb === cap && r.risk_pct === 1);
+          const b = rows.find(r => r.capital_thb === cap && r.risk_pct === 2);
+          const f = r => r && r.lots != null ? String(r.lots) : "—";
+          return `<tr><td>${cap.toLocaleString("en-US")}</td><td>${f(a)}</td><td>${f(b)}</td></tr>`;
+        }).join("") + `</tbody></table>` +
+        (pos.note_th ? `<p class="tp-lots-note">${esc(th ? pos.note_th : pos.note_en)}</p>` : "");
+    }
+    const rev = revs.length ? `<div class="tp-rev"><span class="k">${th ? "จุดกลับตัว" : "Reversal"}</span>${revs.map(r => `<div>${esc(th ? r.label_th : r.label_en)}</div>`).join("")}</div>` : "";
+    const confLine = conf.text_th ? `<p class="tp-conf">${th ? "ความมั่นใจ" : "Confidence"} ${esc(th ? conf.text_th : conf.text_en)}${conf.note_th ? ` — <small>${esc(th ? conf.note_th : conf.note_en)}</small>` : ""}</p>` : "";
+    return zones +
+      (trigger ? `<p class="tp-trigger">${esc(trigger)}</p>` : "") +
+      (why ? `<p class="tp-why">${esc(why)}</p>` : "") +
+      aiBox + stepOl + lots + rev + confLine;
+  }
+  function formatPlanAlert(plan, px, lang) {
+    const th = lang !== "en";
+    const act = aiActivity(plan, px);
+    const st = planStatus(plan, px);
+    const lines = [];
+    lines.push(th ? (plan.trigger_th || entryZoneLabel(plan.side, "th")) : (plan.trigger_en || entryZoneLabel(plan.side, "en")));
+    lines.push((th ? "Demand Zone " : "Demand Zone ") + fmtPlanRange(plan.demand_zone));
+    lines.push((th ? "Supply Zone " : "Supply Zone ") + fmtPlanRange(plan.supply_zone));
+    if (plan.entry_low != null) lines.push((th ? "เข้า " : "Entry ") + fmtPlanRange({ low: plan.entry_low, high: plan.entry_high }));
+    else if (plan.entry != null) lines.push((th ? "เข้า " : "Entry ") + Number(plan.entry).toFixed(1));
+    if (plan.sl != null) lines.push("SL " + Number(plan.sl).toFixed(1));
+    (plan.tps || []).forEach(tp => lines.push("TP" + tp.n + " " + Number(tp.price).toFixed(1) + (tp.rr != null ? " (" + tp.rr + "R)" : "")));
+    (plan.reversal || []).slice(0, 2).forEach(r => lines.push(th ? r.label_th : r.label_en));
+    if (plan.confidence) lines.push((th ? "ความมั่นใจ " : "Confidence ") + (th ? plan.confidence.text_th : plan.confidence.text_en));
+    lines.push((th ? act.th : act.en) + " · " + (th ? "เช็กล่าสุด " : "Last check ") + act.checked_hm);
+    const full = lines.filter(Boolean).join("\n");
+    const short = (th ? act.th : act.en) + (plan.trigger_th ? " · " + (th ? plan.trigger_th : plan.trigger_en) : "") + (Number.isFinite(Number(px)) ? " · $" + Number(px).toFixed(1) : "");
+    return { full, short, activityId: act.id, statusId: st.id };
+  }
+
+  function drawPlanStrip(ctx, x, y, w, h, plan, lang, livePx) {
     if (!plan || h < 32 || w < 200) return 0;
     glassPanel(ctx, x, y, w, h, 12);
     const st = planStatus(plan, livePx != null ? livePx : plan.spot);
+    const act = aiActivity(plan, livePx != null ? livePx : plan.spot);
     const side = plan.side || "wait";
     const col = side === "buy" ? UP : side === "sell" ? DN : GOLD;
-    const stCol = st.id === "sl" || st.id === "cancelled" ? DN : st.id === "tp1" || st.id === "in" ? UP : GOLD;
     const pad = 10;
-    const mid = y + h / 2;
+    const two = h >= 52;
     ctx.textBaseline = "middle";
     const badge = entryZoneLabel(side, lang);
     ctx.font = `800 12px ${FONT}`;
     const bw = Math.min(170, Math.max(88, ctx.measureText(badge).width + 16));
+    const badgeY = two ? y + 8 : y + 8;
+    const badgeH = two ? 20 : h - 16;
     ctx.fillStyle = col + "24";
     ctx.strokeStyle = col;
     ctx.lineWidth = 1.2;
-    rr(ctx, x + pad, y + 8, bw, h - 16, 8); ctx.fill(); ctx.stroke();
+    rr(ctx, x + pad, badgeY, bw, badgeH, 8); ctx.fill(); ctx.stroke();
     ctx.fillStyle = col;
-    fillFit(ctx, badge, x + pad + 8, mid, bw - 14);
+    fillFit(ctx, badge, x + pad + 8, badgeY + badgeH / 2, bw - 14);
     const bits = [];
     bits.push(lang === "en" ? "Trade plan" : "แผนเทรด");
     const zone = entryZoneLabel(side, lang);
     if (plan.entry_low != null && plan.entry_high != null) bits.push(zone + " " + fmt(plan.entry_low, 1) + "–" + fmt(plan.entry_high, 1));
     else if (plan.entry != null) bits.push(zone + " " + fmt(plan.entry, 1));
     if (plan.sl != null) bits.push("SL " + fmt(plan.sl, 1));
-    (plan.tps || []).forEach(tp => bits.push("TP" + tp.n + " " + fmt(tp.price, 1) + (tp.rr != null ? (" " + tp.rr + "R") : "")));
+    (plan.tps || []).slice(0, 3).forEach(tp => bits.push("TP" + tp.n + " " + fmt(tp.price, 1)));
     bits.push(lang === "en" ? st.en : st.th);
     ctx.fillStyle = TX;
     ctx.font = `600 12px ${FONT}`;
-    fillFit(ctx, bits.join("   ·   "), x + pad + bw + 10, mid, w - pad * 2 - bw - 10);
+    const line1Y = two ? y + 18 : y + h / 2;
+    fillFit(ctx, bits.join("   ·   "), x + pad + bw + 10, line1Y, w - pad * 2 - bw - 10);
+    if (two) {
+      const zbits = [];
+      if (plan.demand_zone) zbits.push("Demand " + fmtPlanRange(plan.demand_zone));
+      if (plan.supply_zone) zbits.push("Supply " + fmtPlanRange(plan.supply_zone));
+      zbits.push((lang === "en" ? act.en : act.th) + " · " + act.checked_hm);
+      ctx.fillStyle = MUTED;
+      ctx.font = `500 11px ${FONT}`;
+      fillFit(ctx, zbits.join("   ·   "), x + pad, y + h - 14, w - pad * 2);
+    }
     ctx.textBaseline = "alphabetic";
     return h;
   }
@@ -1434,58 +1568,131 @@
   function drawPlanPanel(ctx, x, y, w, h, plan, lang, livePx) {
     if (!plan || h < 120 || w < 240) return 0;
     glassPanel(ctx, x, y, w, h, 16);
-    const st = planStatus(plan, livePx != null ? livePx : plan.spot);
+    const live = livePx != null ? livePx : plan.spot;
+    const st = planStatus(plan, live);
+    const act = aiActivity(plan, live);
     const side = plan.side || "wait";
     const col = side === "buy" ? UP : side === "sell" ? DN : GOLD;
     const pad = 16;
+    const innerW = w - pad * 2;
     ctx.textBaseline = "middle";
     ctx.fillStyle = GOLD;
     ctx.font = `700 12px ${FONT}`;
-    fillFit(ctx, lang === "en" ? "Trade plan" : "แผนเทรด", x + pad, y + 18, w * 0.45);
+    fillFit(ctx, lang === "en" ? "Trade plan" : "แผนเทรด", x + pad, y + 18, w * 0.42);
     const badge = entryZoneLabel(side, lang);
     const stLab = lang === "en" ? st.en : st.th;
     ctx.font = `800 13px ${FONT}`;
-    const bw = ctx.measureText(badge).width + 16;
-    const sw = ctx.measureText(stLab).width + 16;
+    const bw = Math.min(200, ctx.measureText(badge).width + 16);
+    const sw = Math.min(140, ctx.measureText(stLab).width + 16);
     ctx.fillStyle = col + "24"; ctx.strokeStyle = col; ctx.lineWidth = 1.2;
     rr(ctx, x + w - pad - bw - sw - 8, y + 8, bw, 22, 8); ctx.fill(); ctx.stroke();
     ctx.fillStyle = col;
     fillFit(ctx, badge, x + w - pad - bw - sw, y + 19, bw - 12);
-    const stCol = st.id === "sl" || st.id === "cancelled" ? DN : st.id === "tp1" ? UP : GOLD;
+    const stCol = st.id === "sl" || st.id === "cancelled" ? DN : (st.id === "tp1" || st.id === "in" || act.id === "manage") ? UP : GOLD;
     ctx.fillStyle = stCol + "24"; ctx.strokeStyle = stCol;
     rr(ctx, x + w - pad - sw, y + 8, sw, 22, 8); ctx.fill(); ctx.stroke();
     ctx.fillStyle = stCol;
     fillFit(ctx, stLab, x + w - pad - sw + 8, y + 19, sw - 12);
 
-    ctx.fillStyle = TX;
-    ctx.font = `600 13px ${FONT}`;
-    fillFit(ctx, (lang === "en" ? (plan.thesis_en || plan.title_en) : (plan.thesis_th || plan.title_th)) || "", x + pad, y + 44, w - pad * 2);
+    let cy = y + 40;
+    const limit = y + h - 20;
+    const trigger = lang === "en" ? (plan.trigger_en || "") : (plan.trigger_th || "");
+    if (trigger && cy + 16 < limit) {
+      ctx.fillStyle = col;
+      ctx.font = `700 13px ${FONT}`;
+      fillFit(ctx, trigger, x + pad, cy, innerW);
+      cy += 18;
+    }
+    const why = lang === "en" ? (plan.why_en || plan.thesis_en || "") : (plan.why_th || plan.thesis_th || "");
+    if (why && cy + 16 < limit) {
+      ctx.fillStyle = TX;
+      ctx.font = `600 12px ${FONT}`;
+      fillFit(ctx, why, x + pad, cy, innerW);
+      cy += 18;
+    }
+    if ((plan.demand_zone || plan.supply_zone) && cy + 32 < limit) {
+      const hw = (innerW - 12) / 2;
+      const drawZ = (zx, label, zone, color) => {
+        ctx.fillStyle = color;
+        ctx.font = `700 10px ${FONT}`;
+        fillFit(ctx, label, zx, cy, hw);
+        ctx.fillStyle = TX;
+        ctx.font = `800 15px ${MONO}`;
+        fillFit(ctx, fmtPlanRange(zone), zx, cy + 16, hw);
+      };
+      drawZ(x + pad, "Demand Zone", plan.demand_zone, UP);
+      drawZ(x + pad + hw + 12, "Supply Zone", plan.supply_zone, DN);
+      cy += 36;
+    }
+
+    const aiH = 52;
+    if (cy + aiH < limit) {
+      ctx.fillStyle = "rgba(201,169,98,0.10)";
+      ctx.strokeStyle = "rgba(201,169,98,0.45)";
+      ctx.lineWidth = 1;
+      rr(ctx, x + pad, cy, innerW, aiH, 10); ctx.fill(); ctx.stroke();
+      ctx.fillStyle = GOLD;
+      ctx.font = `700 10px ${FONT}`;
+      fillFit(ctx, lang === "en" ? "What the AI is doing" : "AI กำลังทำอะไรอยู่", x + pad + 10, cy + 11, innerW - 20);
+      ctx.fillStyle = TX;
+      ctx.font = `700 13px ${FONT}`;
+      fillFit(ctx, lang === "en" ? act.en : act.th, x + pad + 10, cy + 27, innerW - 20);
+      ctx.fillStyle = MUTED;
+      ctx.font = `500 11px ${FONT}`;
+      fillFit(ctx, (lang === "en" ? "Next: " : "ขั้นถัดไป: ") + (lang === "en" ? act.next_en : act.next_th) + "  ·  " + act.checked_hm, x + pad + 10, cy + 42, innerW - 20);
+      cy += aiH + 6;
+    }
 
     const rows = [];
     if (plan.entry_low != null) rows.push([entryZoneLabel(side, lang), fmt(plan.entry_low, 1) + " – " + fmt(plan.entry_high, 1)]);
     else if (plan.entry != null) rows.push([entryZoneLabel(side, lang), fmt(plan.entry, 1)]);
     if (plan.sl != null) rows.push(["SL", fmt(plan.sl, 1)]);
-    (plan.tps || []).forEach(tp => rows.push(["TP" + tp.n + (tp.label ? " " + (lang === "en" ? (tp.label_en || tp.label) : tp.label) : ""), fmt(tp.price, 1) + (tp.rr != null ? "  ·  " + tp.rr + "R" : "")]));
-    const inv = lang === "en" ? plan.invalidation_en : plan.invalidation_th;
-    const gridTop = y + 58;
-    const gridH = h - 88;
-    const cols = 2;
-    const cw = (w - pad * 2 - 10) / cols;
-    const rh = Math.max(28, Math.min(40, gridH / Math.ceil((rows.length + 1) / cols)));
-    rows.forEach((r, i) => {
-      const c = i % cols, row = Math.floor(i / cols);
-      const rx = x + pad + c * (cw + 10), ry = gridTop + row * rh;
+    (plan.tps || []).forEach(tp => rows.push(["TP" + tp.n, fmt(tp.price, 1) + (tp.rr != null ? "  ·  " + tp.rr + "R" : "")]));
+    const rowCount = Math.ceil(rows.length / 2);
+    const rowH = 32;
+    if (rows.length && cy + rowH < limit) {
+      const cols = 2;
+      const cw = (innerW - 10) / cols;
+      rows.forEach((r, i) => {
+        const c = i % cols, row = Math.floor(i / cols);
+        const ry = cy + row * rowH;
+        if (ry + 26 > limit) return;
+        const rx = x + pad + c * (cw + 10);
+        ctx.fillStyle = MUTED;
+        ctx.font = `600 11px ${FONT}`;
+        fillFit(ctx, r[0], rx, ry + 6, cw);
+        ctx.fillStyle = TX;
+        ctx.font = `800 15px ${MONO}`;
+        fillFit(ctx, r[1], rx, ry + 22, cw);
+      });
+      cy += rowCount * rowH + 4;
+    }
+
+    const steps = (lang === "en" ? plan.steps_en : plan.steps_th) || [];
+    if (steps.length && cy + 16 < limit) {
+      ctx.fillStyle = TX;
+      ctx.font = `600 11px ${FONT}`;
+      for (let i = 0; i < steps.length; i++) {
+        if (cy + 14 > limit) break;
+        fillFit(ctx, (i + 1) + ". " + steps[i], x + pad, cy, innerW);
+        cy += 15;
+      }
+      cy += 2;
+    }
+
+    if (plan.confidence && cy + 14 < limit) {
       ctx.fillStyle = MUTED;
       ctx.font = `600 11px ${FONT}`;
-      fillFit(ctx, r[0], rx, ry + 8, cw);
-      ctx.fillStyle = TX;
-      ctx.font = `800 16px ${MONO}`;
-      fillFit(ctx, r[1], rx, ry + 24, cw);
-    });
+      const conf = lang === "en" ? plan.confidence.text_en : plan.confidence.text_th;
+      fillFit(ctx, (lang === "en" ? "Confidence " : "ความมั่นใจ ") + (conf || ""), x + pad, cy, innerW);
+      cy += 16;
+    }
+
     ctx.fillStyle = MUTED;
     ctx.font = `500 11px ${FONT}`;
-    const foot = [inv, lang === "en" ? (plan.timeframe_en || plan.timeframe) : (plan.timeframe_th || plan.timeframe), lang === "en" ? plan.disclaimer_en : plan.disclaimer_th].filter(Boolean).join("  ·  ");
-    fillFit(ctx, foot, x + pad, y + h - 14, w - pad * 2);
+    const inv = lang === "en" ? plan.invalidation_en : plan.invalidation_th;
+    const foot = [inv, lang === "en" ? (plan.timeframe_en || plan.timeframe) : (plan.timeframe_th || plan.timeframe), lang === "en" ? (plan.guide_disclaimer_en || plan.disclaimer_en) : (plan.guide_disclaimer_th || plan.disclaimer_th)].filter(Boolean).join("  ·  ");
+    fillFit(ctx, foot, x + pad, y + h - 12, innerW);
     ctx.textBaseline = "alphabetic";
     return h;
   }
@@ -1522,7 +1729,7 @@
       const perfH = drawPerfRow(ctx, box.left, capY + 4, box.right - box.left, p.perf, lang);
       if (perfH) capY += perfH;
       const thaiH = p.thai ? 128 : 0;
-      const planH = p.plan ? 210 : 0;
+      const planH = p.plan ? 320 : 0;
       const srH = 132;
       let y = capY + 8;
       if (planH) { drawPlanPanel(ctx, box.left, y, box.right - box.left, planH, p.plan, lang, num(p.price)); y += planH + 12; }
@@ -1535,7 +1742,7 @@
       if (thaiH) drawThaiPanel(ctx, box.left, box.bottom - thaiH, box.right - box.left, thaiH, p.thai, lang);
     } else {
       const bandH = p.thai ? 128 : 118;
-      const planH = p.plan ? 40 : 0;
+      const planH = p.plan ? 58 : 0;
       const bandY = box.bottom - bandH;
       const planY = bandY - (planH ? planH + 10 : 0);
       const contentBottom = (planH ? planY : bandY) - 10;
@@ -1815,8 +2022,8 @@
     }
     const top = box.top + (portrait ? 84 : 66);
     if (portrait) {
-      drawPlanPanel(ctx, box.left, top, box.right - box.left, 260, p.plan || p, lang, num(p.price));
-      const cy = top + 272;
+      drawPlanPanel(ctx, box.left, top, box.right - box.left, 420, p.plan || p, lang, num(p.price));
+      const cy = top + 432;
       drawCandleChart(ctx, p.bars || p.barsH1, box.left, cy, box.right - box.left, box.bottom - cy, {
         support: p.support, resistance: p.resistance, last: num(p.price),
         caption: lang === "en" ? "Intraday with plan levels" : "ระหว่างวันกับจุดเข้า–จุดออก"
@@ -2324,7 +2531,7 @@
   global.ShareCard = {
     SIZES, SITE, SITE_URL, VERSION, render, blobsFor, download, share, mount, buttonsHtml, toast,
     forecastTarget, fmtBkk, fmt, chg, closeSheet, loadMarket, attachMarket, enrich,
-    loadThaiGold, loadPivots, loadDollar, staticPngUrl, fetchLiveSpot, refreshLivePayload, fmtBkk, planStatus,
+    loadThaiGold, loadPivots, loadDollar, staticPngUrl, fetchLiveSpot, refreshLivePayload, fmtBkk, planStatus, entryZoneLabel, fmtPlanRange, aiActivity, planGuideHtml, formatPlanAlert,
     async ready() {
       ensureFonts();
       try { await preloadBrand(); } catch (_) {}

@@ -370,6 +370,379 @@ def make_plan(levels, spot, atr, data=None):
                      "The nearest target does not yet pay for the stop. Wait for a cleaner retest.")
 
 
+
+def _rng(lo, hi, d=1):
+    lo, hi = r1(lo, d), r1(hi, d)
+    if lo is None or hi is None:
+        return None
+    if lo > hi:
+        lo, hi = hi, lo
+    return {"low": lo, "high": hi}
+
+
+def _fmt_rng(z):
+    if not z or z.get("low") is None or z.get("high") is None:
+        return "—"
+    return f"{z['low']:,.1f}–{z['high']:,.1f}"
+
+
+def _mid(z):
+    if not z:
+        return None
+    return (float(z["low"]) + float(z["high"])) / 2.0
+
+
+def _from_ob(obs, typ, spot):
+    cands = [o for o in (obs or []) if o.get("type") == typ and o.get("top") is not None and o.get("bottom") is not None]
+    live = [o for o in cands if not o.get("mitigated")]
+    pool = live or cands
+    if not pool:
+        return None
+    def mid(o):
+        return (float(o["top"]) + float(o["bottom"])) / 2.0
+    if typ == "bullish":
+        below = [o for o in pool if mid(o) <= spot + 8]
+        o = max(below or pool, key=mid)
+        src_th, src_en = "ออเดอร์บล็อกฝั่งซื้อ", "bullish order block"
+    else:
+        above = [o for o in pool if mid(o) >= spot - 8]
+        o = min(above or pool, key=mid)
+        src_th, src_en = "ออเดอร์บล็อกฝั่งขาย", "bearish order block"
+    z = _rng(o["bottom"], o["top"])
+    if not z or z["high"] - z["low"] < 0.5:
+        return None
+    z["source"] = "order_block"
+    z["source_th"], z["source_en"] = src_th, src_en
+    z["mitigated"] = bool(o.get("mitigated"))
+    return z
+
+
+def _from_fvg(fvgs, typ, spot):
+    cands = [o for o in (fvgs or []) if o.get("type") == typ and not o.get("filled") and o.get("top") is not None]
+    if not cands:
+        return None
+    def mid(o):
+        return (float(o["top"]) + float(o["bottom"])) / 2.0
+    if typ == "bullish":
+        o = max([o for o in cands if mid(o) <= spot + 8] or cands, key=mid)
+        src_th, src_en = "ช่องราคาฝั่งซื้อ (FVG)", "bullish fair-value gap"
+    else:
+        o = min([o for o in cands if mid(o) >= spot - 8] or cands, key=mid)
+        src_th, src_en = "ช่องราคาฝั่งขาย (FVG)", "bearish fair-value gap"
+    z = _rng(o["bottom"], o["top"])
+    if not z:
+        return None
+    z["source"] = "fvg"
+    z["source_th"], z["source_en"] = src_th, src_en
+    return z
+
+
+def _cluster(prices, atr, center=None):
+    vals = sorted({r1(p, 1) for p in prices if p is not None and r1(p, 1) is not None})
+    if not vals:
+        return None
+    width = max(6.0, 0.8 * (atr or 12))
+    best = [vals[0]]
+    groups = []
+    cur = [vals[0]]
+    for p in vals[1:]:
+        if p - cur[0] <= width:
+            cur.append(p)
+        else:
+            groups.append(cur)
+            cur = [p]
+    groups.append(cur)
+    if center is not None:
+        groups.sort(key=lambda g: abs(((g[0] + g[-1]) / 2) - center))
+    else:
+        groups.sort(key=lambda g: -len(g))
+    g = groups[0]
+    if len(g) >= 2:
+        return _rng(g[0], g[-1])
+    wing = max(2.0, min(8.0, 0.25 * (atr or 12)))
+    return _rng(g[0] - wing, g[0] + wing)
+
+
+def compute_demand_supply(levels, data, spot, atr):
+    """Demand = buy area, Supply = sell area, from real OB / FVG / swings / pivots."""
+    smc = ((data or {}).get("smc") or {}).get("XAUUSD") or {}
+    h1 = smc.get("H1") or {}
+    h4 = smc.get("H4") or {}
+    obs = (h1.get("order_blocks") or []) + (h4.get("order_blocks") or [])
+    fvgs = (h1.get("fvg") or []) + (h4.get("fvg") or [])
+    swings = (levels or {}).get("swings") or {}
+    daily = (levels or {}).get("daily") or {}
+    h4p = (levels or {}).get("h4") or {}
+
+    demand = _from_ob(obs, "bullish", spot) or _from_fvg(fvgs, "bullish", spot)
+    if not demand:
+        lows = [s.get("price") for s in (swings.get("lows") or [])[-4:]]
+        for k in ("s1", "s2", "s3"):
+            if daily.get(k) is not None:
+                lows.append(daily[k])
+            if h4p.get(k) is not None:
+                lows.append(h4p[k])
+        z = _cluster(lows, atr, center=spot)
+        if z:
+            z["source"] = "support_swings"
+            z["source_th"] = "กลุ่มแนวรับและสวิงโลว์"
+            z["source_en"] = "support and swing-low cluster"
+            demand = z
+
+    supply = _from_ob(obs, "bearish", spot) or _from_fvg(fvgs, "bearish", spot)
+    if not supply:
+        highs = [s.get("price") for s in (swings.get("highs") or [])[-4:]]
+        for k in ("r1", "r2", "r3"):
+            if daily.get(k) is not None:
+                highs.append(daily[k])
+            if h4p.get(k) is not None:
+                highs.append(h4p[k])
+        z = _cluster(highs, atr, center=spot)
+        if z:
+            z["source"] = "resistance_swings"
+            z["source_th"] = "กลุ่มแนวต้านและสวิงไฮ"
+            z["source_en"] = "resistance and swing-high cluster"
+            supply = z
+
+    # If the active entry sits near a zone, snap the trigger zone to cover the entry band
+    return demand, supply
+
+
+def _confidence(plan, smc_dir, ai_dir):
+    side = plan.get("side") or "wait"
+    score = 48
+    if side == "wait":
+        score = 42
+    if smc_dir and side == "buy" and smc_dir == "up":
+        score += 10
+    if smc_dir and side == "sell" and smc_dir == "down":
+        score += 10
+    if smc_dir and side in ("buy", "sell") and ((side == "buy" and smc_dir == "down") or (side == "sell" and smc_dir == "up")):
+        score -= 8
+    if ai_dir and side == "buy" and ai_dir == "up":
+        score += 8
+    if ai_dir and side == "sell" and ai_dir == "down":
+        score += 8
+    rr1 = plan.get("rr_tp1")
+    if isinstance(rr1, (int, float)):
+        if rr1 >= 2:
+            score += 10
+        elif rr1 >= 1.5:
+            score += 6
+        elif rr1 >= 1:
+            score += 3
+    if plan.get("approach") == "in_zone":
+        score += 4
+    score = max(35, min(78, score))
+    if score < 50:
+        lab_th, lab_en = "ต่ำ", "Low"
+    elif score < 65:
+        lab_th, lab_en = "ปานกลาง", "Medium"
+    else:
+        lab_th, lab_en = "ค่อนข้างสูง", "Fairly high"
+    return {
+        "score": score,
+        "label_th": lab_th,
+        "label_en": lab_en,
+        "text_th": f"{lab_th} {score}%",
+        "text_en": f"{lab_en} {score}%",
+        "note_th": "ระดับความมั่นใจจากโครงสร้างและระยะเป้า ไม่ใช่โอกาสชนะ และไม่ได้บอกผลลัพธ์ล่วงหน้า",
+        "note_en": "Confidence from structure and target distance — not a win-rate, and not a promise of the outcome.",
+    }
+
+
+def _lots(plan, usdthb):
+    sl = plan.get("sl")
+    entry = plan.get("entry")
+    if sl is None or entry is None or usdthb is None or usdthb <= 0:
+        return None
+    dist = abs(float(entry) - float(sl))
+    if dist < 0.5:
+        return None
+    oz = 100.0  # standard XAUUSD lot
+    rows = []
+    for cap in (10000, 50000, 100000):
+        for pct in (1, 2):
+            risk_thb = cap * pct / 100.0
+            risk_usd = risk_thb / usdthb
+            lots = risk_usd / (dist * oz)
+            rows.append({
+                "capital_thb": cap,
+                "capital_usd": round(cap / usdthb, 0),
+                "risk_pct": pct,
+                "risk_thb": round(risk_thb, 0),
+                "risk_usd": round(risk_usd, 2),
+                "sl_distance": r1(dist, 1),
+                "lots": float(f"{lots:.4f}"),
+            })
+    return {
+        "usdthb": round(float(usdthb), 4),
+        "contract_oz": 100,
+        "sl_distance": r1(dist, 1),
+        "rows": rows,
+        "note_th": "คำนวณจากความเสี่ยง 1–2% ของเงินทุน และระยะ SL · ตัวอย่างใช้มาตรฐาน 1 ล็อต = 100 ออนซ์ ขนาดจริงขึ้นกับโบรกเกอร์ · ไม่ใช่คำแนะนำให้ใช้เงินทุนนี้",
+        "note_en": "Sized from 1–2% of capital and the stop distance. Example uses a standard 1 lot = 100 oz contract; your broker may differ. This is not a recommendation to use these amounts.",
+    }
+
+
+def _steps(plan, demand, supply):
+    side = plan.get("side") or "wait"
+    d, s = _fmt_rng(demand), _fmt_rng(supply)
+    sl = f"{plan['sl']:,.1f}" if plan.get("sl") is not None else "—"
+    entry = _fmt_rng({"low": plan.get("entry_low"), "high": plan.get("entry_high")}) if plan.get("entry_low") is not None else (f"{plan['entry']:,.1f}" if plan.get("entry") is not None else "—")
+    tps = plan.get("tps") or []
+    tp1 = f"{tps[0]['price']:,.1f}" if tps else "—"
+    tp2 = f"{tps[1]['price']:,.1f}" if len(tps) > 1 else None
+    inv = f"{plan['invalidation']:,.1f}" if plan.get("invalidation") is not None else sl
+    entry_band = _fmt_rng({"low": plan.get("entry_low"), "high": plan.get("entry_high")}) if plan.get("entry_low") is not None else (f"{plan['entry']:,.1f}" if plan.get("entry") is not None else "—")
+    trig = plan.get("trigger_zone")
+    if trig == "demand":
+        zone, zone_en = f"Demand Zone {d}", f"Demand Zone {d}"
+        act, act_en = "BUY", "BUY"
+    elif trig == "supply":
+        zone, zone_en = f"Supply Zone {s}", f"Supply Zone {s}"
+        act, act_en = "SELL", "SELL"
+    elif side == "buy":
+        zone, zone_en = f"โซน {entry_band}", f"zone {entry_band}"
+        act, act_en = "BUY", "BUY"
+    elif side == "sell":
+        zone, zone_en = f"โซน {entry_band}", f"zone {entry_band}"
+        act, act_en = "SELL", "SELL"
+    else:
+        if plan.get("bias") == "down":
+            zone, zone_en = f"Supply Zone {s}", f"Supply Zone {s}"
+            act, act_en = "SELL", "SELL"
+        elif plan.get("bias") == "up":
+            zone, zone_en = f"Demand Zone {d}", f"Demand Zone {d}"
+            act, act_en = "BUY", "BUY"
+        else:
+            zone, zone_en = (f"Demand Zone {d} หรือ Supply Zone {s}"), (f"Demand Zone {d} or Supply Zone {s}")
+            act, act_en = "รอสัญญาณ", "wait for a signal"
+    th = [
+        f"รอราคาเข้า {zone}",
+        f"เมื่อราคาอยู่ในโซนแล้ว จึงพิจารณาเข้า {act} — ไม่ไล่ถ้าราคาพุ่งพ้นโซน",
+        f"วาง SL ที่ {sl}",
+    ]
+    en = [
+        f"Wait for price to enter {zone_en}",
+        f"Only then consider a {act_en} — do not chase if price has already left the zone",
+        f"Place the stop loss at {sl}",
+    ]
+    if tps:
+        th.append(f"ปิดบางส่วนที่ TP1 {tp1} แล้วเลื่อน SL มาจุดเข้า {entry}")
+        en.append(f"Close a portion at TP1 {tp1}, then move the stop to the entry {entry}")
+        if tp2:
+            th.append(f"ส่วนที่เหลือดู TP2 {tp2}" + (f" และ TP3 {tps[2]['price']:,.1f}" if len(tps) > 2 else "") + f" — ถ้าหลุดจุดยกเลิก {inv} ให้เลิกแผน")
+            en.append(f"Leave the rest for TP2 {tp2}" + (f" and TP3 {tps[2]['price']:,.1f}" if len(tps) > 2 else "") + f" — cancel if price goes through {inv}")
+        else:
+            th.append(f"ถ้าหลุดจุดยกเลิก {inv} ให้เลิกแผน")
+            en.append(f"Cancel if price goes through {inv}")
+    else:
+        th.append(f"ยังไม่มีเป้าที่คุ้มกับ SL — ถ้าหลุด {inv} ให้เลิกแผน ไม่ต้องเข้า")
+        en.append(f"There is no target that yet pays for the stop — cancel if price goes through {inv}, and do not enter")
+    return th, en
+
+
+def attach_guide(plan, levels, data, atr, usdthb):
+    spot = float(plan.get("spot") or 0)
+    demand, supply = compute_demand_supply(levels, data, spot, atr or 12)
+    # If entry band is close to a zone, record it as the trigger
+    side = plan.get("side") or "wait"
+    entry_lo, entry_hi = plan.get("entry_low"), plan.get("entry_high")
+    def near_zone(z):
+        if not z or entry_lo is None or entry_hi is None:
+            return False
+        pad = max(4.0, 0.3 * (atr or 12))
+        return not (float(entry_hi) < z["low"] - pad or float(entry_lo) > z["high"] + pad)
+    trigger = None
+    if side == "buy" and near_zone(demand):
+        trigger = "demand"
+    elif side == "sell" and near_zone(supply):
+        trigger = "supply"
+    elif side in ("buy", "sell"):
+        trigger = "entry"
+
+    trig_z = demand if trigger == "demand" else supply if trigger == "supply" else None
+    entry_lo, entry_hi = plan.get("entry_low"), plan.get("entry_high")
+    if trig_z and entry_lo is not None and entry_hi is not None:
+        mid_e = (float(entry_lo) + float(entry_hi)) / 2
+        mid_z = _mid(trig_z)
+        if mid_z is not None and abs(mid_e - mid_z) <= max(10.0, 0.8 * (atr or 12)):
+            # keep the structural zone as displayed demand/supply; entry stays the plan band
+            pass
+
+    plan["trigger_zone"] = trigger
+    smc_dir, _, _ = smc_bias(data)
+    ai_dir, _, _ = ai_bias(data)
+    conf = _confidence(plan, smc_dir, ai_dir)
+    steps_th, steps_en = _steps(plan, demand, supply)
+    lots = _lots(plan, usdthb)
+
+    d_txt, s_txt = _fmt_rng(demand), _fmt_rng(supply)
+    if trigger == "demand":
+        trig_th = f"BUY ที่ Demand Zone {d_txt}"
+        trig_en = f"BUY at Demand Zone {d_txt}"
+    elif trigger == "supply":
+        trig_th = f"SELL ที่ Supply Zone {s_txt}"
+        trig_en = f"SELL at Supply Zone {s_txt}"
+    elif trigger == "entry" and side in ("buy", "sell"):
+        band = _fmt_rng({"low": plan.get("entry_low"), "high": plan.get("entry_high")}) if plan.get("entry_low") is not None else (f"{plan['entry']:,.1f}" if plan.get("entry") is not None else "—")
+        act = "BUY" if side == "buy" else "SELL"
+        trig_th = f"{act} ที่โซนเข้า {band}"
+        trig_en = f"{act} at entry zone {band}"
+    else:
+        trig_th = f"รอ — ยังไม่เข้าโซน · Demand {d_txt} / Supply {s_txt}"
+        trig_en = f"WAIT — no setup yet · Demand {d_txt} / Supply {s_txt}"
+
+    why_th = plan.get("thesis_th") or "ใช้โครงสร้างและแนวรับแนวต้านที่มีอยู่ ไม่ไล่ราคา"
+    why_en = plan.get("thesis_en") or "Follow existing structure and support/resistance; do not chase."
+    # keep why to one short sentence
+    if " · " in why_th:
+        # already plain enough
+        pass
+
+    reversal = []
+    if plan.get("invalidation") is not None:
+        reversal.append({
+            "price": plan["invalidation"],
+            "label_th": plan.get("invalidation_th") or f"ยกเลิกถ้าราคาผ่าน {plan['invalidation']:,.1f}",
+            "label_en": plan.get("invalidation_en") or f"Cancel if price trades through {plan['invalidation']:,.1f}",
+        })
+    if side == "buy" and supply:
+        reversal.append({
+            "price": supply["high"],
+            "low": supply["low"],
+            "high": supply["high"],
+            "label_th": f"จุดกลับฝั่งขายที่ Supply Zone {s_txt}",
+            "label_en": f"Opposite sell area at Supply Zone {s_txt}",
+        })
+    if side == "sell" and demand:
+        reversal.append({
+            "price": demand["low"],
+            "low": demand["low"],
+            "high": demand["high"],
+            "label_th": f"จุดกลับฝั่งซื้อที่ Demand Zone {d_txt}",
+            "label_en": f"Opposite buy area at Demand Zone {d_txt}",
+        })
+
+    plan["demand_zone"] = demand
+    plan["supply_zone"] = supply
+    plan["trigger_zone"] = trigger
+    plan["trigger_th"] = trig_th
+    plan["trigger_en"] = trig_en
+    plan["why_th"] = why_th
+    plan["why_en"] = why_en
+    plan["steps_th"] = steps_th
+    plan["steps_en"] = steps_en
+    plan["confidence"] = conf
+    plan["position"] = lots
+    plan["reversal"] = reversal
+    plan["guide_disclaimer_th"] = "เพื่อการศึกษา ไม่ใช่คำแนะนำการลงทุน ใช้ SL เสมอ"
+    plan["guide_disclaimer_en"] = "Education only — not investment advice. Always use a stop loss. Results are not guaranteed."
+    return plan
+
+
+
 def resolve_spot(levels, spot_doc, data):
     cands = []
     if spot_doc and spot_doc.get("price"):
@@ -387,6 +760,7 @@ def main():
     ap.add_argument("--spot", default="spot.json")
     ap.add_argument("--data", default="data.json")
     ap.add_argument("--candles", default="candles.json")
+    ap.add_argument("--compare", default="compare.json")
     ap.add_argument("--out", action="append")
     args = ap.parse_args()
     base = Path(".")
@@ -395,6 +769,10 @@ def main():
     data = load_json(args.data)
     candles_doc = load_json(args.candles) or {}
     candles = candles_doc.get("candles") or candles_doc
+    compare = load_json(args.compare) if args.compare else None
+    if compare is None:
+        # landing may keep compare under data/
+        compare = load_json("data/compare.json") or load_json("compare.json")
     spot, src = resolve_spot(levels, spot_doc, data)
     if spot is None:
         raise SystemExit("no spot")
@@ -405,6 +783,13 @@ def main():
     atr = float(atr or 12.0)
     plan = make_plan(levels, spot, atr, data)
     plan["spot_source"] = src
+    usdthb = None
+    if isinstance(compare, dict) and compare.get("usdthb"):
+        try:
+            usdthb = float(compare["usdthb"])
+        except (TypeError, ValueError):
+            usdthb = None
+    plan = attach_guide(plan, levels, data, atr, usdthb)
     outs = args.out or ["trade_plan.json"]
     text = json.dumps(plan, ensure_ascii=False, indent=2)
     for o in outs:
