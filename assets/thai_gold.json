@@ -1,17 +1,17 @@
 {
-  "as_of": "2026-11-13T13:07:00+07:00",
-  "as_of_hm": "13:07",
-  "as_of_th": "อัปเดตล่าสุด 13:07 · ครั้งที่ 18",
-  "as_of_en": "Updated 13:07 · print 18",
-  "revision": 18,
-  "fetched_at": "2026-11-13T13:27:33.836992+07:00",
+  "as_of": "2026-11-13T14:01:00+07:00",
+  "as_of_hm": "14:01",
+  "as_of_th": "อัปเดตล่าสุด 14:01 · ครั้งที่ 20",
+  "as_of_en": "Updated 14:01 · print 20",
+  "revision": 20,
+  "fetched_at": "2026-11-13T14:40:24.856610+07:00",
   "source_label_th": "ราคาทองไทย",
   "source_label_en": "Thai gold",
   "bar": {
     "purity": "96.5%",
     "buy": 62350.0,
     "sell": 62550.0,
-    "change": -50.0
+    "change": 50.0
   },
   "jewelry": {
     "purity": "96.5%",
