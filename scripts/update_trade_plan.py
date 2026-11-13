@@ -643,6 +643,193 @@ def _steps(plan, demand, supply):
     return th, en
 
 
+
+def _h1_rows(candles_doc, klines_doc=None):
+    rows = []
+    for r in ((candles_doc or {}).get("candles") or {}).get("H1") or []:
+        if r and len(r) >= 5:
+            rows.append(r)
+    for c in (klines_doc or {}).get("closes") or []:
+        try:
+            ts = c.get("t")
+            if ts is None:
+                continue
+            ts = int(ts)
+            if ts > 1e12:
+                ts = int(ts / 1000)
+            rows.append([ts, float(c["o"]), float(c["h"]), float(c["l"]), float(c["c"])])
+        except (TypeError, ValueError, KeyError):
+            continue
+    # prefer the latest timestamp when both sources overlap
+    best = {}
+    for r in rows:
+        try:
+            ts = int(r[0])
+            best[ts] = r
+        except (TypeError, ValueError):
+            pass
+    return [best[k] for k in sorted(best)]
+
+
+def last_closed_h1(candles_doc, now=None, klines_doc=None):
+    """Return the last fully closed H1 bar (not the in-progress hour)."""
+    now = now or datetime.now(timezone.utc)
+    now_ts = int(now.timestamp())
+    closed = []
+    for r in _h1_rows(candles_doc, klines_doc):
+        if not r or len(r) < 5:
+            continue
+        try:
+            ts = int(r[0])
+            o, h, l, c = float(r[1]), float(r[2]), float(r[3]), float(r[4])
+        except (TypeError, ValueError):
+            continue
+        if ts + 3600 <= now_ts + 1:
+            closed.append((ts, o, h, l, c))
+    if not closed:
+        return None
+    ts, o, h, l, c = closed[-1]
+    as_of = datetime.fromtimestamp(ts, timezone.utc).astimezone(BKK)
+    return {
+        "open_ts": ts,
+        "open_iso": as_of.isoformat(),
+        "as_of_hm": as_of.strftime("%H:%M"),
+        "open": r1(o, 2),
+        "high": r1(h, 2),
+        "low": r1(l, 2),
+        "close": r1(c, 2),
+        "bullish": c >= o,
+    }
+
+
+def h1_confirms(plan, bar):
+    """True when a closed H1 candle confirms the plan's entry (not a live-tick heuristic)."""
+    if not plan or not bar or (plan.get("side") or "wait") not in ("buy", "sell"):
+        return False
+    close = bar.get("close")
+    lo = plan.get("entry_low") if plan.get("entry_low") is not None else plan.get("entry")
+    hi = plan.get("entry_high") if plan.get("entry_high") is not None else plan.get("entry")
+    if close is None or lo is None or hi is None:
+        return False
+    lo, hi = (min(float(lo), float(hi)), max(float(lo), float(hi)))
+    c = float(close)
+    pad = 0.8
+    in_zone = (lo - pad) <= c <= (hi + pad)
+    if in_zone:
+        return True
+    # The bar traded the zone and closed through it in the trade direction.
+    try:
+        high, low = float(bar.get("high")), float(bar.get("low"))
+    except (TypeError, ValueError):
+        high, low = c, c
+    if plan["side"] == "buy":
+        return low <= hi + pad and c >= hi and bool(bar.get("bullish"))
+    return high >= lo - pad and c <= lo and not bool(bar.get("bullish"))
+
+
+def parse_event_ts(ev):
+    raw = ev.get("date_utc") or ev.get("date") or ev.get("date_bkk")
+    if not raw:
+        return None
+    try:
+        dt = datetime.fromisoformat(str(raw).replace("Z", "+00:00"))
+        if dt.tzinfo is None:
+            dt = dt.replace(tzinfo=timezone.utc)
+        return dt
+    except ValueError:
+        return None
+
+
+def news_blackout(events_doc, now=None, window_min=30):
+    """High-impact USD releases within ±window_min minutes."""
+    now = now or datetime.now(timezone.utc)
+    events = (events_doc or {}).get("events") if isinstance(events_doc, dict) else (events_doc or [])
+    hits = []
+    for ev in events or []:
+        if str(ev.get("impact") or "").lower() != "high":
+            continue
+        country = str(ev.get("country") or ev.get("currency") or "").upper()
+        if country not in ("USD", "US", "USA", "UNITED STATES"):
+            continue
+        ts = parse_event_ts(ev)
+        if ts is None:
+            continue
+        delta = abs((ts - now).total_seconds())
+        if delta <= window_min * 60:
+            until = max(ts, now) if ts >= now else ts + timedelta(minutes=window_min)
+            # window ends at event+30m
+            end = ts + timedelta(minutes=window_min)
+            hits.append({
+                "id": ev.get("id"),
+                "title_th": ev.get("title_th") or ev.get("title"),
+                "title_en": ev.get("title_en") or ev.get("title"),
+                "date_utc": ev.get("date_utc"),
+                "date_th": ev.get("date_th"),
+                "date_en": ev.get("date_en"),
+                "until_iso": end.astimezone(BKK).isoformat(),
+                "until_hm": end.astimezone(BKK).strftime("%H:%M"),
+                "minutes": int(delta / 60),
+            })
+    hits.sort(key=lambda e: e.get("date_utc") or "")
+    if not hits:
+        return {
+            "blackout": False,
+            "window_min": window_min,
+            "label_th": "",
+            "label_en": "",
+            "events": [],
+        }
+    last = max(hits, key=lambda e: e.get("until_iso") or "")
+    return {
+        "blackout": True,
+        "window_min": window_min,
+        "label_th": "ช่วงข่าวแรง งดเข้า",
+        "label_en": "High-impact news — no new entries",
+        "detail_th": "รอให้พ้นข่าว " + " / ".join(e["title_th"] for e in hits if e.get("title_th")) + f" แล้วค่อยดูจุดเข้า (ถึง {last['until_hm']})",
+        "detail_en": "Wait until after " + " / ".join(e["title_en"] for e in hits if e.get("title_en")) + f" before considering an entry (until {last['until_hm']})",
+        "until_hm": last["until_hm"],
+        "events": hits,
+    }
+
+
+def attach_live_flags(plan, candles_doc, events_doc, prev_plan=None, klines_doc=None):
+    bar = last_closed_h1(candles_doc, klines_doc=klines_doc)
+    news = news_blackout(events_doc)
+    confirmed = bool(h1_confirms(plan, bar))
+    # sticky confirmation on the same setup
+    prev = prev_plan or {}
+    same = (
+        prev.get("side") == plan.get("side")
+        and prev.get("entry") == plan.get("entry")
+        and prev.get("sl") == plan.get("sl")
+    )
+    if same and prev.get("h1", {}).get("confirmed"):
+        confirmed = True
+        if bar and not plan.get("h1"):
+            pass
+    h1 = {
+        "confirmed": confirmed,
+        "bar": bar,
+        "note_th": "",
+        "note_en": "",
+    }
+    if bar:
+        direction = "แท่งเขียว" if bar["bullish"] else "แท่งแดง"
+        direction_en = "a bullish candle" if bar["bullish"] else "a bearish candle"
+        if confirmed:
+            h1["note_th"] = f"แท่ง H1 ปิดยืนยันแล้ว ที่ {bar['close']:,.2f} ({direction} ปิด {bar['as_of_hm']})"
+            h1["note_en"] = f"H1 close confirmed at {bar['close']:,.2f} ({direction_en}, closed {bar['as_of_hm']})"
+        else:
+            h1["note_th"] = f"ยังรอแท่ง H1 ปิดยืนยัน (แท่งล่าสุดที่ปิด {bar['as_of_hm']} ปิดที่ {bar['close']:,.2f})"
+            h1["note_en"] = f"Waiting for a confirming H1 close (last closed bar {bar['as_of_hm']} at {bar['close']:,.2f})"
+    else:
+        h1["note_th"] = "ยังไม่มีแท่ง H1 ที่ปิดครบชั่วโมง"
+        h1["note_en"] = "No fully closed H1 bar is available yet"
+    plan["h1"] = h1
+    plan["news"] = news
+    plan["suppress_entry"] = bool(news.get("blackout")) and not confirmed
+    return plan
+
 def attach_guide(plan, levels, data, atr, usdthb):
     spot = float(plan.get("spot") or 0)
     demand, supply = compute_demand_supply(levels, data, spot, atr or 12)
@@ -761,6 +948,8 @@ def main():
     ap.add_argument("--data", default="data.json")
     ap.add_argument("--candles", default="candles.json")
     ap.add_argument("--compare", default="compare.json")
+    ap.add_argument("--events", default="events.json")
+    ap.add_argument("--klines", default="")
     ap.add_argument("--out", action="append")
     args = ap.parse_args()
     base = Path(".")
@@ -790,6 +979,25 @@ def main():
         except (TypeError, ValueError):
             usdthb = None
     plan = attach_guide(plan, levels, data, atr, usdthb)
+    events = load_json(args.events)
+    if events is None:
+        events = load_json("data/events.json") or load_json("events.json")
+    klines = load_json(args.klines) if args.klines else None
+    if klines is None:
+        klines = (
+            load_json("assets/xau-klines.json")
+            or load_json("data/xau-klines.json")
+            or load_json("/workspace/puregold-whitepaper/assets/xau-klines.json")
+        )
+    prev = None
+    for pth in ([Path(p) for p in (args.out or [])] or [Path("trade_plan.json")]):
+        if pth.exists():
+            try:
+                prev = json.loads(pth.read_text())
+                break
+            except Exception:
+                pass
+    plan = attach_live_flags(plan, candles_doc, events, prev, klines_doc=klines)
     outs = args.out or ["trade_plan.json"]
     text = json.dumps(plan, ensure_ascii=False, indent=2)
     for o in outs:

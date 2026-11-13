@@ -1,5 +1,5 @@
 /* PureGold landing service worker — versioned shell, network-first data. */
-const VERSION = '20261113plan2';
+const VERSION = '20261113-0912';
 const SHELL = 'puregold-shell-' + VERSION;
 const DATA = 'puregold-data-' + VERSION;
 const SHELL_URLS = [
@@ -16,7 +16,11 @@ const SHELL_URLS = [
   '/assets/logo-192.png',
   '/assets/logo-64.png',
   '/assets/sharecard.js',
-  '/assets/features.js'
+  '/assets/features.js',
+  '/assets/push.js',
+  '/assets/vapid-public.json',
+  '/assets/logo-mark.png',
+  '/assets/logo-mark-round.png'
 ];
 
 self.addEventListener('install', (event) => {
@@ -46,7 +50,7 @@ function isDataRequest(url) {
   if (url.pathname.endsWith('.json')) return true;
   if (url.pathname.startsWith('/data/')) return true;
   // Price and market JSON must not be served stale from the shell cache.
-  if (/\/(xau-klines|quotes|live|levels|spot|perf|trade_plan)\.json$/.test(url.pathname)) return true;
+  if (/\/(xau-klines|quotes|live|levels|spot|perf|trade_plan|plan_history)\.json$/.test(url.pathname)) return true;
   return false;
 }
 
@@ -128,4 +132,40 @@ self.addEventListener('fetch', (event) => {
   if (isShellAsset(url)) {
     event.respondWith(staleWhileRevalidate(request));
   }
+});
+
+
+self.addEventListener('push', (event) => {
+  let data = { title: 'PureGold', body: '', url: '/' };
+  try {
+    if (event.data) {
+      const j = event.data.json();
+      if (j && typeof j === 'object') data = Object.assign(data, j);
+    }
+  } catch (_) {
+    try { if (event.data) data.body = event.data.text(); } catch (__) {}
+  }
+  event.waitUntil(self.registration.showNotification(data.title || 'PureGold', {
+    body: data.body || '',
+    icon: '/icons/icon-192.png',
+    badge: '/icons/icon-192.png',
+    lang: data.lang || 'th',
+    data: { url: data.url || '/' }
+  }));
+});
+
+self.addEventListener('notificationclick', (event) => {
+  event.notification.close();
+  const url = (event.notification.data && event.notification.data.url) || '/';
+  event.waitUntil((async () => {
+    const list = await self.clients.matchAll({ type: 'window', includeUncontrolled: true });
+    for (const client of list) {
+      if (client.focus) await client.focus();
+      if (url && client.navigate) {
+        try { await client.navigate(url); } catch (_) {}
+      }
+      return;
+    }
+    if (self.clients.openWindow) await self.clients.openWindow(url);
+  })());
 });

@@ -1,31 +1,39 @@
 {
   "name": "PUREGOLD",
-  "version": "0.9.11",
-  "versionCode": 24,
+  "version": "0.9.12",
+  "versionCode": 25,
   "apk": "https://gold.purefxai.store/downloads/PUREGOLD.apk",
-  "sha256": "4abb43e08a0782f5fa3355823264a81baff94e9d7e9e3d52ef66c5f44a152e95",
+  "sha256": "61072e9e8dc36ff0cf42e66e274e9d744514c381fe1323c77edb586ecefa831f",
   "released": "2026-11-13",
   "released_th": "13 พ.ย. 2026",
   "notes": {
     "th": [
-      "แผนเทรดแสดง Demand Zone และ Supply Zone เป็นช่วงราคา และบอกว่าสัญญาณ BUY หรือ SELL มาจากโซนไหน",
-      "มีขั้นตอนเป็นข้อ ๆ อธิบายแบบเข้าใจง่าย ความมั่นใจ และตัวอย่างขนาดล็อตตามเงินทุนความเสี่ยง 1–2%",
-      "บล็อก «AI กำลังทำอะไรอยู่» อัปเดตตามราคาสด บอกขั้นถัดไปกับเวลาเช็กล่าสุด และแจ้งเตือนเมื่อสถานะเปลี่ยน"
+      "ยืนยันสัญญาณจากแท่ง H1 ที่ปิดแล้วจริง ไม่เดาจากตำแหน่งราคาในโซน",
+      "ช่วงข่าวแรงของดอลลาร์ (±30 นาที) แสดง «ช่วงข่าวแรง งดเข้า» และไม่เปิดแผนเข้าใหม่",
+      "เริ่มบันทึกผลจริงของแผน (ชนะ/แพ้/เฉลี่ย R) จากรอบนี้ ไม่ย้อนหลัง และบอกเมื่อจำนวนยังน้อย",
+      "ไอคอนใหม่ทั้งแอป หน้าเว็บ และไอคอนแจ้งเตือน · ปุ่มบันทึกและแชร์โปสเตอร์ในแอป · แจ้งเตือนเมื่อชน TP1 (เลื่อน SL มาจุดเข้า) TP2 TP3 จุดตัดขาดทุน หรือเมื่อแผนถูกยกเลิก",
+      "คำนวณล็อตจากทุนและความเสี่ยงที่บันทึกในเครื่อง · เปิดการแจ้งเตือนบน iPhone ได้เมื่อติดตั้งเป็นเว็บแอป (iOS 16.4 ขึ้นไป)"
     ],
     "en": [
-      "The trade plan now shows Demand and Supply zones as price ranges, and which zone triggered a BUY or SELL",
-      "Numbered beginner steps, a confidence reading, and an example lot-size table at 1–2% of capital",
-      "A live “What the AI is doing” status follows the price, with the next step, last-check time, and alerts when that state changes"
+      "Signal confirmation uses a real closed H1 candle, not a live price-in-zone guess",
+      "A high-impact USD window (±30 minutes) shows “Strong news — no new entries” and holds off new entries",
+      "Live plan results (wins, losses, average R) start now, with no backfill and a small-sample note",
+      "New icon on the app, site, and notifications · in-app live Save and Share posters · alerts for TP1 (move the stop to entry), TP2, TP3, stop hits, and cancelled plans",
+      "A capital and risk% lot calculator saved on this device · iPhone notifications on the installed web app (iOS 16.4+)"
     ],
     "zh": [
-      "交易计划现显示需求区与供给区的价格区间，并标明 BUY 或 SELL 来自哪一区",
-      "用分步说明、信心水平，以及按资金 1–2% 风险计算的示例手数",
-      "「AI 正在做什么」会随实时价格更新，并给出下一步、最近检查时间，以及状态变化时的提醒"
+      "信号确认改为使用已收盘的 H1 K 线，不再按价格是否在区内猜测",
+      "美元重大数据前后 30 分钟显示「强新闻，暂不新开」，并暂停新入场",
+      "从本版开始记录计划的真实结果（胜负、平均 R），不回填历史，样本少时会注明",
+      "应用、网站与通知使用新图标 · 应用内可保存和分享实时海报 · 触及 TP1（把止损移到入场）、TP2、TP3、止损或计划取消时提醒",
+      "按本机保存的资金与风险比例计算手数 · 已安装的 iPhone 网页应用可开启通知（iOS 16.4+）"
     ],
     "ja": [
-      "トレードプランに Demand Zone と Supply Zone の価格帯を表示し、BUY / SELL がどのゾーンから出たかを示す",
-      "初心者向けの手順、信頼度、資金の 1–2% リスクで見たロット例を追加",
-      "「AI が今していること」をライブ価格に合わせて更新し、次の一歩・最終確認時刻と、状態が変わったときの通知を出す"
+      "シグナル確認は確定した H1 足の終値を使い、ゾーン内の位置からの推測はやめる",
+      "米ドルの重要指標前後30分は「強いニュースのため新規見送り」と表示し、新規のエントリーを控える",
+      "プランの実結果（勝敗・平均R）は今から記録し、過去分は埋めず、件数が少ないときは注記する",
+      "アプリ・サイト・通知の新しいアイコン · アプリ内のライブ保存・共有 · TP1（ストップをエントリーへ）、TP2、TP3、ストップ、キャンセル時の通知",
+      "この端末に保存した資金とリスク%からロットを計算 · ホーム画面に追加した iPhone ウェブアプリで通知可能（iOS 16.4+）"
     ]
   }
 }
