@@ -1,52 +1,9 @@
 {
   "started_at": "2026-11-13T20:59:46.850831+07:00",
-<<<<<<< Updated upstream
-  "updated_at": "2026-11-14T00:28:45.634937+07:00",
-=======
-  "updated_at": "2026-11-14T00:42:05.608432+07:00",
->>>>>>> Stashed changes
+  "updated_at": "2026-11-14T01:13:58.655418+07:00",
   "source_note_th": "เริ่มนับผลจากรอบนี้ ไม่มีประวัติย้อนหลัง และไม่ได้สร้างผลลัพธ์สมมติ",
   "source_note_en": "Counted from this run onward. There is no backfilled history, and no results are invented.",
-  "open": {
-    "id": "814f37f99979",
-    "opened_at": "2026-11-14T00:28:45.634937+07:00",
-    "side": "sell",
-    "side_th": "ขาย",
-    "side_en": "SELL",
-    "entry": 3883.1,
-    "entry_low": 3878.8,
-    "entry_high": 3887.4,
-    "sl": 3893.7,
-    "tps": [
-      {
-        "n": 1,
-        "price": 3862.7,
-        "rr": 1.93
-      },
-      {
-        "n": 2,
-        "price": 3860.8,
-        "rr": 2.11
-      },
-      {
-        "n": 3,
-        "price": 3851.9,
-        "rr": 2.96
-      }
-    ],
-    "invalidation": 3918.0,
-    "title_th": "ขายโซน 3,878.8–3,887.4",
-    "title_en": "SELL zone 3,878.8–3,887.4",
-    "status": "open",
-    "outcome": null,
-    "r": null,
-    "reason_th": "",
-    "reason_en": "",
-    "closed_at": null,
-    "last_price": 3882.01,
-    "last_check": "2026-11-14T00:28:45.634937+07:00",
-    "reached": []
-  },
+  "open": null,
   "closed": [],
   "stats": {
     "started_at": "2026-11-13T20:59:46.850831+07:00",
