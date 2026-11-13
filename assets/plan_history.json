@@ -1,0 +1,22 @@
+{
+  "started_at": "2026-11-13T20:59:46.850831+07:00",
+  "updated_at": "2026-11-13T21:08:35.618219+07:00",
+  "source_note_th": "เริ่มนับผลจากรอบนี้ ไม่มีประวัติย้อนหลัง และไม่ได้สร้างผลลัพธ์สมมติ",
+  "source_note_en": "Counted from this run onward. There is no backfilled history, and no results are invented.",
+  "open": null,
+  "closed": [],
+  "stats": {
+    "started_at": "2026-11-13T20:59:46.850831+07:00",
+    "closed": 0,
+    "counted": 0,
+    "wins": 0,
+    "losses": 0,
+    "cancelled": 0,
+    "expired": 0,
+    "win_rate": null,
+    "avg_r": null,
+    "sample_small": true,
+    "note_th": "เริ่มนับผลจากตอนนี้ ไม่มีประวัติย้อนหลัง · ยังไม่มีผลลัพธ์ที่ปิดแล้ว",
+    "note_en": "Results are counted from now — there is no backfilled history. No closed results yet."
+  }
+}
