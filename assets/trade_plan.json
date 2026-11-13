@@ -27,9 +27,9 @@
   "bias_en": "Tilt down, below the pivot",
   "atr": 12.4,
   "approach": null,
-  "updated": "2026-11-13T21:15:28.356931+07:00",
-  "updated_th": "13 พ.ย. 2026 21:15:28 น. เวลาไทย",
-  "updated_en": "13 Nov 2026 21:15:28 Bangkok",
+  "updated": "2026-11-13T21:19:34.989900+07:00",
+  "updated_th": "13 พ.ย. 2026 21:19:34 น. เวลาไทย",
+  "updated_en": "13 Nov 2026 21:19:34 Bangkok",
   "disclaimer_th": "เพื่อการศึกษา ไม่ใช่คำแนะนำการลงทุน ใช้ SL เสมอ",
   "disclaimer_en": "Education only — not investment advice. Always use a stop loss.",
   "spot_source": "swissquote",
@@ -96,7 +96,29 @@
       "bullish": false
     },
     "note_th": "ยังรอแท่ง H1 ปิดยืนยัน (แท่งล่าสุดที่ปิด 20:00 ปิดที่ 3,881.59)",
-    "note_en": "Waiting for a confirming H1 close (last closed bar 20:00 at 3,881.59)"
+    "note_en": "Waiting for a confirming H1 close (last closed bar 20:00 at 3,881.59)",
+    "sideways": {
+      "active": false,
+      "low": 3874.5,
+      "high": 3907.2,
+      "bars": 8,
+      "breakout": {
+        "confirmed": false,
+        "direction": "",
+        "note_th": "",
+        "note_en": ""
+      },
+      "eval_th": "ช่วง 3,874.5–3,907.2 ยังไม่เข้าเงื่อนไขไซด์เวย์"
+    },
+    "reversal": null,
+    "breakout": {
+      "confirmed": false,
+      "direction": "",
+      "note_th": "",
+      "note_en": ""
+    },
+    "sideways_rule_th": "กราฟไซด์เวย์ ราคาระหว่าง A–B ไม่มีทิศชัด แนะนำรอดูแท่ง H1 ปิดออกจากช่วงก่อนเข้า",
+    "reversal_rule_th": "ราคากลับตัวที่ Demand Zone A–B นี่คือจุดกลับตัว เปลี่ยนจากลงเป็นขึ้น ให้สัญญาณ BUY"
   },
   "news": {
     "blackout": false,
@@ -105,5 +127,16 @@
     "label_en": "",
     "events": []
   },
-  "suppress_entry": false
+  "suppress_entry": false,
+  "alert": {
+    "stance": "รอ",
+    "stance_en": "waiting",
+    "kind": "wait",
+    "reason_th": "ยังรอแท่ง H1 ปิดยืนยันที่ Demand Zone 3,882.8–3,895.1",
+    "reason_en": "waiting for a confirming H1 close at Demand Zone 3,882.8–3,895.1",
+    "lead_rule_th": "ราคาล่าสุด $X · ตอนนี้ BUY/SELL/รอ เพราะ…",
+    "lead_rule_en": "Latest price $X · now BUY/SELL/waiting because …",
+    "sideways_rule_th": "กราฟไซด์เวย์ ราคาระหว่าง A–B ไม่มีทิศชัด แนะนำรอดูแท่ง H1 ปิดออกจากช่วงก่อนเข้า",
+    "reversal_rule_th": "ราคากลับตัวที่ Demand Zone A–B นี่คือจุดกลับตัว เปลี่ยนจากลงเป็นขึ้น ให้สัญญาณ BUY"
+  }
 }

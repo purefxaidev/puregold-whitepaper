@@ -671,8 +671,8 @@ def _h1_rows(candles_doc, klines_doc=None):
     return [best[k] for k in sorted(best)]
 
 
-def last_closed_h1(candles_doc, now=None, klines_doc=None):
-    """Return the last fully closed H1 bar (not the in-progress hour)."""
+def closed_h1_bars(candles_doc, now=None, klines_doc=None):
+    """Fully closed H1 bars as (ts, o, h, l, c), oldest to newest."""
     now = now or datetime.now(timezone.utc)
     now_ts = int(now.timestamp())
     closed = []
@@ -686,6 +686,12 @@ def last_closed_h1(candles_doc, now=None, klines_doc=None):
             continue
         if ts + 3600 <= now_ts + 1:
             closed.append((ts, o, h, l, c))
+    return closed
+
+
+def last_closed_h1(candles_doc, now=None, klines_doc=None):
+    """Return the last fully closed H1 bar (not the in-progress hour)."""
+    closed = closed_h1_bars(candles_doc, now=now, klines_doc=klines_doc)
     if not closed:
         return None
     ts, o, h, l, c = closed[-1]
@@ -792,7 +798,280 @@ def news_blackout(events_doc, now=None, window_min=30):
     }
 
 
+
+SIDEWAYS_BARS = 8
+SIDEWAYS_DISPLACEMENT = 0.5
+SIDEWAYS_ATR_MAX = 2.5
+ZONE_PAD = 0.8
+
+# Sideways rule (H1, closed bars only):
+# Take the last 8 fully closed H1 candles. A = lowest low, B = highest high.
+# The graph is sideways when |last close − first close of the window| is at most
+# 50% of (B−A) and (B−A) is at most 2.5 × ATR(H1 of the last 14 closed bars).
+# While sideways, wait for a closed H1 to leave A–B before entering.
+# A confirmed breakout is a later fully closed H1 that closes above B (up) or
+# below A (down). Alert again on that confirmed breakout. The A–B range stays
+# locked until the breakout so the box cannot expand with the break bar.
+
+
+def _atr_h1(bars):
+    if not bars or len(bars) < 2:
+        return 0.0
+    trs = []
+    for i in range(1, len(bars)):
+        h, l, pc = bars[i][2], bars[i][3], bars[i - 1][4]
+        trs.append(max(h - l, abs(h - pc), abs(l - pc)))
+    return sum(trs) / len(trs) if trs else 0.0
+
+
+def _zone_overlap(bar, zone, pad=ZONE_PAD):
+    if not bar or not zone or zone.get("low") is None or zone.get("high") is None:
+        return False
+    lo, hi = float(zone["low"]), float(zone["high"])
+    if lo > hi:
+        lo, hi = hi, lo
+    high, low = float(bar.get("high")), float(bar.get("low"))
+    return low <= hi + pad and high >= lo - pad
+
+
+def detect_sideways(closed_bars, prev_sideways=None):
+    """Return sideways / breakout state from fully closed H1 bars."""
+    prev = prev_sideways or {}
+    locked = bool(prev.get("active") and prev.get("low") is not None and prev.get("high") is not None)
+    last = closed_bars[-1] if closed_bars else None
+    last_c = float(last[4]) if last else None
+
+    def pack(active, lo, hi, breakout=None, **extra):
+        a, b = r1(lo, 1), r1(hi, 1)
+        rng = _fmt_rng({"low": a, "high": b})
+        rule_th = f"กราฟไซด์เวย์ ราคาระหว่าง {rng} ไม่มีทิศชัด แนะนำรอดูแท่ง H1 ปิดออกจากช่วงก่อนเข้า"
+        rule_en = (
+            f"Sideways: price is between {rng} with no clear direction. "
+            "Wait for a closed H1 bar to leave this range before entering."
+        )
+        out = {
+            "active": bool(active),
+            "low": a,
+            "high": b,
+            "bars": SIDEWAYS_BARS,
+            "rule_th": rule_th,
+            "rule_en": rule_en,
+            "note_th": rule_th if active else "",
+            "note_en": rule_en if active else "",
+        }
+        out.update(extra)
+        if breakout:
+            direction = breakout
+            if direction == "up":
+                out["breakout"] = {
+                    "confirmed": True,
+                    "direction": "up",
+                    "low": a,
+                    "high": b,
+                    "note_th": f"แท่ง H1 ปิดยืนยันเบรกออกจากช่วงไซด์เวย์ {rng} ขึ้น",
+                    "note_en": f"A closed H1 confirmed a breakout above the sideways range {rng}",
+                }
+            else:
+                out["breakout"] = {
+                    "confirmed": True,
+                    "direction": "down",
+                    "low": a,
+                    "high": b,
+                    "note_th": f"แท่ง H1 ปิดยืนยันเบรกออกจากช่วงไซด์เวย์ {rng} ลง",
+                    "note_en": f"A closed H1 confirmed a breakout below the sideways range {rng}",
+                }
+            out["active"] = False
+            out["note_th"] = out["breakout"]["note_th"]
+            out["note_en"] = out["breakout"]["note_en"]
+        else:
+            out["breakout"] = {"confirmed": False, "direction": "", "low": a, "high": b, "note_th": "", "note_en": ""}
+        return out
+
+    if locked and last_c is not None:
+        lo, hi = float(prev["low"]), float(prev["high"])
+        if lo > hi:
+            lo, hi = hi, lo
+        if last_c > hi:
+            return pack(False, lo, hi, breakout="up")
+        if last_c < lo:
+            return pack(False, lo, hi, breakout="down")
+        return pack(True, lo, hi)
+
+    if len(closed_bars) < SIDEWAYS_BARS:
+        return {"active": False, "breakout": {"confirmed": False, "direction": "", "note_th": "", "note_en": ""}}
+
+    window = closed_bars[-SIDEWAYS_BARS:]
+    lo = min(b[3] for b in window)
+    hi = max(b[2] for b in window)
+    width = hi - lo
+    if width < 1:
+        return {"active": False, "breakout": {"confirmed": False, "direction": "", "note_th": "", "note_en": ""}}
+    atr = _atr_h1(closed_bars[-15:] if len(closed_bars) >= 15 else closed_bars)
+    disp = abs(window[-1][4] - window[0][4])
+    is_sw = disp <= SIDEWAYS_DISPLACEMENT * width and (atr <= 0 or width <= SIDEWAYS_ATR_MAX * atr)
+    if not is_sw:
+        return {
+            "active": False,
+            "low": r1(lo, 1),
+            "high": r1(hi, 1),
+            "bars": SIDEWAYS_BARS,
+            "breakout": {"confirmed": False, "direction": "", "note_th": "", "note_en": ""},
+            "eval_th": f"ช่วง { _fmt_rng({'low': r1(lo,1),'high': r1(hi,1)}) } ยังไม่เข้าเงื่อนไขไซด์เวย์",
+        }
+    return pack(True, lo, hi, displacement=r1(disp, 1), atr=r1(atr, 1), width=r1(width, 1))
+
+
+def detect_reversal(bar, prior_bars, demand, supply):
+    """Reversal only after a confirmed (closed) H1 at Demand or Supply."""
+    if not bar:
+        return None
+    # Prior direction from the three fully closed bars before this one.
+    prior_down = prior_up = False
+    if prior_bars and len(prior_bars) >= 3:
+        first, last = float(prior_bars[-3][4]), float(prior_bars[-1][4])
+        prior_down = last < first
+        prior_up = last > first
+    close = float(bar.get("close"))
+    bullish = bool(bar.get("bullish"))
+    if demand and _zone_overlap(bar, demand) and prior_down:
+        lo, hi = float(demand["low"]), float(demand["high"])
+        if lo > hi:
+            lo, hi = hi, lo
+        # Confirm: close inside the zone, or the bar traded the zone and closed up through it.
+        in_or_through = (lo - ZONE_PAD) <= close <= (hi + ZONE_PAD) or close >= hi
+        if in_or_through and (bullish or close >= lo):
+            rng = _fmt_rng({"low": r1(lo, 1), "high": r1(hi, 1)})
+            return {
+                "confirmed": True,
+                "zone": "demand",
+                "low": r1(lo, 1),
+                "high": r1(hi, 1),
+                "side": "buy",
+                "note_th": f"ราคากลับตัวที่ Demand Zone {rng} นี่คือจุดกลับตัว เปลี่ยนจากลงเป็นขึ้น ให้สัญญาณ BUY",
+                "note_en": f"Price reversed at Demand Zone {rng} — this is the reversal point, turning down to up, BUY signal",
+            }
+    if supply and _zone_overlap(bar, supply) and prior_up:
+        lo, hi = float(supply["low"]), float(supply["high"])
+        if lo > hi:
+            lo, hi = hi, lo
+        in_or_through = (lo - ZONE_PAD) <= close <= (hi + ZONE_PAD) or close <= lo
+        if in_or_through and ((not bullish) or close <= hi):
+            rng = _fmt_rng({"low": r1(lo, 1), "high": r1(hi, 1)})
+            return {
+                "confirmed": True,
+                "zone": "supply",
+                "low": r1(lo, 1),
+                "high": r1(hi, 1),
+                "side": "sell",
+                "note_th": f"ราคากลับตัวที่ Supply Zone {rng} นี่คือจุดกลับตัว เปลี่ยนจากขึ้นเป็นลง ให้สัญญาณ SELL",
+                "note_en": f"Price reversed at Supply Zone {rng} — this is the reversal point, turning up to down, SELL signal",
+            }
+    return None
+
+
+def build_alert(plan):
+    """Structured stance + reason used by every surface to compose ราคาล่าสุด alerts."""
+    h1 = plan.get("h1") or {}
+    news = plan.get("news") or {}
+    demand, supply = plan.get("demand_zone"), plan.get("supply_zone")
+    d_txt, s_txt = _fmt_rng(demand), _fmt_rng(supply)
+    side = plan.get("side") or "wait"
+    rev = h1.get("reversal") or {}
+    sw = h1.get("sideways") or {}
+    br = (sw.get("breakout") or {}) if isinstance(sw, dict) else {}
+    if not br.get("confirmed"):
+        br = h1.get("breakout") or br
+
+    if news.get("blackout") and not h1.get("confirmed") and not rev.get("confirmed"):
+        stance, stance_en, kind = "รอ", "waiting", "news"
+        reason_th = news.get("label_th") or "ช่วงข่าวแรง งดเข้า"
+        if news.get("detail_th"):
+            reason_th += " — " + news["detail_th"]
+        reason_en = news.get("label_en") or "high-impact news — no new entries"
+        if news.get("detail_en"):
+            reason_en += " — " + news["detail_en"]
+    elif rev.get("confirmed"):
+        stance = "BUY" if rev.get("side") == "buy" else "SELL"
+        stance_en = stance
+        kind = "reversal"
+        reason_th = rev.get("note_th") or ""
+        reason_en = rev.get("note_en") or ""
+    elif br.get("confirmed"):
+        up = br.get("direction") == "up"
+        stance, stance_en, kind = ("BUY" if up else "SELL"), ("BUY" if up else "SELL"), "breakout"
+        reason_th = br.get("note_th") or ""
+        reason_en = br.get("note_en") or ""
+    elif sw.get("active"):
+        stance, stance_en, kind = "รอ", "waiting", "sideways"
+        reason_th = sw.get("note_th") or sw.get("rule_th") or ""
+        reason_en = sw.get("note_en") or sw.get("rule_en") or ""
+    elif h1.get("confirmed") and side == "buy":
+        stance, stance_en, kind = "BUY", "BUY", "confirm"
+        z = d_txt if plan.get("trigger_zone") != "supply" else s_txt
+        name = "Demand Zone" if plan.get("trigger_zone") != "supply" else "Supply Zone"
+        if plan.get("trigger_zone") == "entry":
+            name, z = "โซนเข้า", _fmt_rng({"low": plan.get("entry_low"), "high": plan.get("entry_high")})
+        reason_th = f"แท่ง H1 ปิดยืนยันที่ {name} {z}"
+        reason_en = f"a closed H1 confirmed the {name} {z}"
+    elif h1.get("confirmed") and side == "sell":
+        stance, stance_en, kind = "SELL", "SELL", "confirm"
+        name = "Supply Zone" if plan.get("trigger_zone") != "demand" else "Demand Zone"
+        z = s_txt if plan.get("trigger_zone") != "demand" else d_txt
+        reason_th = f"แท่ง H1 ปิดยืนยันที่ {name} {z}"
+        reason_en = f"a closed H1 confirmed the {name} {z}"
+    elif side == "buy":
+        stance, stance_en, kind = "รอ", "waiting", "wait"
+        reason_th = f"ยังรอแท่ง H1 ปิดยืนยันที่ Demand Zone {d_txt}"
+        reason_en = f"waiting for a confirming H1 close at Demand Zone {d_txt}"
+    elif side == "sell":
+        stance, stance_en, kind = "รอ", "waiting", "wait"
+        reason_th = f"ยังรอแท่ง H1 ปิดยืนยันที่ Supply Zone {s_txt}"
+        reason_en = f"waiting for a confirming H1 close at Supply Zone {s_txt}"
+    else:
+        stance, stance_en, kind = "รอ", "waiting", "wait"
+        # Name the nearest / relevant zone
+        reason_th = f"ยังไม่เข้าโซน · Demand Zone {d_txt} / Supply Zone {s_txt}"
+        if h1.get("note_th") and "รอแท่ง H1" in h1["note_th"]:
+            # Prefer the demand zone when price is nearer to it
+            reason_th = f"ยังรอแท่ง H1 ปิดยืนยันที่ Demand Zone {d_txt}"
+        reason_en = f"no setup yet · Demand Zone {d_txt} / Supply Zone {s_txt}"
+        if h1.get("note_en") and "Waiting for a confirming H1" in h1["note_en"]:
+            reason_en = f"waiting for a confirming H1 close at Demand Zone {d_txt}"
+
+    return {
+        "stance": stance,
+        "stance_en": stance_en,
+        "kind": kind,
+        "reason_th": reason_th,
+        "reason_en": reason_en,
+        "lead_rule_th": "ราคาล่าสุด $X · ตอนนี้ BUY/SELL/รอ เพราะ…",
+        "lead_rule_en": "Latest price $X · now BUY/SELL/waiting because …",
+        "sideways_rule_th": "กราฟไซด์เวย์ ราคาระหว่าง A–B ไม่มีทิศชัด แนะนำรอดูแท่ง H1 ปิดออกจากช่วงก่อนเข้า",
+        "reversal_rule_th": "ราคากลับตัวที่ Demand Zone A–B นี่คือจุดกลับตัว เปลี่ยนจากลงเป็นขึ้น ให้สัญญาณ BUY",
+    }
+
+
+def format_alert_text(plan, px, lang="th", extra=""):
+    """Every alert starts with ราคาล่าสุด $X · ตอนนี้ BUY/SELL/รอ เพราะ…"""
+    alert = plan.get("alert") or build_alert(plan)
+    try:
+        px_s = f"{float(px):,.1f}"
+    except (TypeError, ValueError):
+        px_s = "—"
+    if lang == "th":
+        lead = f"ราคาล่าสุด ${px_s} · ตอนนี้ {alert.get('stance') or 'รอ'} เพราะ{alert.get('reason_th') or 'กำลังดูโครงสร้าง'}"
+    else:
+        lead = f"Latest price ${px_s} · now {alert.get('stance_en') or 'waiting'} because {alert.get('reason_en') or 'the structure is being read'}"
+    extra = (extra or "").strip()
+    if extra and not extra.startswith(lead[:10]):
+        short = lead + " " + extra
+    else:
+        short = lead
+    return {"lead": lead, "short": short, "full": short, "kind": alert.get("kind"), "stance": alert.get("stance")}
+
+
 def attach_live_flags(plan, candles_doc, events_doc, prev_plan=None, klines_doc=None):
+    closed = closed_h1_bars(candles_doc, klines_doc=klines_doc)
     bar = last_closed_h1(candles_doc, klines_doc=klines_doc)
     news = news_blackout(events_doc)
     confirmed = bool(h1_confirms(plan, bar))
@@ -807,11 +1086,25 @@ def attach_live_flags(plan, candles_doc, events_doc, prev_plan=None, klines_doc=
         confirmed = True
         if bar and not plan.get("h1"):
             pass
+    prev_h1 = prev.get("h1") or {}
+    sideways = detect_sideways(closed, prev_h1.get("sideways"))
+    prior = closed[:-1] if closed else []
+    reversal = detect_reversal(bar, prior, plan.get("demand_zone"), plan.get("supply_zone"))
+    # sticky reversal on the same zone + same closed bar
+    if not reversal and prev_h1.get("reversal", {}).get("confirmed"):
+        prev_bar = (prev_h1.get("bar") or {}).get("open_ts")
+        if bar and prev_bar == bar.get("open_ts"):
+            reversal = prev_h1.get("reversal")
     h1 = {
-        "confirmed": confirmed,
+        "confirmed": confirmed or bool(reversal and reversal.get("confirmed")),
         "bar": bar,
         "note_th": "",
         "note_en": "",
+        "sideways": sideways,
+        "reversal": reversal,
+        "breakout": (sideways or {}).get("breakout") or {"confirmed": False},
+        "sideways_rule_th": "กราฟไซด์เวย์ ราคาระหว่าง A–B ไม่มีทิศชัด แนะนำรอดูแท่ง H1 ปิดออกจากช่วงก่อนเข้า",
+        "reversal_rule_th": "ราคากลับตัวที่ Demand Zone A–B นี่คือจุดกลับตัว เปลี่ยนจากลงเป็นขึ้น ให้สัญญาณ BUY",
     }
     if bar:
         direction = "แท่งเขียว" if bar["bullish"] else "แท่งแดง"
@@ -825,9 +1118,20 @@ def attach_live_flags(plan, candles_doc, events_doc, prev_plan=None, klines_doc=
     else:
         h1["note_th"] = "ยังไม่มีแท่ง H1 ที่ปิดครบชั่วโมง"
         h1["note_en"] = "No fully closed H1 bar is available yet"
+    if reversal and reversal.get("confirmed"):
+        h1["note_th"] = reversal["note_th"]
+        h1["note_en"] = reversal["note_en"]
+    elif (sideways or {}).get("active"):
+        h1["note_th"] = sideways.get("note_th") or ""
+        h1["note_en"] = sideways.get("note_en") or ""
+    elif (sideways or {}).get("breakout", {}).get("confirmed"):
+        h1["note_th"] = sideways["breakout"]["note_th"]
+        h1["note_en"] = sideways["breakout"]["note_en"]
     plan["h1"] = h1
     plan["news"] = news
-    plan["suppress_entry"] = bool(news.get("blackout")) and not confirmed
+    # A confirmed reversal or plan confirmation is not suppressed by news? news still flags; suppress new entries unless already confirmed/reversal
+    plan["suppress_entry"] = bool(news.get("blackout")) and not (confirmed or (reversal and reversal.get("confirmed")))
+    plan["alert"] = build_alert(plan)
     return plan
 
 def attach_guide(plan, levels, data, atr, usdthb):

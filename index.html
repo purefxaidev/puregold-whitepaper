@@ -740,6 +740,14 @@ html.pg-mobile .tp-ds { grid-template-columns:1fr; }
     .pg-push-box p{margin:0;font-size:12px;line-height:1.45;color:var(--muted,#9aa4b5)}
     header.top .pg-push-hdr{margin-left:8px}
 
+
+.tp-lead{margin:0 0 8px;padding:10px 12px;border-radius:12px;border:1px solid rgba(201,169,98,.35);background:rgba(201,169,98,.10);color:#f4efe3;font-weight:700;font-size:13px;line-height:1.45}
+.tp-sideways{margin:0 0 8px;padding:10px 12px;border-radius:12px;border:1px solid rgba(160,170,190,.4);background:rgba(80,90,110,.18);color:#d7dce6;font-weight:700;font-size:13px;line-height:1.45}
+.tp-reversal{margin:0 0 8px;padding:10px 12px;border-radius:12px;border:1px solid rgba(80,200,120,.45);background:rgba(40,140,80,.16);color:#b6f0c8;font-weight:700;font-size:13px;line-height:1.45}
+.tp-ai[data-ai="reversal"]{border-color:rgba(80,200,120,.55)}
+.tp-ai[data-ai="sideways"]{border-color:rgba(160,170,190,.55)}
+.tp-ai[data-ai="breakout"]{border-color:rgba(245,197,66,.55)}
+
 </style>
 </head>
 <body>
@@ -770,7 +778,7 @@ html.pg-mobile .tp-ds { grid-template-columns:1fr; }
           <button type="button" id="ben" onclick="setLang('en')"><span class="lang-full">English</span><span class="lang-short">EN</span></button>
         </div>
         <a class="line-pill" href="https://line.me/ti/p/H_Bxfi7so3" target="_blank" rel="noopener" title="LINE PureFxAi"><img src="assets/line-icon.png" width="16" height="16" alt=""> LINE</a>
-        <a class="btn btn-gold btn-sm pwa-hide-standalone" id="hdrDl" href="downloads/PUREGOLD.apk" download="PUREGOLD.apk">APK 0.9.12</a>
+        <a class="btn btn-gold btn-sm pwa-hide-standalone" id="hdrDl" href="downloads/PUREGOLD.apk" download="PUREGOLD.apk">APK 0.9.13</a>
         <button type="button" class="btn btn-ghost btn-sm pg-push-hdr" data-push-btn><span class="th">เปิดการแจ้งเตือน</span><span class="en hid">Enable notifications</span></button>
       </div>
     </header>
@@ -805,7 +813,7 @@ html.pg-mobile .tp-ds { grid-template-columns:1fr; }
             <span class="th">ดูกราฟ</span><span class="en hid">View chart</span>
           </button>
         </div>
-        <p class="ver" id="dlMeta">PUREGOLD 0.9.12 · Android APK · iPhone web app</p>
+        <p class="ver" id="dlMeta">PUREGOLD 0.9.13 · Android APK · iPhone web app</p>
       </div>
       <aside class="hero-quote reveal in" aria-label="XAUUSD spot">
         <div class="k">XAUUSD · SPOT</div>
@@ -1051,8 +1059,8 @@ html.pg-mobile .tp-ds { grid-template-columns:1fr; }
     </section>
 
     <section class="block reveal" id="updates">
-      <div class="th"><h2>ประวัติเวอร์ชัน</h2><p class="mut">อัปเดตล่าสุดของแอปและหน้าเว็บ · <a href="downloads/PUREGOLD.apk" download="PUREGOLD.apk">ดาวน์โหลด 0.9.12</a></p></div>
-      <div class="en hid"><h2>Version history</h2><p class="mut">Latest app and website updates · <a href="downloads/PUREGOLD.apk" download="PUREGOLD.apk">Download 0.9.12</a></p></div>
+      <div class="th"><h2>ประวัติเวอร์ชัน</h2><p class="mut">อัปเดตล่าสุดของแอปและหน้าเว็บ · <a href="downloads/PUREGOLD.apk" download="PUREGOLD.apk">ดาวน์โหลด 0.9.13</a></p></div>
+      <div class="en hid"><h2>Version history</h2><p class="mut">Latest app and website updates · <a href="downloads/PUREGOLD.apk" download="PUREGOLD.apk">Download 0.9.13</a></p></div>
       <div class="cl">
         <b>เว็บไซต์</b> · 2026-11-11
         <ul class="th">
@@ -1080,6 +1088,19 @@ html.pg-mobile .tp-ds { grid-template-columns:1fr; }
           <li>Save and share posters are drawn from the live gold price at tap time, with a Bangkok time stamp to the second — not from a stored image</li>
           <li>The trade plan states a clear entry, stop loss, and TP1–TP3 from real support and resistance, with a status that follows the live price — education only, not investment advice; always use a stop loss</li>
           <li>Save and Share are compact header pills, not full-width buttons</li>
+        </ul>
+      </div>
+      <div class="cl">
+        <b>0.9.13</b> · 2026-11-13
+        <ul class="th">
+          <li>ทุกการแจ้งเตือนขึ้นต้นด้วย «ราคาล่าสุด $X · ตอนนี้ BUY/SELL/รอ เพราะ…» และระบุ Demand Zone หรือ Supply Zone</li>
+          <li>เมื่อแท่ง H1 ปิดยืนยันที่โซน จะแจ้งกลับตัว เช่น «ราคากลับตัวที่ Demand Zone A–B นี่คือจุดกลับตัว เปลี่ยนจากลงเป็นขึ้น ให้สัญญาณ BUY» และฝั่ง Supply กลับกัน</li>
+          <li>ตรวจกราฟไซด์เวย์จากแท่ง H1 ที่ปิดแล้ว ตามกฎ «กราฟไซด์เวย์ ราคาระหว่าง A–B ไม่มีทิศชัด แนะนำรอดูแท่ง H1 ปิดออกจากช่วงก่อนเข้า» และแจ้งอีกครั้งเมื่อแท่ง H1 ปิดยืนยันเบรกออกจากช่วง</li>
+        </ul>
+        <ul class="en hid">
+          <li>Every alert now starts with “Latest price $X · now BUY/SELL/waiting because …” and names the Demand or Supply zone</li>
+          <li>A confirmed H1 close at a zone sends a reversal alert, e.g. a Demand bounce turning down to up (BUY), and the Supply mirror (SELL)</li>
+          <li>Sideways H1 ranges use the documented wait rule, and a second alert fires when a closed H1 confirms the breakout</li>
         </ul>
       </div>
       <div class="cl">
@@ -1282,11 +1303,11 @@ html.pg-mobile .tp-ds { grid-template-columns:1fr; }
           <span><span class="dl-kicker">iPhone / iPad</span><span class="dl-label th">ติดตั้งเว็บแอป</span><span class="dl-label en hid">Install web app</span></span>
         </button>
       </div>
-      <p class="ver">PUREGOLD 0.9.12 · signed Android release · ลิงก์ไฟล์ <a href="downloads/PUREGOLD.apk" download="PUREGOLD.apk">downloads/PUREGOLD.apk</a> · sha256 61072e9e8dc36ff0cf42e66e274e9d744514c381fe1323c77edb586ecefa831f</p>
+      <p class="ver">PUREGOLD 0.9.13 · signed Android release · ลิงก์ไฟล์ <a href="downloads/PUREGOLD.apk" download="PUREGOLD.apk">downloads/PUREGOLD.apk</a> · sha256 2eb99997775739d013d75f85d5d1295120233bfeea9f3bcadfcf0b55d50056ac</p>
       <div class="th">
         <h3 style="margin:18px 0 8px;font-size:16px;letter-spacing:0;text-transform:none;color:var(--text)">วิธีติดตั้งบน Android</h3>
         <ol>
-          <li>กดดาวน์โหลด APK 0.9.12 แล้วอนุญาตติดตั้งจากแหล่งที่ไม่รู้จักหากระบบถาม</li>
+          <li>กดดาวน์โหลด APK 0.9.13 แล้วอนุญาตติดตั้งจากแหล่งที่ไม่รู้จักหากระบบถาม</li>
           <li>ติดตั้งทับเวอร์ชันเดิมได้ ไม่ต้องถอนก่อน</li>
           <li>ในเมนู → ตั้งค่า วาง API key เพื่อเปิด PureFxAi</li>
         </ol>
@@ -1304,7 +1325,7 @@ html.pg-mobile .tp-ds { grid-template-columns:1fr; }
       <div class="en hid">
         <h3 style="margin:18px 0 8px;font-size:16px;letter-spacing:0;text-transform:none;color:var(--text)">Install on Android</h3>
         <ol>
-          <li>Download APK 0.9.12 and allow unknown sources if Android asks.</li>
+          <li>Download APK 0.9.13 and allow unknown sources if Android asks.</li>
           <li>You can install over the previous version.</li>
           <li>In More → Settings, paste an API key to enable PureFxAi.</li>
         </ol>
@@ -1411,7 +1432,7 @@ html.pg-mobile .tp-ds { grid-template-columns:1fr; }
     <div class="dl-pair pwa-hide-standalone" style="margin:26px auto 0;max-width:640px">
       <a class="dl-btn dl-android" href="downloads/PUREGOLD.apk" download="PUREGOLD.apk">
         <svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M17.6 9.48 19.44 6.3a.64.64 0 0 0-.26-.85.64.64 0 0 0-.83.22l-1.88 3.24a11.43 11.43 0 0 0-8.94 0L5.65 5.67a.64.64 0 0 0-.87-.2.64.64 0 0 0-.26.85L6.36 9.5C4.2 11.05 2.67 13.32 2.67 16h18.66c0-2.69-1.55-4.96-3.73-6.52ZM7.5 13.5a1 1 0 1 1 0-2 1 1 0 0 1 0 2Zm9 0a1 1 0 1 1 0-2 1 1 0 0 1 0 2Z"/></svg>
-        <span><span class="dl-kicker">Android</span><span class="dl-label">APK 0.9.12</span></span>
+        <span><span class="dl-kicker">Android</span><span class="dl-label">APK 0.9.13</span></span>
       </a>
       <button type="button" class="dl-btn dl-ios js-ios-install">
         <svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M18.71 19.5c-.83 1.24-1.71 2.45-3.05 2.47-1.34.03-1.77-.79-3.29-.79-1.53 0-2 .77-3.27.82-1.31.05-2.3-1.32-3.14-2.53C4.25 17 2.94 12.45 4.7 9.39c.87-1.52 2.43-2.48 4.12-2.51 1.28-.02 2.5.87 3.29.87.78 0 2.26-1.07 3.81-.91.65.03 2.47.26 3.64 1.98-.09.06-2.17 1.28-2.15 3.81.03 3.02 2.65 4.03 2.68 4.04-.03.07-.42 1.44-1.38 2.83M13 3.5c.73-.83 1.94-1.46 2.94-1.5.13 1.17-.34 2.35-1.04 3.19-.69.85-1.83 1.51-2.95 1.42-.15-1.15.41-2.35 1.05-3.11z"/></svg>
@@ -1608,7 +1629,7 @@ html.pg-mobile .tp-ds { grid-template-columns:1fr; }
   <script type="application/json" id="pg-klines">{"symbol":"XAUUSD","interval":"1h","updatedAt":"2026-11-13T09:57:13Z","spot":3899.475,"spotSource":"swissquote","note":"Hourly XAUUSD series aligned to FX spot so the landing chart matches the live desk.","closes":[{"t":1794304800000,"o":4087.675,"h":4088.465,"l":4072.275,"c":4074.885},{"t":1794308400000,"o":4074.625,"h":4076.605,"l":4069.165,"c":4072.475},{"t":1794312000000,"o":4072.745,"h":4080.475,"l":4072.615,"c":4080.255},{"t":1794315600000,"o":4080.285,"h":4080.315,"l":4042.365,"c":4052.575},{"t":1794319200000,"o":4053.365,"h":4062.065,"l":4035.795,"c":4040.305},{"t":1794322800000,"o":4040.635,"h":4053.455,"l":4035.175,"c":4042.705},{"t":1794326400000,"o":4042.035,"h":4045.595,"l":4017.755,"c":4025.305},{"t":1794330000000,"o":4025.025,"h":4027.855,"l":4018.815,"c":4022.525},{"t":1794333600000,"o":4022.785,"h":4036.655,"l":4019.365,"c":4031.905},{"t":1794337200000,"o":4031.915,"h":4036.825,"l":4029.325,"c":4034.565},{"t":1794340800000,"o":4034.565,"h":4040.405,"l":4030.935,"c":4034.725},{"t":1794344400000,"o":4034.725,"h":4040.765,"l":4030.565,"c":4034.575},{"t":1794348000000,"o":4034.575,"h":4038.875,"l":4031.325,"c":4038.005},{"t":1794351600000,"o":4038.005,"h":4042.955,"l":4035.375,"c":4042.955},{"t":1794355200000,"o":4043.115,"h":4045.875,"l":4035.675,"c":4035.675},{"t":1794358800000,"o":4035.115,"h":4055.265,"l":4030.565,"c":4050.185},{"t":1794362400000,"o":4049.425,"h":4051.975,"l":4043.295,"c":4046.985},{"t":1794366000000,"o":4047.335,"h":4055.095,"l":4047.155,"c":4051.015},{"t":1794369600000,"o":4049.265,"h":4053.985,"l":4045.155,"c":4050.325},{"t":1794373200000,"o":4050.335,"h":4067.765,"l":4049.565,"c":4062.165},{"t":1794376800000,"o":4061.145,"h":4063.435,"l":4056.645,"c":4061.775},{"t":1794380400000,"o":4061.645,"h":4066.165,"l":4058.885,"c":4059.185},{"t":1794384000000,"o":4059.175,"h":4061.095,"l":4055.945,"c":4058.165},{"t":1794387600000,"o":4058.165,"h":4058.725,"l":4046.725,"c":4049.655},{"t":1794391200000,"o":4049.655,"h":4056.575,"l":4047.975,"c":4050.605},{"t":1794394800000,"o":4050.595,"h":4055.015,"l":4044.605,"c":4044.605},{"t":1794398400000,"o":4044.465,"h":4046.695,"l":4040.585,"c":4043.645},{"t":1794402000000,"o":4043.895,"h":4046.115,"l":4033.275,"c":4038.595},{"t":1794405600000,"o":4038.045,"h":4038.045,"l":4014.105,"c":4017.895},{"t":1794409200000,"o":4018.055,"h":4022.275,"l":4005.215,"c":4010.425},{"t":1794412800000,"o":4009.455,"h":4011.625,"l":4003.495,"c":4004.015},{"t":1794416400000,"o":4004.655,"h":4010.845,"l":3997.655,"c":3997.655},{"t":1794420000000,"o":3997.555,"h":3999.885,"l":3991.945,"c":3992.625},{"t":1794423600000,"o":3992.625,"h":3995.305,"l":3988.915,"c":3991.375},{"t":1794427200000,"o":3991.355,"h":3993.735,"l":3988.335,"c":3991.105},{"t":1794430800000,"o":3990.235,"h":3993.425,"l":3989.335,"c":3992.415},{"t":1794434400000,"o":3992.745,"h":3997.315,"l":3992.225,"c":3992.615},{"t":1794438000000,"o":3992.615,"h":3998.915,"l":3983.735,"c":3984.065},{"t":1794441600000,"o":3983.445,"h":4000.365,"l":3975.165,"c":4000.005},{"t":1794445200000,"o":3999.995,"h":4005.125,"l":3985.165,"c":3990.585},{"t":1794448800000,"o":3990.625,"h":3994.565,"l":3979.375,"c":3985.115},{"t":1794452400000,"o":3985.115,"h":3989.655,"l":3982.675,"c":3987.655},{"t":1794456000000,"o":3987.655,"h":3987.655,"l":3978.895,"c":3980.565},{"t":1794459600000,"o":3980.555,"h":3986.505,"l":3975.285,"c":3983.395},{"t":1794463200000,"o":3983.645,"h":3984.115,"l":3967.035,"c":3970.305},{"t":1794466800000,"o":3970.255,"h":3976.395,"l":3961.295,"c":3970.175},{"t":1794470400000,"o":3970.165,"h":3970.165,"l":3935.185,"c":3935.495},{"t":1794474000000,"o":3935.495,"h":3950.115,"l":3931.465,"c":3949.795},{"t":1794477600000,"o":3949.905,"h":3959.065,"l":3948.235,"c":3957.955},{"t":1794481200000,"o":3957.955,"h":3959.395,"l":3945.815,"c":3946.865},{"t":1794484800000,"o":3946.865,"h":3952.185,"l":3938.625,"c":3943.655},{"t":1794488400000,"o":3943.655,"h":3953.245,"l":3894.165,"c":3898.565},{"t":1794492000000,"o":3898.755,"h":3916.885,"l":3875.605,"c":3879.895},{"t":1794495600000,"o":3879.885,"h":3882.795,"l":3862.725,"c":3879.795},{"t":1794499200000,"o":3880.225,"h":3894.105,"l":3874.935,"c":3888.415},{"t":1794502800000,"o":3888.795,"h":3888.815,"l":3880.555,"c":3883.675},{"t":1794506400000,"o":3883.665,"h":3896.985,"l":3883.375,"c":3892.005},{"t":1794510000000,"o":3892.605,"h":3894.665,"l":3885.725,"c":3894.625},{"t":1794513600000,"o":3894.625,"h":3896.035,"l":3883.695,"c":3884.765},{"t":1794517200000,"o":3884.425,"h":3887.125,"l":3882.505,"c":3886.495},{"t":1794520800000,"o":3886.145,"h":3889.945,"l":3886.135,"c":3889.935},{"t":1794524400000,"o":3889.935,"h":3895.425,"l":3884.175,"c":3891.845},{"t":1794528000000,"o":3891.835,"h":3899.855,"l":3890.135,"c":3895.375},{"t":1794531600000,"o":3895.035,"h":3924.145,"l":3894.465,"c":3916.205},{"t":1794535200000,"o":3917.595,"h":3922.095,"l":3911.845,"c":3922.095},{"t":1794538800000,"o":3922.095,"h":3927.215,"l":3919.235,"c":3924.545},{"t":1794542400000,"o":3924.245,"h":3924.695,"l":3910.145,"c":3914.425},{"t":1794546000000,"o":3914.425,"h":3921.115,"l":3894.805,"c":3905.895},{"t":1794549600000,"o":3905.685,"h":3905.685,"l":3890.765,"c":3902.215},{"t":1794553200000,"o":3902.215,"h":3907.845,"l":3895.755,"c":3899.165},{"t":1794556800000,"o":3897.465,"h":3901.475,"l":3891.035,"c":3897.215},{"t":1794560400000,"o":3897.205,"h":3901.375,"l":3894.345,"c":3899.475}]}</script>
   <script type="application/json" id="pg-quotes">{"updatedAt":"2026-11-13T09:57:13Z","spot":{"price":3899.475,"symbol":"XAU","currency":"USD","currencySymbol":"$","source":"swissquote"},"thai":[{"GoldType":"HSH","GoldCode":"96.50","Buy":"62,440","Sell":"62,520","TimeUpdate":"2026-11-13T16:56:56","BuyChange":-20.0,"SellChange":-20.0,"PresentDate":"","FxAsk":null,"FxBid":null,"Bid":null,"Ask":null,"QtyBid":null,"QtyAsk":null,"Discount":null,"Premium":null,"Increment":null,"SourcePrice":null,"StrTimeUpdate":"อัพเดตล่าสุด วันที่ 13 พ.ย. 2569 เวลา 16:56:56 น."},{"GoldType":"REF","GoldCode":"96.50","Buy":"62,450","Sell":"62,650","TimeUpdate":"2026-11-13T16:05:04","BuyChange":50.0,"SellChange":50.0,"PresentDate":"","FxAsk":null,"FxBid":null,"Bid":null,"Ask":null,"QtyBid":null,"QtyAsk":null,"Discount":null,"Premium":null,"Increment":null,"SourcePrice":null,"StrTimeUpdate":"อัพเดตล่าสุด วันที่ 13 พ.ย. 2569 เวลา 16:05:04 น."},{"GoldType":"JEWEL","GoldCode":"96.50","Buy":"61,200.92","Sell":"63,450","TimeUpdate":"2026-11-13T16:57:15","BuyChange":0.0,"SellChange":0.0,"PresentDate":"","FxAsk":null,"FxBid":null,"Bid":null,"Ask":null,"QtyBid":null,"QtyAsk":null,"Discount":null,"Premium":null,"Increment":null,"SourcePrice":null,"StrTimeUpdate":"อัพเดตล่าสุด วันที่ 13 พ.ย. 2569 เวลา 16:57:15 น."}]}</script>
   <script type="application/json" id="pg-levels">{"symbol":"XAUUSD","updatedAt":"2026-11-13T09:57:13Z","updatedAtBangkok":"2026-11-13 16:57","spot":3899.475,"spotSource":"swissquote","offset":9.165,"daily":{"high":4005.125,"low":3862.725,"close":3891.845,"pp":3919.898,"r1":3977.072,"s1":3834.672,"r2":4062.298,"s2":3777.498,"r3":4119.472,"s3":3692.272},"h4":{"high":3924.695,"low":3890.765,"close":3899.165,"pp":3904.875,"r1":3918.985,"s1":3885.055,"r2":3938.805,"s2":3870.945,"r3":3952.915,"s3":3851.125},"swings":{"highs":[{"t":1794182400000,"price":4132.845},{"t":1794254400000,"price":4143.155},{"t":1794369600000,"price":4067.765}],"lows":[{"t":1794168000000,"price":4041.505},{"t":1794326400000,"price":4017.755},{"t":1794484800000,"price":3862.725}]},"nearest":{"name":"Pivot","price":3919.898,"distance":20.423,"side":"resistance"},"bias":"down","biasTh":"เอียงลงต่ำกว่าจุดพิวอต","biasEn":"Tilt down, below the pivot","note":"Daily and H4 floor pivots from the prior completed session, aligned to FX spot. Education only — not investment advice.","noteTh":"จุดพิวอต รายวันและ H4 จากแท่งที่ปิดแล้ว ปรับให้ตรงราคาทองสปอต — เพื่อการศึกษา ไม่ใช่คำแนะนำการลงทุน"}</script>
-    <script src="assets/sharecard.js?v=20261113-0912"></script>
+    <script src="assets/sharecard.js?v=20261113-0913"></script>
   <script src="assets/features.js?v=20261110h"></script>
     <script src="assets/push.js?v=20261113-0912" defer></script>
 <script>

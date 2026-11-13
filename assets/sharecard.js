@@ -1364,6 +1364,125 @@
     return !!(h1 && h1.confirmed);
   }
 
+  function reversalText(zone, low, high, lang) {
+    const rng = fmtPlanRange({ low, high });
+    if (zone === "supply") {
+      return lang === "en"
+        ? ("Price reversed at Supply Zone " + rng + " — this is the reversal point, turning up to down, SELL signal")
+        : ("ราคากลับตัวที่ Supply Zone " + rng + " นี่คือจุดกลับตัว เปลี่ยนจากขึ้นเป็นลง ให้สัญญาณ SELL");
+    }
+    return lang === "en"
+      ? ("Price reversed at Demand Zone " + rng + " — this is the reversal point, turning down to up, BUY signal")
+      : ("ราคากลับตัวที่ Demand Zone " + rng + " นี่คือจุดกลับตัว เปลี่ยนจากลงเป็นขึ้น ให้สัญญาณ BUY");
+  }
+
+  function sidewaysText(low, high, lang) {
+    const rng = fmtPlanRange({ low, high });
+    return lang === "en"
+      ? ("Sideways: price is between " + rng + " with no clear direction. Wait for a closed H1 bar to leave this range before entering.")
+      : ("กราฟไซด์เวย์ ราคาระหว่าง " + rng + " ไม่มีทิศชัด แนะนำรอดูแท่ง H1 ปิดออกจากช่วงก่อนเข้า");
+  }
+
+  function breakoutText(low, high, direction, lang) {
+    const rng = fmtPlanRange({ low, high });
+    const up = direction === "up";
+    if (lang === "en") {
+      return "A closed H1 confirmed a breakout " + (up ? "above" : "below") + " the sideways range " + rng;
+    }
+    return "แท่ง H1 ปิดยืนยันเบรกออกจากช่วงไซด์เวย์ " + rng + (up ? " ขึ้น" : " ลง");
+  }
+
+  function h1Of(plan, ctx) {
+    return (ctx && ctx.h1) || (plan && plan.h1) || {};
+  }
+
+  function alertFields(plan, ctx) {
+    const h1 = h1Of(plan, ctx);
+    const news = newsBlackoutOf((ctx && ctx.news) || (plan && plan.news)) || (plan && plan.news) || {};
+    const demand = plan && plan.demand_zone, supply = plan && plan.supply_zone;
+    const dTxt = fmtPlanRange(demand), sTxt = fmtPlanRange(supply);
+    const side = (plan && plan.side) || "wait";
+    const rev = h1.reversal || {};
+    const sw = h1.sideways || {};
+    const br = (sw.breakout && sw.breakout.confirmed) ? sw.breakout : (h1.breakout || {});
+    if (news.blackout && !h1.confirmed && !rev.confirmed) {
+      return {
+        stance: "รอ", stanceEn: "waiting", kind: "news",
+        reasonTh: (news.label_th || "ช่วงข่าวแรง งดเข้า") + (news.detail_th ? " — " + news.detail_th : ""),
+        reasonEn: (news.label_en || "high-impact news — no new entries") + (news.detail_en ? " — " + news.detail_en : "")
+      };
+    }
+    if (rev.confirmed) {
+      const st = rev.side === "sell" ? "SELL" : "BUY";
+      return {
+        stance: st, stanceEn: st, kind: "reversal",
+        reasonTh: rev.note_th || reversalText(rev.zone, rev.low, rev.high, "th"),
+        reasonEn: rev.note_en || reversalText(rev.zone, rev.low, rev.high, "en")
+      };
+    }
+    if (br.confirmed) {
+      const st = br.direction === "up" ? "BUY" : "SELL";
+      return {
+        stance: st, stanceEn: st, kind: "breakout",
+        reasonTh: br.note_th || breakoutText(br.low, br.high, br.direction, "th"),
+        reasonEn: br.note_en || breakoutText(br.low, br.high, br.direction, "en")
+      };
+    }
+    if (sw.active) {
+      return {
+        stance: "รอ", stanceEn: "waiting", kind: "sideways",
+        reasonTh: sw.note_th || sw.rule_th || sidewaysText(sw.low, sw.high, "th"),
+        reasonEn: sw.note_en || sw.rule_en || sidewaysText(sw.low, sw.high, "en")
+      };
+    }
+    if (h1.confirmed && side === "buy") {
+      const name = plan.trigger_zone === "supply" ? "Supply Zone" : "Demand Zone";
+      const z = plan.trigger_zone === "supply" ? sTxt : dTxt;
+      return { stance: "BUY", stanceEn: "BUY", kind: "confirm", reasonTh: "แท่ง H1 ปิดยืนยันที่ " + name + " " + z, reasonEn: "a closed H1 confirmed the " + name + " " + z };
+    }
+    if (h1.confirmed && side === "sell") {
+      const name = plan.trigger_zone === "demand" ? "Demand Zone" : "Supply Zone";
+      const z = plan.trigger_zone === "demand" ? dTxt : sTxt;
+      return { stance: "SELL", stanceEn: "SELL", kind: "confirm", reasonTh: "แท่ง H1 ปิดยืนยันที่ " + name + " " + z, reasonEn: "a closed H1 confirmed the " + name + " " + z };
+    }
+    if (side === "buy") {
+      return { stance: "รอ", stanceEn: "waiting", kind: "wait", reasonTh: "ยังรอแท่ง H1 ปิดยืนยันที่ Demand Zone " + dTxt, reasonEn: "a confirming H1 close is still needed at Demand Zone " + dTxt };
+    }
+    if (side === "sell") {
+      return { stance: "รอ", stanceEn: "waiting", kind: "wait", reasonTh: "ยังรอแท่ง H1 ปิดยืนยันที่ Supply Zone " + sTxt, reasonEn: "a confirming H1 close is still needed at Supply Zone " + sTxt };
+    }
+    return {
+      stance: "รอ", stanceEn: "waiting", kind: "wait",
+      reasonTh: "ยังรอแท่ง H1 ปิดยืนยันที่ Demand Zone " + dTxt,
+      reasonEn: "a confirming H1 close is still needed at Demand Zone " + dTxt
+    };
+  }
+
+  function alertLead(plan, px, lang, ctx) {
+    const f = alertFields(plan, ctx);
+    const n = Number(px);
+    const pxS = Number.isFinite(n) ? n.toLocaleString("en-US", { minimumFractionDigits: 1, maximumFractionDigits: 1 }) : "—";
+    if (lang === "en") return "Latest price $" + pxS + " · now " + f.stanceEn + " because " + f.reasonEn;
+    return "ราคาล่าสุด $" + pxS + " · ตอนนี้ " + f.stance + " เพราะ" + f.reasonTh;
+  }
+
+  function withAlertLead(text, plan, px, lang, ctx) {
+    const lead = alertLead(plan, px, lang, ctx);
+    const body = String(text || "").trim();
+    if (!body) return lead;
+    if (body.startsWith("ราคาล่าสุด") || body.startsWith("Latest price")) return body;
+    return lead + " " + body;
+  }
+
+  function buildPlanAlert(plan, px, lang, ctx, extra) {
+    const lead = alertLead(plan, px, lang, ctx);
+    const f = alertFields(plan, ctx);
+    const extraS = String(extra || "").trim();
+    const short = extraS && !extraS.startsWith("ราคาล่าสุด") && !extraS.startsWith("Latest price") ? (lead + " " + extraS) : (extraS || lead);
+    return { lead, short, full: short, kind: f.kind, stance: f.stance, stanceEn: f.stanceEn, reasonTh: f.reasonTh, reasonEn: f.reasonEn };
+  }
+
+
   function furthestTp(plan, live) {
     const tps = plan.tps || [];
     const side = plan.side;
@@ -1389,6 +1508,14 @@
     const news = newsBlackoutOf((ctx && ctx.news) || plan.news);
     const confirmed = h1Confirmed(plan, ctx);
     if (!Number.isFinite(live)) return { id: 'wait', th: 'รอเข้า', en: 'Waiting' };
+    const h1x = (ctx && ctx.h1) || plan.h1 || {};
+    const rev = h1x.reversal || {};
+    const sw = h1x.sideways || {};
+    const br = (sw.breakout && sw.breakout.confirmed) ? sw.breakout : (h1x.breakout || {});
+    if (rev.confirmed) return { id: 'reversal', th: 'กลับตัว', en: 'Reversal', zone: rev.zone, side: rev.side };
+    if (br.confirmed) return { id: 'breakout', th: 'เบรกไซด์เวย์', en: 'Range breakout', direction: br.direction };
+    if (sw.active && side === 'wait') return { id: 'sideways', th: 'ไซด์เวย์', en: 'Sideways' };
+    if (sw.active && !confirmed) return { id: 'sideways', th: 'ไซด์เวย์', en: 'Sideways' };
     if (side === 'wait') {
       if (Number.isFinite(inv) && ((plan.bias === 'down' && live >= inv) || (plan.bias === 'up' && live <= inv))) {
         return { id: 'cancelled', th: 'ยกเลิก', en: 'Invalidated' };
@@ -1458,8 +1585,16 @@
   function aiActivity(plan, px, ctx) {
     const hm = new Date().toLocaleTimeString("th-TH", { timeZone: "Asia/Bangkok", hour: "2-digit", minute: "2-digit", hour12: false });
     const empty = { id: "scan", th: "กำลังสแกนโครงสร้าง H1/H4", en: "Scanning H1/H4 structure", next_th: "รอโครงสร้างหรือโซนที่ชัดขึ้น", next_en: "Waiting for a clearer structure or zone", checked_hm: hm };
-    if (!plan) return empty;
-    const st = planStatus(plan, px);
+    const finish = (row) => {
+      if (!plan) return row;
+      const leadTh = alertLead(plan, px, "th", ctx);
+      const leadEn = alertLead(plan, px, "en", ctx);
+      const th = row.th && row.th.startsWith("ราคาล่าสุด") ? row.th : (leadTh + (row.th ? " · " + row.th : ""));
+      const en = row.en && row.en.startsWith("Latest price") ? row.en : (leadEn + (row.en ? " · " + row.en : ""));
+      return Object.assign({}, row, { th, en, lead_th: leadTh, lead_en: leadEn });
+    };
+    if (!plan) return finish(empty);
+    const st = planStatus(plan, px, ctx);
     const live = Number(px);
     const side = plan.side || "wait";
     const lo = Number(plan.entry_low != null ? plan.entry_low : plan.entry);
@@ -1479,35 +1614,49 @@
     if (st.id === "sl" || st.id === "cancelled") {
       const whyTh = st.id === "sl" ? ("โดน SL ที่ " + fmtN(sl)) : (plan.invalidation_th || st.th);
       const whyEn = st.id === "sl" ? ("the stop was hit at " + fmtN(sl)) : (plan.invalidation_en || st.en);
-      return { id: st.id, th: "แผนยกเลิกเพราะ" + whyTh, en: "Plan cancelled because " + whyEn, next_th: "รอแผนใหม่จากโครงสร้างล่าสุด", next_en: "Wait for a new plan from the latest structure", checked_hm: hm };
+      return finish({ id: st.id, th: "แผนยกเลิกเพราะ" + whyTh, en: "Plan cancelled because " + whyEn, next_th: "รอแผนใหม่จากโครงสร้างล่าสุด", next_en: "Wait for a new plan from the latest structure", checked_hm: hm });
     }
     if (st.id === "tp1") {
       const n2 = plan.tps && plan.tps[1] ? fmtN(plan.tps[1].price) : null;
-      return { id: "manage", th: "TP1 ถึงแล้ว เลื่อน SL มาจุดเข้า", en: "TP1 reached — move the stop to entry", next_th: n2 ? ("ถือส่วนที่เหลือไป TP2 " + n2) : "จัดการออเดอร์ที่เหลือตามแผน", next_en: n2 ? ("Hold the remainder toward TP2 " + n2) : "Manage the remaining position as planned", checked_hm: hm };
+      return finish({ id: "manage", th: "TP1 ถึงแล้ว เลื่อน SL มาจุดเข้า", en: "TP1 reached — move the stop to entry", next_th: n2 ? ("ถือส่วนที่เหลือไป TP2 " + n2) : "จัดการออเดอร์ที่เหลือตามแผน", next_en: n2 ? ("Hold the remainder toward TP2 " + n2) : "Manage the remaining position as planned", checked_hm: hm });
     }
     if (st.id === "news") {
       const news = newsBlackoutOf((ctx && ctx.news) || plan.news) || plan.news || {};
       const until = news.until_hm ? " ถึง " + news.until_hm : "";
-      return { id: "news", th: "ช่วงข่าวแรง งดเข้า" + (news.detail_th ? " — " + news.detail_th : until), en: "High-impact news — no new entries" + (news.detail_en ? " — " + news.detail_en : until), next_th: "พ้นช่วงข่าวแล้วค่อยดูแท่ง H1 ปิดยืนยัน", next_en: "After the news window, wait for a confirming H1 close", checked_hm: hm };
+      return finish({ id: "news", th: "ช่วงข่าวแรง งดเข้า" + (news.detail_th ? " — " + news.detail_th : until), en: "High-impact news — no new entries" + (news.detail_en ? " — " + news.detail_en : until), next_th: "พ้นช่วงข่าวแล้วค่อยดูแท่ง H1 ปิดยืนยัน", next_en: "After the news window, wait for a confirming H1 close", checked_hm: hm });
+    }
+    if (st.id === "reversal") {
+      const rev = ((ctx && ctx.h1) || plan.h1 || {}).reversal || {};
+      const thRev = rev.note_th || reversalText(rev.zone, rev.low, rev.high, "th");
+      const enRev = rev.note_en || reversalText(rev.zone, rev.low, rev.high, "en");
+      return finish({ id: "reversal", th: thRev, en: enRev, next_th: "ใช้สัญญาณตามทิศใหม่ และรอแท่ง H1 ปิดยืนยันในโซน", next_en: "Follow the new direction and wait for a confirming H1 close in the zone", checked_hm: hm });
+    }
+    if (st.id === "sideways") {
+      const sw = ((ctx && ctx.h1) || plan.h1 || {}).sideways || {};
+      return finish({ id: "sideways", th: sidewaysText(sw.low, sw.high, "th"), en: sidewaysText(sw.low, sw.high, "en"), next_th: "รอดูแท่ง H1 ปิดออกจากช่วงแล้วค่อยเข้า", next_en: "Wait for a closed H1 to leave the range before entering", checked_hm: hm });
+    }
+    if (st.id === "breakout") {
+      const br = (((ctx && ctx.h1) || plan.h1 || {}).sideways || {}).breakout || ((ctx && ctx.h1) || plan.h1 || {}).breakout || {};
+      return finish({ id: "breakout", th: breakoutText(br.low, br.high, br.direction, "th"), en: breakoutText(br.low, br.high, br.direction, "en"), next_th: "ตามทิศเบรก และจัดการความเสี่ยงตามแผน", next_en: "Follow the breakout direction and manage risk as planned", checked_hm: hm });
     }
     if (st.id === "confirm") {
       const bar = ((ctx && ctx.h1) || plan.h1 || {}).bar || {};
       const hmBar = bar.as_of_hm ? " (แท่งล่าสุดที่ปิด " + bar.as_of_hm + ")" : "";
-      return { id: "confirm", th: "รอแท่ง H1 ปิดยืนยัน" + hmBar, en: "Waiting for the H1 candle to close as confirmation" + (bar.as_of_hm ? " (last close " + bar.as_of_hm + ")" : ""), next_th: "ถ้าแท่งชั่วโมงปิดในโซน จึงพิจารณาเข้า " + act, next_en: "If the hourly candle closes in the zone, then consider " + act, checked_hm: hm };
+      return finish({ id: "confirm", th: "รอแท่ง H1 ปิดยืนยัน" + hmBar, en: "Waiting for the H1 candle to close as confirmation" + (bar.as_of_hm ? " (last close " + bar.as_of_hm + ")" : ""), next_th: "ถ้าแท่งชั่วโมงปิดในโซน จึงพิจารณาเข้า " + act, next_en: "If the hourly candle closes in the zone, then consider " + act, checked_hm: hm });
     }
     if (st.id === "tp2" || st.id === "tp3") {
       const n = st.n || (st.id === "tp3" ? 3 : 2);
-      return { id: st.id, th: "TP" + n + " ถึงแล้ว " + (n >= 3 ? "แผนถึงเป้าสุดท้าย" : "ถือส่วนที่เหลือตามแผน และเลื่อน SL มาจุดเข้า"), en: "TP" + n + " reached" + (n >= 3 ? " — final target" : " — manage the remainder and move the stop to entry"), next_th: n >= 3 ? "ปิดตามแผน และทบทวนความเสี่ยง" : "ถือส่วนที่เหลือไปเป้าถัดไป ตั้ง SL คุ้มทุน", next_en: n >= 3 ? "Close as planned and review risk" : "Hold the remainder toward the next target, keep the stop at break-even", checked_hm: hm };
+      return finish({ id: st.id, th: "TP" + n + " ถึงแล้ว " + (n >= 3 ? "แผนถึงเป้าสุดท้าย" : "ถือส่วนที่เหลือตามแผน และเลื่อน SL มาจุดเข้า"), en: "TP" + n + " reached" + (n >= 3 ? " — final target" : " — manage the remainder and move the stop to entry"), next_th: n >= 3 ? "ปิดตามแผน และทบทวนความเสี่ยง" : "ถือส่วนที่เหลือไปเป้าถัดไป ตั้ง SL คุ้มทุน", next_en: n >= 3 ? "Close as planned and review risk" : "Hold the remainder toward the next target, keep the stop at break-even", checked_hm: hm });
     }
     if (st.id === "in") {
       const toTp = Number.isFinite(tp1) ? fmtN(Math.abs(live - tp1)) : "—";
       const toSl = Number.isFinite(sl) ? fmtN(Math.abs(live - sl)) : "—";
-      return { id: "in", th: "สัญญาณ " + act + " ทำงานแล้ว ถืออยู่ ห่าง TP1 " + toTp + " จุด / SL " + toSl + " จุด", en: act + " is active — " + toTp + " pts to TP1 / " + toSl + " pts to the stop", next_th: "ถ้าถึง TP1 ให้ปิดบางส่วนแล้วเลื่อน SL มาจุดเข้า", next_en: "If TP1 is reached, close a portion and move the stop to entry", checked_hm: hm };
+      return finish({ id: "in", th: "สัญญาณ " + act + " ทำงานแล้ว ถืออยู่ ห่าง TP1 " + toTp + " จุด / SL " + toSl + " จุด", en: act + " is active — " + toTp + " pts to TP1 / " + toSl + " pts to the stop", next_th: "ถ้าถึง TP1 ให้ปิดบางส่วนแล้วเลื่อน SL มาจุดเข้า", next_en: "If TP1 is reached, close a portion and move the stop to entry", checked_hm: hm });
     }
     if (watchZ && Number.isFinite(gap)) {
-      return { id: "watch", th: "เฝ้าราคาเข้า " + watchName + " " + fmtPlanRange(watchZ) + " (ห่าง " + fmtN(gap) + " จุด)", en: "Watching for " + watchNameEn + " " + fmtPlanRange(watchZ) + " (" + fmtN(gap) + " pts away)", next_th: "รอราคาเข้าโซน แล้วค่อยพิจารณา " + (act === "WAIT" ? "ตามสัญญาณ" : act), next_en: "Wait for price to enter the zone, then consider " + (act === "WAIT" ? "the signal" : act), checked_hm: hm };
+      return finish({ id: "watch", th: "เฝ้าราคาเข้า " + watchName + " " + fmtPlanRange(watchZ) + " (ห่าง " + fmtN(gap) + " จุด)", en: "Watching for " + watchNameEn + " " + fmtPlanRange(watchZ) + " (" + fmtN(gap) + " pts away)", next_th: "รอราคาเข้าโซน แล้วค่อยพิจารณา " + (act === "WAIT" ? "ตามสัญญาณ" : act), next_en: "Wait for price to enter the zone, then consider " + (act === "WAIT" ? "the signal" : act), checked_hm: hm });
     }
-    return empty;
+    return finish(empty);
   }
   function planGuideHtml(plan, px, lang, esc, opts) {
     if (!plan) return "";
@@ -1515,7 +1664,7 @@
     const th = lang !== "en";
     const compact = opts && opts.compact;
     const demand = plan.demand_zone, supply = plan.supply_zone;
-    const act = aiActivity(plan, px);
+    const act = aiActivity(plan, px, { h1: plan.h1, news: plan.news });
     const conf = plan.confidence || {};
     const why = th ? (plan.why_th || plan.thesis_th || "") : (plan.why_en || plan.thesis_en || "");
     const trigger = th ? (plan.trigger_th || "") : (plan.trigger_en || "");
@@ -1525,6 +1674,11 @@
     const news = newsBlackoutOf(plan.news);
     const newsBox = news ? `<div class="tp-news">${esc(th ? (news.label_th + (news.detail_th ? " — " + news.detail_th : "")) : (news.label_en + (news.detail_en ? " — " + news.detail_en : "")))}</div>` : "";
     const h1note = plan.h1 && (th ? plan.h1.note_th : plan.h1.note_en) ? `<p class="tp-h1">${esc(th ? plan.h1.note_th : plan.h1.note_en)}</p>` : "";
+    const leadLine = `<div class="tp-lead">${esc(alertLead(plan, px, th ? "th" : "en"))}</div>`;
+    const sw = (plan.h1 || {}).sideways || {};
+    const swBox = sw.active ? `<div class="tp-sideways">${esc(th ? sidewaysText(sw.low, sw.high, "th") : sidewaysText(sw.low, sw.high, "en"))}</div>` : "";
+    const rv = (plan.h1 || {}).reversal || {};
+    const rvBox = rv.confirmed ? `<div class="tp-reversal">${esc(th ? (rv.note_th || reversalText(rv.zone, rv.low, rv.high, "th")) : (rv.note_en || reversalText(rv.zone, rv.low, rv.high, "en")))}</div>` : "";
     const aiBox = `<div class="tp-ai" data-ai="${esc(act.id)}">
       <div class="tp-ai-k">${th ? "AI กำลังทำอะไรอยู่" : "What the AI is doing"}</div>
       <div class="tp-ai-v">${esc(th ? act.th : act.en)}</div>
@@ -1535,7 +1689,7 @@
       <div class="tp-ds-item supply"><span class="k">Supply Zone</span><span class="v">${esc(fmtPlanRange(supply))}</span>${supply && supply.source_th ? `<small>${esc(th ? supply.source_th : (supply.source_en || ""))}</small>` : ""}</div>
     </div>`;
     if (compact) {
-      return zones + newsBox + (trigger ? `<p class="tp-trigger">${esc(trigger)}</p>` : "") + aiBox + h1note + (conf.text_th ? `<p class="tp-conf">${th ? "ความมั่นใจ" : "Confidence"} ${esc(th ? conf.text_th : conf.text_en)}</p>` : "");
+      return zones + leadLine + newsBox + swBox + rvBox + (trigger ? `<p class="tp-trigger">${esc(trigger)}</p>` : "") + aiBox + h1note + (conf.text_th ? `<p class="tp-conf">${th ? "ความมั่นใจ" : "Confidence"} ${esc(th ? conf.text_th : conf.text_en)}</p>` : "");
     }
     const stepOl = steps.length ? `<ol class="tp-steps">${steps.map(s => `<li>${esc(s)}</li>`).join("")}</ol>` : "";
     let lots = "";
@@ -1553,7 +1707,7 @@
     }
     const rev = revs.length ? `<div class="tp-rev"><span class="k">${th ? "จุดกลับตัว" : "Reversal"}</span>${revs.map(r => `<div>${esc(th ? r.label_th : r.label_en)}</div>`).join("")}</div>` : "";
     const confLine = conf.text_th ? `<p class="tp-conf">${th ? "ความมั่นใจ" : "Confidence"} ${esc(th ? conf.text_th : conf.text_en)}${conf.note_th ? ` — <small>${esc(th ? conf.note_th : conf.note_en)}</small>` : ""}</p>` : "";
-    return zones + newsBox +
+    return zones + leadLine + newsBox + swBox + rvBox +
       (trigger ? `<p class="tp-trigger">${esc(trigger)}</p>` : "") +
       (why ? `<p class="tp-why">${esc(why)}</p>` : "") +
       aiBox + h1note + stepOl + lots +
@@ -1565,164 +1719,32 @@
     const th = lang !== "en";
     const act = aiActivity(plan, px, ctx);
     const st = planStatus(plan, px, ctx);
+    let extra = "";
+    if (st.id === "tp1") extra = th ? "ชน TP1 — เลื่อน SL มาจุดเข้า" : "TP1 hit — move the stop to entry";
+    else if (st.id === "tp2") extra = th ? "ชน TP2" : "TP2 hit";
+    else if (st.id === "tp3") extra = th ? "ชน TP3" : "TP3 hit";
+    else if (st.id === "sl") extra = th ? "ชนจุดตัดขาดทุน (SL)" : "Stop hit";
+    else if (st.id === "cancelled") extra = th ? ("แผนถูกยกเลิก" + (st.th ? " — " + st.th : "")) : ("Plan cancelled" + (st.en ? " — " + st.en : ""));
+    const built = buildPlanAlert(plan, px, th ? "th" : "en", ctx, extra);
     const lines = [];
+    lines.push(built.lead);
+    if (extra) lines.push(extra);
     lines.push(th ? (plan.trigger_th || entryZoneLabel(plan.side, "th")) : (plan.trigger_en || entryZoneLabel(plan.side, "en")));
-    lines.push((th ? "Demand Zone " : "Demand Zone ") + fmtPlanRange(plan.demand_zone));
-    lines.push((th ? "Supply Zone " : "Supply Zone ") + fmtPlanRange(plan.supply_zone));
+    lines.push("Demand Zone " + fmtPlanRange(plan.demand_zone));
+    lines.push("Supply Zone " + fmtPlanRange(plan.supply_zone));
     if (plan.entry_low != null) lines.push((th ? "เข้า " : "Entry ") + fmtPlanRange({ low: plan.entry_low, high: plan.entry_high }));
     else if (plan.entry != null) lines.push((th ? "เข้า " : "Entry ") + Number(plan.entry).toFixed(1));
     if (plan.sl != null) lines.push("SL " + Number(plan.sl).toFixed(1));
     (plan.tps || []).forEach(tp => lines.push("TP" + tp.n + " " + Number(tp.price).toFixed(1) + (tp.rr != null ? " (" + tp.rr + "R)" : "")));
+    const h1 = (ctx && ctx.h1) || plan.h1 || {};
+    if (h1.reversal && h1.reversal.confirmed) lines.push(th ? (h1.reversal.note_th || reversalText(h1.reversal.zone, h1.reversal.low, h1.reversal.high, "th")) : (h1.reversal.note_en || reversalText(h1.reversal.zone, h1.reversal.low, h1.reversal.high, "en")));
+    else if (h1.sideways && h1.sideways.active) lines.push(th ? sidewaysText(h1.sideways.low, h1.sideways.high, "th") : sidewaysText(h1.sideways.low, h1.sideways.high, "en"));
+    else if (h1.breakout && h1.breakout.confirmed) lines.push(th ? (h1.breakout.note_th || breakoutText(h1.breakout.low, h1.breakout.high, h1.breakout.direction, "th")) : (h1.breakout.note_en || breakoutText(h1.breakout.low, h1.breakout.high, h1.breakout.direction, "en")));
     (plan.reversal || []).slice(0, 2).forEach(r => lines.push(th ? r.label_th : r.label_en));
     if (plan.confidence) lines.push((th ? "ความมั่นใจ " : "Confidence ") + (th ? plan.confidence.text_th : plan.confidence.text_en));
     lines.push((th ? act.th : act.en) + " · " + (th ? "เช็กล่าสุด " : "Last check ") + act.checked_hm);
     const full = lines.filter(Boolean).join("\n");
-    const short = (th ? act.th : act.en) + (plan.trigger_th ? " · " + (th ? plan.trigger_th : plan.trigger_en) : "") + (Number.isFinite(Number(px)) ? " · $" + Number(px).toFixed(1) : "");
-    return { full, short, activityId: act.id, statusId: st.id };
-  }
-
-  function zoneHint(plan, price, lang) {
-    if (!plan || !Number.isFinite(Number(price))) return '';
-    const p = Number(price);
-    const near = (z) => z && z.low != null && p >= Number(z.low) - 8 && p <= Number(z.high) + 8;
-    if (near(plan.demand_zone)) return ' · Demand Zone ' + fmtPlanRange(plan.demand_zone);
-    if (near(plan.supply_zone)) return ' · Supply Zone ' + fmtPlanRange(plan.supply_zone);
-    return '';
-  }
-
-  function tradePlanHtml(plan, px, lang, esc) {
-    if (!plan) return '';
-    const th = lang === 'th' || lang === 'zh' || lang === 'ja' ? lang === 'th' : false;
-    const useTh = lang !== 'en';
-    const st = planStatus(plan, px);
-    const side = plan.side || 'wait';
-    const entry = (plan.entry_low != null && plan.entry_high != null)
-      ? (fmtPlanPx(plan.entry_low) + ' – ' + fmtPlanPx(plan.entry_high))
-      : fmtPlanPx(plan.entry);
-    const tps = (plan.tps || []).map(tp => {
-      const lab = useTh ? (tp.label || '') : (tp.label_en || tp.label || '');
-      const rr = tp.rr != null ? ` <small>${esc(String(tp.rr))}R</small>` : '';
-      return `<div><span class="k">TP${esc(String(tp.n))}${lab ? ' ' + esc(lab) : ''}</span><span class="v">${fmtPlanPx(tp.price)}${rr}</span></div>`;
-    }).join('');
-    const thesis = useTh ? (plan.thesis_th || plan.title_th || '') : (plan.thesis_en || plan.title_en || '');
-    const inv = useTh ? (plan.invalidation_th || '') : (plan.invalidation_en || '');
-    const tf = useTh ? (plan.timeframe_th || plan.timeframe || '') : (plan.timeframe_en || plan.timeframe || '');
-    const disc = useTh
-      ? (plan.disclaimer_th || 'เพื่อการศึกษา ไม่ใช่คำแนะนำการลงทุน ใช้ SL เสมอ')
-      : (plan.disclaimer_en || 'Education only — not investment advice. Always use a stop loss.');
-    const title = useTh ? 'แผนเทรด' : 'Trade plan';
-    const sideLab = entryZoneLabel(side, useTh ? 'th' : 'en');
-    const stLab = useTh ? st.th : st.en;
-    const asof = useTh ? (plan.updated_th || '') : (plan.updated_en || '');
-    const live = Number.isFinite(Number(px))
-      ? (useTh ? 'ราคาสด ' : 'Live ') + '$' + Number(px).toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })
-      : '';
-    const entryK = entryZoneLabel(side, useTh ? 'th' : 'en');
-    return `<div class="tp-head">
-        <div class="tp-title">${title}</div>
-        <span class="tp-side ${esc(side)}">${esc(sideLab)}</span>
-        <span class="tp-status ${esc(st.id)}">${esc(stLab)}</span>
-      </div>
-      ${thesis ? `<p class="tp-thesis">${esc(thesis)}</p>` : ''}
-      <div class="tp-grid">
-        <div class="tp-zone-cell ${esc(side)}"><span class="k">${esc(entryK)}</span><span class="v">${esc(entry)}</span></div>
-        <div><span class="k">SL</span><span class="v">${plan.sl != null ? fmtPlanPx(plan.sl) : '—'}</span></div>
-        ${tps}
-      </div>
-      ${inv ? `<p class="tp-inv">${esc(inv)}</p>` : ''}
-      ${planGuideHtml(plan, px, lang, esc)}
-      <p class="tp-meta">${esc(tf)}${tf && live ? ' · ' : ''}${esc(live)}</p>
-      ${asof ? `<p class="tp-asof">${esc(asof)}</p>` : ''}
-      <p class="tp-disc">${esc(disc)}</p>`;
-  }
-
-  async function fetchTradePlan() {
-    for (const base of URLS) {
-      try {
-        const r = await fetch(base + (base.includes('?') ? '&' : '?') + 't=' + Date.now(), { cache: 'no-store' });
-        if (!r || !r.ok) continue;
-        const j = await r.json();
-        if (j && (j.side || j.entry)) return j;
-      } catch (e) {}
-    }
-    return null;
-  }
-
-  function accuracyHtml(hist, lang, esc) {
-    esc = esc || (s => String(s == null ? "" : s).replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;"));
-    if (!hist || !hist.stats) return "";
-    const th = lang !== "en";
-    const st = hist.stats;
-    const wr = st.win_rate == null ? "—" : (st.win_rate + "%");
-    const avg = st.avg_r == null ? "—" : ((st.avg_r > 0 ? "+" : "") + st.avg_r + "R");
-    const n = st.counted || 0;
-    return `<div class="tp-acc">
-      <div class="tp-ai-k">${th ? "ผลจริงของแผน" : "Plan results"}</div>
-      <div class="tp-acc-row"><span>${th ? "นับได้" : "Counted"} ${n}</span><span>${th ? "ชนะ" : "Win rate"} ${esc(wr)}</span><span>${th ? "เฉลี่ย" : "Avg"} ${esc(avg)}</span></div>
-      <p class="tp-acc-note">${esc(th ? (st.note_th || hist.source_note_th || "") : (st.note_en || hist.source_note_en || ""))}</p>
-    </div>`;
-  }
-
-  const LOT_KEY = "pg_lot_pref";
-  function loadLotPref() {
-    try { return Object.assign({ capital: 10000, ccy: "THB", riskPct: 1 }, JSON.parse(localStorage.getItem(LOT_KEY) || "{}")); }
-    catch (e) { return { capital: 10000, ccy: "THB", riskPct: 1 }; }
-  }
-  function saveLotPref(pref) {
-    try { localStorage.setItem(LOT_KEY, JSON.stringify(pref)); } catch (e) {}
-  }
-  function suggestedLots(plan, pref, usdthb) {
-    if (!plan || plan.sl == null || plan.entry == null) return null;
-    const dist = Math.abs(Number(plan.entry) - Number(plan.sl));
-    if (!(dist >= 0.5)) return null;
-    const cap = Number(pref.capital), pct = Number(pref.riskPct);
-    if (!(cap > 0) || !(pct > 0)) return null;
-    const rate = Number(usdthb) || 34;
-    const thb = (pref.ccy === "USD") ? cap * rate : cap;
-    const usd = thb / rate;
-    const lots = (usd * (pct / 100)) / (dist * 100);
-    return { dist, lots: Number(lots.toFixed(4)), riskThb: Math.round(thb * pct / 100), riskUsd: Math.round(usd * pct / 100 * 100) / 100, usdthb: rate };
-  }
-  function lotCalcHtml(lang) {
-    const th = lang !== "en";
-    const pref = loadLotPref();
-    return `<div class="tp-lot-calc">
-      <div class="tp-ai-k">${th ? "คำนวณล็อตจากทุนและความเสี่ยง" : "Lot size from capital and risk"}</div>
-      <div class="tp-lot-row">
-        <label>${th ? "ทุน" : "Capital"} <input type="number" min="0" step="100" data-lot="capital" value="${pref.capital}"></label>
-        <label><select data-lot="ccy"><option value="THB"${pref.ccy==="THB"?" selected":""}>THB</option><option value="USD"${pref.ccy==="USD"?" selected":""}>USD</option></select></label>
-        <label>${th ? "ความเสี่ยง %" : "Risk %"} <input type="number" min="0.5" max="5" step="0.5" data-lot="riskPct" value="${pref.riskPct}"></label>
-      </div>
-      <div class="tp-lot-out" data-lot="out">—</div>
-      <p class="tp-lots-note">${th ? "คำนวณจากระยะ SL ของแผนปัจจุบัน และสัญญาตัวอย่าง 1 ล็อต = 100 ออนซ์ · บันทึกเฉพาะบนเครื่องนี้ · ไม่ใช่คำแนะนำให้ใช้เงินทุนนี้" : "From the current plan's stop distance and a standard 1 lot = 100 oz example. Saved only on this device. This is not a recommendation to use these amounts."}</p>
-    </div>`;
-  }
-  function bindLotCalc(root, plan, usdthb, lang) {
-    if (!root) return;
-    if (!root.querySelector("[data-lot=capital]")) root.innerHTML = lotCalcHtml(lang);
-    const pref = loadLotPref();
-    const cap = root.querySelector("[data-lot=capital]");
-    const ccy = root.querySelector("[data-lot=ccy]");
-    const risk = root.querySelector("[data-lot=riskPct]");
-    const out = root.querySelector("[data-lot=out]");
-    const paint = () => {
-      const cur = { capital: Number(cap && cap.value) || 0, ccy: (ccy && ccy.value) || "THB", riskPct: Number(risk && risk.value) || 1 };
-      saveLotPref(cur);
-      const r = suggestedLots(plan, cur, usdthb);
-      const th = lang !== "en";
-      if (!r) { if (out) out.textContent = th ? "ยังคำนวณไม่ได้ (ต้องการจุดเข้าและ SL)" : "Need an entry and stop to size the lot"; return; }
-      if (out) out.textContent = (th ? "ล็อตที่คำนวณได้ " : "Calculated lot ") + r.lots + " · " + (th ? "เสี่ยง " : "risk ") + (cur.ccy === "USD" ? ("$" + r.riskUsd) : (r.riskThb.toLocaleString("en-US") + " บาท")) + " · SL " + r.dist.toFixed(1);
-    };
-    const active = document.activeElement;
-    if (cap && cap !== active) cap.value = pref.capital;
-    if (ccy && ccy !== active) ccy.value = pref.ccy;
-    if (risk && risk !== active) risk.value = pref.riskPct;
-    if (!root.dataset.bound) {
-      root.dataset.bound = "1";
-      root.addEventListener("input", paint);
-      root.addEventListener("change", paint);
-    }
-    paint();
+    return { full, short: built.short, lead: built.lead, activityId: act.id, statusId: st.id, kind: built.kind, stance: built.stance };
   }
 
   function drawPlanStrip(ctx, x, y, w, h, plan, lang, livePx) {
@@ -1762,7 +1784,7 @@
       const zbits = [];
       if (plan.demand_zone) zbits.push("Demand " + fmtPlanRange(plan.demand_zone));
       if (plan.supply_zone) zbits.push("Supply " + fmtPlanRange(plan.supply_zone));
-      zbits.push((lang === "en" ? act.en : act.th) + " · " + act.checked_hm);
+      zbits.push((lang === "en" ? (act.lead_en || act.en) : (act.lead_th || act.th)) + " · " + act.checked_hm);
       ctx.fillStyle = MUTED;
       ctx.font = `500 11px ${FONT}`;
       fillFit(ctx, zbits.join("   ·   "), x + pad, y + h - 14, w - pad * 2);
@@ -1802,6 +1824,15 @@
 
     let cy = y + 40;
     const limit = y + h - 20;
+    const lead = (typeof alertLead === "function")
+      ? alertLead(plan, live, lang === "en" ? "en" : "th")
+      : (lang === "en" ? (act.lead_en || act.en) : (act.lead_th || act.th));
+    if (lead && cy + 16 < limit) {
+      ctx.fillStyle = TX;
+      ctx.font = `700 13px ${FONT}`;
+      fillFit(ctx, lead, x + pad, cy, innerW);
+      cy += 20;
+    }
     const trigger = lang === "en" ? (plan.trigger_en || "") : (plan.trigger_th || "");
     if (trigger && cy + 16 < limit) {
       ctx.fillStyle = col;
@@ -2737,7 +2768,7 @@
   global.ShareCard = {
     SIZES, SITE, SITE_URL, VERSION, render, blobsFor, download, share, mount, buttonsHtml, toast,
     forecastTarget, fmtBkk, fmt, chg, closeSheet, loadMarket, attachMarket, enrich,
-    loadThaiGold, loadPivots, loadDollar, staticPngUrl, fetchLiveSpot, refreshLivePayload, fmtBkk, planStatus, entryZoneLabel, fmtPlanRange, aiActivity, planGuideHtml, formatPlanAlert, accuracyHtml, bindLotCalc, newsBlackoutOf, h1Confirmed,
+    loadThaiGold, loadPivots, loadDollar, staticPngUrl, fetchLiveSpot, refreshLivePayload, fmtBkk, planStatus, entryZoneLabel, fmtPlanRange, aiActivity, planGuideHtml, formatPlanAlert, accuracyHtml, bindLotCalc, newsBlackoutOf, h1Confirmed, alertLead, withAlertLead, buildPlanAlert, reversalText, sidewaysText, breakoutText,
     async ready() {
       ensureFonts();
       try { await preloadBrand(); } catch (_) {}
