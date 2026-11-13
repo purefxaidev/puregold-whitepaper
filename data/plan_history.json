@@ -1,6 +1,10 @@
 {
   "started_at": "2026-11-13T20:59:46.850831+07:00",
+<<<<<<< Updated upstream
   "updated_at": "2026-11-14T00:28:45.634937+07:00",
+=======
+  "updated_at": "2026-11-14T00:42:05.608432+07:00",
+>>>>>>> Stashed changes
   "source_note_th": "เริ่มนับผลจากรอบนี้ ไม่มีประวัติย้อนหลัง และไม่ได้สร้างผลลัพธ์สมมติ",
   "source_note_en": "Counted from this run onward. There is no backfilled history, and no results are invented.",
   "open": {
