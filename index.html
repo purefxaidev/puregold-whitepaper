@@ -178,8 +178,23 @@
     .chart-actions { display:flex; flex-wrap:wrap; gap:10px; align-items:center; margin:12px 0 0 }
     .thai-head { margin-bottom:10px }
     .thai-helper { margin:4px 0 0; font-size:12px; color:var(--muted) }
-    .thai { display:flex; flex-direction:column; gap:10px }
+    .thai { display:grid; grid-template-columns:1fr 1fr; gap:10px }
     .thai .row, .thai .px { display:flex; justify-content:space-between; gap:10px; font-variant-numeric:tabular-nums }
+    .thai-card {
+      background:linear-gradient(180deg,rgba(255,255,255,.10),rgba(255,255,255,.03));
+      border:1px solid rgba(255,255,255,.14); border-radius:14px; padding:12px 14px; min-width:0;
+      backdrop-filter:blur(16px) saturate(1.2); -webkit-backdrop-filter:blur(16px) saturate(1.2);
+    }
+    .thai-card .name { font-size:13px; font-weight:800; color:var(--gold); margin:0 0 8px }
+    .thai-card .px .lbl { font-size:12px; color:var(--muted); font-weight:600 }
+    .thai-card .px .val { font-size:20px; font-weight:800; font-variant-numeric:tabular-nums }
+    .thai-card .chg { margin-top:8px; font-size:13px; font-weight:800 }
+    #thaiTime.stale { color:#f5c542 }
+    .tp-zone-cell .k { font-weight:800 }
+    .tp-zone-cell.buy .k, .tp-side.buy { color:#22e39a }
+    .tp-zone-cell.sell .k, .tp-side.sell { color:#ff4d6d }
+    .tp-zone-cell.wait .k, .tp-side.wait { color:#f5c542 }
+    @media (max-width:820px) { .thai { grid-template-columns:1fr } }
     .hid { display:none !important }
 
     .levels-board { display:grid; gap:16px }
@@ -704,7 +719,7 @@
           <button type="button" id="ben" onclick="setLang('en')"><span class="lang-full">English</span><span class="lang-short">EN</span></button>
         </div>
         <a class="line-pill" href="https://line.me/ti/p/H_Bxfi7so3" target="_blank" rel="noopener" title="LINE PureFxAi"><img src="assets/line-icon.png" width="16" height="16" alt=""> LINE</a>
-        <a class="btn btn-gold btn-sm pwa-hide-standalone" id="hdrDl" href="downloads/PUREGOLD.apk" download="PUREGOLD.apk">APK 0.9.9</a>
+        <a class="btn btn-gold btn-sm pwa-hide-standalone" id="hdrDl" href="downloads/PUREGOLD.apk" download="PUREGOLD.apk">APK 0.9.10</a>
       </div>
     </header>
 
@@ -738,7 +753,7 @@
             <span class="th">ดูกราฟ</span><span class="en hid">View chart</span>
           </button>
         </div>
-        <p class="ver" id="dlMeta">PUREGOLD 0.9.9 · Android APK · iPhone web app</p>
+        <p class="ver" id="dlMeta">PUREGOLD 0.9.10 · Android APK · iPhone web app</p>
       </div>
       <aside class="hero-quote reveal in" aria-label="XAUUSD spot">
         <div class="k">XAUUSD · SPOT</div>
@@ -915,8 +930,8 @@
           <div class="thai-head">
             <div class="th"><h3>ทองไทย</h3></div>
             <div class="en hid"><h3>Thai gold</h3></div>
-            <p class="thai-helper th">ราคาซื้อ-ขายอ้างอิง · อัปเดตอัตโนมัติ</p>
-            <p class="thai-helper en hid">Buy / sell reference · updates automatically</p>
+            <p class="thai-helper th">รับซื้อและขายออก · ทองคำแท่งและทองรูปพรรณ 96.5% · บาทละ</p>
+            <p class="thai-helper en hid">Buy-back and sell · 96.5% bar and jewelry · per baht-weight</p>
           </div>
           <div class="thai" id="thaiBox"><div class="mut th">กำลังโหลดราคา…</div><div class="mut en hid">Loading prices…</div></div>
           <p class="mut" id="thaiTime"></p>
@@ -984,8 +999,8 @@
     </section>
 
     <section class="block reveal" id="updates">
-      <div class="th"><h2>ประวัติเวอร์ชัน</h2><p class="mut">อัปเดตล่าสุดของแอปและหน้าเว็บ · <a href="downloads/PUREGOLD.apk" download="PUREGOLD.apk">ดาวน์โหลด 0.9.9</a></p></div>
-      <div class="en hid"><h2>Version history</h2><p class="mut">Latest app and website updates · <a href="downloads/PUREGOLD.apk" download="PUREGOLD.apk">Download 0.9.9</a></p></div>
+      <div class="th"><h2>ประวัติเวอร์ชัน</h2><p class="mut">อัปเดตล่าสุดของแอปและหน้าเว็บ · <a href="downloads/PUREGOLD.apk" download="PUREGOLD.apk">ดาวน์โหลด 0.9.10</a></p></div>
+      <div class="en hid"><h2>Version history</h2><p class="mut">Latest app and website updates · <a href="downloads/PUREGOLD.apk" download="PUREGOLD.apk">Download 0.9.10</a></p></div>
       <div class="cl">
         <b>เว็บไซต์</b> · 2026-11-11
         <ul class="th">
@@ -1013,6 +1028,17 @@
           <li>Save and share posters are drawn from the live gold price at tap time, with a Bangkok time stamp to the second — not from a stored image</li>
           <li>The trade plan states a clear entry, stop loss, and TP1–TP3 from real support and resistance, with a status that follows the live price — education only, not investment advice; always use a stop loss</li>
           <li>Save and Share are compact header pills, not full-width buttons</li>
+        </ul>
+      </div>
+      <div class="cl">
+        <b>0.9.10</b> · 2026-11-13
+        <ul class="th">
+          <li>แผนเทรดติดป้ายโซนซื้อ · BUY (เขียว) โซนขาย · SELL (แดง) หรือ รอ · WAIT เมื่อยังไม่มีจุดเข้า</li>
+          <li>แสดงราคารับซื้อและขายออกของทองคำแท่ง 96.5% และทองรูปพรรณ จากประกาศราคาทองไทย พร้อมเวลาอัปเดต</li>
+        </ul>
+        <ul class="en hid">
+          <li>The trade plan labels the entry as Buy zone · BUY (green), Sell zone · SELL (red), or Wait · WAIT when there is no setup</li>
+          <li>Buy-back and sell prices for 96.5% gold bar and jewelry from the Thai gold announcement, with the update time</li>
         </ul>
       </div>
       <div class="cl">
@@ -1170,11 +1196,11 @@
           <span><span class="dl-kicker">iPhone / iPad</span><span class="dl-label th">ติดตั้งเว็บแอป</span><span class="dl-label en hid">Install web app</span></span>
         </button>
       </div>
-      <p class="ver">PUREGOLD 0.9.9 · signed Android release · ลิงก์ไฟล์ <a href="downloads/PUREGOLD.apk" download="PUREGOLD.apk">downloads/PUREGOLD.apk</a> · sha256 16344fe47b8a54ef8d8550fc04ad0e872d99bafef4f2a4bb67b985bcddcb9893</p>
+      <p class="ver">PUREGOLD 0.9.10 · signed Android release · ลิงก์ไฟล์ <a href="downloads/PUREGOLD.apk" download="PUREGOLD.apk">downloads/PUREGOLD.apk</a> · sha256 61874e547fe5ed880081312e98e5f6c8d40bc2984b4d5ee13973f8fc5a490bec</p>
       <div class="th">
         <h3 style="margin:18px 0 8px;font-size:16px;letter-spacing:0;text-transform:none;color:var(--text)">วิธีติดตั้งบน Android</h3>
         <ol>
-          <li>กดดาวน์โหลด APK 0.9.9 แล้วอนุญาตติดตั้งจากแหล่งที่ไม่รู้จักหากระบบถาม</li>
+          <li>กดดาวน์โหลด APK 0.9.10 แล้วอนุญาตติดตั้งจากแหล่งที่ไม่รู้จักหากระบบถาม</li>
           <li>ติดตั้งทับเวอร์ชันเดิมได้ ไม่ต้องถอนก่อน</li>
           <li>ในเมนู → ตั้งค่า วาง API key เพื่อเปิด PureFxAi</li>
         </ol>
@@ -1189,7 +1215,7 @@
       <div class="en hid">
         <h3 style="margin:18px 0 8px;font-size:16px;letter-spacing:0;text-transform:none;color:var(--text)">Install on Android</h3>
         <ol>
-          <li>Download APK 0.9.9 and allow unknown sources if Android asks.</li>
+          <li>Download APK 0.9.10 and allow unknown sources if Android asks.</li>
           <li>You can install over the previous version.</li>
           <li>In More → Settings, paste an API key to enable PureFxAi.</li>
         </ol>
@@ -1293,7 +1319,7 @@
     <div class="dl-pair pwa-hide-standalone" style="margin:26px auto 0;max-width:640px">
       <a class="dl-btn dl-android" href="downloads/PUREGOLD.apk" download="PUREGOLD.apk">
         <svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M17.6 9.48 19.44 6.3a.64.64 0 0 0-.26-.85.64.64 0 0 0-.83.22l-1.88 3.24a11.43 11.43 0 0 0-8.94 0L5.65 5.67a.64.64 0 0 0-.87-.2.64.64 0 0 0-.26.85L6.36 9.5C4.2 11.05 2.67 13.32 2.67 16h18.66c0-2.69-1.55-4.96-3.73-6.52ZM7.5 13.5a1 1 0 1 1 0-2 1 1 0 0 1 0 2Zm9 0a1 1 0 1 1 0-2 1 1 0 0 1 0 2Z"/></svg>
-        <span><span class="dl-kicker">Android</span><span class="dl-label">APK 0.9.9</span></span>
+        <span><span class="dl-kicker">Android</span><span class="dl-label">APK 0.9.10</span></span>
       </a>
       <button type="button" class="dl-btn dl-ios js-ios-install">
         <svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M18.71 19.5c-.83 1.24-1.71 2.45-3.05 2.47-1.34.03-1.77-.79-3.29-.79-1.53 0-2 .77-3.27.82-1.31.05-2.3-1.32-3.14-2.53C4.25 17 2.94 12.45 4.7 9.39c.87-1.52 2.43-2.48 4.12-2.51 1.28-.02 2.5.87 3.29.87.78 0 2.26-1.07 3.81-.91.65.03 2.47.26 3.64 1.98-.09.06-2.17 1.28-2.15 3.81.03 3.02 2.65 4.03 2.68 4.04-.03.07-.42 1.44-1.38 2.83M13 3.5c.73-.83 1.94-1.46 2.94-1.5.13 1.17-.34 2.35-1.04 3.19-.69.85-1.83 1.51-2.95 1.42-.15-1.15.41-2.35 1.05-3.11z"/></svg>
@@ -1490,7 +1516,7 @@
   <script type="application/json" id="pg-klines">{"symbol":"XAUUSD","interval":"1h","updatedAt":"2026-11-13T02:37:57Z","spot":3912.6,"spotSource":"swissquote","note":"Hourly XAUUSD series aligned to FX spot so the landing chart matches the live desk.","closes":[{"t":1794279600000,"o":4100.25,"h":4106.52,"l":4099.06,"c":4100.92},{"t":1794283200000,"o":4100.91,"h":4108.71,"l":4099.45,"c":4107.12},{"t":1794286800000,"o":4107.12,"h":4117.83,"l":4103.66,"c":4114.01},{"t":1794290400000,"o":4113.8,"h":4115.95,"l":4108.48,"c":4110.9},{"t":1794294000000,"o":4110.81,"h":4115.9,"l":4103.77,"c":4104.88},{"t":1794297600000,"o":4104.43,"h":4112.97,"l":4104.43,"c":4106.06},{"t":1794301200000,"o":4106.38,"h":4106.38,"l":4073.72,"c":4080.27},{"t":1794304800000,"o":4079.57,"h":4080.36,"l":4064.17,"c":4066.78},{"t":1794308400000,"o":4066.52,"h":4068.5,"l":4061.06,"c":4064.37},{"t":1794312000000,"o":4064.64,"h":4072.37,"l":4064.51,"c":4072.15},{"t":1794315600000,"o":4072.18,"h":4072.21,"l":4034.26,"c":4044.47},{"t":1794319200000,"o":4045.26,"h":4053.96,"l":4027.69,"c":4032.2},{"t":1794322800000,"o":4032.53,"h":4045.35,"l":4027.07,"c":4034.6},{"t":1794326400000,"o":4033.93,"h":4037.49,"l":4009.65,"c":4017.2},{"t":1794330000000,"o":4016.92,"h":4019.75,"l":4010.71,"c":4014.42},{"t":1794333600000,"o":4014.68,"h":4028.55,"l":4011.26,"c":4023.8},{"t":1794337200000,"o":4023.81,"h":4028.72,"l":4021.22,"c":4026.46},{"t":1794340800000,"o":4026.46,"h":4032.3,"l":4022.83,"c":4026.62},{"t":1794344400000,"o":4026.62,"h":4032.66,"l":4022.46,"c":4026.47},{"t":1794348000000,"o":4026.47,"h":4030.77,"l":4023.22,"c":4029.9},{"t":1794351600000,"o":4029.9,"h":4034.85,"l":4027.27,"c":4034.85},{"t":1794355200000,"o":4035.01,"h":4037.77,"l":4027.57,"c":4027.57},{"t":1794358800000,"o":4027.01,"h":4047.16,"l":4022.46,"c":4042.08},{"t":1794362400000,"o":4041.32,"h":4043.87,"l":4035.19,"c":4038.88},{"t":1794366000000,"o":4039.23,"h":4046.99,"l":4039.05,"c":4042.91},{"t":1794369600000,"o":4041.16,"h":4045.88,"l":4037.05,"c":4042.22},{"t":1794373200000,"o":4042.23,"h":4059.66,"l":4041.46,"c":4054.06},{"t":1794376800000,"o":4053.04,"h":4055.33,"l":4048.54,"c":4053.67},{"t":1794380400000,"o":4053.54,"h":4058.06,"l":4050.78,"c":4051.08},{"t":1794384000000,"o":4051.07,"h":4052.99,"l":4047.84,"c":4050.06},{"t":1794387600000,"o":4050.06,"h":4050.62,"l":4038.62,"c":4041.55},{"t":1794391200000,"o":4041.55,"h":4048.47,"l":4039.87,"c":4042.5},{"t":1794394800000,"o":4042.49,"h":4046.91,"l":4036.5,"c":4036.5},{"t":1794398400000,"o":4036.36,"h":4038.59,"l":4032.48,"c":4035.54},{"t":1794402000000,"o":4035.79,"h":4038.01,"l":4025.17,"c":4030.49},{"t":1794405600000,"o":4029.94,"h":4029.94,"l":4006.0,"c":4009.79},{"t":1794409200000,"o":4009.95,"h":4014.17,"l":3997.11,"c":4002.32},{"t":1794412800000,"o":4001.35,"h":4003.52,"l":3995.39,"c":3995.91},{"t":1794416400000,"o":3996.55,"h":4002.74,"l":3989.55,"c":3989.55},{"t":1794420000000,"o":3989.45,"h":3991.78,"l":3983.84,"c":3984.52},{"t":1794423600000,"o":3984.52,"h":3987.2,"l":3980.81,"c":3983.27},{"t":1794427200000,"o":3983.25,"h":3985.63,"l":3980.23,"c":3983.0},{"t":1794430800000,"o":3982.13,"h":3985.32,"l":3981.23,"c":3984.31},{"t":1794434400000,"o":3984.64,"h":3989.21,"l":3984.12,"c":3984.51},{"t":1794438000000,"o":3984.51,"h":3990.81,"l":3975.63,"c":3975.96},{"t":1794441600000,"o":3975.34,"h":3992.26,"l":3967.06,"c":3991.9},{"t":1794445200000,"o":3991.89,"h":3997.02,"l":3977.06,"c":3982.48},{"t":1794448800000,"o":3982.52,"h":3986.46,"l":3971.27,"c":3977.01},{"t":1794452400000,"o":3977.01,"h":3981.55,"l":3974.57,"c":3979.55},{"t":1794456000000,"o":3979.55,"h":3979.55,"l":3970.79,"c":3972.46},{"t":1794459600000,"o":3972.45,"h":3978.4,"l":3967.18,"c":3975.29},{"t":1794463200000,"o":3975.54,"h":3976.01,"l":3958.93,"c":3962.2},{"t":1794466800000,"o":3962.15,"h":3968.29,"l":3953.19,"c":3962.07},{"t":1794470400000,"o":3962.06,"h":3962.06,"l":3927.08,"c":3927.39},{"t":1794474000000,"o":3927.39,"h":3942.01,"l":3923.36,"c":3941.69},{"t":1794477600000,"o":3941.8,"h":3950.96,"l":3940.13,"c":3949.85},{"t":1794481200000,"o":3949.85,"h":3951.29,"l":3937.71,"c":3938.76},{"t":1794484800000,"o":3938.76,"h":3944.08,"l":3930.52,"c":3935.55},{"t":1794488400000,"o":3935.55,"h":3945.14,"l":3886.06,"c":3890.46},{"t":1794492000000,"o":3890.65,"h":3908.78,"l":3867.5,"c":3871.79},{"t":1794495600000,"o":3871.78,"h":3874.69,"l":3854.62,"c":3871.69},{"t":1794499200000,"o":3872.12,"h":3886.0,"l":3866.83,"c":3880.31},{"t":1794502800000,"o":3880.69,"h":3880.71,"l":3872.45,"c":3875.57},{"t":1794506400000,"o":3875.56,"h":3888.88,"l":3875.27,"c":3883.9},{"t":1794510000000,"o":3884.5,"h":3886.56,"l":3877.62,"c":3886.52},{"t":1794513600000,"o":3886.52,"h":3887.93,"l":3875.59,"c":3876.66},{"t":1794517200000,"o":3876.32,"h":3879.02,"l":3874.4,"c":3878.39},{"t":1794520800000,"o":3878.04,"h":3881.84,"l":3878.03,"c":3881.83},{"t":1794524400000,"o":3881.83,"h":3887.32,"l":3876.07,"c":3883.74},{"t":1794528000000,"o":3883.73,"h":3891.75,"l":3882.03,"c":3887.27},{"t":1794531600000,"o":3886.93,"h":3916.04,"l":3886.36,"c":3908.1},{"t":1794535200000,"o":3909.49,"h":3913.06,"l":3903.74,"c":3912.6}]}</script>
   <script type="application/json" id="pg-quotes">{"updatedAt":"2026-11-13T02:37:57Z","spot":{"price":3912.6,"symbol":"XAU","currency":"USD","currencySymbol":"$","source":"swissquote"},"thai":[{"GoldType":"HSH","GoldCode":"96.50","Buy":"62,630","Sell":"62,710","TimeUpdate":"2026-11-13T09:37:43","BuyChange":-10.0,"SellChange":-10.0,"PresentDate":"","FxAsk":null,"FxBid":null,"Bid":null,"Ask":null,"QtyBid":null,"QtyAsk":null,"Discount":null,"Premium":null,"Increment":null,"SourcePrice":null,"StrTimeUpdate":"อัพเดตล่าสุด วันที่ 13 พ.ย. 2569 เวลา 09:37:43 น."},{"GoldType":"REF","GoldCode":"96.50","Buy":"62,550","Sell":"62,750","TimeUpdate":"2026-11-13T09:29:59","BuyChange":-50.0,"SellChange":-50.0,"PresentDate":"","FxAsk":null,"FxBid":null,"Bid":null,"Ask":null,"QtyBid":null,"QtyAsk":null,"Discount":null,"Premium":null,"Increment":null,"SourcePrice":null,"StrTimeUpdate":"อัพเดตล่าสุด วันที่ 13 พ.ย. 2569 เวลา 09:29:59 น."},{"GoldType":"JEWEL","GoldCode":"96.50","Buy":"61,291.88","Sell":"63,550","TimeUpdate":"2026-11-13T09:38:00","BuyChange":0.0,"SellChange":0.0,"PresentDate":"","FxAsk":null,"FxBid":null,"Bid":null,"Ask":null,"QtyBid":null,"QtyAsk":null,"Discount":null,"Premium":null,"Increment":null,"SourcePrice":null,"StrTimeUpdate":"อัพเดตล่าสุด วันที่ 13 พ.ย. 2569 เวลา 09:38:00 น."}]}</script>
   <script type="application/json" id="pg-levels">{"symbol":"XAUUSD","updatedAt":"2026-11-13T02:37:57Z","updatedAtBangkok":"2026-11-13 09:37","spot":3912.6,"spotSource":"swissquote","offset":1.06,"daily":{"high":3997.02,"low":3854.62,"close":3883.74,"pp":3911.793,"r1":3968.967,"s1":3826.567,"r2":4054.193,"s2":3769.393,"r3":4111.367,"s3":3684.167},"h4":{"high":3887.93,"low":3874.4,"close":3883.74,"pp":3882.023,"r1":3889.647,"s1":3876.117,"r2":3895.553,"s2":3868.493,"r3":3903.177,"s3":3862.587},"swings":{"highs":[{"t":1794182400000,"price":4124.74},{"t":1794254400000,"price":4135.05},{"t":1794369600000,"price":4059.66}],"lows":[{"t":1794168000000,"price":4033.4},{"t":1794326400000,"price":4009.65},{"t":1794484800000,"price":3854.62}]},"nearest":{"name":"Pivot","price":3911.793,"distance":-0.807,"side":"support"},"bias":"neutral","biasTh":"ทรงตัวใกล้จุดพิวอต","biasEn":"Neutral, near the pivot","note":"Daily and H4 floor pivots from the prior completed session, aligned to FX spot. Education only — not investment advice.","noteTh":"จุดพิวอต รายวันและ H4 จากแท่งที่ปิดแล้ว ปรับให้ตรงราคาทองสปอต — เพื่อการศึกษา ไม่ใช่คำแนะนำการลงทุน"}</script>
-    <script src="assets/sharecard.js?v=20261111thai1"></script>
+    <script src="assets/sharecard.js?v=20261113thai2"></script>
   <script src="assets/features.js?v=20261110h"></script>
 <script>
     let LANG = 'th';
@@ -1844,7 +1870,13 @@
         }
         if (px == null && j.ticker.lastPrice != null && !window.__spotXau && !window.__lastPx) px = Number(j.ticker.lastPrice);
       }
-      if (Array.isArray(j.thai) && j.thai.length) renderThai(j.thai);
+      if (Array.isArray(j.thai) && j.thai.length) {
+        const incoming = officialThaiFromFeed(j.thai);
+        const cur = window.__THAI_GOLD;
+        const incomingT = incoming ? (Date.parse(incoming.as_of || '') || 0) : 0;
+        const curT = cur ? (Date.parse(cur.as_of || '') || 0) : 0;
+        if (!cur || incomingT > curT) renderThai(incoming || j.thai);
+      }
       let painted = false;
       if (px != null && Number.isFinite(px)) {
         window.__lastPx = px;
@@ -2063,6 +2095,12 @@
       const v = Number(n);
       return Number.isFinite(v) ? v.toLocaleString("en-US", { minimumFractionDigits: 1, maximumFractionDigits: 1 }) : "—";
     }
+    function entryZoneLabel(side, th) {
+      const s = String(side || "wait").toLowerCase();
+      if (s === "buy") return th ? "โซนซื้อ · BUY" : "Buy zone · BUY";
+      if (s === "sell") return th ? "โซนขาย · SELL" : "Sell zone · SELL";
+      return th ? "รอ · WAIT" : "Wait · WAIT";
+    }
     function planStatusOf(plan, px) {
       if (window.ShareCard && ShareCard.planStatus) return ShareCard.planStatus(plan, px);
       return { id: "wait", th: "รอเข้า", en: "Waiting" };
@@ -2080,8 +2118,8 @@
       if (compact) {
         const bits = [];
         bits.push(`<span class="tp-title">${th ? "แผนเทรด" : "Trade plan"}</span>`);
-        bits.push(`<span class="tp-side ${side}">${sideLab}</span>`);
-        bits.push(`<span class="tp-kv"><span class="k">${th ? "เข้า" : "In"}</span> <span class="v">${entry}</span></span>`);
+        bits.push(`<span class="tp-side ${side}">${entryZoneLabel(side, th)}</span>`);
+        bits.push(`<span class="tp-kv"><span class="k">${entryZoneLabel(side, th)}</span> <span class="v">${entry}</span></span>`);
         if (plan.sl != null) bits.push(`<span class="tp-kv"><span class="k">SL</span> <span class="v">${fmtPlanPx(plan.sl)}</span></span>`);
         const tp1 = (plan.tps || [])[0];
         if (tp1) bits.push(`<span class="tp-kv"><span class="k">TP1</span> <span class="v">${fmtPlanPx(tp1.price)}${tp1.rr != null ? " · " + tp1.rr + "R" : ""}</span></span>`);
@@ -2099,12 +2137,12 @@
       const disc = th ? (plan.disclaimer_th || "เพื่อการศึกษา ไม่ใช่คำแนะนำการลงทุน ใช้ SL เสมอ") : (plan.disclaimer_en || "");
       return `<div class="tp-head">
         <div class="tp-title">${th ? "แผนเทรด" : "Trade plan"}</div>
-        <span class="tp-side ${side}">${sideLab}</span>
+        <span class="tp-side ${side}">${entryZoneLabel(side, th)}</span>
         <span class="tp-status ${st.id}">${stLab}</span>
       </div>
       <p class="tp-thesis">${thesis.replace(/</g, "")}</p>
       <div class="tp-grid">
-        <div><span class="k">${th ? "จุดเข้า" : "Entry"}</span><span class="v">${entry}</span></div>
+        <div class="tp-zone-cell ${side}"><span class="k">${entryZoneLabel(side, th)}</span><span class="v">${entry}</span></div>
         <div><span class="k">SL</span><span class="v">${plan.sl != null ? fmtPlanPx(plan.sl) : "—"}</span></div>
         ${tps}
       </div>
@@ -2246,50 +2284,108 @@
             } catch (_) {}
           }
         })(),
-        (async () => {
-          const thR = await fetchTimeout('https://apicheckprice.huasengheng.com/api/values/getprice/', 2500);
-          if (thR && thR.ok) renderThai(await thR.json());
-        })()
+        (async () => { await refreshOfficialThai(); })()
       ];
       await Promise.all(jobs.map(p => p.catch(() => {})));
       if (!LAST_THAI) renderThai([]);
     }
 
-    function thaiLabel(x) {
-      const code = String(x.GoldType || x.GoldCode || '').toUpperCase();
-      const mapTh = { HSH: 'ทองคำแท่ง 96.5%', REF: 'ทองแท่งอ้างอิง', JEWEL: 'ทองรูปพรรณ 96.5%' };
-      const mapEn = { HSH: 'Gold bar 96.5%', REF: 'Reference bar', JEWEL: 'Jewelry 96.5%' };
-      if (LANG === 'th') return mapTh[code] || cleanText(x.GoldType || x.GoldCode || 'ทองไทย');
-      return mapEn[code] || cleanText(x.GoldType || x.GoldCode || 'Thai gold');
+    function parseBahtThai(v) {
+      if (v == null || v === '') return null;
+      if (typeof v === 'number' && Number.isFinite(v)) return v;
+      const n = Number(String(v).replace(/,/g, '').replace(/[^\d.-]/g, ''));
+      return Number.isFinite(n) ? n : null;
     }
-    function renderThai(arr) {
+    function officialThaiFromFeed(arr) {
+      const list = Array.isArray(arr) ? arr : [];
+      const ref = list.find(x => String(x.GoldType || '').toUpperCase() === 'REF');
+      const jewel = list.find(x => String(x.GoldType || '').toUpperCase() === 'JEWEL');
+      if (!ref && !jewel) return null;
+      const t0 = (ref || jewel).TimeUpdate || '';
+      const hm = String(t0).slice(11, 16);
+      return {
+        as_of: t0, as_of_hm: hm,
+        as_of_th: hm ? 'อัปเดตล่าสุด ' + hm : 'อัปเดตล่าสุด —',
+        as_of_en: hm ? 'Updated ' + hm : 'Updated —',
+        fetched_at: new Date().toISOString(),
+        source_label_th: 'ราคาทองไทย', source_label_en: 'Thai gold',
+        bar: ref ? { buy: parseBahtThai(ref.Buy), sell: parseBahtThai(ref.Sell), change: parseBahtThai(ref.BuyChange) } : null,
+        jewelry: jewel ? { buy: parseBahtThai(jewel.Buy), sell: parseBahtThai(jewel.Sell), change: parseBahtThai(jewel.BuyChange) } : null
+      };
+    }
+    function thaiIsStale(doc) {
+      if (!doc) return true;
+      const now = Date.now();
+      const fetched = Date.parse(doc.fetched_at || '') || 0;
+      const asof = Date.parse(doc.as_of || '') || 0;
+      if (fetched && now - fetched > 20 * 60 * 1000) return true;
+      if (asof && now - asof > 18 * 60 * 60 * 1000) return true;
+      return false;
+    }
+    function fmtThb(n) {
+      return n == null || !Number.isFinite(Number(n)) ? '—' : Number(n).toLocaleString('en-US', { maximumFractionDigits: 0 });
+    }
+    function renderThai(input) {
       const box = document.getElementById('thaiBox');
       if (!box) return;
-      if (Array.isArray(arr) && arr.length) { LAST_THAI = arr; window.LAST_THAI = arr; }
-      const rows = ((Array.isArray(arr) && arr.length ? arr : LAST_THAI) || []).filter(x => x && (x.Buy || x.Sell)).slice(0, 3);
-      if (!rows.length) {
+      let doc = null;
+      if (input && (input.bar || input.jewelry)) doc = input;
+      else if (Array.isArray(input)) doc = officialThaiFromFeed(input);
+      else if (window.__THAI_GOLD) doc = window.__THAI_GOLD;
+      if (!doc || (!doc.bar && !doc.jewelry)) {
         box.innerHTML = `<div class="mut">${LANG === 'th' ? 'โหลดราคาไม่สำเร็จ ลองรีเฟรช' : 'Could not load prices — refresh'}</div>`;
         return;
       }
-      const buyLbl = LANG === 'th' ? 'รับซื้อ' : 'Buy';
-      const sellLbl = LANG === 'th' ? 'ขายออก' : 'Sell';
-      const chgLbl = LANG === 'th' ? 'เปลี่ยน' : 'chg';
-      box.innerHTML = rows.map(x => {
-        const name = thaiLabel(x);
-        const chg = Number(String(x.BuyChange ?? '0').replace(/,/g, '')) || 0;
-        const cls = chg > 0 ? 'up' : chg < 0 ? 'dn' : 'flat';
-        const chgTxt = (chg > 0 ? '+' : '') + (x.BuyChange != null ? String(x.BuyChange) : '0');
-        return `<div class="row">
-          <div class="name">${esc(name)} <span class="chg ${cls}">${chgLbl} ${esc(chgTxt)}</span></div>
-          <div class="prices">
-            <div class="px"><span class="lbl">${esc(buyLbl)}</span><span class="val">${esc(x.Buy || '—')}</span></div>
-            <div class="px sell"><span class="lbl">${esc(sellLbl)}</span><span class="val">${esc(x.Sell || '—')}</span></div>
-          </div>
+      window.__THAI_GOLD = doc;
+      LAST_THAI = doc;
+      window.LAST_THAI = doc;
+      const th = LANG !== 'en';
+      const stale = thaiIsStale(doc);
+      const items = [
+        [th ? 'ทองคำแท่ง 96.5%' : 'Gold bar 96.5%', doc.bar],
+        [th ? 'ทองรูปพรรณ 96.5%' : 'Jewelry 96.5%', doc.jewelry]
+      ];
+      box.innerHTML = items.map(([name, p]) => {
+        if (!p || (p.buy == null && p.sell == null)) return '';
+        const ch = Number(p.change);
+        const has = Number.isFinite(ch);
+        const cls = has ? (ch > 0 ? 'up' : ch < 0 ? 'dn' : 'flat') : 'flat';
+        const chg = has ? ((ch > 0 ? '▲ +' : ch < 0 ? '▼ ' : '• ') + fmtThb(Math.abs(ch))) : '—';
+        return `<div class="thai-card">
+          <div class="name">${esc(name)}</div>
+          <div class="px"><span class="lbl">${th ? 'รับซื้อ' : 'Buy-back'}</span><span class="val">${fmtThb(p.buy)}</span></div>
+          <div class="px sell"><span class="lbl">${th ? 'ขายออก' : 'Sell'}</span><span class="val">${fmtThb(p.sell)}</span></div>
+          <div class="chg ${cls}">${chg}</div>
         </div>`;
       }).join('');
-      if (rows[0] && (rows[0].StrTimeUpdate || rows[0].TimeUpdate)) {
-        document.getElementById('thaiTime').textContent = rows[0].StrTimeUpdate || rows[0].TimeUpdate;
+      const timeEl = document.getElementById('thaiTime');
+      if (timeEl) {
+        const stamp = th ? (doc.as_of_th || (doc.as_of_hm ? 'อัปเดตล่าสุด ' + doc.as_of_hm : '')) : (doc.as_of_en || (doc.as_of_hm ? 'Updated ' + doc.as_of_hm : ''));
+        timeEl.textContent = (th ? 'ที่มา: ราคาทองไทย · ' : 'Source: Thai gold · ') + stamp + (stale ? (th ? ' · ล่าช้า' : ' · delayed') : '');
+        timeEl.classList.toggle('stale', stale);
       }
+    }
+    async function refreshOfficialThai() {
+      let jsonDoc = null, feedDoc = null;
+      for (const u of ['data/thai_gold.json', 'assets/thai_gold.json']) {
+        try {
+          const r = await fetchTimeout(u + '?t=' + Date.now(), 2500);
+          if (r && r.ok) {
+            const j = await r.json();
+            if (j && (j.bar || j.jewelry)) { jsonDoc = j; break; }
+          }
+        } catch (_) {}
+      }
+      try {
+        const thR = await fetchTimeout('https://apicheckprice.huasengheng.com/api/values/getprice/', 2500);
+        if (thR && thR.ok) feedDoc = officialThaiFromFeed(await thR.json());
+      } catch (_) {}
+      let doc = jsonDoc || feedDoc;
+      if (jsonDoc && feedDoc && feedDoc.bar && jsonDoc.bar) {
+        const same = Math.abs((feedDoc.bar.buy || 0) - (jsonDoc.bar.buy || 0)) < 1 && Math.abs((feedDoc.bar.sell || 0) - (jsonDoc.bar.sell || 0)) < 1;
+        doc = same ? jsonDoc : feedDoc;
+      }
+      renderThai(doc || []);
     }
 
     async function loadLive() {
@@ -3415,6 +3511,7 @@
     setInterval(pollLiveSpot, 4000);
     setInterval(loadLive, 60000);
     setInterval(loadTradePlan, 5 * 60 * 1000);
+    setInterval(refreshOfficialThai, 30000);
   </script>
   <script>
   (function () {

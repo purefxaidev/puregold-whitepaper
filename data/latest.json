@@ -1,23 +1,27 @@
 {
   "name": "PUREGOLD",
-  "version": "0.9.9",
-  "versionCode": 22,
+  "version": "0.9.10",
+  "versionCode": 23,
   "apk": "https://gold.purefxai.store/downloads/PUREGOLD.apk",
-  "sha256": "16344fe47b8a54ef8d8550fc04ad0e872d99bafef4f2a4bb67b985bcddcb9893",
-  "released": "2026-11-11",
-  "released_th": "11 พ.ย. 2026",
+  "sha256": "61874e547fe5ed880081312e98e5f6c8d40bc2984b4d5ee13973f8fc5a490bec",
+  "released": "2026-11-13",
+  "released_th": "13 พ.ย. 2026",
   "notes": {
     "th": [
-      "ใช้คำว่า «ทองไทย» สำหรับราคาทองในประเทศทั้งแอป วิดเจ็ต หน้าต่างลอย และเว็บ"
+      "แผนเทรดติดป้ายโซนซื้อ · BUY (เขียว) โซนขาย · SELL (แดง) หรือ รอ · WAIT เมื่อยังไม่มีจุดเข้า",
+      "หน้า Home แสดงราคารับซื้อและขายออกของทองคำแท่ง 96.5% และทองรูปพรรณ จากประกาศราคาทองไทย พร้อมเวลาอัปเดต"
     ],
     "en": [
-      "In-app, widget, overlay, and website labels now say “Thai gold” for the domestic gold price"
+      "The trade plan labels the entry as Buy zone · BUY (green), Sell zone · SELL (red), or Wait · WAIT when there is no setup",
+      "Home shows buy-back and sell prices for 96.5% gold bar and jewelry from the Thai gold announcement, with the update time"
     ],
     "zh": [
-      "应用、小组件、悬浮窗和网站均改称泰国金"
+      "交易计划将入场区标为买入 BUY（绿）、卖出 SELL（红），无机会则为等待 WAIT",
+      "首页显示泰国金 96.5% 金条与饰金的回收价与卖出价，并标明更新时间"
     ],
     "ja": [
-      "アプリ・ウィジェット・オーバーレイ・サイトの表記を「タイの金」に統一"
+      "トレードプランのエントリーを「買いゾーン · BUY」（緑）「売りゾーン · SELL」（赤）、セットアップがなければ「待ち · WAIT」と表示",
+      "ホームにタイの金（96.5% バーとジュエリー）の買い取り・売値と更新時刻を表示"
     ]
   }
 }

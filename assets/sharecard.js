@@ -217,25 +217,34 @@
     const n = Number(String(v).replace(/,/g, "").replace(/[^\d.-]/g, ""));
     return Number.isFinite(n) ? n : null;
   }
+  function officialFromDoc(j) {
+    if (!j || (!j.bar && !j.jewelry)) return null;
+    const bar = j.bar || {};
+    return {
+      buy: bar.buy, sell: bar.sell, change: bar.change,
+      time: j.as_of || j.as_of_hm || "",
+      as_of_hm: j.as_of_hm,
+      as_of_th: j.as_of_th,
+      source: j.source_label_th || "ราคาทองไทย",
+      bar: j.bar || null,
+      jewelry: j.jewelry || null
+    };
+  }
   function pickThai(rows) {
+    if (rows && (rows.bar || rows.jewelry)) return officialFromDoc(rows);
     const list = Array.isArray(rows) ? rows : [];
     const by = (typ) => list.find(x => String(x.GoldType || "").toUpperCase() === typ && String(x.GoldCode || "").startsWith("96"));
-    const ref = by("REF"), hsh = by("HSH"), jewel = by("JEWEL");
-    const primary = ref || hsh || list.find(x => String(x.GoldCode || "").startsWith("96")) || list[0];
+    const ref = by("REF"), jewel = by("JEWEL");
+    const primary = ref || jewel;
     if (!primary) return null;
-    return {
-      buy: parseBaht(primary.Buy),
-      sell: parseBaht(primary.Sell),
-      change: parseBaht(primary.BuyChange != null ? primary.BuyChange : primary.SellChange),
-      time: primary.TimeUpdate || primary.StrTimeUpdate || "",
-      code: primary.GoldCode || "96.50",
-      type: primary.GoldType || "",
-      isAssoc: String(primary.GoldType || "").toUpperCase() === "REF",
-      source: String(primary.GoldType || "").toUpperCase() === "REF"
-        ? "ทองคำแท่งอ้างอิง"
-        : "ทองไทย",
-      hsh: hsh ? { buy: parseBaht(hsh.Buy), sell: parseBaht(hsh.Sell), change: parseBaht(hsh.BuyChange) } : null
-    };
+    return officialFromDoc({
+      as_of: primary.TimeUpdate || "",
+      as_of_hm: String(primary.TimeUpdate || "").slice(11, 16),
+      as_of_th: "อัปเดตล่าสุด " + String(primary.TimeUpdate || "").slice(11, 16),
+      source_label_th: "ราคาทองไทย",
+      bar: ref ? { buy: parseBaht(ref.Buy), sell: parseBaht(ref.Sell), change: parseBaht(ref.BuyChange) } : null,
+      jewelry: jewel ? { buy: parseBaht(jewel.Buy), sell: parseBaht(jewel.Sell), change: parseBaht(jewel.BuyChange) } : null
+    });
   }
   function floorPivots(h, l, c) {
     const pp = (h + l + c) / 3;
@@ -255,14 +264,21 @@
     return { pp: d.pp, r1: d.r1, r2: d.r2, r3: d.r3, s1: d.s1, s2: d.s2, s3: d.s3 };
   }
   async function loadThaiGold() {
-    const urls = ["https://apicheckprice.huasengheng.com/api/values/getprice/"];
+    const urls = [
+      "thai_gold.json",
+      "data/thai_gold.json",
+      "assets/thai_gold.json",
+      "https://gold.purefxai.store/data/thai_gold.json",
+      "https://dashboard.purefxai.store/thai_gold.json",
+      "https://apicheckprice.huasengheng.com/api/values/getprice/"
+    ];
     for (const u of urls) {
       try {
-        const r = await fetch(u, { cache: "no-store" });
+        const r = await fetch(u + (u.includes("?") ? "&" : "?") + "t=" + Date.now(), { cache: "no-store" });
         if (!r.ok) continue;
         const a = await r.json();
         const thai = pickThai(a);
-        if (thai && (thai.buy != null || thai.sell != null)) {
+        if (thai && (thai.buy != null || thai.sell != null || (thai.bar && thai.bar.buy != null))) {
           attachMarket({ thai, thaiRaw: a });
           return thai;
         }
@@ -1255,23 +1271,54 @@
     } else {
       fillFit(ctx, title, x + pad, titleY, w - pad * 2);
     }
-    const items = [
-      [th ? "รับซื้อ" : "Bid", thai.buy != null ? fmt(thai.buy, 0) : "—", TX],
-      [th ? "ขายออก" : "Ask", thai.sell != null ? fmt(thai.sell, 0) : "—", TX]
-    ];
-    if (chgT) items.push([th ? "เปลี่ยน" : "Change", chgT, chgCol]);
-    const colW = (w - pad * 2) / items.length;
-    const bodyY = y + 30;
-    const bodyH = h - 38;
-    items.forEach((it, i) => {
-      const cx0 = x + pad + i * colW;
-      ctx.fillStyle = MUTED;
-      ctx.font = `600 11px ${FONT}`;
-      fillFit(ctx, it[0], cx0, bodyY + 8, colW - 8);
-      ctx.fillStyle = it[2];
-      fitFont(ctx, it[1], colW - 8, "800", Math.min(26, Math.max(14, bodyH * 0.48)), MONO, 13);
-      fillFit(ctx, it[1], cx0, bodyY + bodyH * 0.62, colW - 8);
+    const products = [];
+    if (thai.bar || (thai.buy != null || thai.sell != null)) {
+      products.push({
+        name: th ? "ทองคำแท่ง 96.5%" : "Gold bar 96.5%",
+        buy: (thai.bar && thai.bar.buy != null) ? thai.bar.buy : thai.buy,
+        sell: (thai.bar && thai.bar.sell != null) ? thai.bar.sell : thai.sell,
+        change: (thai.bar && thai.bar.change != null) ? thai.bar.change : thai.change
+      });
+    }
+    if (thai.jewelry && (thai.jewelry.buy != null || thai.jewelry.sell != null)) {
+      products.push({
+        name: th ? "ทองรูปพรรณ 96.5%" : "Jewelry 96.5%",
+        buy: thai.jewelry.buy, sell: thai.jewelry.sell, change: thai.jewelry.change
+      });
+    }
+    const bodyY = y + 28;
+    const bodyH = h - 40;
+    const colW = (w - pad * 2 - (products.length > 1 ? 10 : 0)) / Math.max(1, products.length);
+    products.forEach((pr, i) => {
+      const cx0 = x + pad + i * (colW + (products.length > 1 ? 10 : 0));
+      ctx.fillStyle = GOLD2;
+      ctx.font = `700 11px ${FONT}`;
+      fillFit(ctx, pr.name, cx0, bodyY + 8, colW - 6);
+      const rows = [
+        [th ? "รับซื้อ" : "Buy-back", pr.buy != null ? fmt(pr.buy, 0) : "—", TX],
+        [th ? "ขายออก" : "Sell", pr.sell != null ? fmt(pr.sell, 0) : "—", TX]
+      ];
+      if (pr.change != null && Number.isFinite(pr.change)) {
+        const chgT = (pr.change > 0 ? "▲ +" : pr.change < 0 ? "▼ " : "• ") + fmt(Math.abs(pr.change), 0);
+        rows.push([th ? "เปลี่ยน" : "Change", chgT, pr.change > 0 ? UP : pr.change < 0 ? DN : GOLD]);
+      }
+      const rh = (bodyH - 16) / rows.length;
+      rows.forEach((it, ri) => {
+        const ry = bodyY + 14 + ri * rh;
+        ctx.fillStyle = MUTED;
+        ctx.font = `600 10px ${FONT}`;
+        fillFit(ctx, it[0], cx0, ry + rh * 0.30, colW * 0.42);
+        ctx.fillStyle = it[2];
+        fitFont(ctx, it[1], colW * 0.55, "800", Math.min(18, Math.max(12, rh * 0.55)), MONO, 10);
+        fillFit(ctx, it[1], cx0 + colW * 0.42, ry + rh * 0.30, colW * 0.55);
+      });
     });
+    const stamp = thai.as_of_th || (thai.as_of_hm ? (th ? "อัปเดตล่าสุด " : "Updated ") + thai.as_of_hm : "");
+    if (stamp && bodyH > 50) {
+      ctx.fillStyle = MUTED;
+      ctx.font = `500 10px ${FONT}`;
+      fillFit(ctx, stamp, x + pad, y + h - 10, w - pad * 2);
+    }
     ctx.textBaseline = "alphabetic";
     ctx.textAlign = "left";
     return h;
@@ -1343,7 +1390,14 @@
     return { id: "wait", th: "รอเข้า", en: "Waiting" };
   }
 
-  function drawPlanStrip(ctx, x, y, w, h, plan, lang, livePx) {
+  function entryZoneLabel(side, lang) {
+    const s = String(side || "wait").toLowerCase();
+    const th = lang !== "en";
+    if (s === "buy") return th ? "โซนซื้อ · BUY" : "Buy zone · BUY";
+    if (s === "sell") return th ? "โซนขาย · SELL" : "Sell zone · SELL";
+    return th ? "รอ · WAIT" : "Wait · WAIT";
+  }
+    function drawPlanStrip(ctx, x, y, w, h, plan, lang, livePx) {
     if (!plan || h < 32 || w < 200) return 0;
     glassPanel(ctx, x, y, w, h, 12);
     const st = planStatus(plan, livePx != null ? livePx : plan.spot);
@@ -1353,9 +1407,9 @@
     const pad = 10;
     const mid = y + h / 2;
     ctx.textBaseline = "middle";
-    const badge = lang === "en" ? (plan.side_en || "WAIT") : (plan.side_th || "รอ");
+    const badge = entryZoneLabel(side, lang);
     ctx.font = `800 12px ${FONT}`;
-    const bw = Math.min(90, ctx.measureText(badge).width + 16);
+    const bw = Math.min(170, Math.max(88, ctx.measureText(badge).width + 16));
     ctx.fillStyle = col + "24";
     ctx.strokeStyle = col;
     ctx.lineWidth = 1.2;
@@ -1364,8 +1418,9 @@
     fillFit(ctx, badge, x + pad + 8, mid, bw - 14);
     const bits = [];
     bits.push(lang === "en" ? "Trade plan" : "แผนเทรด");
-    if (plan.entry_low != null && plan.entry_high != null) bits.push((lang === "en" ? "In " : "เข้า ") + fmt(plan.entry_low, 1) + "–" + fmt(plan.entry_high, 1));
-    else if (plan.entry != null) bits.push((lang === "en" ? "In " : "เข้า ") + fmt(plan.entry, 1));
+    const zone = entryZoneLabel(side, lang);
+    if (plan.entry_low != null && plan.entry_high != null) bits.push(zone + " " + fmt(plan.entry_low, 1) + "–" + fmt(plan.entry_high, 1));
+    else if (plan.entry != null) bits.push(zone + " " + fmt(plan.entry, 1));
     if (plan.sl != null) bits.push("SL " + fmt(plan.sl, 1));
     (plan.tps || []).forEach(tp => bits.push("TP" + tp.n + " " + fmt(tp.price, 1) + (tp.rr != null ? (" " + tp.rr + "R") : "")));
     bits.push(lang === "en" ? st.en : st.th);
@@ -1387,7 +1442,7 @@
     ctx.fillStyle = GOLD;
     ctx.font = `700 12px ${FONT}`;
     fillFit(ctx, lang === "en" ? "Trade plan" : "แผนเทรด", x + pad, y + 18, w * 0.45);
-    const badge = lang === "en" ? (plan.side_en || "WAIT") : (plan.side_th || "รอ");
+    const badge = entryZoneLabel(side, lang);
     const stLab = lang === "en" ? st.en : st.th;
     ctx.font = `800 13px ${FONT}`;
     const bw = ctx.measureText(badge).width + 16;
@@ -1407,8 +1462,8 @@
     fillFit(ctx, (lang === "en" ? (plan.thesis_en || plan.title_en) : (plan.thesis_th || plan.title_th)) || "", x + pad, y + 44, w - pad * 2);
 
     const rows = [];
-    if (plan.entry_low != null) rows.push([lang === "en" ? "Entry" : "จุดเข้า", fmt(plan.entry_low, 1) + " – " + fmt(plan.entry_high, 1)]);
-    else if (plan.entry != null) rows.push([lang === "en" ? "Entry" : "จุดเข้า", fmt(plan.entry, 1)]);
+    if (plan.entry_low != null) rows.push([entryZoneLabel(side, lang), fmt(plan.entry_low, 1) + " – " + fmt(plan.entry_high, 1)]);
+    else if (plan.entry != null) rows.push([entryZoneLabel(side, lang), fmt(plan.entry, 1)]);
     if (plan.sl != null) rows.push(["SL", fmt(plan.sl, 1)]);
     (plan.tps || []).forEach(tp => rows.push(["TP" + tp.n + (tp.label ? " " + (lang === "en" ? (tp.label_en || tp.label) : tp.label) : ""), fmt(tp.price, 1) + (tp.rr != null ? "  ·  " + tp.rr + "R" : "")]));
     const inv = lang === "en" ? plan.invalidation_en : plan.invalidation_th;
