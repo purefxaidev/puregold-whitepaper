@@ -1,13 +1,13 @@
 {
  "timezone": "Asia/Bangkok",
- "updated_at": "2026-11-13T02:58:17Z",
- "updated_at_bkk": "2026-11-13 09:58",
- "updated_th": "13 พ.ย. 2026 09:58 น. (เวลาไทย)",
- "updated_en": "13 Nov 2026 09:58 (Bangkok time)",
+ "updated_at": "2026-11-13T10:46:59Z",
+ "updated_at_bkk": "2026-11-13 17:46",
+ "updated_th": "13 พ.ย. 2026 17:46 น. (เวลาไทย)",
+ "updated_en": "13 Nov 2026 17:46 (Bangkok time)",
  "dxy": {
-  "price": 103.167,
-  "change": -0.003,
-  "change_pct": -0.003,
+  "price": 103.229,
+  "change": 0.059,
+  "change_pct": 0.057,
   "as_of": "2026-11-13",
   "source": "Yahoo Finance DX-Y.NYB (ICE US Dollar Index)",
   "source_url": "https://finance.yahoo.com/quote/DX-Y.NYB",
@@ -370,13 +370,13 @@
    },
    {
     "t": "2026-11-13",
-    "c": 103.167
+    "c": 103.229
    }
   ]
  },
  "corr": {
-  "n20": -0.383,
-  "n60": -0.415,
+  "n20": -0.38,
+  "n60": -0.414,
   "sample_20": 20,
   "sample_60": 60,
   "method_th": "สหสัมพันธ์เพียร์สันของผลตอบแทนรายวัน DXY กับ XAUUSD",
