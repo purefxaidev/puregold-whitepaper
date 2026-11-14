@@ -1,31 +1,31 @@
 {
   "name": "PUREGOLD",
-  "version": "0.9.13",
-  "versionCode": 26,
+  "version": "0.9.14",
+  "versionCode": 27,
   "apk": "https://gold.purefxai.store/downloads/PUREGOLD.apk",
-  "sha256": "2eb99997775739d013d75f85d5d1295120233bfeea9f3bcadfcf0b55d50056ac",
-  "released": "2026-11-13",
-  "released_th": "13 พ.ย. 2026",
+  "sha256": "e5d1ec78b64551ce66c62e770e4bc09849f6485e6cda14d628e81fc24747fff3",
+  "released": "2026-11-14",
+  "released_th": "14 พ.ย. 2026",
   "notes": {
     "th": [
-      "ทุกการแจ้งเตือนขึ้นต้นด้วย «ราคาล่าสุด $X · ตอนนี้ BUY/SELL/รอ เพราะ…» และระบุ Demand Zone หรือ Supply Zone",
-      "เมื่อแท่ง H1 ปิดยืนยันที่โซน จะแจ้งกลับตัว เช่น «ราคากลับตัวที่ Demand Zone A–B นี่คือจุดกลับตัว เปลี่ยนจากลงเป็นขึ้น ให้สัญญาณ BUY» และฝั่ง Supply กลับกัน",
-      "ตรวจกราฟไซด์เวย์จากแท่ง H1 ที่ปิดแล้ว ตามกฎ «กราฟไซด์เวย์ ราคาระหว่าง A–B ไม่มีทิศชัด แนะนำรอดูแท่ง H1 ปิดออกจากช่วงก่อนเข้า» และแจ้งอีกครั้งเมื่อแท่ง H1 ปิดยืนยันเบรกออกจากช่วง"
+      "หน้าต่างลอยปรับขนาดได้เอง: ลากด้ามจับลายกระจกทองที่มุมขวาล่าง เพื่อขยายหรือย่อความกว้างและความสูง",
+      "ขนาดถูกจำกัดให้อ่านได้ (ขั้นต่ำ 200×160 dp) และไม่ล้นจอ ส่วนข้อความจัดเรียงใหม่ให้พอดี ไม่ทับกัน และจำขนาดล่าสุดไว้ครั้งถัดไป",
+      "ยังลากย้ายตำแหน่ง ย่อเป็นฟองราคา และอัปเดตราคาสดได้เหมือนเดิม"
     ],
     "en": [
-      "Every alert now starts with “Latest price $X · now BUY/SELL/waiting because …” and names the Demand or Supply zone",
-      "A confirmed H1 close at a zone sends a reversal alert, e.g. a Demand bounce turning down to up (BUY), and the Supply mirror (SELL)",
-      "Sideways H1 ranges use the documented wait rule, and a second alert fires when a closed H1 confirms the breakout"
+      "The floating window is now resizable: drag the gold-glass handle at the bottom-right corner to change width and height",
+      "Size is clamped so text stays readable (minimum 200×160 dp) and the card stays on screen; content reflows to fit, and the last size is remembered",
+      "Drag-to-move, minimize-to-bubble, and live prices still work as before"
     ],
     "zh": [
-      "每条提醒均以“最新价 $X · 现在 BUY/SELL/等待，因为…”开头，并标明 Demand Zone 或 Supply Zone",
-      "H1 在区域收盘确认后发出反转提醒：需求区由下转上为 BUY，供给区由上转下为 SELL",
-      "按已收盘的 H1 识别横盘，并在 H1 收盘确认突破该区间时再次提醒"
+      "浮动窗口可自行调整大小：拖动右下角金色玻璃手柄即可改变宽高",
+      "尺寸限制在可读范围内（最小 200×160 dp）且不超出屏幕，内容会自动重排，并记住上次的大小",
+      "拖动移动、缩成气泡和实时报价仍照常工作"
     ],
     "ja": [
-      "すべての通知を「最新価格 $X · いま BUY/SELL/待ち、理由は…」で始め、Demand Zone または Supply Zone を明示する",
-      "ゾーンで確定した H1 終値の反転通知（Demand は下降から上昇で BUY、Supply はその逆で SELL）",
-      "確定 H1 でレンジを判定し、H1 終値がレンジを抜けて確定したときに再度通知する"
+      "フローティングウィンドウを右下のゴールドガラスハンドルでドラッグして、幅と高さを変えられる",
+      "読みやすい最小サイズ（200×160 dp）と画面内に収まる最大サイズに制限し、内容は折り返し、前回のサイズを記憶する",
+      "ドラッグ移動・バブル最小化・ライブ価格の更新はそのまま"
     ]
   }
 }
