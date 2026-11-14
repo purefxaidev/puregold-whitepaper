@@ -1,13 +1,13 @@
 {
  "timezone": "Asia/Bangkok",
- "updated_at": "2026-11-14T03:31:04Z",
- "updated_at_bkk": "2026-11-14 10:31",
- "updated_th": "14 พ.ย. 2026 10:31 น. (เวลาไทย)",
- "updated_en": "14 Nov 2026 10:31 (Bangkok time)",
+ "updated_at": "2026-11-14T10:52:03Z",
+ "updated_at_bkk": "2026-11-14 17:52",
+ "updated_th": "14 พ.ย. 2026 17:52 น. (เวลาไทย)",
+ "updated_en": "14 Nov 2026 17:52 (Bangkok time)",
  "dxy": {
-  "price": 103.411,
-  "change": 0.241,
-  "change_pct": 0.234,
+  "price": 103.41,
+  "change": 0.24,
+  "change_pct": 0.233,
   "as_of": "2026-11-13",
   "source": "Yahoo Finance DX-Y.NYB (ICE US Dollar Index)",
   "source_url": "https://finance.yahoo.com/quote/DX-Y.NYB",
@@ -370,7 +370,7 @@
    },
    {
     "t": "2026-11-13",
-    "c": 103.411
+    "c": 103.41
    }
   ]
  },
@@ -389,9 +389,9 @@
   "target_to": 4.0,
   "effr_source": "Federal Reserve Bank of New York, Effective Federal Funds Rate",
   "effr_source_url": "https://markets.newyorkfed.org/markets/reference-rates/effr",
-  "implied_month_avg": 4.07,
-  "implied_post": 4.1477,
-  "futures_price": 95.93,
+  "implied_month_avg": 4.075,
+  "implied_post": 4.1548,
+  "futures_price": 95.925,
   "futures_symbol": "ZQZ26.CBT",
   "futures_source": "Yahoo Finance 30-day Fed funds futures (ZQZ26.CBT)",
   "futures_source_url": "https://finance.yahoo.com/quote/ZQZ26.CBT",
@@ -411,7 +411,7 @@
     "target_mid": 4.125,
     "label_th": "ขึ้น 0.25%",
     "label_en": "25 bp hike",
-    "p": 0.909
+    "p": 0.881
    },
    {
     "action": "hike_50",
@@ -419,15 +419,15 @@
     "target_mid": 4.375,
     "label_th": "ขึ้น 0.50%",
     "label_en": "50 bp hike",
-    "p": 0.091
+    "p": 0.119
    }
   ],
   "method_th": "ดัชนี DXY จาก Yahoo Finance สัญลักษณ์ DX-Y.NYB ความสัมพันธ์คือสหสัมพันธ์เพียร์สันของผลตอบแทนรายวัน เทียบกับ XAUUSD (แท่ง D1). อัตราดอกเบี้ยนโยบายอ้างอิงจาก Effective Federal Funds Rate และกรอบเป้าหมายของ ธนาคารกลางนิวยอร์ก วันที่ประชุม FOMC จากปฏิทินของคณะกรรมการธนาคารกลางสหรัฐฯ โอกาสขึ้น/ลดดอกเบี้ยประมาณจากราคาฟิวเจอร์ส Fed Funds 30 วัน (Yahoo ZQZ26.CBT) ด้วยวิธีเดียวกับแนวคิดของ CME FedWatch: ราคาฟิวเจอร์ส = 100 − อัตราเฉลี่ยทั้งเดือน แล้วแยกเป็นอัตราก่อนและหลังวันที่มีผล (วันทำการถัดจากวันประกาศ) จากนั้นกระจายความน่าจะเป็นบนขั้นละ 0.25 จุดรอบกลางกรอบเป้าหมายปัจจุบัน นี่เป็นการประมาณจากข้อมูลสาธารณะ ไม่ใช่ตัวเลขทางการของ CME FedWatch",
   "method_en": "DXY is Yahoo Finance DX-Y.NYB. Correlation is Pearson on daily log returns versus XAUUSD daily closes. The effective federal funds rate and target range come from the Federal Reserve Bank of New York. FOMC dates come from the Federal Reserve Board calendar. Odds are inferred from 30-day Fed funds futures (Yahoo ZQZ26.CBT) using the same idea as CME FedWatch: the contract prices the month's average effective rate, which is split into the current rate before the effective date (the business day after the statement) and a post-meeting rate, then allocated across 25 bp steps around the current target midpoint. This is a public-data estimate, not CME's official FedWatch tool."
  },
  "analysis": {
-  "th": "DXY แข็งค่า → กดดันทอง · ความสัมพันธ์ 20 วันกับทองอยู่ที่ -0.37 (ผกผันตามปกติ) · ตลาดให้น้ำหนักขึ้น 0.25% 91% ในการประชุมเฟดครั้งถัดไป → อาจกดดันทอง · ข้อมูลเพื่อการศึกษา ไม่ใช่คำแนะนำการลงทุน",
-  "en": "A firmer DXY is a headwind for gold · 20-day correlation with gold is -0.37 (the usual inverse link) · The funds market puts 91% on a 25 bp hike at the next FOMC, which can weigh on gold · For education only — not investment advice",
+  "th": "DXY แข็งค่า → กดดันทอง · ความสัมพันธ์ 20 วันกับทองอยู่ที่ -0.37 (ผกผันตามปกติ) · ตลาดให้น้ำหนักขึ้น 0.25% 88% ในการประชุมเฟดครั้งถัดไป → อาจกดดันทอง · ข้อมูลเพื่อการศึกษา ไม่ใช่คำแนะนำการลงทุน",
+  "en": "A firmer DXY is a headwind for gold · 20-day correlation with gold is -0.37 (the usual inverse link) · The funds market puts 88% on a 25 bp hike at the next FOMC, which can weigh on gold · For education only — not investment advice",
   "via": "rules"
  },
  "edu_th": "เพื่อการศึกษา ไม่ใช่คำแนะนำการลงทุน",

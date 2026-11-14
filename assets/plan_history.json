@@ -1,6 +1,6 @@
 {
   "started_at": "2026-11-13T20:59:46.850831+07:00",
-  "updated_at": "2026-11-14T16:25:47.489842+07:00",
+  "updated_at": "2026-11-14T22:54:40.316194+07:00",
   "source_note_th": "เริ่มนับผลจากรอบนี้ ไม่มีประวัติย้อนหลัง และไม่ได้สร้างผลลัพธ์สมมติ",
   "source_note_en": "Counted from this run onward. There is no backfilled history, and no results are invented.",
   "open": {
@@ -40,7 +40,7 @@
     "reason_en": "",
     "closed_at": null,
     "last_price": 3880.41,
-    "last_check": "2026-11-14T16:25:47.489842+07:00",
+    "last_check": "2026-11-14T22:54:40.316194+07:00",
     "reached": []
   },
   "closed": [],
