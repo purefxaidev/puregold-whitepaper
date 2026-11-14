@@ -1,9 +1,9 @@
 {
  "timezone": "Asia/Bangkok",
- "updated_at": "2026-11-13T23:32:02Z",
- "updated_at_bkk": "2026-11-14 06:32",
- "updated_th": "14 พ.ย. 2026 06:32 น. (เวลาไทย)",
- "updated_en": "14 Nov 2026 06:32 (Bangkok time)",
+ "updated_at": "2026-11-14T03:31:04Z",
+ "updated_at_bkk": "2026-11-14 10:31",
+ "updated_th": "14 พ.ย. 2026 10:31 น. (เวลาไทย)",
+ "updated_en": "14 Nov 2026 10:31 (Bangkok time)",
  "dxy": {
   "price": 103.411,
   "change": 0.241,
@@ -375,7 +375,7 @@
   ]
  },
  "corr": {
-  "n20": -0.375,
+  "n20": -0.374,
   "n60": -0.412,
   "sample_20": 20,
   "sample_60": 60,
@@ -426,8 +426,8 @@
   "method_en": "DXY is Yahoo Finance DX-Y.NYB. Correlation is Pearson on daily log returns versus XAUUSD daily closes. The effective federal funds rate and target range come from the Federal Reserve Bank of New York. FOMC dates come from the Federal Reserve Board calendar. Odds are inferred from 30-day Fed funds futures (Yahoo ZQZ26.CBT) using the same idea as CME FedWatch: the contract prices the month's average effective rate, which is split into the current rate before the effective date (the business day after the statement) and a post-meeting rate, then allocated across 25 bp steps around the current target midpoint. This is a public-data estimate, not CME's official FedWatch tool."
  },
  "analysis": {
-  "th": "DXY แข็งค่า → กดดันทอง · ความสัมพันธ์ 20 วันกับทองอยู่ที่ -0.38 (ผกผันตามปกติ) · ตลาดให้น้ำหนักขึ้น 0.25% 91% ในการประชุมเฟดครั้งถัดไป → อาจกดดันทอง · ข้อมูลเพื่อการศึกษา ไม่ใช่คำแนะนำการลงทุน",
-  "en": "A firmer DXY is a headwind for gold · 20-day correlation with gold is -0.38 (the usual inverse link) · The funds market puts 91% on a 25 bp hike at the next FOMC, which can weigh on gold · For education only — not investment advice",
+  "th": "DXY แข็งค่า → กดดันทอง · ความสัมพันธ์ 20 วันกับทองอยู่ที่ -0.37 (ผกผันตามปกติ) · ตลาดให้น้ำหนักขึ้น 0.25% 91% ในการประชุมเฟดครั้งถัดไป → อาจกดดันทอง · ข้อมูลเพื่อการศึกษา ไม่ใช่คำแนะนำการลงทุน",
+  "en": "A firmer DXY is a headwind for gold · 20-day correlation with gold is -0.37 (the usual inverse link) · The funds market puts 91% on a 25 bp hike at the next FOMC, which can weigh on gold · For education only — not investment advice",
   "via": "rules"
  },
  "edu_th": "เพื่อการศึกษา ไม่ใช่คำแนะนำการลงทุน",
