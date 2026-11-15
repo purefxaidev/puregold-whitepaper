@@ -1,18 +1,18 @@
 {
  "source": "PureGold composite (RSI, moving averages, realized volatility, SPDR flows, momentum)",
- "as_of": "2026-11-14",
- "as_of_th": "14 พ.ย. 2026",
- "as_of_en": "14 Nov 2026",
- "updated_at": "2026-11-14T20:59:27Z",
- "updated_at_bkk": "2026-11-15 03:59",
- "score": 22.0,
+ "as_of": "2026-11-15",
+ "as_of_th": "15 พ.ย. 2026",
+ "as_of_en": "15 Nov 2026",
+ "updated_at": "2026-11-15T00:57:28Z",
+ "updated_at_bkk": "2026-11-15 07:57",
+ "score": 22.2,
  "label_th": "กลัวสุดขีด",
  "label_en": "Extreme Fear",
  "zone": "extreme-fear",
  "components": {
-  "rsi": 30.5,
+  "rsi": 31.3,
   "ma": 0.0,
-  "volatility": 27.8,
+  "volatility": 28.0,
   "spdr": 51.9,
   "momentum": 0.0
  },
@@ -33,10 +33,6 @@
  "formula_th": "ดัชนี 0–100 เท่ากับค่าเฉลี่ยอย่างง่ายขององค์ประกอบที่มีข้อมูลในวันนั้น (น้ำหนักเท่ากัน): 1) RSI รายวัน 14 วัน (ใช้ค่า RSI โดยตรง) 2) ระยะห่างจาก EMA20 และ EMA50 รายวัน โดย ±3% เทียบเท่า 0 หรือ 100 3) ความผันผวนที่เกิดขึ้นจริง 14 วัน เทียบกับ 60 วัน (ความผันผวนสูง = กลัวมากกว่า) 4) การเปลี่ยนแปลงถือครอง SPDR ย้อนหลัง 5 วันทำการ (±5 ตัน เทียบเท่า 0 หรือ 100) 5) โมเมนตัมราคา 5 วัน (±3%) และ 20 วัน (±6%). โซน: 0–24 กลัวสุดขีด, 25–44 กลัว, 45–55 กลาง ๆ, 56–74 โลภ, 75–100 โลภสุดขีด. เป็นดัชนีภายในของ PureGold จากข้อมูลสาธารณะ ไม่ใช่ดัชนี CNN Fear & Greed และไม่ใช่คำแนะนำการลงทุน.",
  "formula_en": "The 0–100 index is a simple average of whichever components are available that day (equal weights): 1) 14-day daily RSI (used as-is); 2) distance from the daily EMA20 and EMA50, with ±3% mapped to 0 or 100; 3) 14-day realized volatility versus the 60-day level (higher vol scores as more fear); 4) the 5-session change in SPDR holdings (±5 tonnes maps to 0 or 100); 5) 5-day (±3%) and 20-day (±6%) price momentum. Zones: 0–24 extreme fear, 25–44 fear, 45–55 neutral, 56–74 greed, 75–100 extreme greed. This is a PureGold composite from public inputs, not the CNN Fear & Greed Index, and not investment advice.",
  "history": [
-  {
-   "date": "2026-05-19",
-   "score": 29.6
-  },
   {
    "date": "2026-05-20",
    "score": 36.7
@@ -79,7 +75,7 @@
   },
   {
    "date": "2026-05-30",
-   "score": 33.5
+   "score": 33.4
   },
   {
    "date": "2026-05-31",
@@ -247,7 +243,7 @@
   },
   {
    "date": "2026-07-11",
-   "score": 45.6
+   "score": 45.5
   },
   {
    "date": "2026-07-12",
@@ -267,7 +263,7 @@
   },
   {
    "date": "2026-07-16",
-   "score": 26.6
+   "score": 26.5
   },
   {
    "date": "2026-07-17",
@@ -275,7 +271,7 @@
   },
   {
    "date": "2026-07-18",
-   "score": 35.0
+   "score": 34.9
   },
   {
    "date": "2026-07-19",
@@ -291,7 +287,7 @@
   },
   {
    "date": "2026-07-22",
-   "score": 69.2
+   "score": 69.3
   },
   {
    "date": "2026-07-23",
@@ -311,7 +307,7 @@
   },
   {
    "date": "2026-07-27",
-   "score": 56.5
+   "score": 56.4
   },
   {
    "date": "2026-07-28",
@@ -327,7 +323,7 @@
   },
   {
    "date": "2026-07-31",
-   "score": 40.7
+   "score": 40.6
   },
   {
    "date": "2026-08-01",
@@ -371,7 +367,7 @@
   },
   {
    "date": "2026-08-11",
-   "score": 80.1
+   "score": 80.2
   },
   {
    "date": "2026-08-12",
@@ -471,7 +467,7 @@
   },
   {
    "date": "2026-09-05",
-   "score": 62.6
+   "score": 62.7
   },
   {
    "date": "2026-09-06",
@@ -491,11 +487,11 @@
   },
   {
    "date": "2026-09-10",
-   "score": 23.9
+   "score": 23.8
   },
   {
    "date": "2026-09-11",
-   "score": 31.1
+   "score": 31.0
   },
   {
    "date": "2026-09-12",
@@ -507,7 +503,7 @@
   },
   {
    "date": "2026-09-14",
-   "score": 23.6
+   "score": 23.5
   },
   {
    "date": "2026-09-15",
@@ -563,7 +559,7 @@
   },
   {
    "date": "2026-09-28",
-   "score": 36.1
+   "score": 36.0
   },
   {
    "date": "2026-09-29",
@@ -587,7 +583,7 @@
   },
   {
    "date": "2026-10-04",
-   "score": 37.4
+   "score": 37.3
   },
   {
    "date": "2026-10-05",
@@ -603,7 +599,7 @@
   },
   {
    "date": "2026-10-08",
-   "score": 35.8
+   "score": 35.7
   },
   {
    "date": "2026-10-09",
@@ -627,11 +623,11 @@
   },
   {
    "date": "2026-10-14",
-   "score": 30.1
+   "score": 30.0
   },
   {
    "date": "2026-10-15",
-   "score": 42.8
+   "score": 42.7
   },
   {
    "date": "2026-10-16",
@@ -679,7 +675,7 @@
   },
   {
    "date": "2026-10-27",
-   "score": 33.8
+   "score": 33.7
   },
   {
    "date": "2026-10-28",
@@ -735,7 +731,7 @@
   },
   {
    "date": "2026-11-10",
-   "score": 46.0
+   "score": 45.9
   },
   {
    "date": "2026-11-11",
@@ -747,11 +743,15 @@
   },
   {
    "date": "2026-11-13",
-   "score": 24.1
+   "score": 24.0
   },
   {
    "date": "2026-11-14",
    "score": 22.0
+  },
+  {
+   "date": "2026-11-15",
+   "score": 22.2
   }
  ]
 }
