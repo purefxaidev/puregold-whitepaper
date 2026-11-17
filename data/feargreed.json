@@ -3,9 +3,9 @@
  "as_of": "2026-11-16",
  "as_of_th": "16 พ.ย. 2026",
  "as_of_en": "16 Nov 2026",
- "updated_at": "2026-11-16T15:52:11Z",
- "updated_at_bkk": "2026-11-16 22:52",
- "score": 28.7,
+ "updated_at": "2026-11-16T23:55:02Z",
+ "updated_at_bkk": "2026-11-17 06:55",
+ "score": 28.8,
  "label_th": "กลัว",
  "label_en": "Fear",
  "zone": "fear",
@@ -14,7 +14,7 @@
   "ma": 0.0,
   "volatility": 23.4,
   "spdr": 80.4,
-  "momentum": 2.0
+  "momentum": 2.3
  },
  "component_labels_th": {
   "rsi": "RSI รายวัน 14 วัน",
@@ -143,11 +143,11 @@
   },
   {
    "date": "2026-06-17",
-   "score": 30.5
+   "score": 30.4
   },
   {
    "date": "2026-06-18",
-   "score": 33.2
+   "score": 33.1
   },
   {
    "date": "2026-06-19",
@@ -575,7 +575,7 @@
   },
   {
    "date": "2026-10-03",
-   "score": 39.4
+   "score": 39.3
   },
   {
    "date": "2026-10-04",
@@ -751,7 +751,7 @@
   },
   {
    "date": "2026-11-16",
-   "score": 28.7
+   "score": 28.8
   }
  ]
 }

@@ -1,13 +1,13 @@
 {
  "timezone": "Asia/Bangkok",
- "updated_at": "2026-11-16T15:52:13Z",
- "updated_at_bkk": "2026-11-16 22:52",
- "updated_th": "16 พ.ย. 2026 22:52 น. (เวลาไทย)",
- "updated_en": "16 Nov 2026 22:52 (Bangkok time)",
+ "updated_at": "2026-11-16T23:55:04Z",
+ "updated_at_bkk": "2026-11-17 06:55",
+ "updated_th": "17 พ.ย. 2026 06:55 น. (เวลาไทย)",
+ "updated_en": "17 Nov 2026 06:55 (Bangkok time)",
  "dxy": {
-  "price": 103.542,
-  "change": 0.132,
-  "change_pct": 0.128,
+  "price": 103.586,
+  "change": 0.176,
+  "change_pct": 0.17,
   "as_of": "2026-11-16",
   "source": "Yahoo Finance DX-Y.NYB (ICE US Dollar Index)",
   "source_url": "https://finance.yahoo.com/quote/DX-Y.NYB",
@@ -370,7 +370,7 @@
    },
    {
     "t": "2026-11-16",
-    "c": 103.542
+    "c": 103.586
    }
   ]
  },

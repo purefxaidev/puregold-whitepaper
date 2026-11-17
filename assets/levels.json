@@ -1,73 +1,73 @@
 {
   "symbol": "XAUUSD",
-  "updatedAt": "2026-11-16T18:53:24Z",
-  "updatedAtBangkok": "2026-11-17 01:53",
-  "spot": 3853.62,
+  "updatedAt": "2026-11-17T02:09:43Z",
+  "updatedAtBangkok": "2026-11-17 09:09",
+  "spot": 3865.7,
   "spotSource": "swissquote",
-  "offset": 9.43,
+  "offset": 11.81,
   "daily": {
-    "high": 3897.02,
-    "low": 3795.94,
-    "close": 3897.02,
-    "pp": 3863.327,
-    "r1": 3930.713,
-    "s1": 3829.633,
-    "r2": 3964.407,
-    "s2": 3762.247,
-    "r3": 4031.793,
-    "s3": 3728.553
+    "high": 3899.4,
+    "low": 3836.46,
+    "close": 3862.7,
+    "pp": 3866.187,
+    "r1": 3895.913,
+    "s1": 3832.973,
+    "r2": 3929.127,
+    "s2": 3803.247,
+    "r3": 3958.853,
+    "s3": 3770.033
   },
   "h4": {
-    "high": 3885.43,
-    "low": 3856.79,
-    "close": 3856.79,
-    "pp": 3866.337,
-    "r1": 3875.883,
-    "s1": 3847.243,
-    "r2": 3894.977,
-    "s2": 3837.697,
-    "r3": 3904.523,
-    "s3": 3818.603
+    "high": 3865.86,
+    "low": 3850.55,
+    "close": 3862.7,
+    "pp": 3859.703,
+    "r1": 3868.857,
+    "s1": 3853.547,
+    "r2": 3875.013,
+    "s2": 3844.393,
+    "r3": 3884.167,
+    "s3": 3838.237
   },
   "swings": {
     "highs": [
       {
         "t": 1794369600000,
-        "price": 4068.03
+        "price": 4070.41
       },
       {
         "t": 1794772800000,
-        "price": 3897.02
+        "price": 3899.4
       },
       {
         "t": 1794787200000,
-        "price": 3897.02
+        "price": 3899.4
       }
     ],
     "lows": [
       {
         "t": 1794326400000,
-        "price": 4018.02
+        "price": 4020.4
       },
       {
         "t": 1794484800000,
-        "price": 3862.99
+        "price": 3865.37
       },
       {
         "t": 1794686400000,
-        "price": 3773.0
+        "price": 3775.38
       }
     ]
   },
   "nearest": {
     "name": "Swing",
-    "price": 3862.99,
-    "distance": 9.37,
-    "side": "resistance"
+    "price": 3865.37,
+    "distance": -0.33,
+    "side": "support"
   },
-  "bias": "down",
-  "biasTh": "เอียงลงต่ำกว่าจุดพิวอต",
-  "biasEn": "Tilt down, below the pivot",
+  "bias": "neutral",
+  "biasTh": "ทรงตัวใกล้จุดพิวอต",
+  "biasEn": "Neutral, near the pivot",
   "note": "Daily and H4 floor pivots from the prior completed session, aligned to FX spot. Education only — not investment advice.",
   "noteTh": "จุดพิวอต รายวันและ H4 จากแท่งที่ปิดแล้ว ปรับให้ตรงราคาทองสปอต — เพื่อการศึกษา ไม่ใช่คำแนะนำการลงทุน"
 }
