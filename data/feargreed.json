@@ -1,20 +1,20 @@
 {
  "source": "PureGold composite (RSI, moving averages, realized volatility, SPDR flows, momentum)",
- "as_of": "2026-11-17",
- "as_of_th": "17 พ.ย. 2026",
- "as_of_en": "17 Nov 2026",
- "updated_at": "2026-11-17T23:35:31Z",
- "updated_at_bkk": "2026-11-18 06:35",
- "score": 33.3,
+ "as_of": "2026-11-18",
+ "as_of_th": "18 พ.ย. 2026",
+ "as_of_en": "18 Nov 2026",
+ "updated_at": "2026-11-18T04:42:25Z",
+ "updated_at_bkk": "2026-11-18 11:42",
+ "score": 34.8,
  "label_th": "กลัว",
  "label_en": "Fear",
  "zone": "fear",
  "components": {
-  "rsi": 37.2,
+  "rsi": 33.2,
   "ma": 0.0,
-  "volatility": 23.0,
-  "spdr": 86.1,
-  "momentum": 20.1
+  "volatility": 36.2,
+  "spdr": 100.0,
+  "momentum": 4.5
  },
  "component_labels_th": {
   "rsi": "RSI รายวัน 14 วัน",
@@ -33,10 +33,6 @@
  "formula_th": "ดัชนี 0–100 เท่ากับค่าเฉลี่ยอย่างง่ายขององค์ประกอบที่มีข้อมูลในวันนั้น (น้ำหนักเท่ากัน): 1) RSI รายวัน 14 วัน (ใช้ค่า RSI โดยตรง) 2) ระยะห่างจาก EMA20 และ EMA50 รายวัน โดย ±3% เทียบเท่า 0 หรือ 100 3) ความผันผวนที่เกิดขึ้นจริง 14 วัน เทียบกับ 60 วัน (ความผันผวนสูง = กลัวมากกว่า) 4) การเปลี่ยนแปลงถือครอง SPDR ย้อนหลัง 5 วันทำการ (±5 ตัน เทียบเท่า 0 หรือ 100) 5) โมเมนตัมราคา 5 วัน (±3%) และ 20 วัน (±6%). โซน: 0–24 กลัวสุดขีด, 25–44 กลัว, 45–55 กลาง ๆ, 56–74 โลภ, 75–100 โลภสุดขีด. เป็นดัชนีภายในของ PureGold จากข้อมูลสาธารณะ ไม่ใช่ดัชนี CNN Fear & Greed และไม่ใช่คำแนะนำการลงทุน.",
  "formula_en": "The 0–100 index is a simple average of whichever components are available that day (equal weights): 1) 14-day daily RSI (used as-is); 2) distance from the daily EMA20 and EMA50, with ±3% mapped to 0 or 100; 3) 14-day realized volatility versus the 60-day level (higher vol scores as more fear); 4) the 5-session change in SPDR holdings (±5 tonnes maps to 0 or 100); 5) 5-day (±3%) and 20-day (±6%) price momentum. Zones: 0–24 extreme fear, 25–44 fear, 45–55 neutral, 56–74 greed, 75–100 extreme greed. This is a PureGold composite from public inputs, not the CNN Fear & Greed Index, and not investment advice.",
  "history": [
-  {
-   "date": "2026-05-22",
-   "score": 33.6
-  },
   {
    "date": "2026-05-23",
    "score": 36.2
@@ -71,7 +67,7 @@
   },
   {
    "date": "2026-05-31",
-   "score": 35.0
+   "score": 34.9
   },
   {
    "date": "2026-06-01",
@@ -363,7 +359,7 @@
   },
   {
    "date": "2026-08-12",
-   "score": 81.3
+   "score": 81.4
   },
   {
    "date": "2026-08-13",
@@ -431,7 +427,7 @@
   },
   {
    "date": "2026-08-29",
-   "score": 38.1
+   "score": 38.0
   },
   {
    "date": "2026-08-30",
@@ -487,7 +483,7 @@
   },
   {
    "date": "2026-09-12",
-   "score": 30.5
+   "score": 30.4
   },
   {
    "date": "2026-09-13",
@@ -539,7 +535,7 @@
   },
   {
    "date": "2026-09-25",
-   "score": 37.7
+   "score": 37.6
   },
   {
    "date": "2026-09-26",
@@ -579,7 +575,7 @@
   },
   {
    "date": "2026-10-05",
-   "score": 30.8
+   "score": 30.7
   },
   {
    "date": "2026-10-06",
@@ -591,7 +587,7 @@
   },
   {
    "date": "2026-10-08",
-   "score": 35.6
+   "score": 35.5
   },
   {
    "date": "2026-10-09",
@@ -663,11 +659,11 @@
   },
   {
    "date": "2026-10-26",
-   "score": 21.6
+   "score": 21.5
   },
   {
    "date": "2026-10-27",
-   "score": 33.7
+   "score": 33.6
   },
   {
    "date": "2026-10-28",
@@ -743,7 +739,7 @@
   },
   {
    "date": "2026-11-15",
-   "score": 30.2
+   "score": 30.1
   },
   {
    "date": "2026-11-16",
@@ -751,7 +747,11 @@
   },
   {
    "date": "2026-11-17",
-   "score": 33.3
+   "score": 35.9
+  },
+  {
+   "date": "2026-11-18",
+   "score": 34.8
   }
  ]
 }
