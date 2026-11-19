@@ -2,8 +2,8 @@
  "timezone": "Asia/Bangkok",
  "schedule_th": "สร้างอัตโนมัติเวลา 08:00 น. และ 20:00 น. เวลาไทย จากข้อมูลจริงบนแดชบอร์ด",
  "schedule_en": "Generated automatically at 08:00 and 20:00 Asia/Bangkok from live desk data.",
- "updated_at": "2026-11-19T10:48:27Z",
- "updated_at_bkk": "2026-11-19 17:48",
+ "updated_at": "2026-11-19T19:12:57Z",
+ "updated_at_bkk": "2026-11-20 02:12",
  "morning": {
   "id": "2026-11-19-morning",
   "date": "2026-11-19",
