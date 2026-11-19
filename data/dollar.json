@@ -1,21 +1,17 @@
 {
  "timezone": "Asia/Bangkok",
- "updated_at": "2026-11-18T21:33:10Z",
- "updated_at_bkk": "2026-11-19 04:33",
- "updated_th": "19 พ.ย. 2026 04:33 น. (เวลาไทย)",
- "updated_en": "19 Nov 2026 04:33 (Bangkok time)",
+ "updated_at": "2026-11-19T02:46:36Z",
+ "updated_at_bkk": "2026-11-19 09:46",
+ "updated_th": "19 พ.ย. 2026 09:46 น. (เวลาไทย)",
+ "updated_en": "19 Nov 2026 09:46 (Bangkok time)",
  "dxy": {
-  "price": 103.8,
-  "change": 0.31,
-  "change_pct": 0.3,
-  "as_of": "2026-11-18",
+  "price": 103.867,
+  "change": 0.007,
+  "change_pct": 0.007,
+  "as_of": "2026-11-19",
   "source": "Yahoo Finance DX-Y.NYB (ICE US Dollar Index)",
   "source_url": "https://finance.yahoo.com/quote/DX-Y.NYB",
   "series": [
-   {
-    "t": "2026-07-15",
-    "c": 100.5
-   },
    {
     "t": "2026-07-16",
     "c": 100.73
@@ -370,13 +366,17 @@
    },
    {
     "t": "2026-11-18",
-    "c": 103.8
+    "c": 103.86
+   },
+   {
+    "t": "2026-11-19",
+    "c": 103.867
    }
   ]
  },
  "corr": {
-  "n20": -0.401,
-  "n60": -0.435,
+  "n20": -0.487,
+  "n60": -0.44,
   "sample_20": 20,
   "sample_60": 60,
   "method_th": "สหสัมพันธ์เพียร์สันของผลตอบแทนรายวัน DXY กับ XAUUSD",
@@ -426,8 +426,8 @@
   "method_en": "DXY is Yahoo Finance DX-Y.NYB. Correlation is Pearson on daily log returns versus XAUUSD daily closes. The effective federal funds rate and target range come from the Federal Reserve Bank of New York. FOMC dates come from the Federal Reserve Board calendar. Odds are inferred from 30-day Fed funds futures (Yahoo ZQZ26.CBT) using the same idea as CME FedWatch: the contract prices the month's average effective rate, which is split into the current rate before the effective date (the business day after the statement) and a post-meeting rate, then allocated across 25 bp steps around the current target midpoint. This is a public-data estimate, not CME's official FedWatch tool."
  },
  "analysis": {
-  "th": "DXY แข็งค่า → กดดันทอง · ความสัมพันธ์ 20 วันกับทองอยู่ที่ -0.40 (ผกผันตามปกติ) · ตลาดให้น้ำหนักขึ้น 0.25% 88% ในการประชุมเฟดครั้งถัดไป → อาจกดดันทอง · ข้อมูลเพื่อการศึกษา ไม่ใช่คำแนะนำการลงทุน",
-  "en": "A firmer DXY is a headwind for gold · 20-day correlation with gold is -0.40 (the usual inverse link) · The funds market puts 88% on a 25 bp hike at the next FOMC, which can weigh on gold · For education only — not investment advice",
+  "th": "DXY ทรงตัวใกล้ระดับล่าสุด · ความสัมพันธ์ 20 วันกับทองอยู่ที่ -0.49 (ผกผันตามปกติ) · ตลาดให้น้ำหนักขึ้น 0.25% 88% ในการประชุมเฟดครั้งถัดไป → อาจกดดันทอง · ข้อมูลเพื่อการศึกษา ไม่ใช่คำแนะนำการลงทุน",
+  "en": "DXY is little changed · 20-day correlation with gold is -0.49 (the usual inverse link) · The funds market puts 88% on a 25 bp hike at the next FOMC, which can weigh on gold · For education only — not investment advice",
   "via": "rules"
  },
  "edu_th": "เพื่อการศึกษา ไม่ใช่คำแนะนำการลงทุน",
