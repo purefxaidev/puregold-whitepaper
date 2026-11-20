@@ -1082,7 +1082,7 @@ def attach_live_flags(plan, candles_doc, events_doc, prev_plan=None, klines_doc=
         and prev.get("entry") == plan.get("entry")
         and prev.get("sl") == plan.get("sl")
     )
-    if same and prev.get("h1", {}).get("confirmed"):
+    if same and (prev.get("h1") or {}).get("confirmed"):
         confirmed = True
         if bar and not plan.get("h1"):
             pass
@@ -1091,7 +1091,7 @@ def attach_live_flags(plan, candles_doc, events_doc, prev_plan=None, klines_doc=
     prior = closed[:-1] if closed else []
     reversal = detect_reversal(bar, prior, plan.get("demand_zone"), plan.get("supply_zone"))
     # sticky reversal on the same zone + same closed bar
-    if not reversal and prev_h1.get("reversal", {}).get("confirmed"):
+    if not reversal and (prev_h1.get("reversal") or {}).get("confirmed"):
         prev_bar = (prev_h1.get("bar") or {}).get("open_ts")
         if bar and prev_bar == bar.get("open_ts"):
             reversal = prev_h1.get("reversal")
@@ -1124,7 +1124,7 @@ def attach_live_flags(plan, candles_doc, events_doc, prev_plan=None, klines_doc=
     elif (sideways or {}).get("active"):
         h1["note_th"] = sideways.get("note_th") or ""
         h1["note_en"] = sideways.get("note_en") or ""
-    elif (sideways or {}).get("breakout", {}).get("confirmed"):
+    elif ((sideways or {}).get("breakout") or {}).get("confirmed"):
         h1["note_th"] = sideways["breakout"]["note_th"]
         h1["note_en"] = sideways["breakout"]["note_en"]
     plan["h1"] = h1

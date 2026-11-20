@@ -762,6 +762,7 @@ html.pg-mobile .tp-ds { grid-template-columns:1fr; }
         <div class="brand-text"><h1>PUREGOLD</h1><small>BY PUREFXAI · GOLD DESK</small></div>
       </a>
       <nav class="nav-links" aria-label="Page">
+        <a href="/thai-gold/"><span class="th">ราคาทองไทย</span><span class="en hid">Thai gold</span></a>
         <a href="#levels"><span class="th">แนวรับแนวต้าน</span><span class="en hid">Levels</span></a>
         <a href="#spdr"><span class="th">SPDR</span><span class="en hid">SPDR</span></a>
         <a href="#outlook"><span class="th">คาดการณ์</span><span class="en hid">Forecast</span></a>
@@ -995,6 +996,12 @@ html.pg-mobile .tp-ds { grid-template-columns:1fr; }
           </div>
           <div class="thai" id="thaiBox"><div class="mut th">กำลังโหลดราคา…</div><div class="mut en hid">Loading prices…</div></div>
           <p class="mut" id="thaiTime"></p>
+          <a class="thai-est" id="thaiEst" href="/thai-gold/" hidden>
+            <span class="te-l"><span class="te-b">ESTIMATE</span><span class="th">ราคาประเมิน AI · ขายออก</span><span class="en hid">AI estimate · sell</span></span>
+            <span class="te-v" id="thaiEstV">—</span>
+            <span class="te-d" id="thaiEstD"></span>
+          </a>
+          <a class="btn btn-gold btn-sm thai-more" href="/thai-gold/"><span class="th">ดูราคาทองไทยแบบเต็ม · ที่มาทุกราคา →</span><span class="en hid">Full Thai gold page · every source →</span></a>
         </div>
       </div>
     </section>
@@ -3782,5 +3789,24 @@ html.pg-mobile .tp-ds { grid-template-columns:1fr; }
     });
   })();
   </script>
+<script>
+(function(){
+  function fmt(n){return n==null||!isFinite(n)?'—':Number(n).toLocaleString('en-US',{maximumFractionDigits:0});}
+  async function go(){
+    try{
+      var r=await fetch('/data/thai_gold_estimate.json?t='+Date.now(),{cache:'no-store'}); if(!r.ok) return;
+      var d=await r.json(); var e=d.estimate, o=d.official; if(!e) return;
+      var el=document.getElementById('thaiEst'); if(!el) return;
+      document.getElementById('thaiEstV').textContent=fmt(e.bar_sell);
+      var en=document.documentElement.lang==='en'||(typeof LANG!=='undefined'&&LANG==='en');
+      var txt='';
+      if(o&&o.bar_sell){var dv=e.bar_sell-o.bar_sell; txt=(en?'vs announced ':'เทียบราคาประกาศ ')+(dv>0?'+':dv<0?'−':'±')+fmt(Math.abs(dv))+(en?' THB':' บาท');}
+      if(d.market&&!d.market.open) txt+=' · '+(en?d.market.label_en:d.market.label_th);
+      document.getElementById('thaiEstD').textContent=txt; el.hidden=false;
+    }catch(_){}
+  }
+  go(); setInterval(go,60000);
+})();
+</script>
 </body>
 </html>

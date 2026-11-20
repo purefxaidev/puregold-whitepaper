@@ -1,0 +1,479 @@
+<!doctype html>
+<html lang="th">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>ราคาทองไทยวันนี้ · ราคาประกาศ + ราคาประเมิน AI | PUREGOLD</title>
+<meta name="description" content="ราคาทองไทยวันนี้ ทองคำแท่งและทองรูปพรรณ 96.5% ราคาประกาศล่าสุด พร้อมราคาประเมิน AI จาก XAU/USD และ USD/THB แบบเรียลไทม์ บอกแหล่งข้อมูล เวลาอัปเดต และค่าคลาดเคลื่อนจริง">
+<link rel="canonical" href="https://gold.purefxai.store/thai-gold/">
+<meta property="og:url" content="https://gold.purefxai.store/thai-gold/">
+<meta property="og:title" content="ราคาทองไทยวันนี้ · PUREGOLD">
+<meta property="og:description" content="ราคาประกาศล่าสุด + ราคาประเมิน AI เรียลไทม์ พร้อมแหล่งข้อมูลและค่าคลาดเคลื่อนจริง">
+<meta property="og:image" content="https://gold.purefxai.store/thai-gold/img/og.jpg">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="theme-color" content="#0b0906">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<link rel="icon" href="/favicon.ico" sizes="any">
+<link rel="apple-touch-icon" href="/icons/apple-touch-icon.png">
+<link rel="manifest" href="/manifest.webmanifest">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Thai:wght@400;500;600;700&family=Manrope:wght@500;700;800&display=swap" rel="stylesheet">
+<link rel="preload" as="image" href="img/hero-bear.webp">
+<style>
+:root{
+  --bg:#0b0906;--ink:#f6efe1;--mut:#b9ab90;--dim:#8a7d66;--gold:#e8c26b;--gold2:#f7dc96;--gold3:#b8862f;
+  --up:#3ddc97;--dn:#ff6b6b;--glass:rgba(255,248,232,.065);--glass2:rgba(255,248,232,.10);--line:rgba(247,220,150,.18);
+  --r:22px;--font:'IBM Plex Sans Thai','Manrope',system-ui,-apple-system,sans-serif;--num:'Manrope','IBM Plex Sans Thai',system-ui,sans-serif;
+}
+*{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%;scroll-behavior:smooth}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:var(--font);min-height:100vh;overflow-x:hidden;
+  padding:env(safe-area-inset-top) env(safe-area-inset-right) calc(env(safe-area-inset-bottom) + 24px) env(safe-area-inset-left)}
+a{color:var(--gold2)}
+.bg{position:fixed;inset:0;z-index:-2;background:
+  radial-gradient(1100px 600px at 85% -10%,rgba(232,194,107,.20),transparent 60%),
+  radial-gradient(800px 500px at -10% 30%,rgba(184,134,47,.16),transparent 60%),
+  radial-gradient(900px 700px at 50% 120%,rgba(232,194,107,.10),transparent 60%),var(--bg)}
+.bg:after{content:"";position:absolute;inset:0;background-image:radial-gradient(rgba(247,220,150,.22) 1px,transparent 1.4px);background-size:44px 44px;opacity:.10;mask-image:linear-gradient(#000,transparent 70%)}
+.wrap{max-width:1120px;margin:0 auto;padding:0 16px}
+/* header */
+.top{position:sticky;top:0;z-index:20;display:flex;align-items:center;gap:10px;padding:10px 16px;margin:0 -16px;
+  backdrop-filter:blur(18px) saturate(1.4);-webkit-backdrop-filter:blur(18px) saturate(1.4);background:rgba(11,9,6,.62);border-bottom:1px solid rgba(247,220,150,.10)}
+.brand{display:flex;align-items:center;gap:10px;text-decoration:none;color:var(--ink);min-width:0}
+.brand img{width:38px;height:38px;border-radius:11px;box-shadow:0 4px 18px rgba(232,194,107,.35)}
+.brand b{font-family:var(--num);letter-spacing:.08em;font-size:15px;display:block}
+.brand small{display:block;color:var(--mut);font-size:11px;letter-spacing:.06em}
+.top .sp{flex:1}
+.pill{display:inline-flex;align-items:center;gap:6px;border:1px solid var(--line);background:var(--glass);color:var(--ink);text-decoration:none;
+  border-radius:999px;padding:7px 12px;font-size:13px;font-weight:600;white-space:nowrap;cursor:pointer;font-family:var(--font)}
+.pill.gold{background:linear-gradient(180deg,var(--gold2),var(--gold));color:#2a1d05;border-color:transparent}
+.lang{display:inline-flex;border:1px solid var(--line);border-radius:999px;overflow:hidden}
+.lang button{background:transparent;border:0;color:var(--mut);padding:7px 10px;font:600 12px var(--font);cursor:pointer}
+.lang button.on{background:var(--glass2);color:var(--gold2)}
+/* hero */
+.hero{position:relative;display:grid;grid-template-columns:1.25fr .75fr;gap:20px;align-items:end;padding:26px 0 8px}
+.eyebrow{display:inline-flex;align-items:center;gap:8px;font-size:12px;letter-spacing:.12em;color:var(--gold);text-transform:uppercase;font-weight:700}
+.dot{width:8px;height:8px;border-radius:50%;background:var(--up);box-shadow:0 0 0 0 rgba(61,220,151,.6);animation:pulse 1.8s infinite}
+.dot.off{background:#d9a441;box-shadow:none;animation:none}
+@keyframes pulse{0%{box-shadow:0 0 0 0 rgba(61,220,151,.55)}70%{box-shadow:0 0 0 10px rgba(61,220,151,0)}100%{box-shadow:0 0 0 0 rgba(61,220,151,0)}}
+h1{font-size:clamp(30px,6.2vw,54px);line-height:1.12;margin:10px 0 10px;font-weight:700;letter-spacing:-.01em}
+h1 .g{background:linear-gradient(100deg,var(--gold2),var(--gold) 45%,#fff3cf 60%,var(--gold3));-webkit-background-clip:text;background-clip:text;color:transparent;background-size:200% 100%;animation:sheen 6s ease-in-out infinite}
+@keyframes sheen{0%,100%{background-position:0 0}50%{background-position:100% 0}}
+.nw{white-space:nowrap}
+.lead{color:var(--mut);font-size:15.5px;line-height:1.7;max-width:640px;margin:0}
+.chips{display:flex;flex-wrap:wrap;gap:8px;margin-top:14px}
+.chip{display:inline-flex;align-items:center;gap:7px;font-size:12.5px;padding:6px 11px;border-radius:999px;background:var(--glass);border:1px solid var(--line);color:var(--ink)}
+.chip b{font-family:var(--num)}
+.bear{position:relative;align-self:stretch;min-height:260px;border-radius:28px;overflow:hidden;border:1px solid var(--line);
+  background:#000 url(img/hero-bear.webp) center 78%/cover no-repeat;box-shadow:0 30px 80px rgba(0,0,0,.55),inset 0 1px 0 rgba(255,255,255,.08)}
+.bear:after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,rgba(11,9,6,.0) 40%,rgba(11,9,6,.55))}
+.bear .tag{position:absolute;left:14px;right:14px;bottom:12px;z-index:1;font-size:12.5px;color:var(--ink);display:flex;justify-content:space-between;gap:8px}
+.bear .tag span{background:rgba(11,9,6,.55);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);border:1px solid var(--line);padding:6px 10px;border-radius:999px}
+/* glass cards */
+.grid{display:grid;grid-template-columns:repeat(12,1fr);gap:14px;margin-top:16px}
+.card{position:relative;grid-column:span 6;border-radius:var(--r);padding:18px;background:linear-gradient(180deg,rgba(255,248,232,.085),rgba(255,248,232,.035));
+  border:1px solid var(--line);backdrop-filter:blur(22px) saturate(1.3);-webkit-backdrop-filter:blur(22px) saturate(1.3);
+  box-shadow:0 18px 50px rgba(0,0,0,.40),inset 0 1px 0 rgba(255,255,255,.10);overflow:hidden}
+.card:before{content:"";position:absolute;inset:-1px;border-radius:inherit;pointer-events:none;background:linear-gradient(135deg,rgba(247,220,150,.35),transparent 35%,transparent 65%,rgba(247,220,150,.18));
+  -webkit-mask:linear-gradient(#000 0 0) content-box,linear-gradient(#000 0 0);-webkit-mask-composite:xor;mask-composite:exclude;padding:1px}
+.card.full{grid-column:1/-1}.card.s4{grid-column:span 4}.card.s8{grid-column:span 8}
+.card h2{font-size:16px;margin:0 0 4px;display:flex;align-items:center;gap:8px;flex-wrap:wrap}
+.card .sub{color:var(--dim);font-size:12.5px;margin:0 0 12px}
+.badge{display:inline-flex;align-items:center;gap:5px;font:800 10.5px var(--num);letter-spacing:.08em;padding:4px 8px;border-radius:999px}
+.badge.real{background:rgba(61,220,151,.14);color:#7cf0bd;border:1px solid rgba(61,220,151,.35)}
+.badge.est{background:rgba(232,194,107,.14);color:var(--gold2);border:1px solid rgba(232,194,107,.40)}
+.badge.mk{background:rgba(255,255,255,.06);color:var(--mut);border:1px solid rgba(255,255,255,.12)}
+.prow{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.pbox{border-radius:16px;padding:12px 14px;background:rgba(0,0,0,.28);border:1px solid rgba(255,255,255,.06)}
+.pbox .l{font-size:12.5px;color:var(--mut)}
+.pbox .v{font:800 clamp(26px,7vw,36px)/1.1 var(--num);letter-spacing:-.01em;margin-top:4px;font-variant-numeric:tabular-nums;transition:color .4s}
+.pbox.sell .v{color:var(--gold2)}
+.pbox .u{font-size:11.5px;color:var(--dim)}
+.flash-up{color:var(--up)!important}.flash-dn{color:var(--dn)!important}
+.meta{display:flex;flex-wrap:wrap;gap:6px 14px;margin-top:12px;font-size:12.5px;color:var(--mut)}
+.meta b{color:var(--ink);font-family:var(--num);font-weight:700}
+.chg{font:800 13px var(--num);padding:3px 9px;border-radius:999px}
+.chg.up{color:var(--up);background:rgba(61,220,151,.10)}.chg.dn{color:var(--dn);background:rgba(255,107,107,.10)}.chg.flat{color:var(--mut);background:rgba(255,255,255,.06)}
+.jw{display:flex;justify-content:space-between;align-items:center;margin-top:10px;padding:10px 12px;border-radius:14px;background:rgba(255,255,255,.035);font-size:13px;color:var(--mut)}
+.jw b{font:800 15px var(--num);color:var(--ink)}
+.dev{margin-top:12px;border-radius:16px;padding:12px 14px;background:linear-gradient(90deg,rgba(232,194,107,.12),rgba(232,194,107,.03));border:1px solid rgba(232,194,107,.25);font-size:13.5px;line-height:1.6}
+.dev .n{font:800 20px var(--num)}
+.band{position:relative;height:10px;border-radius:99px;background:rgba(255,255,255,.07);margin:12px 0 4px;overflow:visible}
+.band i{position:absolute;top:0;bottom:0;border-radius:99px;background:linear-gradient(90deg,rgba(232,194,107,.25),rgba(232,194,107,.65),rgba(232,194,107,.25))}
+.band em{position:absolute;top:-4px;width:3px;height:18px;border-radius:2px;background:#fff;box-shadow:0 0 10px rgba(255,255,255,.7)}
+.band u{position:absolute;top:-4px;width:3px;height:18px;border-radius:2px;background:var(--up);text-decoration:none}
+.legend{display:flex;flex-wrap:wrap;gap:6px 14px;margin-top:8px;font-size:11.5px;color:var(--mut)}
+.legend>span{display:inline-flex;align-items:center;gap:6px}.legend i{display:inline-block;width:4px;height:12px;border-radius:2px}
+.bandlbl{display:flex;justify-content:space-between;font:600 11.5px var(--num);color:var(--dim)}
+/* sources table */
+.src{width:100%;border-collapse:separate;border-spacing:0 6px;font-size:13px}
+.src th{text-align:left;color:var(--dim);font-weight:600;font-size:11.5px;padding:0 10px}
+.src td{background:rgba(0,0,0,.25);padding:10px;vertical-align:middle}
+.src td:first-child{border-radius:12px 0 0 12px}.src td:last-child{border-radius:0 12px 12px 0;text-align:right;white-space:nowrap}
+.src .nm{font-weight:600}.src .mk{color:var(--mut);font-size:11.5px;display:block}
+.src .px{font:800 14px var(--num);font-variant-numeric:tabular-nums;white-space:nowrap}
+.age{font:700 12px var(--num);color:var(--mut)}.age.ok{color:#7cf0bd}.age.warn{color:#e9b75c}
+.srcl{display:grid;grid-template-columns:repeat(2,1fr);gap:8px}
+.srow{display:grid;grid-template-columns:1fr auto;gap:4px 12px;align-items:center;padding:12px 14px;border-radius:16px;background:rgba(0,0,0,.26);border:1px solid rgba(255,255,255,.06)}
+.srow .nm{font-weight:600;font-size:14px;display:flex;align-items:center;gap:8px;flex-wrap:wrap}
+.srow .mk{color:var(--mut);font-size:12px;grid-column:1}
+.srow .px{font:800 17px var(--num);font-variant-numeric:tabular-nums;text-align:right;white-space:nowrap}
+.srow .age{grid-column:2;text-align:right;white-space:nowrap}
+.srow.est{border-color:rgba(232,194,107,.30);background:linear-gradient(90deg,rgba(232,194,107,.10),rgba(0,0,0,.2))}
+@media (max-width:860px){.srcl{grid-template-columns:1fr}}
+/* stats */
+.stats{display:grid;grid-template-columns:repeat(4,1fr);gap:10px}
+.stat{border-radius:16px;padding:12px;background:rgba(0,0,0,.25);border:1px solid rgba(255,255,255,.06)}
+.stat .k{font-size:12px;color:var(--mut)}.stat .v{font:800 22px var(--num);margin-top:4px}
+.empty{color:var(--mut);font-size:13.5px;line-height:1.7;padding:12px 14px;border-radius:14px;border:1px dashed var(--line);background:rgba(0,0,0,.18)}
+.tl{list-style:none;margin:10px 0 0;padding:0;display:grid;gap:6px;max-height:320px;overflow:auto}
+.tl li{display:grid;grid-template-columns:70px 1fr auto;gap:10px;align-items:center;padding:9px 12px;border-radius:12px;background:rgba(0,0,0,.25);font-size:13px}
+.tl .t{font:700 12.5px var(--num);color:var(--mut)}.tl .p{font:800 14px var(--num)}.tl .e{font:700 12px var(--num);color:var(--mut)}
+/* calculator */
+.calc{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.field{display:flex;flex-direction:column;gap:6px;font-size:12.5px;color:var(--mut)}
+.field input,.field select{appearance:none;-webkit-appearance:none;background:rgba(0,0,0,.35);border:1px solid var(--line);color:var(--ink);border-radius:14px;padding:12px 14px;font:700 16px var(--num);outline:none;width:100%}
+.field input:focus,.field select:focus{border-color:var(--gold)}
+.seg{display:flex;gap:6px;flex-wrap:wrap}
+.seg button{flex:1;min-width:0;background:rgba(0,0,0,.30);border:1px solid var(--line);color:var(--mut);border-radius:12px;padding:10px 8px;font:600 13px var(--font);cursor:pointer}
+.seg button.on{background:linear-gradient(180deg,rgba(247,220,150,.28),rgba(232,194,107,.14));color:var(--gold2);border-color:rgba(247,220,150,.5)}
+.result{grid-column:1/-1;border-radius:18px;padding:14px 16px;background:linear-gradient(135deg,rgba(247,220,150,.16),rgba(184,134,47,.06));border:1px solid rgba(247,220,150,.35)}
+.result .v{font:800 clamp(26px,7vw,34px) var(--num)}.result .s{font-size:12.5px;color:var(--mut);margin-top:4px;line-height:1.6}
+/* method */
+.method{display:grid;grid-template-columns:150px 1fr;gap:16px;align-items:center}
+.method img{width:150px;height:150px;border-radius:28px;box-shadow:0 18px 40px rgba(0,0,0,.5)}
+.formula{font:700 13.5px var(--num);background:rgba(0,0,0,.35);border:1px solid var(--line);border-radius:14px;padding:10px 12px;color:var(--gold2);overflow-x:auto;white-space:nowrap}
+.method ol{margin:10px 0 0;padding-left:18px;color:var(--mut);font-size:13.5px;line-height:1.75}
+.method ol b{color:var(--ink)}
+.cta{display:flex;flex-wrap:wrap;gap:10px;margin-top:16px}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;text-decoration:none;border-radius:16px;padding:13px 18px;font:700 14.5px var(--font);border:1px solid var(--line);color:var(--ink);background:var(--glass)}
+.btn.gold{background:linear-gradient(180deg,var(--gold2),var(--gold));color:#241804;border-color:transparent;box-shadow:0 10px 30px rgba(232,194,107,.25)}
+.disc{margin:22px 0 0;padding:14px 16px;border-radius:16px;background:rgba(255,107,107,.06);border:1px solid rgba(255,107,107,.22);color:#f3c9c0;font-size:13px;line-height:1.7}
+footer{color:var(--dim);font-size:12px;text-align:center;margin:22px 0 6px;line-height:1.7}
+.reveal{opacity:0;transform:translateY(14px);transition:opacity .7s ease,transform .7s ease}.reveal.in{opacity:1;transform:none}
+.skel{display:inline-block;min-width:90px;height:.9em;border-radius:8px;background:linear-gradient(90deg,rgba(255,255,255,.05),rgba(255,255,255,.12),rgba(255,255,255,.05));background-size:200% 100%;animation:sk 1.2s infinite}
+@keyframes sk{to{background-position:-200% 0}}
+.en{display:none}html[lang=en] .en{display:revert}html[lang=en] .th{display:none}
+@media (max-width:860px){
+  .hero{grid-template-columns:1fr;padding-top:14px}
+  .bear{order:-1;min-height:230px;background-position:center 82%}
+  .card,.card.s4,.card.s8{grid-column:1/-1}
+  .stats{grid-template-columns:repeat(2,1fr)}
+  .method{grid-template-columns:1fr}.method img{width:110px;height:110px;border-radius:22px}
+  .src .hide-m{display:none}
+  .brand small{display:none}
+}
+@media (max-width:440px){.top .pill.hide-s{display:none}h1{font-size:31px}}
+@media (max-width:340px){.prow{grid-template-columns:1fr}}
+@media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
+</style>
+</head>
+<body>
+<div class="bg" aria-hidden="true"></div>
+<div class="wrap">
+  <header class="top">
+    <a class="brand" href="/" aria-label="PUREGOLD">
+      <img src="/assets/logo-mark-round.png" width="38" height="38" alt="">
+      <span><b>PUREGOLD</b><small>ราคาทองไทย · BY PUREFXAI</small></span>
+    </a>
+    <span class="sp"></span>
+    <div class="lang" role="group" aria-label="Language"><button type="button" id="lth" class="on">ไทย</button><button type="button" id="len">EN</button></div>
+    <a class="pill hide-s" href="https://dashboard.purefxai.store/?lang=th" target="_blank" rel="noopener"><span class="th">ดูกราฟ</span><span class="en">Chart</span></a>
+    <a class="pill gold" href="/#download"><span class="th">โหลดแอป</span><span class="en">Get app</span></a>
+  </header>
+
+  <section class="hero reveal in">
+    <div>
+      <span class="eyebrow"><i class="dot" id="mkDot"></i><span id="mkLbl">ราคาทองไทย</span></span>
+      <h1 class="th">ราคาทองไทยวันนี้<br><span class="g"><span class="nw">ราคาประกาศ</span> <span class="nw">+ ราคาประเมิน AI</span></span></h1>
+      <h1 class="en">Thai gold today<br><span class="g">Announced + AI estimate</span></h1>
+      <p class="lead th">ราคาทองคำแท่งและทองรูปพรรณ 96.5% ล่าสุด พร้อมราคาประเมินที่คำนวณจาก XAU/USD และ USD/THB ทุกตัวเลขบอกที่มา เวลาอัปเดต และระบุชัดว่าเป็น <b>ราคาประกาศ</b> หรือ <b>ราคาประเมิน AI</b></p>
+      <p class="lead en">Latest 96.5% gold bar and jewelry prices, plus an estimate computed from XAU/USD and USD/THB. Every number shows its source, its age, and whether it is <b>announced</b> or an <b>AI estimate</b>.</p>
+      <div class="chips">
+        <span class="chip"><span class="th">อัปเดตหน้าจอ</span><span class="en">Screen updated</span> <b id="clock">--:--:--</b></span>
+        <span class="chip">XAU/USD <b id="chipXau">—</b></span>
+        <span class="chip">USD/THB <b id="chipThb">—</b></span>
+      </div>
+    </div>
+    <div class="bear" role="img" aria-label="น้องหมี PUREGOLD">
+      <div class="tag"><span>ทองคำแท่ง 96.5%</span><span>15.244 กรัม / บาท</span></div>
+    </div>
+  </section>
+
+  <section class="grid">
+    <!-- official -->
+    <article class="card reveal" id="cOfficial">
+      <h2><span class="th">ราคาประกาศ</span><span class="en">Announced price</span> <span class="badge real">REAL</span> <span class="chg flat" id="oChg">—</span></h2>
+      <p class="sub"><span class="th">ราคาประกาศทองไทย · ทองคำแท่ง 96.5% บาทละ</span><span class="en">Official Thai gold · 96.5% bar per baht-weight</span></p>
+      <div class="prow">
+        <div class="pbox"><div class="l"><span class="th">รับซื้อ</span><span class="en">Buy-back</span></div><div class="v" id="oBuy"><span class="skel"></span></div><div class="u">THB</div></div>
+        <div class="pbox sell"><div class="l"><span class="th">ขายออก</span><span class="en">Sell</span></div><div class="v" id="oSell"><span class="skel"></span></div><div class="u">THB</div></div>
+      </div>
+      <div class="jw"><span class="th">ทองรูปพรรณ 96.5%</span><span class="en">Jewelry 96.5%</span><span><span class="th">รับซื้อ</span><span class="en">Buy</span> <b id="jBuy">—</b> · <span class="th">ขาย</span><span class="en">Sell</span> <b id="jSell">—</b></span></div>
+      <div class="meta"><span><span class="th">ประกาศเมื่อ</span><span class="en">Announced</span> <b id="oAt">—</b></span><span><span class="th">ครั้งที่</span><span class="en">Print</span> <b id="oRev">—</b></span><span><span class="th">ผ่านมา</span><span class="en">Age</span> <b id="oAge">—</b></span></div>
+    </article>
+
+    <!-- estimate -->
+    <article class="card reveal" id="cEst">
+      <h2><span class="th">ราคาประเมิน AI</span><span class="en">AI estimate</span> <span class="badge est">ESTIMATE</span> <span class="badge mk" id="eModel">—</span></h2>
+      <p class="sub" id="eSub"><span class="th">คำนวณจากตลาดโลกล่าสุด ไม่ใช่ราคาซื้อขายจริง</span><span class="en">Computed from global markets; not a dealing price</span></p>
+      <div class="prow">
+        <div class="pbox"><div class="l"><span class="th">รับซื้อ (ประเมิน)</span><span class="en">Buy-back (est.)</span></div><div class="v" id="eBuy"><span class="skel"></span></div><div class="u">THB</div></div>
+        <div class="pbox sell"><div class="l"><span class="th">ขายออก (ประเมิน)</span><span class="en">Sell (est.)</span></div><div class="v" id="eSell"><span class="skel"></span></div><div class="u">THB</div></div>
+      </div>
+      <div class="band" aria-hidden="true"><i id="bandI"></i><u id="bandO" title="ราคาประกาศ"></u><em id="bandE" title="ราคาประเมิน"></em></div>
+      <div class="bandlbl"><span id="bLo">—</span><span id="bHi">—</span></div>
+      <div class="legend"><span><i style="background:#fff"></i><span class="th">ราคาประเมิน</span><span class="en">Estimate</span></span><span><i style="background:var(--up)"></i><span class="th">ราคาประกาศ</span><span class="en">Announced</span></span><span><i style="background:rgba(232,194,107,.6);width:16px"></i><span class="th">ช่วงประเมิน (ขายออก)</span><span class="en">Estimate band (sell)</span></span></div>
+      <div class="dev" id="devBox"><span class="skel"></span></div>
+      <div class="meta"><span><span class="th">คำนวณเมื่อ</span><span class="en">Computed</span> <b id="eAt">—</b></span><span><span class="th">ผ่านมา</span><span class="en">Age</span> <b id="eAge">—</b></span></div>
+    </article>
+
+    <!-- sources -->
+    <article class="card full reveal">
+      <h2><span class="th">ที่มาของทุกราคา</span><span class="en">Where every price comes from</span></h2>
+      <p class="sub"><span class="th">ตลาดต้นทาง ราคาล่าสุด และเวลานับจากอัปเดตล่าสุด (วินาที) เดินแบบสด</span><span class="en">Source market, last value and seconds since its last update, ticking live</span></p>
+      <div class="srcl" id="srcBody"><span class="skel"></span></div>
+    </article>
+
+    <!-- accuracy -->
+    <article class="card s8 reveal">
+      <h2><span class="th">ความแม่นยำจริงของราคาประเมิน</span><span class="en">Real accuracy of the estimate</span> <span class="badge mk" id="accSince">—</span></h2>
+      <p class="sub"><span class="th">ทุกครั้งที่มีราคาประกาศใหม่ ระบบเทียบกับราคาประเมินที่เผยแพร่ไว้ก่อนหน้า (ไม่เกิน 15 นาที) เริ่มนับจากวันเปิดระบบ ไม่มีข้อมูลย้อนหลัง</span><span class="en">On every new announcement we compare it with the estimate we published just before (≤15 min). Counting starts at launch, nothing backfilled.</span></p>
+      <div id="accBox"><span class="skel"></span></div>
+    </article>
+
+    <!-- timeline -->
+    <article class="card s4 reveal">
+      <h2><span class="th">ราคาประกาศที่บันทึกไว้</span><span class="en">Logged announcements</span></h2>
+      <p class="sub"><span class="th">ขายออก ทองคำแท่ง · เทียบราคาประเมินก่อนประกาศ</span><span class="en">Bar sell · vs estimate before the print</span></p>
+      <ul class="tl" id="tl"><li><span class="skel"></span></li></ul>
+    </article>
+
+    <!-- calculator -->
+    <article class="card s8 reveal" id="calc">
+      <h2><span class="th">คำนวณมูลค่าทองไทย</span><span class="en">Thai gold value calculator</span> <span class="badge real">REAL</span></h2>
+      <p class="sub"><span class="th">ใช้ราคาประกาศล่าสุด · 1 บาท = 15.244 กรัม (แท่ง) / 15.16 กรัม (รูปพรรณ) · 1 บาท = 4 สลึง</span><span class="en">Uses the latest announced price · 1 baht = 15.244 g (bar) / 15.16 g (jewelry) · 1 baht = 4 salung</span></p>
+      <div class="calc">
+        <div class="field" style="grid-column:1/-1"><span class="th">ประเภท</span><span class="en">Type</span>
+          <div class="seg" id="segType"><button type="button" data-v="bar" class="on"><span class="th">ทองคำแท่ง</span><span class="en">Bar</span></button><button type="button" data-v="jw"><span class="th">ทองรูปพรรณ</span><span class="en">Jewelry</span></button></div></div>
+        <div class="field" style="grid-column:1/-1"><span class="th">ต้องการ</span><span class="en">I want to</span>
+          <div class="seg" id="segSide"><button type="button" data-v="sell" class="on"><span class="th">ซื้อทอง (ราคาขายออก)</span><span class="en">Buy gold (sell price)</span></button><button type="button" data-v="buy"><span class="th">ขายทอง (ราคารับซื้อ)</span><span class="en">Sell gold (buy-back)</span></button></div></div>
+        <label class="field"><span class="th">น้ำหนัก</span><span class="en">Weight</span><input id="cW" type="number" inputmode="decimal" min="0" step="0.25" value="1"></label>
+        <label class="field"><span class="th">หน่วย</span><span class="en">Unit</span><select id="cU"><option value="baht">บาท / baht</option><option value="salung">สลึง / salung</option><option value="gram">กรัม / gram</option></select></label>
+        <div class="result"><div class="v" id="cOut">—</div><div class="s" id="cNote">—</div></div>
+      </div>
+    </article>
+
+    <!-- method -->
+    <article class="card s4 reveal">
+      <h2><span class="th">วิธีคำนวณ</span><span class="en">How it works</span></h2>
+      <div class="method">
+        <img src="img/ai-bear.webp" width="150" height="150" alt="">
+        <div>
+          <div class="formula">XAU/USD × USD/THB × 0.47295 × k</div>
+          <ol class="th">
+            <li><b>0.47295</b> = 15.244 กรัม × 96.5% ÷ 31.1035 กรัม/ออนซ์</li>
+            <li><b>k</b> ปรับเทียบจากราคาประกาศจริง <span id="mK">—</span></li>
+            <li>ปัดเป็นช่วง 50 บาท ส่วนต่างซื้อ-ขาย <span id="mS">—</span> บาท</li>
+            <li>ตลาดโลกปิด: ถือราคาปิดล่าสุด พร้อมช่วงจากช่องว่างราคาเปิดวันจันทร์ย้อนหลัง</li>
+          </ol>
+          <ol class="en">
+            <li><b>0.47295</b> = 15.244 g × 96.5% ÷ 31.1035 g/oz</li>
+            <li><b>k</b> calibrated on real announcements <span class="mK2">—</span></li>
+            <li>Rounded to 50 THB; buy/sell spread <span class="mS2">—</span> THB</li>
+            <li>Market closed: last close held, band from historical Monday gaps</li>
+          </ol>
+        </div>
+      </div>
+    </article>
+  </section>
+
+  <div class="cta reveal">
+    <a class="btn gold" href="/#download"><span class="th">ดาวน์โหลดแอป PUREGOLD</span><span class="en">Get the PUREGOLD app</span></a>
+    <a class="btn" href="https://dashboard.purefxai.store/?lang=th" target="_blank" rel="noopener"><span class="th">เปิดแดชบอร์ดกราฟ</span><span class="en">Open the chart dashboard</span></a>
+    <a class="btn" href="/"><span class="th">กลับหน้าหลัก</span><span class="en">Back to home</span></a>
+  </div>
+
+  <p class="disc"><b class="th">เพื่อการศึกษา ไม่ใช่คำแนะนำการลงทุน</b><b class="en">For education only, not investment advice.</b>
+    <span class="th"> ราคาประเมิน AI เป็นผลจากแบบจำลอง ไม่ใช่ราคาซื้อขายจริง และอาจคลาดเคลื่อน การซื้อขายจริงให้ยึดราคาประกาศและราคาของร้านทองที่ท่านใช้บริการ</span>
+    <span class="en"> The AI estimate is a model output, not a dealing price, and can be wrong. Always deal on the announced price and your dealer's quote.</span></p>
+  <footer>© PUREGOLD by PureFxAi · <a href="https://gold.purefxai.store/">gold.purefxai.store</a> · <a href="https://dashboard.purefxai.store/">dashboard.purefxai.store</a></footer>
+</div>
+
+<script>
+(function(){
+'use strict';
+const F = 15.244 * 0.965 / 31.1034768;
+let LANG = (new URLSearchParams(location.search).get('lang') || localStorage.getItem('pg_lang') || 'th') === 'en' ? 'en' : 'th';
+let DOC = null, FEED = null, LIVE = null, lastPaint = {};
+const $ = (id) => document.getElementById(id);
+const fmt = (n, d = 0) => (n == null || !isFinite(n)) ? '—' : Number(n).toLocaleString('en-US', { minimumFractionDigits: d, maximumFractionDigits: d });
+const sgn = (n, d = 0) => (n > 0 ? '+' : n < 0 ? '−' : '±') + fmt(Math.abs(n), d);
+const T = (th, en) => LANG === 'en' ? en : th;
+function setLang(l){ LANG = l; document.documentElement.lang = l; localStorage.setItem('pg_lang', l); $('lth').classList.toggle('on', l === 'th'); $('len').classList.toggle('on', l === 'en'); paint(); }
+$('lth').onclick = () => setLang('th'); $('len').onclick = () => setLang('en');
+function fetchT(url, ms){ const c = new AbortController(); const t = setTimeout(() => c.abort(), ms || 6000); return fetch(url, { signal: c.signal, cache: 'no-store' }).finally(() => clearTimeout(t)); }
+function hm(iso){ if (!iso) return '—'; const d = new Date(iso); if (isNaN(d)) return '—'; return d.toLocaleString(LANG === 'en' ? 'en-GB' : 'th-TH', { timeZone: 'Asia/Bangkok', day: 'numeric', month: 'short', hour: '2-digit', minute: '2-digit' }); }
+function ageTxt(iso){
+  const t = Date.parse(iso || ''); if (!t) return { s: '—', cls: '' };
+  const s = Math.max(0, Math.round((Date.now() - t) / 1000));
+  let txt;
+  if (s < 120) txt = s + T(' วินาที', ' s');
+  else if (s < 3600) txt = Math.floor(s / 60) + T(' นาที ', ' min ') + (s % 60) + T(' วิ', ' s');
+  else if (s < 172800) txt = Math.floor(s / 3600) + T(' ชม. ', ' h ') + Math.floor((s % 3600) / 60) + T(' นาที', ' min');
+  else txt = Math.floor(s / 86400) + T(' วัน', ' d');
+  return { s: txt + T(' ที่แล้ว', ' ago'), cls: s < 600 ? 'ok' : s < 7200 ? '' : 'warn', sec: s };
+}
+function setNum(id, v, d){
+  const el = $(id); if (!el) return; const old = lastPaint[id]; const txt = fmt(v, d || 0);
+  if (el.textContent !== txt) { el.textContent = txt; if (old != null && v != null && v !== old) { el.classList.remove('flash-up', 'flash-dn'); void el.offsetWidth; el.classList.add(v > old ? 'flash-up' : 'flash-dn'); setTimeout(() => el.classList.remove('flash-up', 'flash-dn'), 1600); } }
+  lastPaint[id] = v;
+}
+function r50(x){ return Math.round(x / 50) * 50; }
+
+// official rows: prefer the newer of JSON and the live CORS feed (same official rows)
+function official(){
+  const o = DOC && DOC.official ? { ...DOC.official } : null;
+  if (FEED && FEED.bar_sell) {
+    const same = o && Math.abs(FEED.bar_sell - o.bar_sell) < 1 && Math.abs(FEED.bar_buy - o.bar_buy) < 1;
+    if (!same && (!o || (Date.parse(FEED.as_of) || 0) > (Date.parse(o.as_of) || 0))) return { ...(o || {}), ...FEED, revision: null };
+  }
+  return o;
+}
+// live estimate: when the global market is open, scale the server spot by the live browser feed
+function estimate(){
+  if (!DOC) return null;
+  const e = { ...DOC.estimate }, inp = DOC.inputs || {}, cal = DOC.calibration || {};
+  e.xau = inp.xau && inp.xau.price; e.xauAt = inp.xau && inp.xau.updated_at; e.live = false;
+  const ref = inp.xau && inp.xau.browser_ref && inp.xau.browser_ref.price;
+  if (DOC.market && DOC.market.open && LIVE && ref && LIVE.price && Date.parse(LIVE.at) > Date.parse(inp.xau.updated_at || 0)) {
+    const xau = inp.xau.price * (LIVE.price / ref);
+    const mid = xau * inp.usdthb.price * F * cal.ratio;
+    const sp = cal.spread_baht || 200, band = (e.model && e.model.band_baht) || 50;
+    e.bar_buy = r50(mid - sp / 2); e.bar_sell = e.bar_buy + sp; e.mid_raw = mid;
+    e.low = r50(mid - band) - sp / 2; e.high = r50(mid + band) + sp / 2;
+    e.computed_at = LIVE.at; e.xau = xau; e.xauAt = LIVE.at; e.live = true;
+  }
+  return e;
+}
+function paint(){
+  if (!DOC) return;
+  const o = official(), e = estimate(), m = DOC.market || {}, inp = DOC.inputs || {}, cal = DOC.calibration || {};
+  $('mkDot').classList.toggle('off', !m.open);
+  $('mkLbl').textContent = T(m.label_th, m.label_en) || T('ราคาทองไทย', 'Thai gold');
+  $('chipXau').textContent = fmt(e && e.xau, 2); $('chipThb').textContent = fmt(inp.usdthb && inp.usdthb.price, 3);
+  if (o) {
+    setNum('oBuy', o.bar_buy); setNum('oSell', o.bar_sell);
+    $('jBuy').textContent = fmt(o.jewelry_buy); $('jSell').textContent = fmt(o.jewelry_sell);
+    const ch = Number(o.change), c = $('oChg');
+    c.className = 'chg ' + (ch > 0 ? 'up' : ch < 0 ? 'dn' : 'flat'); c.textContent = isFinite(ch) && o.change != null ? (ch > 0 ? '▲ ' : ch < 0 ? '▼ ' : '• ') + fmt(Math.abs(ch)) : '—';
+    $('oAt').textContent = hm(o.as_of); $('oRev').textContent = o.revision || '—';
+  }
+  if (e) {
+    setNum('eBuy', e.bar_buy); setNum('eSell', e.bar_sell);
+    const md = e.model || {};
+    $('eModel').textContent = e.live ? T('เรียลไทม์', 'LIVE') : md.id === 'weekend' ? T('โมเดลวันหยุด', 'WEEKEND') : md.id === 'closed' ? T('ตลาดพัก', 'PAUSED') : T('อัปเดตทุก 5 นาที', '5-MIN');
+    $('eAt').textContent = hm(e.computed_at);
+    // band
+    const lo = e.low + (cal.spread_baht || 200) / 2, hi = e.high + (cal.spread_baht || 200) / 2; // sell-side band
+    const sLo = e.low + (cal.spread_baht || 200), sHi = e.high;
+    const a = Math.min(sLo, o ? o.bar_sell : sLo, e.bar_sell) - 150, b = Math.max(sHi, o ? o.bar_sell : sHi, e.bar_sell) + 150;
+    const pct = (v) => Math.max(0, Math.min(100, (v - a) / (b - a) * 100));
+    const bi = $('bandI'); bi.style.left = pct(Math.min(sLo, sHi)) + '%'; bi.style.width = Math.max(2, pct(Math.max(sLo, sHi)) - pct(Math.min(sLo, sHi))) + '%';
+    $('bandE').style.left = 'calc(' + pct(e.bar_sell) + '% - 1px)';
+    const bo = $('bandO'); if (o) { bo.style.display = ''; bo.style.left = 'calc(' + pct(o.bar_sell) + '% - 1px)'; } else bo.style.display = 'none';
+    $('bLo').textContent = fmt(Math.min(sLo, sHi)); $('bHi').textContent = fmt(Math.max(sLo, sHi));
+    // deviation
+    if (o && o.bar_sell) {
+      const d = e.bar_sell - o.bar_sell, oMid = (o.bar_buy + o.bar_sell) / 2, pc = (e.mid_raw - oMid) / oMid * 100;
+      const col = d > 0 ? 'var(--up)' : d < 0 ? 'var(--dn)' : 'var(--mut)';
+      const why = m.state === 'weekend'
+        ? T('ตลาดโลกปิดช่วงวันหยุด ราคาประเมินใช้ราคาปิดล่าสุดของ XAU/USD และ USD/THB', 'Global market closed for the weekend; the estimate holds the last XAU/USD and USD/THB close')
+        : T('ส่วนต่างนี้สะท้อนการเคลื่อนไหวของตลาดโลกหลังราคาประกาศล่าสุด', 'This gap reflects global moves since the latest announcement');
+      $('devBox').innerHTML = `<div>${T('ส่วนต่างจากราคาประกาศ (ขายออก)', 'Deviation from announced (sell)')}: <span class="n" style="color:${col}">${sgn(d)}</span> ${T('บาท', 'THB')} <span style="color:var(--mut)">(${sgn(pc, 2)}%)</span></div><div style="color:var(--mut);font-size:12.5px">${why} · ${T(md.band_basis_th || '', md.band_basis_th ? 'band: ' + (md.id === 'weekend' ? 'median Monday gap' : 'model mean error') : '')} ±${fmt(md.band_baht)} ${T('บาท', 'THB')}</div>`;
+    }
+  }
+  // sources
+  const rows = [];
+  if (o) rows.push([T('ราคาประกาศ ทองคำแท่ง (ขายออก)', 'Announced bar (sell)'), T('ราคาประกาศทองไทย', 'Official Thai gold'), 'real', fmt(o.bar_sell), o.as_of]);
+  if (inp.xau) rows.push(['XAU/USD ' + T('สปอต', 'spot'), inp.xau.source_en.replace('XAU/USD spot · ', '') + T(' · ราคากลาง bid/ask', ' · bid/ask mid'), 'real', fmt(inp.xau.price, 2), inp.xau.updated_at]);
+  if (LIVE) rows.push(['XAU/USD ' + T('สดบนหน้าจอ', 'live on screen'), 'gold-api · ' + T('ทุก 15 วินาที', 'every 15 s'), 'real', fmt(LIVE.price, 2), LIVE.at]);
+  if (inp.comex) rows.push(['COMEX ' + T('ฟิวเจอร์ส', 'futures') + ' GC', 'Yahoo Finance · ' + (inp.comex.contract || 'GC=F') + ' · ' + T('ส่วนต่างกับสปอต ', 'basis ') + sgn(inp.comex.basis_vs_spot, 2), 'real', fmt(inp.comex.price, 1), inp.comex.updated_at]);
+  if (inp.usdthb) rows.push(['USD/THB', 'Yahoo Finance · THB=X', 'real', fmt(inp.usdthb.price, 3), inp.usdthb.updated_at]);
+  if (e) rows.push([T('ราคาประเมิน AI (ขายออก)', 'AI estimate (sell)'), T('PUREGOLD · k = ', 'PUREGOLD · k = ') + (cal.ratio || 0).toFixed(5), 'est', fmt(e.bar_sell), e.computed_at]);
+  $('srcBody').innerHTML = rows.map(r => `<div class="srow ${r[2]}"><span class="nm">${r[0]} <span class="badge ${r[2]}">${r[2] === 'real' ? 'REAL' : 'ESTIMATE'}</span></span><span class="px">${r[3]}</span><span class="mk">${r[1]}</span><span class="age" data-at="${r[4] || ''}">—</span></div>`).join('');
+  // accuracy
+  const acc = DOC.accuracy || {};
+  $('accSince').textContent = T('เริ่ม ', 'since ') + hm(acc.since);
+  if (!acc.n) {
+    $('accBox').innerHTML = `<div class="empty">${T('ยังไม่มีราคาประกาศใหม่หลังเปิดระบบ เมื่อมีราคาประกาศครั้งถัดไป ระบบจะบันทึกค่าคลาดเคลื่อนจริงและแสดงที่นี่ทันที', 'No new announcement since launch yet. The first real error appears here as soon as the next announcement lands.')}<br>${T('ค่าคลาดเคลื่อนเฉลี่ยของโมเดลกับข้อมูลปรับเทียบ', 'Model mean error on calibration data')}: <b>±${fmt(cal.resid_mae_baht)}</b> ${T('บาท จาก', 'THB over')} ${cal.samples || 0} ${T('ราคาประกาศ', 'announcements')}</div>`;
+  } else {
+    $('accBox').innerHTML = `<div class="stats">
+      <div class="stat"><div class="k">${T('จำนวนครั้งที่วัด', 'Prints measured')}</div><div class="v">${acc.n}</div></div>
+      <div class="stat"><div class="k">${T('คลาดเคลื่อนเฉลี่ย', 'Mean abs error')}</div><div class="v">±${fmt(acc.mae_baht)}</div></div>
+      <div class="stat"><div class="k">${T('ภายใน ±50 บาท', 'Within ±50')}</div><div class="v">${fmt(acc.within_50_pct, 0)}%</div></div>
+      <div class="stat"><div class="k">${T('ภายใน ±100 บาท', 'Within ±100')}</div><div class="v">${fmt(acc.within_100_pct, 0)}%</div></div></div>
+      <div class="meta"><span>${T('ความเอนเอียงเฉลี่ย', 'Mean bias')} <b>${sgn(acc.bias_baht || 0)}</b> ${T('บาท', 'THB')}</span><span>${T('ตรงเป๊ะ', 'Exact')} <b>${fmt(acc.exact_pct, 0)}%</b></span></div>`;
+  }
+  const pr = (DOC.prints || []).slice().reverse();
+  $('tl').innerHTML = pr.length ? pr.map(p => { const er = p.est_sell != null ? p.est_sell - p.sell : null; return `<li><span class="t">${hm(p.as_of).replace(/^.* /, '')}</span><span class="p">${fmt(p.sell)}</span><span class="e">${er == null ? T('—', '—') : T('ประเมิน ', 'est ') + sgn(er)}</span></li>`; }).join('') : `<li>${T('ยังไม่มีข้อมูล', 'No data yet')}</li>`;
+  $('mK').textContent = '= ' + (cal.ratio || 0).toFixed(5) + T(` (${cal.samples} ครั้ง, ±${fmt(cal.resid_mae_baht)} บาท)`, '');
+  document.querySelectorAll('.mK2').forEach(x => x.textContent = '= ' + (cal.ratio || 0).toFixed(5) + ` (${cal.samples} prints, ±${fmt(cal.resid_mae_baht)} THB)`);
+  $('mS').textContent = fmt(cal.spread_baht); document.querySelectorAll('.mS2').forEach(x => x.textContent = fmt(cal.spread_baht));
+  calc(); tick();
+}
+function tick(){
+  $('clock').textContent = new Date().toLocaleTimeString('en-GB', { timeZone: 'Asia/Bangkok' });
+  document.querySelectorAll('.age[data-at]').forEach(el => { const a = ageTxt(el.dataset.at); el.textContent = a.s; el.className = 'age ' + a.cls; });
+  const o = official(), e = estimate();
+  if (o) $('oAge').textContent = ageTxt(o.as_of).s;
+  if (e) $('eAge').textContent = ageTxt(e.computed_at).s;
+}
+// calculator
+let cType = 'bar', cSide = 'sell';
+function seg(id, cb){ $(id).addEventListener('click', ev => { const b = ev.target.closest('button'); if (!b) return; $(id).querySelectorAll('button').forEach(x => x.classList.toggle('on', x === b)); cb(b.dataset.v); calc(); }); }
+seg('segType', v => cType = v); seg('segSide', v => cSide = v);
+$('cW').addEventListener('input', calc); $('cU').addEventListener('change', calc);
+function calc(){
+  const o = official(); if (!o) return;
+  const w = parseFloat($('cW').value) || 0, u = $('cU').value;
+  const gPerBaht = cType === 'bar' ? 15.244 : 15.16;
+  const baht = u === 'baht' ? w : u === 'salung' ? w / 4 : w / gPerBaht;
+  const px = cType === 'bar' ? (cSide === 'sell' ? o.bar_sell : o.bar_buy) : (cSide === 'sell' ? o.jewelry_sell : o.jewelry_buy);
+  if (!px) { $('cOut').textContent = '—'; return; }
+  $('cOut').textContent = fmt(baht * px) + T(' บาท', ' THB');
+  const pl = cSide === 'sell' ? T('ราคาขายออก', 'sell price') : T('ราคารับซื้อ', 'buy-back price');
+  $('cNote').innerHTML = `${fmt(baht, 4)} ${T('บาททองคำ', 'baht-weight')} × ${pl} ${fmt(px)} ${T('บาท', 'THB')} · ${T('ราคาประกาศ', 'announced')} ${hm(o.as_of)}${cType === 'jw' && cSide === 'sell' ? T('<br>ทองรูปพรรณจะมีค่ากำเหน็จเพิ่มตามร้าน', '<br>Jewelry adds a making fee set by each shop') : ''}`;
+}
+// data loaders
+async function loadDoc(){
+  for (const u of ['/data/thai_gold_estimate.json', '/assets/thai_gold_estimate.json', 'https://dashboard.purefxai.store/thai_gold_estimate.json']) {
+    try { const r = await fetchT(u + '?t=' + Date.now(), 6000); if (r.ok) { const j = await r.json(); if (j && j.estimate) { if (!DOC || j.generated_at >= DOC.generated_at) DOC = j; break; } } } catch (_) {}
+  }
+  paint();
+}
+function num(s){ if (s == null) return null; const n = parseFloat(String(s).replace(/,/g, '')); return isFinite(n) ? n : null; }
+async function loadFeed(){
+  try {
+    const r = await fetchT('https://apicheckprice.huasengheng.com/api/values/getprice/', 5000); if (!r.ok) return;
+    const a = await r.json(); const ref = a.find(x => String(x.GoldType).toUpperCase() === 'REF'), jw = a.find(x => String(x.GoldType).toUpperCase() === 'JEWEL');
+    if (!ref) return; const t = String(ref.TimeUpdate || '');
+    FEED = { bar_buy: num(ref.Buy), bar_sell: num(ref.Sell), change: num(ref.BuyChange), jewelry_buy: jw ? num(jw.Buy) : null, jewelry_sell: jw ? num(jw.Sell) : null, as_of: t ? t.replace(' ', 'T').slice(0, 19) + '+07:00' : null };
+    paint();
+  } catch (_) {}
+}
+async function loadLive(){
+  if (DOC && DOC.market && !DOC.market.open) return;
+  try { const r = await fetchT('https://api.gold-api.com/price/XAU', 5000); if (!r.ok) return; const j = await r.json(); if (j && j.price) { LIVE = { price: +j.price, at: j.updatedAt || new Date().toISOString() }; paint(); } } catch (_) {}
+}
+setLang(LANG);
+loadDoc().then(() => { loadFeed(); loadLive(); });
+setInterval(loadDoc, 30000); setInterval(loadFeed, 60000); setInterval(loadLive, 15000); setInterval(tick, 1000);
+document.addEventListener('visibilitychange', () => { if (!document.hidden) { loadDoc(); loadFeed(); loadLive(); } });
+const io = 'IntersectionObserver' in window ? new IntersectionObserver(es => es.forEach(x => { if (x.isIntersecting) { x.target.classList.add('in'); io.unobserve(x.target); } }), { threshold: .08 }) : null;
+document.querySelectorAll('.reveal').forEach(el => io ? io.observe(el) : el.classList.add('in'));
+})();
+</script>
+</body>
+</html>

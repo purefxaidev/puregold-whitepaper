@@ -24,3 +24,23 @@ Then in GitHub: **puregold-whitepaper → Settings → Pages → Custom domain**
 This repo already contains a root `CNAME` file with `gold.purefxai.store`. After DNS propagates (and GitHub Pages custom domain is set), **https://gold.purefxai.store/** serves this site.
 
 Hero video: `assets/hero.webm` / `assets/hero.mp4` (looping น้องหมี motion). ComfyUI at `127.0.0.1:8188` was not reachable on the build box; replace these files later with the `videoPUREFXAI OMI_r2v` export if desired.
+
+## Thai gold page / หน้าราคาทองไทย
+
+**https://gold.purefxai.store/thai-gold/** — ราคาประกาศ (REAL) ทองคำแท่งและทองรูปพรรณ 96.5% พร้อมราคาประเมิน AI (ESTIMATE) จาก XAU/USD × USD/THB × ค่าปรับเทียบ บอกที่มา เวลาอัปเดต และค่าคลาดเคลื่อนจริงของทุกราคา ข้อมูลมาจาก `data/thai_gold_estimate.json` (สร้างโดย `thai_gold_estimate.py` ใน gold-dashboard ทุก ~5 นาที)
+
+## 💚 Support PureFxAi / สนับสนุน PureFxAi (USDT)
+
+**USDT (ERC20 only / เครือข่าย Ethereum เท่านั้น)**
+
+```
+0x920deab53daf94ca2030ad5ceec2265bf5686941
+```
+
+⚠️ Send **only USDT via ERC20**. Other networks or tokens may be lost permanently.
+ส่งเฉพาะ **USDT ผ่าน ERC20** เท่านั้น เครือข่ายหรือเหรียญอื่นอาจสูญหายถาวร
+
+Donations are voluntary support — **not an investment**, with no returns or rewards.
+การบริจาคเป็นการสนับสนุนโดยสมัครใจ **ไม่ใช่การลงทุน** และไม่มีผลตอบแทนใด ๆ
+
+เพื่อการศึกษา ไม่ใช่คำแนะนำการลงทุน
