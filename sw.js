@@ -1,5 +1,5 @@
 /* PureGold landing service worker — versioned shell, network-first data. */
-const VERSION = '20261113-0912';
+const VERSION = '20261121-0715';
 const SHELL = 'puregold-shell-' + VERSION;
 const DATA = 'puregold-data-' + VERSION;
 const SHELL_URLS = [
@@ -86,11 +86,15 @@ async function networkFirstNav(request) {
   try {
     const fresh = await fetch(request, { cache: 'no-store' });
     if (fresh && fresh.ok) {
-      try { await cache.put('/index.html', fresh.clone()); } catch (_) {}
+      const path = new URL(request.url).pathname;
+      const key = (path === '/' || path === '/index.html') ? '/index.html' : path;
+      try { await cache.put(key, fresh.clone()); } catch (_) {}
       return fresh;
     }
   } catch (_) {}
-  return (await cache.match('/index.html'))
+  const path = new URL(request.url).pathname;
+  return (path !== '/' && path !== '/index.html' ? await cache.match(path) : null)
+    || (await cache.match('/index.html'))
     || (await cache.match('/'))
     || (await cache.match('/offline.html'))
     || new Response('Offline', { status: 503, headers: { 'Content-Type': 'text/plain; charset=utf-8' } });
