@@ -1,31 +1,35 @@
 {
   "name": "PUREGOLD",
-  "version": "0.9.14",
-  "versionCode": 27,
+  "version": "0.9.15",
+  "versionCode": 28,
   "apk": "https://gold.purefxai.store/downloads/PUREGOLD.apk",
-  "sha256": "e5d1ec78b64551ce66c62e770e4bc09849f6485e6cda14d628e81fc24747fff3",
-  "released": "2026-11-14",
-  "released_th": "14 พ.ย. 2026",
+  "sha256": "f877b0a8e64bab8854ff771513f2254dbfb352cb65660fbc45f90f30bcbcdea7",
+  "released": "2026-11-21",
+  "released_th": "21 พ.ย. 2026",
   "notes": {
     "th": [
-      "หน้าต่างลอยปรับขนาดได้เอง: ลากด้ามจับลายกระจกทองที่มุมขวาล่าง เพื่อขยายหรือย่อความกว้างและความสูง",
-      "ขนาดถูกจำกัดให้อ่านได้ (ขั้นต่ำ 200×160 dp) และไม่ล้นจอ ส่วนข้อความจัดเรียงใหม่ให้พอดี ไม่ทับกัน และจำขนาดล่าสุดไว้ครั้งถัดไป",
-      "ยังลากย้ายตำแหน่ง ย่อเป็นฟองราคา และอัปเดตราคาสดได้เหมือนเดิม"
+      "หน้าต่างลอยปรับขนาดได้จากทั้งสี่มุม และบีบสองนิ้วเพื่อย่อหรือขยาย",
+      "มีปุ่มขนาด S / M / L และแตะสองครั้งที่หัวหน้าต่างเพื่อสลับขนาด แถบความโปร่งใส 40–100% จำค่าไว้ให้",
+      "ขนาดเล็กแสดงราคาและสัญญาณ ขนาดกลางเพิ่มทองไทยกับสรุปแผน ขนาดใหญ่เพิ่มกราฟเทียน XAU จุดเข้า/SL/TP และสถานะ «AI กำลังทำอะไรอยู่»",
+      "ปล่อยใกล้ขอบจอแล้วดูดติดขอบ ไม่ล้นจอแม้หมุนเครื่อง จำขนาด ตำแหน่ง และความโปร่งใส ยังลากย้าย ย่อเป็นฟอง และอัปเดตราคาสดได้เหมือนเดิม"
     ],
     "en": [
-      "The floating window is now resizable: drag the gold-glass handle at the bottom-right corner to change width and height",
-      "Size is clamped so text stays readable (minimum 200×160 dp) and the card stays on screen; content reflows to fit, and the last size is remembered",
-      "Drag-to-move, minimize-to-bubble, and live prices still work as before"
+      "Resize the floating window from all four corners, or pinch with two fingers",
+      "S / M / L size presets, double-tap the header to cycle them, and a 40–100% opacity slider, all remembered",
+      "Small shows price and signal; medium adds Thai gold and the plan summary; large adds a mini XAU candle chart, entry/SL/TP, and “What the AI is doing”",
+      "Release near a screen edge to snap to it; the window stays on screen after rotation. Size, position, and opacity are saved. Drag-to-move, minimize-to-bubble, and live prices still work"
     ],
     "zh": [
-      "浮动窗口可自行调整大小：拖动右下角金色玻璃手柄即可改变宽高",
-      "尺寸限制在可读范围内（最小 200×160 dp）且不超出屏幕，内容会自动重排，并记住上次的大小",
-      "拖动移动、缩成气泡和实时报价仍照常工作"
+      "浮动窗口可从四个角拖动调整大小，也可用双指捏合缩放",
+      "提供 S / M / L 预设，双击标题栏循环切换，并有 40–100% 透明度滑杆，设置会被记住",
+      "小尺寸显示价格与信号；中尺寸增加泰国金价与计划摘要；大尺寸增加迷你 XAU K 线、入场/止损/止盈，以及「AI 正在做什么」",
+      "靠近屏幕边缘松开会吸附，旋转后也不会超出屏幕；大小、位置和透明度会保存。拖动、缩成气泡和实时报价照常"
     ],
     "ja": [
-      "フローティングウィンドウを右下のゴールドガラスハンドルでドラッグして、幅と高さを変えられる",
-      "読みやすい最小サイズ（200×160 dp）と画面内に収まる最大サイズに制限し、内容は折り返し、前回のサイズを記憶する",
-      "ドラッグ移動・バブル最小化・ライブ価格の更新はそのまま"
+      "四隅のハンドルまたはピンチ操作でフローティングウィンドウのサイズを変えられる",
+      "S / M / L のプリセット、ヘッダーのダブルタップでの切り替え、40–100% の透明度スライダーを備え、設定を記憶する",
+      "S は価格とシグナル、M はタイ金価格とプラン要約、L はミニ XAU ローソク足、エントリー/SL/TP と「AI が今していること」を追加表示",
+      "画面端の近くで離すとスナップし、回転後も画面内に収まる。サイズ・位置・透明度を保存。ドラッグ移動・バブル最小化・ライブ価格はそのまま"
     ]
   }
 }
