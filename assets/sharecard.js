@@ -2765,6 +2765,84 @@
   if (document.readyState === "loading") document.addEventListener("DOMContentLoaded", boot);
   else boot();
 
+  // Plan accuracy + lot calculator (shared with the app tradeplan.js)
+  function accuracyHtml(hist, lang, esc) {
+    esc = esc || (s => String(s == null ? "" : s).replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;"));
+    if (!hist || !hist.stats) return "";
+    const th = lang !== "en";
+    const st = hist.stats;
+    const wr = st.win_rate == null ? "—" : (st.win_rate + "%");
+    const avg = st.avg_r == null ? "—" : ((st.avg_r > 0 ? "+" : "") + st.avg_r + "R");
+    const n = st.counted || 0;
+    return `<div class="tp-acc">
+      <div class="tp-ai-k">${th ? "ผลจริงของแผน" : "Plan results"}</div>
+      <div class="tp-acc-row"><span>${th ? "นับได้" : "Counted"} ${n}</span><span>${th ? "ชนะ" : "Win rate"} ${esc(wr)}</span><span>${th ? "เฉลี่ย" : "Avg"} ${esc(avg)}</span></div>
+      <p class="tp-acc-note">${esc(th ? (st.note_th || hist.source_note_th || "") : (st.note_en || hist.source_note_en || ""))}</p>
+    </div>`;
+  }
+  
+  const LOT_KEY = "pg_lot_pref";
+  function loadLotPref() {
+    try { return Object.assign({ capital: 10000, ccy: "THB", riskPct: 1 }, JSON.parse(localStorage.getItem(LOT_KEY) || "{}")); }
+    catch (e) { return { capital: 10000, ccy: "THB", riskPct: 1 }; }
+  }
+  function saveLotPref(pref) {
+    try { localStorage.setItem(LOT_KEY, JSON.stringify(pref)); } catch (e) {}
+  }
+  function suggestedLots(plan, pref, usdthb) {
+    if (!plan || plan.sl == null || plan.entry == null) return null;
+    const dist = Math.abs(Number(plan.entry) - Number(plan.sl));
+    if (!(dist >= 0.5)) return null;
+    const cap = Number(pref.capital), pct = Number(pref.riskPct);
+    if (!(cap > 0) || !(pct > 0)) return null;
+    const rate = Number(usdthb) || 34;
+    const thb = (pref.ccy === "USD") ? cap * rate : cap;
+    const usd = thb / rate;
+    const lots = (usd * (pct / 100)) / (dist * 100);
+    return { dist, lots: Number(lots.toFixed(4)), riskThb: Math.round(thb * pct / 100), riskUsd: Math.round(usd * pct / 100 * 100) / 100, usdthb: rate };
+  }
+  function lotCalcHtml(lang) {
+    const th = lang !== "en";
+    const pref = loadLotPref();
+    return `<div class="tp-lot-calc">
+      <div class="tp-ai-k">${th ? "คำนวณล็อตจากทุนและความเสี่ยง" : "Lot size from capital and risk"}</div>
+      <div class="tp-lot-row">
+        <label>${th ? "ทุน" : "Capital"} <input type="number" min="0" step="100" data-lot="capital" value="${pref.capital}"></label>
+        <label><select data-lot="ccy"><option value="THB"${pref.ccy==="THB"?" selected":""}>THB</option><option value="USD"${pref.ccy==="USD"?" selected":""}>USD</option></select></label>
+        <label>${th ? "ความเสี่ยง %" : "Risk %"} <input type="number" min="0.5" max="5" step="0.5" data-lot="riskPct" value="${pref.riskPct}"></label>
+      </div>
+      <div class="tp-lot-out" data-lot="out">—</div>
+      <p class="tp-lots-note">${th ? "คำนวณจากระยะ SL ของแผนปัจจุบัน และสัญญาตัวอย่าง 1 ล็อต = 100 ออนซ์ · บันทึกเฉพาะบนเครื่องนี้ · ไม่ใช่คำแนะนำให้ใช้เงินทุนนี้" : "From the current plan's stop distance and a standard 1 lot = 100 oz example. Saved only on this device. This is not a recommendation to use these amounts."}</p>
+    </div>`;
+  }
+  function bindLotCalc(root, plan, usdthb, lang) {
+    if (!root) return;
+    if (!root.querySelector("[data-lot=capital]")) root.innerHTML = lotCalcHtml(lang);
+    const pref = loadLotPref();
+    const cap = root.querySelector("[data-lot=capital]");
+    const ccy = root.querySelector("[data-lot=ccy]");
+    const risk = root.querySelector("[data-lot=riskPct]");
+    const out = root.querySelector("[data-lot=out]");
+    const paint = () => {
+      const cur = { capital: Number(cap && cap.value) || 0, ccy: (ccy && ccy.value) || "THB", riskPct: Number(risk && risk.value) || 1 };
+      saveLotPref(cur);
+      const r = suggestedLots(plan, cur, usdthb);
+      const th = lang !== "en";
+      if (!r) { if (out) out.textContent = th ? "ยังคำนวณไม่ได้ (ต้องการจุดเข้าและ SL)" : "Need an entry and stop to size the lot"; return; }
+      if (out) out.textContent = (th ? "ล็อตที่คำนวณได้ " : "Calculated lot ") + r.lots + " · " + (th ? "เสี่ยง " : "risk ") + (cur.ccy === "USD" ? ("$" + r.riskUsd) : (r.riskThb.toLocaleString("en-US") + " บาท")) + " · SL " + r.dist.toFixed(1);
+    };
+    const active = document.activeElement;
+    if (cap && cap !== active) cap.value = pref.capital;
+    if (ccy && ccy !== active) ccy.value = pref.ccy;
+    if (risk && risk !== active) risk.value = pref.riskPct;
+    if (!root.dataset.bound) {
+      root.dataset.bound = "1";
+      root.addEventListener("input", paint);
+      root.addEventListener("change", paint);
+    }
+    paint();
+  }
+
   global.ShareCard = {
     SIZES, SITE, SITE_URL, VERSION, render, blobsFor, download, share, mount, buttonsHtml, toast,
     forecastTarget, fmtBkk, fmt, chg, closeSheet, loadMarket, attachMarket, enrich,
