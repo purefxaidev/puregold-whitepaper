@@ -1,9 +1,9 @@
 {
  "timezone": "Asia/Bangkok",
- "updated_at": "2026-11-20T23:12:29Z",
- "updated_at_bkk": "2026-11-21 06:12",
- "updated_th": "21 พ.ย. 2026 06:12 น. (เวลาไทย)",
- "updated_en": "21 Nov 2026 06:12 (Bangkok time)",
+ "updated_at": "2026-11-21T03:59:56Z",
+ "updated_at_bkk": "2026-11-21 10:59",
+ "updated_th": "21 พ.ย. 2026 10:59 น. (เวลาไทย)",
+ "updated_en": "21 Nov 2026 10:59 (Bangkok time)",
  "dxy": {
   "price": 103.84,
   "change": -0.06,
@@ -375,7 +375,7 @@
   ]
  },
  "corr": {
-  "n20": -0.388,
+  "n20": -0.389,
   "n60": -0.403,
   "sample_20": 20,
   "sample_60": 60,
