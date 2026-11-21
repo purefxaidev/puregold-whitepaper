@@ -779,7 +779,7 @@ html.pg-mobile .tp-ds { grid-template-columns:1fr; }
           <button type="button" id="ben" onclick="setLang('en')"><span class="lang-full">English</span><span class="lang-short">EN</span></button>
         </div>
         <a class="line-pill" href="https://line.me/ti/p/H_Bxfi7so3" target="_blank" rel="noopener" title="LINE PureFxAi"><img src="assets/line-icon.png" width="16" height="16" alt=""> LINE</a>
-        <a class="btn btn-gold btn-sm pwa-hide-standalone" id="hdrDl" href="downloads/PUREGOLD.apk" download="PUREGOLD.apk">APK 0.9.15</a>
+        <a class="btn btn-gold btn-sm pwa-hide-standalone" id="hdrDl" href="downloads/PUREGOLD.apk" download="PUREGOLD.apk">APK 0.9.16</a>
         <button type="button" class="btn btn-ghost btn-sm pg-push-hdr" data-push-btn><span class="th">เปิดการแจ้งเตือน</span><span class="en hid">Enable notifications</span></button>
       </div>
     </header>
@@ -814,7 +814,7 @@ html.pg-mobile .tp-ds { grid-template-columns:1fr; }
             <span class="th">ดูกราฟ</span><span class="en hid">View chart</span>
           </button>
         </div>
-        <p class="ver" id="dlMeta">PUREGOLD 0.9.15 · Android APK · iPhone web app</p>
+        <p class="ver" id="dlMeta">PUREGOLD 0.9.16 · Android APK · iPhone web app</p>
       </div>
       <aside class="hero-quote reveal in" aria-label="XAUUSD spot">
         <div class="k">XAUUSD · SPOT</div>
@@ -1066,8 +1066,8 @@ html.pg-mobile .tp-ds { grid-template-columns:1fr; }
     </section>
 
     <section class="block reveal" id="updates">
-      <div class="th"><h2>ประวัติเวอร์ชัน</h2><p class="mut">อัปเดตล่าสุดของแอปและหน้าเว็บ · <a href="downloads/PUREGOLD.apk" download="PUREGOLD.apk">ดาวน์โหลด 0.9.15</a></p></div>
-      <div class="en hid"><h2>Version history</h2><p class="mut">Latest app and website updates · <a href="downloads/PUREGOLD.apk" download="PUREGOLD.apk">Download 0.9.15</a></p></div>
+      <div class="th"><h2>ประวัติเวอร์ชัน</h2><p class="mut">อัปเดตล่าสุดของแอปและหน้าเว็บ · <a href="downloads/PUREGOLD.apk" download="PUREGOLD.apk">ดาวน์โหลด 0.9.16</a></p></div>
+      <div class="en hid"><h2>Version history</h2><p class="mut">Latest app and website updates · <a href="downloads/PUREGOLD.apk" download="PUREGOLD.apk">Download 0.9.16</a></p></div>
       <div class="cl">
         <b>เว็บไซต์</b> · 2026-11-11
         <ul class="th">
@@ -1098,18 +1098,31 @@ html.pg-mobile .tp-ds { grid-template-columns:1fr; }
         </ul>
       </div>
       <div class="cl">
-        <b>0.9.15</b> · 2026-11-21
+        <b>0.9.16</b> · 2026-11-21
         <ul class="th">
-          <li>หน้าต่างลอยปรับขนาดได้จากทั้งสี่มุม และบีบสองนิ้วเพื่อย่อหรือขยาย</li>
-          <li>มีปุ่มขนาด S / M / L และแตะสองครั้งที่หัวหน้าต่างเพื่อสลับขนาด แถบความโปร่งใส 40–100% จำค่าไว้ให้</li>
-          <li>ขนาดเล็กแสดงราคาและสัญญาณ ขนาดกลางเพิ่มทองไทยกับสรุปแผน ขนาดใหญ่เพิ่มกราฟเทียน XAU จุดเข้า/SL/TP และสถานะ «AI กำลังทำอะไรอยู่»</li>
-          <li>ปล่อยใกล้ขอบจอแล้วดูดติดขอบ ไม่ล้นจอแม้หมุนเครื่อง จำขนาด ตำแหน่ง และความโปร่งใส ยังลากย้าย ย่อเป็นฟอง และอัปเดตราคาสดได้เหมือนเดิม</li>
+          <li>การ์ดทองไทยแสดง «ราคาประเมิน AI» (ESTIMATE) ของทองคำแท่ง 96.5% จาก XAU/USD × USD/THB × ค่าปรับเทียบ พร้อมส่วนต่างจากราคาประกาศ สถานะตลาดโลก และเวลาที่คำนวณ</li>
+          <li>แตะการ์ดราคาประเมินเพื่อเปิดหน้าราคาทองไทยแบบเต็ม ที่บอกที่มาและเวลาอัปเดตของทุกราคา พร้อมค่าคลาดเคลื่อนจริง</li>
+          <li>แก้แผนเทรดที่ไม่แสดงผลจริงของแผนและตัวคำนวณล็อตในบางหน้าจอ</li>
         </ul>
         <ul class="en hid">
-          <li>Resize the floating window from all four corners, or pinch with two fingers</li>
-          <li>S / M / L size presets, double-tap the header to cycle them, and a 40–100% opacity slider, all remembered</li>
-          <li>Small shows price and signal; medium adds Thai gold and the plan summary; large adds a mini XAU candle chart, entry/SL/TP, and “What the AI is doing”</li>
-          <li>Release near a screen edge to snap to it; the window stays on screen after rotation. Size, position, and opacity are saved. Drag-to-move, minimize-to-bubble, and live prices still work</li>
+          <li>The Thai gold card shows an “AI estimate” (ESTIMATE) for the 96.5% bar from XAU/USD × USD/THB × calibration, with its gap to the announced price, the global market state, and when it was computed</li>
+          <li>Tap the estimate to open the full Thai gold page with the source and age of every price and the real error</li>
+          <li>Fixed plan results and the lot calculator not showing on some screens</li>
+        </ul>
+      </div>
+      <div class="cl">
+        <b>0.9.15</b> · 2026-11-21
+        <ul class="th">
+          <li>หน้าต่างลอยปรับขนาดได้จากทุกมุมและทุกขอบ พร้อมด้ามจับกระจกทอง และบีบสองนิ้วเพื่อย่อหรือขยาย มีสั่นเบาเมื่อเริ่มลากหรือชนขนาดต่ำสุด/สูงสุด</li>
+          <li>ปุ่มขนาด «เล็ก / กลาง / ใหญ่» และแตะสองครั้งที่หัวหน้าต่างเพื่อสลับขนาด มีแถบความโปร่งใส 40–100% จำค่าไว้ให้</li>
+          <li>ขนาดเล็กแสดงราคาและสัญญาณ ขนาดกลางเพิ่มทองไทยรับซื้อ–ขายออกกับสรุปแผน ขนาดใหญ่เพิ่มกราฟเทียน XAU จุดเข้า/SL/TP และสถานะ «AI กำลังทำอะไรอยู่»</li>
+          <li>ลายกระจกทองแบบ iPhone มีไฮไลต์และเบลอพื้นหลังบนเครื่องที่รองรับ ปล่อยใกล้ขอบจอแล้วดูดติดขอบ ไม่ล้นจอแม้หมุนเครื่อง จำขนาด ตำแหน่ง และความโปร่งใส ยังลากย้าย ย่อเป็นฟอง และอัปเดตราคาสดได้เหมือนเดิม</li>
+        </ul>
+        <ul class="en hid">
+          <li>Resize the floating window from any corner or edge with gold-glass handles, or pinch with two fingers; a light haptic marks the start of a resize and the min/max size</li>
+          <li>Small / medium / large presets («เล็ก / กลาง / ใหญ่»), double-tap the header to cycle them, and a 40–100% opacity slider, all remembered</li>
+          <li>Small shows price and signal; medium adds Thai gold buy-back and sell prices plus the plan summary; large adds a mini XAU candle chart, entry/SL/TP, and “What the AI is doing”</li>
+          <li>An iPhone-style gold-glass look with a highlight and backdrop blur where the system allows. Release near a screen edge to snap to it; the window stays on screen after rotation. Size, position, and opacity are saved. Drag-to-move, minimize-to-bubble, and live prices still work</li>
         </ul>
       </div>
       <div class="cl">
@@ -1338,11 +1351,11 @@ html.pg-mobile .tp-ds { grid-template-columns:1fr; }
           <span><span class="dl-kicker">iPhone / iPad</span><span class="dl-label th">ติดตั้งเว็บแอป</span><span class="dl-label en hid">Install web app</span></span>
         </button>
       </div>
-      <p class="ver">PUREGOLD 0.9.15 · signed Android release · ลิงก์ไฟล์ <a href="downloads/PUREGOLD.apk" download="PUREGOLD.apk">downloads/PUREGOLD.apk</a> · sha256 f877b0a8e64bab8854ff771513f2254dbfb352cb65660fbc45f90f30bcbcdea7</p>
+      <p class="ver">PUREGOLD 0.9.16 · signed Android release · ลิงก์ไฟล์ <a href="downloads/PUREGOLD.apk" download="PUREGOLD.apk">downloads/PUREGOLD.apk</a> · sha256 f877b0a8e64bab8854ff771513f2254dbfb352cb65660fbc45f90f30bcbcdea7</p>
       <div class="th">
         <h3 style="margin:18px 0 8px;font-size:16px;letter-spacing:0;text-transform:none;color:var(--text)">วิธีติดตั้งบน Android</h3>
         <ol>
-          <li>กดดาวน์โหลด APK 0.9.15 แล้วอนุญาตติดตั้งจากแหล่งที่ไม่รู้จักหากระบบถาม</li>
+          <li>กดดาวน์โหลด APK 0.9.16 แล้วอนุญาตติดตั้งจากแหล่งที่ไม่รู้จักหากระบบถาม</li>
           <li>ติดตั้งทับเวอร์ชันเดิมได้ ไม่ต้องถอนก่อน</li>
           <li>ในเมนู → ตั้งค่า วาง API key เพื่อเปิด PureFxAi</li>
         </ol>
@@ -1360,7 +1373,7 @@ html.pg-mobile .tp-ds { grid-template-columns:1fr; }
       <div class="en hid">
         <h3 style="margin:18px 0 8px;font-size:16px;letter-spacing:0;text-transform:none;color:var(--text)">Install on Android</h3>
         <ol>
-          <li>Download APK 0.9.15 and allow unknown sources if Android asks.</li>
+          <li>Download APK 0.9.16 and allow unknown sources if Android asks.</li>
           <li>You can install over the previous version.</li>
           <li>In More → Settings, paste an API key to enable PureFxAi.</li>
         </ol>
@@ -1467,7 +1480,7 @@ html.pg-mobile .tp-ds { grid-template-columns:1fr; }
     <div class="dl-pair pwa-hide-standalone" style="margin:26px auto 0;max-width:640px">
       <a class="dl-btn dl-android" href="downloads/PUREGOLD.apk" download="PUREGOLD.apk">
         <svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M17.6 9.48 19.44 6.3a.64.64 0 0 0-.26-.85.64.64 0 0 0-.83.22l-1.88 3.24a11.43 11.43 0 0 0-8.94 0L5.65 5.67a.64.64 0 0 0-.87-.2.64.64 0 0 0-.26.85L6.36 9.5C4.2 11.05 2.67 13.32 2.67 16h18.66c0-2.69-1.55-4.96-3.73-6.52ZM7.5 13.5a1 1 0 1 1 0-2 1 1 0 0 1 0 2Zm9 0a1 1 0 1 1 0-2 1 1 0 0 1 0 2Z"/></svg>
-        <span><span class="dl-kicker">Android</span><span class="dl-label">APK 0.9.15</span></span>
+        <span><span class="dl-kicker">Android</span><span class="dl-label">APK 0.9.16</span></span>
       </a>
       <button type="button" class="dl-btn dl-ios js-ios-install">
         <svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M18.71 19.5c-.83 1.24-1.71 2.45-3.05 2.47-1.34.03-1.77-.79-3.29-.79-1.53 0-2 .77-3.27.82-1.31.05-2.3-1.32-3.14-2.53C4.25 17 2.94 12.45 4.7 9.39c.87-1.52 2.43-2.48 4.12-2.51 1.28-.02 2.5.87 3.29.87.78 0 2.26-1.07 3.81-.91.65.03 2.47.26 3.64 1.98-.09.06-2.17 1.28-2.15 3.81.03 3.02 2.65 4.03 2.68 4.04-.03.07-.42 1.44-1.38 2.83M13 3.5c.73-.83 1.94-1.46 2.94-1.5.13 1.17-.34 2.35-1.04 3.19-.69.85-1.83 1.51-2.95 1.42-.15-1.15.41-2.35 1.05-3.11z"/></svg>

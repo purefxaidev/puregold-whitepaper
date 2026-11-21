@@ -1,35 +1,31 @@
 {
   "name": "PUREGOLD",
-  "version": "0.9.15",
-  "versionCode": 28,
+  "version": "0.9.16",
+  "versionCode": 29,
   "apk": "https://gold.purefxai.store/downloads/PUREGOLD.apk",
-  "sha256": "f877b0a8e64bab8854ff771513f2254dbfb352cb65660fbc45f90f30bcbcdea7",
+  "sha256": "620b0ef4610afab90c90b7378d2874aa8e56d1f46013a295964e6f57e12d6a91",
   "released": "2026-11-21",
   "released_th": "21 พ.ย. 2026",
   "notes": {
     "th": [
-      "หน้าต่างลอยปรับขนาดได้จากทั้งสี่มุม และบีบสองนิ้วเพื่อย่อหรือขยาย",
-      "มีปุ่มขนาด S / M / L และแตะสองครั้งที่หัวหน้าต่างเพื่อสลับขนาด แถบความโปร่งใส 40–100% จำค่าไว้ให้",
-      "ขนาดเล็กแสดงราคาและสัญญาณ ขนาดกลางเพิ่มทองไทยกับสรุปแผน ขนาดใหญ่เพิ่มกราฟเทียน XAU จุดเข้า/SL/TP และสถานะ «AI กำลังทำอะไรอยู่»",
-      "ปล่อยใกล้ขอบจอแล้วดูดติดขอบ ไม่ล้นจอแม้หมุนเครื่อง จำขนาด ตำแหน่ง และความโปร่งใส ยังลากย้าย ย่อเป็นฟอง และอัปเดตราคาสดได้เหมือนเดิม"
+      "การ์ดทองไทยแสดง «ราคาประเมิน AI» (ESTIMATE) ของทองคำแท่ง 96.5% จาก XAU/USD × USD/THB × ค่าปรับเทียบ พร้อมส่วนต่างจากราคาประกาศ สถานะตลาดโลก และเวลาที่คำนวณ",
+      "แตะการ์ดราคาประเมินเพื่อเปิดหน้าราคาทองไทยแบบเต็ม ที่บอกที่มาและเวลาอัปเดตของทุกราคา พร้อมค่าคลาดเคลื่อนจริง",
+      "แก้แผนเทรดที่ไม่แสดงผลจริงของแผนและตัวคำนวณล็อตในบางหน้าจอ"
     ],
     "en": [
-      "Resize the floating window from all four corners, or pinch with two fingers",
-      "S / M / L size presets, double-tap the header to cycle them, and a 40–100% opacity slider, all remembered",
-      "Small shows price and signal; medium adds Thai gold and the plan summary; large adds a mini XAU candle chart, entry/SL/TP, and “What the AI is doing”",
-      "Release near a screen edge to snap to it; the window stays on screen after rotation. Size, position, and opacity are saved. Drag-to-move, minimize-to-bubble, and live prices still work"
+      "The Thai gold card shows an “AI estimate” (ESTIMATE) for the 96.5% bar from XAU/USD × USD/THB × calibration, with its gap to the announced price, the global market state, and when it was computed",
+      "Tap the estimate to open the full Thai gold page with the source and age of every price and the real error",
+      "Fixed plan results and the lot calculator not showing on some screens"
     ],
     "zh": [
-      "浮动窗口可从四个角拖动调整大小，也可用双指捏合缩放",
-      "提供 S / M / L 预设，双击标题栏循环切换，并有 40–100% 透明度滑杆，设置会被记住",
-      "小尺寸显示价格与信号；中尺寸增加泰国金价与计划摘要；大尺寸增加迷你 XAU K 线、入场/止损/止盈，以及「AI 正在做什么」",
-      "靠近屏幕边缘松开会吸附，旋转后也不会超出屏幕；大小、位置和透明度会保存。拖动、缩成气泡和实时报价照常"
+      "泰国金卡片显示 96.5% 金条的「AI 估算价」（ESTIMATE），由 XAU/USD × USD/THB × 校准系数计算，并显示与公布价的差额、国际市场状态和计算时间",
+      "点击估算价可打开完整的泰国金价格页面，查看每个价格的来源、更新时间和真实误差",
+      "修复部分页面不显示计划结果和手数计算器的问题"
     ],
     "ja": [
-      "四隅のハンドルまたはピンチ操作でフローティングウィンドウのサイズを変えられる",
-      "S / M / L のプリセット、ヘッダーのダブルタップでの切り替え、40–100% の透明度スライダーを備え、設定を記憶する",
-      "S は価格とシグナル、M はタイ金価格とプラン要約、L はミニ XAU ローソク足、エントリー/SL/TP と「AI が今していること」を追加表示",
-      "画面端の近くで離すとスナップし、回転後も画面内に収まる。サイズ・位置・透明度を保存。ドラッグ移動・バブル最小化・ライブ価格はそのまま"
+      "タイ金カードに 96.5% 金地金の「AI 推定価格」（ESTIMATE）を表示。XAU/USD × USD/THB × 補正係数で計算し、公表価格との差、海外市場の状態、計算時刻も表示",
+      "推定価格をタップすると、すべての価格の出所・更新時刻・実際の誤差を載せたタイ金ページを開く",
+      "一部の画面でプラン実績とロット計算が表示されない問題を修正"
     ]
   }
 }
