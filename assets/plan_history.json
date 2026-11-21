@@ -1,38 +1,38 @@
 {
   "started_at": "2026-11-13T20:59:46.850831+07:00",
-  "updated_at": "2026-11-21T14:57:18.572311+07:00",
+  "updated_at": "2026-11-21T15:14:59.496261+07:00",
   "source_note_th": "เริ่มนับผลจากรอบนี้ ไม่มีประวัติย้อนหลัง และไม่ได้สร้างผลลัพธ์สมมติ",
   "source_note_en": "Counted from this run onward. There is no backfilled history, and no results are invented.",
   "open": {
-    "id": "b7eb2939c06d",
-    "opened_at": "2026-11-21T14:57:18.572311+07:00",
+    "id": "f7eeb0b32dc7",
+    "opened_at": "2026-11-21T15:14:59.496261+07:00",
     "side": "sell",
     "side_th": "ขาย",
     "side_en": "SELL",
-    "entry": 3535.3,
-    "entry_low": 3527.3,
-    "entry_high": 3543.3,
-    "sl": 3554.7,
+    "entry": 3550.8,
+    "entry_low": 3542.8,
+    "entry_high": 3558.8,
+    "sl": 3569.4,
     "tps": [
       {
         "n": 1,
-        "price": 3511.9,
-        "rr": 1.21
+        "price": 3531.7,
+        "rr": 1.03
       },
       {
         "n": 2,
-        "price": 3503.4,
-        "rr": 1.65
+        "price": 3508.3,
+        "rr": 2.28
       },
       {
         "n": 3,
-        "price": 3492.7,
-        "rr": 2.2
+        "price": 3499.8,
+        "rr": 2.74
       }
     ],
-    "invalidation": 3569.6,
-    "title_th": "ขายโซน 3,527.3–3,543.3",
-    "title_en": "SELL zone 3,527.3–3,543.3",
+    "invalidation": 3569.4,
+    "title_th": "ขายโซน 3,542.8–3,558.8",
+    "title_en": "SELL zone 3,542.8–3,558.8",
     "status": "open",
     "outcome": null,
     "r": null,
@@ -40,7 +40,7 @@
     "reason_en": "",
     "closed_at": null,
     "last_price": 3534.41,
-    "last_check": "2026-11-21T14:57:18.572311+07:00",
+    "last_check": "2026-11-21T15:14:59.496261+07:00",
     "reached": []
   },
   "closed": [
@@ -643,16 +643,56 @@
       "last_price": 3534.41,
       "last_check": "2026-11-21T14:57:18.572311+07:00",
       "reached": []
+    },
+    {
+      "id": "b7eb2939c06d",
+      "opened_at": "2026-11-21T14:57:18.572311+07:00",
+      "side": "sell",
+      "side_th": "ขาย",
+      "side_en": "SELL",
+      "entry": 3535.3,
+      "entry_low": 3527.3,
+      "entry_high": 3543.3,
+      "sl": 3554.7,
+      "tps": [
+        {
+          "n": 1,
+          "price": 3511.9,
+          "rr": 1.21
+        },
+        {
+          "n": 2,
+          "price": 3503.4,
+          "rr": 1.65
+        },
+        {
+          "n": 3,
+          "price": 3492.7,
+          "rr": 2.2
+        }
+      ],
+      "invalidation": 3569.6,
+      "title_th": "ขายโซน 3,527.3–3,543.3",
+      "title_en": "SELL zone 3,527.3–3,543.3",
+      "status": "closed",
+      "outcome": "expired",
+      "r": null,
+      "reason_th": "แผนถูกแทนที่ก่อนถึงเป้าหรือ SL",
+      "reason_en": "The plan was replaced before a target or stop was hit",
+      "closed_at": "2026-11-21T15:14:59.496261+07:00",
+      "last_price": 3534.41,
+      "last_check": "2026-11-21T15:14:59.496261+07:00",
+      "reached": []
     }
   ],
   "stats": {
     "started_at": "2026-11-13T20:59:46.850831+07:00",
-    "closed": 15,
+    "closed": 16,
     "counted": 1,
     "wins": 1,
     "losses": 0,
     "cancelled": 0,
-    "expired": 14,
+    "expired": 15,
     "win_rate": 100.0,
     "avg_r": 1.7,
     "sample_small": true,
