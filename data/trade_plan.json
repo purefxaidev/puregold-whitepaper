@@ -9,14 +9,14 @@
   "thesis_th": "ระยะจุดตัดขาดทุนยังไม่คุ้มกับเป้าใกล้สุด รอจังหวะรีเทสต์ที่ชัดกว่า",
   "thesis_en": "The nearest target does not yet pay for the stop. Wait for a cleaner retest.",
   "spot": 3534.41,
-  "entry": 3531.8,
-  "entry_low": 3529.0,
-  "entry_high": 3534.6,
+  "entry": 3532.5,
+  "entry_low": 3529.7,
+  "entry_high": 3535.3,
   "sl": null,
   "tps": [],
-  "invalidation": 3522.3,
-  "invalidation_th": "ยกเลิกแผนถ้าราคาผ่าน 3,522.3",
-  "invalidation_en": "Cancel if price trades through 3,522.3",
+  "invalidation": 3523.0,
+  "invalidation_th": "ยกเลิกแผนถ้าราคาผ่าน 3,523.0",
+  "invalidation_en": "Cancel if price trades through 3,523.0",
   "trigger_th": "รอ — ยังไม่เข้าโซน · Demand 3,499.3–3,503.7 / Supply 3,678.6–3,688.7",
   "trigger_en": "WAIT — no setup yet · Demand 3,499.3–3,503.7 / Supply 3,678.6–3,688.7",
   "timeframe": "H1–D1",
@@ -27,9 +27,9 @@
   "bias_en": "Tilt up, above the pivot",
   "atr": 11.2,
   "approach": null,
-  "updated": "2026-11-22T04:28:51.387807+07:00",
-  "updated_th": "22 พ.ย. 2026 04:28:51 น. เวลาไทย",
-  "updated_en": "22 Nov 2026 04:28:51 Bangkok",
+  "updated": "2026-11-22T05:05:26.132351+07:00",
+  "updated_th": "22 พ.ย. 2026 05:05:26 น. เวลาไทย",
+  "updated_en": "22 Nov 2026 05:05:26 Bangkok",
   "disclaimer_th": "เพื่อการศึกษา ไม่ใช่คำแนะนำการลงทุน ใช้ SL เสมอ",
   "disclaimer_en": "Education only — not investment advice. Always use a stop loss.",
   "spot_source": "swissquote",
@@ -56,13 +56,13 @@
     "รอราคาเข้า Demand Zone 3,499.3–3,503.7",
     "เมื่อราคาอยู่ในโซนแล้ว จึงพิจารณาเข้า BUY — ไม่ไล่ถ้าราคาพุ่งพ้นโซน",
     "วาง SL ที่ —",
-    "ยังไม่มีเป้าที่คุ้มกับ SL — ถ้าหลุด 3,522.3 ให้เลิกแผน ไม่ต้องเข้า"
+    "ยังไม่มีเป้าที่คุ้มกับ SL — ถ้าหลุด 3,523.0 ให้เลิกแผน ไม่ต้องเข้า"
   ],
   "steps_en": [
     "Wait for price to enter Demand Zone 3,499.3–3,503.7",
     "Only then consider a BUY — do not chase if price has already left the zone",
     "Place the stop loss at —",
-    "There is no target that yet pays for the stop — cancel if price goes through 3,522.3, and do not enter"
+    "There is no target that yet pays for the stop — cancel if price goes through 3,523.0, and do not enter"
   ],
   "confidence": {
     "score": 42,
@@ -76,9 +76,9 @@
   "position": null,
   "reversal": [
     {
-      "price": 3522.3,
-      "label_th": "ยกเลิกแผนถ้าราคาผ่าน 3,522.3",
-      "label_en": "Cancel if price trades through 3,522.3"
+      "price": 3523.0,
+      "label_th": "ยกเลิกแผนถ้าราคาผ่าน 3,523.0",
+      "label_en": "Cancel if price trades through 3,523.0"
     }
   ],
   "guide_disclaimer_th": "เพื่อการศึกษา ไม่ใช่คำแนะนำการลงทุน ใช้ SL เสมอ",
@@ -86,13 +86,13 @@
   "h1": {
     "confirmed": false,
     "bar": {
-      "open_ts": 1795291200,
-      "open_iso": "2026-11-22T03:00:00+07:00",
-      "as_of_hm": "03:00",
-      "open": 3541.43,
-      "high": 3544.45,
-      "low": 3534.43,
-      "close": 3538.07,
+      "open_ts": 1795294800,
+      "open_iso": "2026-11-22T04:00:00+07:00",
+      "as_of_hm": "04:00",
+      "open": 3538.68,
+      "high": 3540.43,
+      "low": 3531.05,
+      "close": 3536.41,
       "bullish": false
     },
     "note_th": "กราฟไซด์เวย์ ราคาระหว่าง 3,494.8–3,545.8 ไม่มีทิศชัด แนะนำรอดูแท่ง H1 ปิดออกจากช่วงก่อนเข้า",
