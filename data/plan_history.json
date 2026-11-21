@@ -1,11 +1,19 @@
 {
   "started_at": "2026-11-13T20:59:46.850831+07:00",
+<<<<<<< Updated upstream
   "updated_at": "2026-11-21T07:15:55.136574+07:00",
+=======
+  "updated_at": "2026-11-21T07:16:16.132382+07:00",
+>>>>>>> Stashed changes
   "source_note_th": "เริ่มนับผลจากรอบนี้ ไม่มีประวัติย้อนหลัง และไม่ได้สร้างผลลัพธ์สมมติ",
   "source_note_en": "Counted from this run onward. There is no backfilled history, and no results are invented.",
   "open": {
     "id": "64dad1b7b2b1",
+<<<<<<< Updated upstream
     "opened_at": "2026-11-21T07:15:55.136574+07:00",
+=======
+    "opened_at": "2026-11-21T07:16:16.132382+07:00",
+>>>>>>> Stashed changes
     "side": "sell",
     "side_th": "ขาย",
     "side_en": "SELL",
@@ -40,7 +48,11 @@
     "reason_en": "",
     "closed_at": null,
     "last_price": 3534.41,
+<<<<<<< Updated upstream
     "last_check": "2026-11-21T07:15:55.136574+07:00",
+=======
+    "last_check": "2026-11-21T07:16:16.132382+07:00",
+>>>>>>> Stashed changes
     "reached": []
   },
   "closed": [
@@ -159,9 +171,15 @@
       "r": null,
       "reason_th": "แผนถูกแทนที่ก่อนถึงเป้าหรือ SL",
       "reason_en": "The plan was replaced before a target or stop was hit",
+<<<<<<< Updated upstream
       "closed_at": "2026-11-21T07:15:55.136574+07:00",
       "last_price": 3534.41,
       "last_check": "2026-11-21T07:15:55.136574+07:00",
+=======
+      "closed_at": "2026-11-21T07:16:16.132382+07:00",
+      "last_price": 3534.41,
+      "last_check": "2026-11-21T07:16:16.132382+07:00",
+>>>>>>> Stashed changes
       "reached": []
     }
   ],
