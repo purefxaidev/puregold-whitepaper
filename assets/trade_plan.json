@@ -9,14 +9,14 @@
   "thesis_th": "มุมมองรายวันกับสัญญาณชั่วโมงยังไม่สอดคล้อง รอราคาไปแตะระดับสำคัญก่อน",
   "thesis_en": "Daily bias and the hourly signal do not agree. Wait for a key level.",
   "spot": 3534.41,
-  "entry": 3582.2,
-  "entry_low": 3579.1,
-  "entry_high": 3585.3,
+  "entry": 3580.8,
+  "entry_low": 3577.7,
+  "entry_high": 3583.9,
   "sl": null,
   "tps": [],
-  "invalidation": 3463.6,
-  "invalidation_th": "ยกเลิกแผนถ้าราคาผ่าน 3,463.6",
-  "invalidation_en": "Cancel if price trades through 3,463.6",
+  "invalidation": 3462.3,
+  "invalidation_th": "ยกเลิกแผนถ้าราคาผ่าน 3,462.3",
+  "invalidation_en": "Cancel if price trades through 3,462.3",
   "trigger_th": "รอ — ยังไม่เข้าโซน · Demand 3,518.6–3,521.4 / Supply 3,707.1–3,717.1",
   "trigger_en": "WAIT — no setup yet · Demand 3,518.6–3,521.4 / Supply 3,707.1–3,717.1",
   "timeframe": "H1–D1",
@@ -27,9 +27,9 @@
   "bias_en": "Tilt up, above the pivot",
   "atr": 12.4,
   "approach": null,
-  "updated": "2026-11-22T02:03:21.240387+07:00",
-  "updated_th": "22 พ.ย. 2026 02:03:21 น. เวลาไทย",
-  "updated_en": "22 Nov 2026 02:03:21 Bangkok",
+  "updated": "2026-11-22T02:13:45.055501+07:00",
+  "updated_th": "22 พ.ย. 2026 02:13:45 น. เวลาไทย",
+  "updated_en": "22 Nov 2026 02:13:45 Bangkok",
   "disclaimer_th": "เพื่อการศึกษา ไม่ใช่คำแนะนำการลงทุน ใช้ SL เสมอ",
   "disclaimer_en": "Education only — not investment advice. Always use a stop loss.",
   "spot_source": "swissquote",
@@ -55,13 +55,13 @@
     "รอราคาเข้า Demand Zone 3,518.6–3,521.4",
     "เมื่อราคาอยู่ในโซนแล้ว จึงพิจารณาเข้า BUY — ไม่ไล่ถ้าราคาพุ่งพ้นโซน",
     "วาง SL ที่ —",
-    "ยังไม่มีเป้าที่คุ้มกับ SL — ถ้าหลุด 3,463.6 ให้เลิกแผน ไม่ต้องเข้า"
+    "ยังไม่มีเป้าที่คุ้มกับ SL — ถ้าหลุด 3,462.3 ให้เลิกแผน ไม่ต้องเข้า"
   ],
   "steps_en": [
     "Wait for price to enter Demand Zone 3,518.6–3,521.4",
     "Only then consider a BUY — do not chase if price has already left the zone",
     "Place the stop loss at —",
-    "There is no target that yet pays for the stop — cancel if price goes through 3,463.6, and do not enter"
+    "There is no target that yet pays for the stop — cancel if price goes through 3,462.3, and do not enter"
   ],
   "confidence": {
     "score": 42,
@@ -75,9 +75,9 @@
   "position": null,
   "reversal": [
     {
-      "price": 3463.6,
-      "label_th": "ยกเลิกแผนถ้าราคาผ่าน 3,463.6",
-      "label_en": "Cancel if price trades through 3,463.6"
+      "price": 3462.3,
+      "label_th": "ยกเลิกแผนถ้าราคาผ่าน 3,462.3",
+      "label_en": "Cancel if price trades through 3,462.3"
     }
   ],
   "guide_disclaimer_th": "เพื่อการศึกษา ไม่ใช่คำแนะนำการลงทุน ใช้ SL เสมอ",
@@ -88,10 +88,10 @@
       "open_ts": 1795284000,
       "open_iso": "2026-11-22T01:00:00+07:00",
       "as_of_hm": "01:00",
-      "open": 3528.11,
-      "high": 3544.11,
-      "low": 3528.11,
-      "close": 3534.99,
+      "open": 3526.78,
+      "high": 3542.78,
+      "low": 3526.78,
+      "close": 3533.66,
       "bullish": true
     },
     "note_th": "กราฟไซด์เวย์ ราคาระหว่าง 3,494.8–3,545.8 ไม่มีทิศชัด แนะนำรอดูแท่ง H1 ปิดออกจากช่วงก่อนเข้า",
