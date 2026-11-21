@@ -1,6 +1,6 @@
 {
  "schema": 1,
- "generated_at": "2026-11-22T03:02:58+07:00",
+ "generated_at": "2026-11-22T03:35:21+07:00",
  "unit_th": "บาทละ (ทองคำแท่ง 96.5%)",
  "market": {
   "open": false,
@@ -17,7 +17,7 @@
    "source_th": "XAU/USD สปอต · Swissquote",
    "source_en": "XAU/USD spot · Swissquote",
    "updated_at": "2026-11-21T05:00:00+07:00",
-   "age_s": 79379,
+   "age_s": 81322,
    "browser_ref": {
     "name": "gold-api",
     "price": 3539.0
@@ -30,7 +30,7 @@
    "source_th": "COMEX ฟิวเจอร์ส GC · Yahoo Finance",
    "source_en": "COMEX GC futures · Yahoo Finance",
    "updated_at": "2026-11-21T04:59:00+07:00",
-   "age_s": 79439,
+   "age_s": 81382,
    "basis_vs_spot": -19.02
   },
   "usdthb": {
@@ -39,7 +39,7 @@
    "source_th": "USD/THB · Yahoo Finance",
    "source_en": "USD/THB · Yahoo Finance",
    "updated_at": "2026-11-21T05:36:00+07:00",
-   "age_s": 77219
+   "age_s": 79162
   }
  },
  "official": {
@@ -54,8 +54,8 @@
   "jewelry_sell": 57950.0,
   "as_of": "2026-11-21T09:11:00+07:00",
   "revision": 1,
-  "age_s": 64319,
-  "fetched_at": "2026-11-22T03:02:54.440957+07:00"
+  "age_s": 66262,
+  "fetched_at": "2026-11-22T03:35:16.865579+07:00"
  },
  "estimate": {
   "kind": "ESTIMATE",
@@ -81,7 +81,7 @@
     "source": "COMEX GC=F daily bars (Yahoo Finance), 1 year"
    }
   },
-  "computed_at": "2026-11-22T03:02:58+07:00"
+  "computed_at": "2026-11-22T03:35:21+07:00"
  },
  "calibration": {
   "ratio": 1.001238,
