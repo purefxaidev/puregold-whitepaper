@@ -20,17 +20,17 @@
   "tps": [
     {
       "n": 1,
-      "price": 3533.8,
+      "price": 3533.9,
       "label": "Pivot",
       "label_en": "Pivot",
-      "rr": 1.37
+      "rr": 1.36
     },
     {
       "n": 2,
-      "price": 3528.4,
+      "price": 3528.5,
       "label": "H4 Pivot",
       "label_en": "H4 Pivot",
-      "rr": 1.88
+      "rr": 1.87
     },
     {
       "n": 3,
@@ -43,7 +43,7 @@
   "invalidation": 3558.9,
   "invalidation_th": "ยกเลิกแผนถ้าราคาขึ้นผ่าน 3,558.9",
   "invalidation_en": "Cancel if price trades above 3,558.9",
-  "rr_tp1": 1.37,
+  "rr_tp1": 1.36,
   "timeframe": "H1–D1",
   "timeframe_th": "รายชั่วโมงถึงรายวัน",
   "timeframe_en": "H1 to daily",
@@ -52,9 +52,9 @@
   "bias_en": "Neutral, near the pivot",
   "atr": 12.4,
   "approach": "from_below",
-  "updated": "2026-11-22T01:33:04.325241+07:00",
-  "updated_th": "22 พ.ย. 2026 01:33:04 น. เวลาไทย",
-  "updated_en": "22 Nov 2026 01:33:04 Bangkok",
+  "updated": "2026-11-22T01:39:32.065316+07:00",
+  "updated_th": "22 พ.ย. 2026 01:39:32 น. เวลาไทย",
+  "updated_en": "22 Nov 2026 01:39:32 Bangkok",
   "disclaimer_th": "เพื่อการศึกษา ไม่ใช่คำแนะนำการลงทุน ใช้ SL เสมอ",
   "disclaimer_en": "Education only — not investment advice. Always use a stop loss.",
   "spot_source": "swissquote",
@@ -82,15 +82,15 @@
     "รอราคาเข้า โซน 3,543.9–3,552.7",
     "เมื่อราคาอยู่ในโซนแล้ว จึงพิจารณาเข้า SELL — ไม่ไล่ถ้าราคาพุ่งพ้นโซน",
     "วาง SL ที่ 3,558.9",
-    "ปิดบางส่วนที่ TP1 3,533.8 แล้วเลื่อน SL มาจุดเข้า 3,543.9–3,552.7",
-    "ส่วนที่เหลือดู TP2 3,528.4 และ TP3 3,512.9 — ถ้าหลุดจุดยกเลิก 3,558.9 ให้เลิกแผน"
+    "ปิดบางส่วนที่ TP1 3,533.9 แล้วเลื่อน SL มาจุดเข้า 3,543.9–3,552.7",
+    "ส่วนที่เหลือดู TP2 3,528.5 และ TP3 3,512.9 — ถ้าหลุดจุดยกเลิก 3,558.9 ให้เลิกแผน"
   ],
   "steps_en": [
     "Wait for price to enter zone 3,543.9–3,552.7",
     "Only then consider a SELL — do not chase if price has already left the zone",
     "Place the stop loss at 3,558.9",
-    "Close a portion at TP1 3,533.8, then move the stop to the entry 3,543.9–3,552.7",
-    "Leave the rest for TP2 3,528.4 and TP3 3,512.9 — cancel if price goes through 3,558.9"
+    "Close a portion at TP1 3,533.9, then move the stop to the entry 3,543.9–3,552.7",
+    "Leave the rest for TP2 3,528.5 and TP3 3,512.9 — cancel if price goes through 3,558.9"
   ],
   "confidence": {
     "score": 69,
@@ -186,10 +186,10 @@
       "open_ts": 1795280400,
       "open_iso": "2026-11-22T00:00:00+07:00",
       "as_of_hm": "00:00",
-      "open": 3533.43,
-      "high": 3537.03,
-      "low": 3532.38,
-      "close": 3532.45,
+      "open": 3533.51,
+      "high": 3537.09,
+      "low": 3532.45,
+      "close": 3532.53,
       "bullish": false
     },
     "note_th": "กราฟไซด์เวย์ ราคาระหว่าง 3,494.8–3,545.8 ไม่มีทิศชัด แนะนำรอดูแท่ง H1 ปิดออกจากช่วงก่อนเข้า",
