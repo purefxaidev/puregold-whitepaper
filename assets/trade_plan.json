@@ -1,83 +1,181 @@
 {
   "symbol": "XAUUSD",
-  "side": "wait",
-  "side_th": "รอ",
-  "side_en": "WAIT",
-  "setup": "wait",
-  "title_th": "ยังไม่มีจุดเข้าที่ชัด",
-  "title_en": "No clear entry yet",
-  "thesis_th": "ระยะจุดตัดขาดทุนยังไม่คุ้มกับเป้าใกล้สุด รอจังหวะรีเทสต์ที่ชัดกว่า",
-  "thesis_en": "The nearest target does not yet pay for the stop. Wait for a cleaner retest.",
+  "side": "sell",
+  "side_th": "ขาย",
+  "side_en": "SELL",
+  "setup": "pullback",
+  "title_th": "ขายโซน 3,536.6–3,545.4",
+  "title_en": "SELL zone 3,536.6–3,545.4",
+  "thesis_th": "เอียงลงต่ำกว่าจุดพิวอต · รอราคาย่อขึ้นโซน 3,541.0 (H4 R2) จึงพิจารณาขาย",
+  "thesis_en": "Tilt down, below the pivot · Wait for a pullback into 3,541.0 (H4 R2) before considering a sell",
   "spot": 3534.41,
-  "entry": 3538.5,
-  "entry_low": 3532.8,
-  "entry_high": 3544.2,
-  "sl": null,
-  "tps": [],
-  "invalidation": 3557.8,
-  "invalidation_th": "ยกเลิกแผนถ้าราคาผ่าน 3,557.8",
-  "invalidation_en": "Cancel if price trades through 3,557.8",
-  "trigger_th": "รอ — ยังไม่เข้าโซน · Demand 3,513.5–3,522.6 / Supply 3,724.4–3,734.4",
-  "trigger_en": "WAIT — no setup yet · Demand 3,513.5–3,522.6 / Supply 3,724.4–3,734.4",
+  "entry": 3541.0,
+  "entry_low": 3536.6,
+  "entry_high": 3545.4,
+  "entry_label_th": "โซน 3,536.6–3,545.4 (H4 R2)",
+  "entry_label_en": "Zone 3,536.6–3,545.4 (H4 R2)",
+  "sl": 3551.6,
+  "sl_label_th": "เหนือโซนเข้าและบัฟเฟอร์ ATR",
+  "sl_label_en": "Above the entry zone and an ATR buffer",
+  "tps": [
+    {
+      "n": 1,
+      "price": 3525.1,
+      "label": "H4 Pivot",
+      "label_en": "H4 Pivot",
+      "rr": 1.5
+    },
+    {
+      "n": 2,
+      "price": 3518.3,
+      "label": "H4 S1",
+      "label_en": "H4 S1",
+      "rr": 2.15
+    },
+    {
+      "n": 3,
+      "price": 3509.2,
+      "label": "H4 S2",
+      "label_en": "H4 S2",
+      "rr": 3.01
+    }
+  ],
+  "invalidation": 3551.6,
+  "invalidation_th": "ยกเลิกแผนถ้าราคาขึ้นผ่าน 3,551.6",
+  "invalidation_en": "Cancel if price trades above 3,551.6",
+  "rr_tp1": 1.5,
   "timeframe": "H1–D1",
   "timeframe_th": "รายชั่วโมงถึงรายวัน",
   "timeframe_en": "H1 to daily",
   "bias": "down",
   "bias_th": "เอียงลงต่ำกว่าจุดพิวอต",
   "bias_en": "Tilt down, below the pivot",
-  "atr": 22.8,
-  "approach": null,
-  "updated": "2026-11-21T19:34:01.662928+07:00",
-  "updated_th": "21 พ.ย. 2026 19:34:01 น. เวลาไทย",
-  "updated_en": "21 Nov 2026 19:34:01 Bangkok",
+  "atr": 12.4,
+  "approach": "from_below",
+  "updated": "2026-11-21T20:02:49.739597+07:00",
+  "updated_th": "21 พ.ย. 2026 20:02:49 น. เวลาไทย",
+  "updated_en": "21 Nov 2026 20:02:49 Bangkok",
   "disclaimer_th": "เพื่อการศึกษา ไม่ใช่คำแนะนำการลงทุน ใช้ SL เสมอ",
   "disclaimer_en": "Education only — not investment advice. Always use a stop loss.",
   "spot_source": "swissquote",
-  "trigger_zone": null,
+  "trigger_zone": "entry",
   "demand_zone": {
-    "low": 3513.5,
-    "high": 3522.6,
-    "source": "support_swings",
-    "source_th": "กลุ่มแนวรับและสวิงโลว์",
-    "source_en": "support and swing-low cluster"
+    "low": 3518.6,
+    "high": 3521.4,
+    "source": "fvg",
+    "source_th": "ช่องราคาฝั่งซื้อ (FVG)",
+    "source_en": "bullish fair-value gap"
   },
   "supply_zone": {
-    "low": 3724.4,
-    "high": 3734.4,
+    "low": 3707.1,
+    "high": 3717.1,
     "source": "order_block",
     "source_th": "ออเดอร์บล็อกฝั่งขาย",
     "source_en": "bearish order block",
     "mitigated": false
   },
-  "why_th": "ระยะจุดตัดขาดทุนยังไม่คุ้มกับเป้าใกล้สุด รอจังหวะรีเทสต์ที่ชัดกว่า",
-  "why_en": "The nearest target does not yet pay for the stop. Wait for a cleaner retest.",
+  "trigger_th": "SELL ที่โซนเข้า 3,536.6–3,545.4",
+  "trigger_en": "SELL at entry zone 3,536.6–3,545.4",
+  "why_th": "เอียงลงต่ำกว่าจุดพิวอต · รอราคาย่อขึ้นโซน 3,541.0 (H4 R2) จึงพิจารณาขาย",
+  "why_en": "Tilt down, below the pivot · Wait for a pullback into 3,541.0 (H4 R2) before considering a sell",
   "steps_th": [
-    "รอราคาเข้า Supply Zone 3,724.4–3,734.4",
+    "รอราคาเข้า โซน 3,536.6–3,545.4",
     "เมื่อราคาอยู่ในโซนแล้ว จึงพิจารณาเข้า SELL — ไม่ไล่ถ้าราคาพุ่งพ้นโซน",
-    "วาง SL ที่ —",
-    "ยังไม่มีเป้าที่คุ้มกับ SL — ถ้าหลุด 3,557.8 ให้เลิกแผน ไม่ต้องเข้า"
+    "วาง SL ที่ 3,551.6",
+    "ปิดบางส่วนที่ TP1 3,525.1 แล้วเลื่อน SL มาจุดเข้า 3,536.6–3,545.4",
+    "ส่วนที่เหลือดู TP2 3,518.3 และ TP3 3,509.2 — ถ้าหลุดจุดยกเลิก 3,551.6 ให้เลิกแผน"
   ],
   "steps_en": [
-    "Wait for price to enter Supply Zone 3,724.4–3,734.4",
+    "Wait for price to enter zone 3,536.6–3,545.4",
     "Only then consider a SELL — do not chase if price has already left the zone",
-    "Place the stop loss at —",
-    "There is no target that yet pays for the stop — cancel if price goes through 3,557.8, and do not enter"
+    "Place the stop loss at 3,551.6",
+    "Close a portion at TP1 3,525.1, then move the stop to the entry 3,536.6–3,545.4",
+    "Leave the rest for TP2 3,518.3 and TP3 3,509.2 — cancel if price goes through 3,551.6"
   ],
   "confidence": {
-    "score": 42,
-    "label_th": "ต่ำ",
-    "label_en": "Low",
-    "text_th": "ต่ำ 42%",
-    "text_en": "Low 42%",
+    "score": 72,
+    "label_th": "ค่อนข้างสูง",
+    "label_en": "Fairly high",
+    "text_th": "ค่อนข้างสูง 72%",
+    "text_en": "Fairly high 72%",
     "note_th": "ระดับความมั่นใจจากโครงสร้างและระยะเป้า ไม่ใช่โอกาสชนะ และไม่ได้บอกผลลัพธ์ล่วงหน้า",
     "note_en": "Confidence from structure and target distance — not a win-rate, and not a promise of the outcome."
   },
-  "position": null,
+  "position": {
+    "usdthb": 33.96,
+    "contract_oz": 100,
+    "sl_distance": 10.6,
+    "rows": [
+      {
+        "capital_thb": 10000,
+        "capital_usd": 294.0,
+        "risk_pct": 1,
+        "risk_thb": 100.0,
+        "risk_usd": 2.94,
+        "sl_distance": 10.6,
+        "lots": 0.0028
+      },
+      {
+        "capital_thb": 10000,
+        "capital_usd": 294.0,
+        "risk_pct": 2,
+        "risk_thb": 200.0,
+        "risk_usd": 5.89,
+        "sl_distance": 10.6,
+        "lots": 0.0056
+      },
+      {
+        "capital_thb": 50000,
+        "capital_usd": 1472.0,
+        "risk_pct": 1,
+        "risk_thb": 500.0,
+        "risk_usd": 14.72,
+        "sl_distance": 10.6,
+        "lots": 0.0139
+      },
+      {
+        "capital_thb": 50000,
+        "capital_usd": 1472.0,
+        "risk_pct": 2,
+        "risk_thb": 1000.0,
+        "risk_usd": 29.45,
+        "sl_distance": 10.6,
+        "lots": 0.0278
+      },
+      {
+        "capital_thb": 100000,
+        "capital_usd": 2945.0,
+        "risk_pct": 1,
+        "risk_thb": 1000.0,
+        "risk_usd": 29.45,
+        "sl_distance": 10.6,
+        "lots": 0.0278
+      },
+      {
+        "capital_thb": 100000,
+        "capital_usd": 2945.0,
+        "risk_pct": 2,
+        "risk_thb": 2000.0,
+        "risk_usd": 58.89,
+        "sl_distance": 10.6,
+        "lots": 0.0556
+      }
+    ],
+    "note_th": "คำนวณจากความเสี่ยง 1–2% ของเงินทุน และระยะ SL · ตัวอย่างใช้มาตรฐาน 1 ล็อต = 100 ออนซ์ ขนาดจริงขึ้นกับโบรกเกอร์ · ไม่ใช่คำแนะนำให้ใช้เงินทุนนี้",
+    "note_en": "Sized from 1–2% of capital and the stop distance. Example uses a standard 1 lot = 100 oz contract; your broker may differ. This is not a recommendation to use these amounts."
+  },
   "reversal": [
     {
-      "price": 3557.8,
-      "label_th": "ยกเลิกแผนถ้าราคาผ่าน 3,557.8",
-      "label_en": "Cancel if price trades through 3,557.8"
+      "price": 3551.6,
+      "label_th": "ยกเลิกแผนถ้าราคาขึ้นผ่าน 3,551.6",
+      "label_en": "Cancel if price trades above 3,551.6"
+    },
+    {
+      "price": 3518.6,
+      "low": 3518.6,
+      "high": 3521.4,
+      "label_th": "จุดกลับฝั่งซื้อที่ Demand Zone 3,518.6–3,521.4",
+      "label_en": "Opposite buy area at Demand Zone 3,518.6–3,521.4"
     }
   ],
   "guide_disclaimer_th": "เพื่อการศึกษา ไม่ใช่คำแนะนำการลงทุน ใช้ SL เสมอ",
@@ -85,13 +183,13 @@
   "h1": {
     "confirmed": false,
     "bar": {
-      "open_ts": 1795258800,
-      "open_iso": "2026-11-21T18:00:00+07:00",
-      "as_of_hm": "18:00",
-      "open": 3529.91,
-      "high": 3536.18,
-      "low": 3529.32,
-      "close": 3531.74,
+      "open_ts": 1795262400,
+      "open_iso": "2026-11-21T19:00:00+07:00",
+      "as_of_hm": "19:00",
+      "open": 3527.41,
+      "high": 3535.89,
+      "low": 3526.3,
+      "close": 3533.74,
       "bullish": true
     },
     "note_th": "กราฟไซด์เวย์ ราคาระหว่าง 3,494.8–3,545.8 ไม่มีทิศชัด แนะนำรอดูแท่ง H1 ปิดออกจากช่วงก่อนเข้า",
