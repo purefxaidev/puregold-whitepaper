@@ -1,6 +1,6 @@
 {
  "schema": 1,
- "generated_at": "2026-11-21T07:58:03+07:00",
+ "generated_at": "2026-11-21T10:00:06+07:00",
  "unit_th": "บาทละ (ทองคำแท่ง 96.5%)",
  "market": {
   "open": false,
@@ -17,7 +17,7 @@
    "source_th": "XAU/USD สปอต · Swissquote",
    "source_en": "XAU/USD spot · Swissquote",
    "updated_at": "2026-11-21T05:00:00+07:00",
-   "age_s": 10683,
+   "age_s": 18006,
    "browser_ref": {
     "name": "gold-api",
     "price": 3539.0
@@ -30,7 +30,7 @@
    "source_th": "COMEX ฟิวเจอร์ส GC · Yahoo Finance",
    "source_en": "COMEX GC futures · Yahoo Finance",
    "updated_at": "2026-11-21T04:59:57+07:00",
-   "age_s": 10686,
+   "age_s": 18009,
    "basis_vs_spot": 4.59
   },
   "usdthb": {
@@ -39,7 +39,7 @@
    "source_th": "USD/THB · Yahoo Finance",
    "source_en": "USD/THB · Yahoo Finance",
    "updated_at": "2026-11-21T05:36:00+07:00",
-   "age_s": 8523
+   "age_s": 15846
   }
  },
  "official": {
@@ -47,15 +47,15 @@
   "label_th": "ราคาประกาศ",
   "label_en": "Announced",
   "source_th": "ราคาประกาศทองไทย",
-  "bar_buy": 57400.0,
-  "bar_sell": 57600.0,
-  "change": 50.0,
-  "jewelry_buy": 56258.76,
-  "jewelry_sell": 58400.0,
-  "as_of": "2026-11-20T17:29:00+07:00",
-  "revision": 90,
-  "age_s": 52143,
-  "fetched_at": "2026-11-21T07:57:58.447175+07:00"
+  "bar_buy": 56950.0,
+  "bar_sell": 57150.0,
+  "change": -450.0,
+  "jewelry_buy": 55803.96,
+  "jewelry_sell": 57950.0,
+  "as_of": "2026-11-21T09:11:00+07:00",
+  "revision": 1,
+  "age_s": 2946,
+  "fetched_at": "2026-11-21T09:59:59.443466+07:00"
  },
  "estimate": {
   "kind": "ESTIMATE",
@@ -81,7 +81,7 @@
     "source": "COMEX GC=F daily bars (Yahoo Finance), 1 year"
    }
   },
-  "computed_at": "2026-11-21T07:58:03+07:00"
+  "computed_at": "2026-11-21T10:00:06+07:00"
  },
  "calibration": {
   "ratio": 1.001238,
@@ -95,10 +95,10 @@
   "constant": 0.472952
  },
  "deviation": {
-  "sell": -650.0,
-  "buy": -650.0,
-  "mid_raw": -661.9,
-  "pct": -1.151
+  "sell": -200.0,
+  "buy": -200.0,
+  "mid_raw": -211.9,
+  "pct": -0.371
  },
  "accuracy": {
   "since": "2026-11-21T06:43:35+07:00",
@@ -116,6 +116,14 @@
    "revision": 90,
    "buy": 57400.0,
    "sell": 57600.0,
+   "est_buy": null,
+   "est_sell": null
+  },
+  {
+   "as_of": "2026-11-21T09:11:00+07:00",
+   "revision": 1,
+   "buy": 56950.0,
+   "sell": 57150.0,
    "est_buy": null,
    "est_sell": null
   }
