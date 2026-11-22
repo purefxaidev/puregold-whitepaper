@@ -8,12 +8,12 @@
  "xauusd": 3534.415,
  "xauusd_source": "swissquote",
  "usdthb": 33.96,
- "usdthb_prev": 33.943,
+ "usdthb_prev": 33.942,
  "usdthb_source": "Yahoo Finance THB=X",
  "usdthb_source_url": "https://finance.yahoo.com/quote/THB=X/",
- "usdthb_as_of": "2026-11-20T22:36:29Z",
- "usdthb_as_of_th": "21 พ.ย. 2026 05:36 น. (เวลาไทย)",
- "usdthb_as_of_en": "21 Nov 2026 05:36 (Bangkok time)",
+ "usdthb_as_of": "2026-11-22T20:27:40Z",
+ "usdthb_as_of_th": "23 พ.ย. 2026 03:27 น. (เวลาไทย)",
+ "usdthb_as_of_en": "23 Nov 2026 03:27 (Bangkok time)",
  "theoretical": 56767.82,
  "thai_buy": 56950.0,
  "thai_sell": 57150.0,
@@ -27,9 +27,9 @@
  "premium_mid": 282.18,
  "premium_pct": 0.497,
  "premium_side": "premium",
- "thb_effect": 28.42,
- "thb_effect_th": "ค่าเงินบาทอ่อน ทำให้ราคาทฤษฎีทองไทย สูงขึ้น 28.42 บาท/บาททอง แม้ราคา XAUUSD จะเท่าเดิม (เทียบ USDTHB วันก่อนหน้า 33.9430)",
- "thb_effect_en": "The baht weakened, moving the theoretical Thai price up by 28.42 THB per baht-weight even if XAUUSD is unchanged (versus the prior USDTHB close of 33.9430).",
+ "thb_effect": 30.09,
+ "thb_effect_th": "ค่าเงินบาทอ่อน ทำให้ราคาทฤษฎีทองไทย สูงขึ้น 30.09 บาท/บาททอง แม้ราคา XAUUSD จะเท่าเดิม (เทียบ USDTHB วันก่อนหน้า 33.9420)",
+ "thb_effect_en": "The baht weakened, moving the theoretical Thai price up by 30.09 THB per baht-weight even if XAUUSD is unchanged (versus the prior USDTHB close of 33.9420).",
  "bar": {
   "type": "HSH",
   "purity": "96.50",
@@ -57,11 +57,11 @@
   "sell": 57950.0,
   "buy_change": 0.0,
   "sell_change": 0.0,
-  "time": "2026-11-22T20:33:01",
-  "time_th": "อัพเดตล่าสุด วันที่ 22 พ.ย. 2569 เวลา 20:33:01 น."
+  "time": "2026-11-23T03:27:56",
+  "time_th": "อัพเดตล่าสุด วันที่ 23 พ.ย. 2569 เวลา 03:27:56 น."
  },
- "updated_at": "2026-11-22T13:33:01Z",
- "updated_at_bkk": "2026-11-22 20:33",
- "updated_th": "22 พ.ย. 2026 20:33 น. (เวลาไทย)",
- "updated_en": "22 Nov 2026 20:33 (Bangkok time)"
+ "updated_at": "2026-11-22T20:27:57Z",
+ "updated_at_bkk": "2026-11-23 03:27",
+ "updated_th": "23 พ.ย. 2026 03:27 น. (เวลาไทย)",
+ "updated_en": "23 Nov 2026 03:27 (Bangkok time)"
 }
