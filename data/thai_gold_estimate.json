@@ -1,6 +1,6 @@
 {
  "schema": 1,
- "generated_at": "2026-11-22T09:13:27+07:00",
+ "generated_at": "2026-11-22T09:20:00+07:00",
  "unit_th": "บาทละ (ทองคำแท่ง 96.5%)",
  "market": {
   "open": false,
@@ -17,7 +17,7 @@
    "source_th": "XAU/USD สปอต · Swissquote",
    "source_en": "XAU/USD spot · Swissquote",
    "updated_at": "2026-11-21T05:00:00+07:00",
-   "age_s": 101607,
+   "age_s": 102001,
    "browser_ref": {
     "name": "gold-api",
     "price": 3539.0
@@ -30,7 +30,7 @@
    "source_th": "COMEX ฟิวเจอร์ส GC · Yahoo Finance",
    "source_en": "COMEX GC futures · Yahoo Finance",
    "updated_at": "2026-11-21T04:59:00+07:00",
-   "age_s": 101667,
+   "age_s": 102061,
    "basis_vs_spot": -19.02
   },
   "usdthb": {
@@ -39,7 +39,7 @@
    "source_th": "USD/THB · Yahoo Finance",
    "source_en": "USD/THB · Yahoo Finance",
    "updated_at": "2026-11-21T05:36:00+07:00",
-   "age_s": 99447
+   "age_s": 99841
   }
  },
  "official": {
@@ -52,10 +52,10 @@
   "change": 0.0,
   "jewelry_buy": 55803.96,
   "jewelry_sell": 57950.0,
-  "as_of": "2026-11-21T09:11:00+07:00",
+  "as_of": "2026-11-22T09:09:00+07:00",
   "revision": 1,
-  "age_s": 86547,
-  "fetched_at": "2026-11-22T09:13:18.798871+07:00"
+  "age_s": 661,
+  "fetched_at": "2026-11-22T09:19:56.285214+07:00"
  },
  "estimate": {
   "kind": "ESTIMATE",
@@ -81,7 +81,7 @@
     "source": "COMEX GC=F daily bars (Yahoo Finance), 1 year"
    }
   },
-  "computed_at": "2026-11-22T09:13:27+07:00"
+  "computed_at": "2026-11-22T09:20:00+07:00"
  },
  "calibration": {
   "ratio": 1.001238,
@@ -102,13 +102,27 @@
  },
  "accuracy": {
   "since": "2026-11-21T06:43:35+07:00",
-  "n": 0,
-  "mae_baht": null,
-  "bias_baht": null,
-  "exact_pct": null,
-  "within_50_pct": null,
-  "within_100_pct": null,
-  "recent": []
+  "n": 1,
+  "mae_baht": 200.0,
+  "bias_baht": -200.0,
+  "exact_pct": 0.0,
+  "within_50_pct": 0.0,
+  "within_100_pct": 0.0,
+  "recent": [
+   {
+    "official_as_of": "2026-11-22T09:09:00+07:00",
+    "revision": 1,
+    "official_buy": 56950.0,
+    "official_sell": 57150.0,
+    "est_at": "2026-11-22T09:13:27+07:00",
+    "est_buy": 56750.0,
+    "est_sell": 56950.0,
+    "est_mid_raw": 56838.1,
+    "error_baht": -200.0,
+    "error_raw_baht": -211.9,
+    "model": "weekend"
+   }
+  ]
  },
  "prints": [
   {
@@ -126,6 +140,14 @@
    "sell": 57150.0,
    "est_buy": null,
    "est_sell": null
+  },
+  {
+   "as_of": "2026-11-22T09:09:00+07:00",
+   "revision": 1,
+   "buy": 56950.0,
+   "sell": 57150.0,
+   "est_buy": 56750.0,
+   "est_sell": 56950.0
   }
  ],
  "disclaimer_th": "เพื่อการศึกษา ไม่ใช่คำแนะนำการลงทุน ราคาประเมินไม่ใช่ราคาซื้อขายจริง"
