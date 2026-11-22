@@ -4,46 +4,46 @@
   "side_th": "ซื้อ",
   "side_en": "BUY",
   "setup": "pullback",
-  "title_th": "ซื้อโซน 3,523.6–3,530.6",
-  "title_en": "BUY zone 3,523.6–3,530.6",
-  "thesis_th": "เอียงขึ้นเหนือจุดพิวอต · รอราคาย่อลงโซน 3,527.1 (Pivot) จึงพิจารณาซื้อ",
-  "thesis_en": "Tilt up, above the pivot · Wait for a pullback into 3,527.1 (Pivot) before considering a buy",
+  "title_th": "ซื้อโซน 3,526.8–3,533.8",
+  "title_en": "BUY zone 3,526.8–3,533.8",
+  "thesis_th": "เอียงขึ้นเหนือจุดพิวอต · รอราคาย่อลงโซน 3,530.3 (Pivot) จึงพิจารณาซื้อ",
+  "thesis_en": "Tilt up, above the pivot · Wait for a pullback into 3,530.3 (Pivot) before considering a buy",
   "spot": 3534.41,
-  "entry": 3527.1,
-  "entry_low": 3523.6,
-  "entry_high": 3530.6,
-  "entry_label_th": "โซน 3,523.6–3,530.6 (Pivot)",
-  "entry_label_en": "Zone 3,523.6–3,530.6 (Pivot)",
-  "sl": 3518.6,
+  "entry": 3530.3,
+  "entry_low": 3526.8,
+  "entry_high": 3533.8,
+  "entry_label_th": "โซน 3,526.8–3,533.8 (Pivot)",
+  "entry_label_en": "Zone 3,526.8–3,533.8 (Pivot)",
+  "sl": 3521.8,
   "sl_label_th": "ใต้โซนเข้าและบัฟเฟอร์ ATR",
   "sl_label_en": "Below the entry zone and an ATR buffer",
   "tps": [
     {
       "n": 1,
-      "price": 3535.9,
+      "price": 3539.0,
       "label": "H4 S1",
       "label_en": "H4 S1",
-      "rr": 1.03
+      "rr": 1.02
     },
     {
       "n": 2,
-      "price": 3545.6,
+      "price": 3548.7,
       "label": "H4 Pivot",
       "label_en": "H4 Pivot",
-      "rr": 2.17
+      "rr": 2.16
     },
     {
       "n": 3,
-      "price": 3553.9,
+      "price": 3557.0,
       "label": "H4 R1",
       "label_en": "H4 R1",
-      "rr": 3.14
+      "rr": 3.13
     }
   ],
-  "invalidation": 3518.6,
-  "invalidation_th": "ยกเลิกแผนถ้าราคาลงผ่าน 3,518.6",
-  "invalidation_en": "Cancel if price trades below 3,518.6",
-  "rr_tp1": 1.03,
+  "invalidation": 3521.8,
+  "invalidation_th": "ยกเลิกแผนถ้าราคาลงผ่าน 3,521.8",
+  "invalidation_en": "Cancel if price trades below 3,521.8",
+  "rr_tp1": 1.02,
   "timeframe": "H1–D1",
   "timeframe_th": "รายชั่วโมงถึงรายวัน",
   "timeframe_en": "H1 to daily",
@@ -52,9 +52,9 @@
   "bias_en": "Tilt up, above the pivot",
   "atr": 10.0,
   "approach": "from_above",
-  "updated": "2026-11-22T10:03:23.425905+07:00",
-  "updated_th": "22 พ.ย. 2026 10:03:23 น. เวลาไทย",
-  "updated_en": "22 Nov 2026 10:03:23 Bangkok",
+  "updated": "2026-11-22T10:09:50.356804+07:00",
+  "updated_th": "22 พ.ย. 2026 10:09:50 น. เวลาไทย",
+  "updated_en": "22 Nov 2026 10:09:50 Bangkok",
   "disclaimer_th": "เพื่อการศึกษา ไม่ใช่คำแนะนำการลงทุน ใช้ SL เสมอ",
   "disclaimer_en": "Education only — not investment advice. Always use a stop loss.",
   "spot_source": "swissquote",
@@ -75,23 +75,23 @@
     "source_en": "bearish order block",
     "mitigated": false
   },
-  "trigger_th": "BUY ที่โซนเข้า 3,523.6–3,530.6",
-  "trigger_en": "BUY at entry zone 3,523.6–3,530.6",
-  "why_th": "เอียงขึ้นเหนือจุดพิวอต · รอราคาย่อลงโซน 3,527.1 (Pivot) จึงพิจารณาซื้อ",
-  "why_en": "Tilt up, above the pivot · Wait for a pullback into 3,527.1 (Pivot) before considering a buy",
+  "trigger_th": "BUY ที่โซนเข้า 3,526.8–3,533.8",
+  "trigger_en": "BUY at entry zone 3,526.8–3,533.8",
+  "why_th": "เอียงขึ้นเหนือจุดพิวอต · รอราคาย่อลงโซน 3,530.3 (Pivot) จึงพิจารณาซื้อ",
+  "why_en": "Tilt up, above the pivot · Wait for a pullback into 3,530.3 (Pivot) before considering a buy",
   "steps_th": [
-    "รอราคาเข้า โซน 3,523.6–3,530.6",
+    "รอราคาเข้า โซน 3,526.8–3,533.8",
     "เมื่อราคาอยู่ในโซนแล้ว จึงพิจารณาเข้า BUY — ไม่ไล่ถ้าราคาพุ่งพ้นโซน",
-    "วาง SL ที่ 3,518.6",
-    "ปิดบางส่วนที่ TP1 3,535.9 แล้วเลื่อน SL มาจุดเข้า 3,523.6–3,530.6",
-    "ส่วนที่เหลือดู TP2 3,545.6 และ TP3 3,553.9 — ถ้าหลุดจุดยกเลิก 3,518.6 ให้เลิกแผน"
+    "วาง SL ที่ 3,521.8",
+    "ปิดบางส่วนที่ TP1 3,539.0 แล้วเลื่อน SL มาจุดเข้า 3,526.8–3,533.8",
+    "ส่วนที่เหลือดู TP2 3,548.7 และ TP3 3,557.0 — ถ้าหลุดจุดยกเลิก 3,521.8 ให้เลิกแผน"
   ],
   "steps_en": [
-    "Wait for price to enter zone 3,523.6–3,530.6",
+    "Wait for price to enter zone 3,526.8–3,533.8",
     "Only then consider a BUY — do not chase if price has already left the zone",
-    "Place the stop loss at 3,518.6",
-    "Close a portion at TP1 3,535.9, then move the stop to the entry 3,523.6–3,530.6",
-    "Leave the rest for TP2 3,545.6 and TP3 3,553.9 — cancel if price goes through 3,518.6"
+    "Place the stop loss at 3,521.8",
+    "Close a portion at TP1 3,539.0, then move the stop to the entry 3,526.8–3,533.8",
+    "Leave the rest for TP2 3,548.7 and TP3 3,557.0 — cancel if price goes through 3,521.8"
   ],
   "confidence": {
     "score": 61,
@@ -167,9 +167,9 @@
   },
   "reversal": [
     {
-      "price": 3518.6,
-      "label_th": "ยกเลิกแผนถ้าราคาลงผ่าน 3,518.6",
-      "label_en": "Cancel if price trades below 3,518.6"
+      "price": 3521.8,
+      "label_th": "ยกเลิกแผนถ้าราคาลงผ่าน 3,521.8",
+      "label_en": "Cancel if price trades below 3,521.8"
     },
     {
       "price": 3693.9,
@@ -187,10 +187,10 @@
       "open_ts": 1795312800,
       "open_iso": "2026-11-22T09:00:00+07:00",
       "as_of_hm": "09:00",
-      "open": 3543.61,
-      "high": 3545.53,
-      "low": 3532.72,
-      "close": 3535.18,
+      "open": 3546.78,
+      "high": 3548.7,
+      "low": 3535.89,
+      "close": 3538.36,
       "bullish": false
     },
     "note_th": "กราฟไซด์เวย์ ราคาระหว่าง 3,494.8–3,545.8 ไม่มีทิศชัด แนะนำรอดูแท่ง H1 ปิดออกจากช่วงก่อนเข้า",
