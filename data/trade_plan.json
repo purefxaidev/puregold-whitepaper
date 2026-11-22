@@ -27,10 +27,10 @@
     },
     {
       "n": 2,
-      "price": 3545.5,
+      "price": 3545.4,
       "label": "H4 R1",
       "label_en": "H4 R1",
-      "rr": 2.12
+      "rr": 2.11
     },
     {
       "n": 3,
@@ -52,9 +52,9 @@
   "bias_en": "Tilt up, above the pivot",
   "atr": 10.0,
   "approach": "from_above",
-  "updated": "2026-11-22T08:36:52.395812+07:00",
-  "updated_th": "22 พ.ย. 2026 08:36:52 น. เวลาไทย",
-  "updated_en": "22 Nov 2026 08:36:52 Bangkok",
+  "updated": "2026-11-22T08:43:18.708772+07:00",
+  "updated_th": "22 พ.ย. 2026 08:43:18 น. เวลาไทย",
+  "updated_en": "22 Nov 2026 08:43:18 Bangkok",
   "disclaimer_th": "เพื่อการศึกษา ไม่ใช่คำแนะนำการลงทุน ใช้ SL เสมอ",
   "disclaimer_en": "Education only — not investment advice. Always use a stop loss.",
   "spot_source": "swissquote",
@@ -84,14 +84,14 @@
     "เมื่อราคาอยู่ในโซนแล้ว จึงพิจารณาเข้า BUY — ไม่ไล่ถ้าราคาพุ่งพ้นโซน",
     "วาง SL ที่ 3,518.9",
     "ปิดบางส่วนที่ TP1 3,537.1 แล้วเลื่อน SL มาจุดเข้า 3,523.9–3,530.9",
-    "ส่วนที่เหลือดู TP2 3,545.5 และ TP3 3,555.2 — ถ้าหลุดจุดยกเลิก 3,518.9 ให้เลิกแผน"
+    "ส่วนที่เหลือดู TP2 3,545.4 และ TP3 3,555.2 — ถ้าหลุดจุดยกเลิก 3,518.9 ให้เลิกแผน"
   ],
   "steps_en": [
     "Wait for price to enter zone 3,523.9–3,530.9",
     "Only then consider a BUY — do not chase if price has already left the zone",
     "Place the stop loss at 3,518.9",
     "Close a portion at TP1 3,537.1, then move the stop to the entry 3,523.9–3,530.9",
-    "Leave the rest for TP2 3,545.5 and TP3 3,555.2 — cancel if price goes through 3,518.9"
+    "Leave the rest for TP2 3,545.4 and TP3 3,555.2 — cancel if price goes through 3,518.9"
   ],
   "confidence": {
     "score": 61,
@@ -188,9 +188,9 @@
       "open_iso": "2026-11-22T07:00:00+07:00",
       "as_of_hm": "07:00",
       "open": 3535.76,
-      "high": 3537.59,
+      "high": 3537.57,
       "low": 3531.66,
-      "close": 3535.91,
+      "close": 3535.89,
       "bullish": true
     },
     "note_th": "กราฟไซด์เวย์ ราคาระหว่าง 3,494.8–3,545.8 ไม่มีทิศชัด แนะนำรอดูแท่ง H1 ปิดออกจากช่วงก่อนเข้า",
