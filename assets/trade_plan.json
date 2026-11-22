@@ -27,17 +27,17 @@
     },
     {
       "n": 2,
-      "price": 3550.1,
+      "price": 3550.2,
       "label": "H4 R1",
       "label_en": "H4 R1",
-      "rr": 2.11
+      "rr": 2.12
     },
     {
       "n": 3,
-      "price": 3559.8,
+      "price": 3559.9,
       "label": "H4 R2",
       "label_en": "H4 R2",
-      "rr": 3.25
+      "rr": 3.26
     }
   ],
   "invalidation": 3523.6,
@@ -52,9 +52,9 @@
   "bias_en": "Tilt up, above the pivot",
   "atr": 10.0,
   "approach": "in_zone",
-  "updated": "2026-11-22T09:32:54.083186+07:00",
-  "updated_th": "22 พ.ย. 2026 09:32:54 น. เวลาไทย",
-  "updated_en": "22 Nov 2026 09:32:54 Bangkok",
+  "updated": "2026-11-22T09:38:48.389620+07:00",
+  "updated_th": "22 พ.ย. 2026 09:38:48 น. เวลาไทย",
+  "updated_en": "22 Nov 2026 09:38:48 Bangkok",
   "disclaimer_th": "เพื่อการศึกษา ไม่ใช่คำแนะนำการลงทุน ใช้ SL เสมอ",
   "disclaimer_en": "Education only — not investment advice. Always use a stop loss.",
   "spot_source": "swissquote",
@@ -84,14 +84,14 @@
     "เมื่อราคาอยู่ในโซนแล้ว จึงพิจารณาเข้า BUY — ไม่ไล่ถ้าราคาพุ่งพ้นโซน",
     "วาง SL ที่ 3,523.6",
     "ปิดบางส่วนที่ TP1 3,541.8 แล้วเลื่อน SL มาจุดเข้า 3,528.6–3,535.6",
-    "ส่วนที่เหลือดู TP2 3,550.1 และ TP3 3,559.8 — ถ้าหลุดจุดยกเลิก 3,523.6 ให้เลิกแผน"
+    "ส่วนที่เหลือดู TP2 3,550.2 และ TP3 3,559.9 — ถ้าหลุดจุดยกเลิก 3,523.6 ให้เลิกแผน"
   ],
   "steps_en": [
     "Wait for price to enter zone 3,528.6–3,535.6",
     "Only then consider a BUY — do not chase if price has already left the zone",
     "Place the stop loss at 3,523.6",
     "Close a portion at TP1 3,541.8, then move the stop to the entry 3,528.6–3,535.6",
-    "Leave the rest for TP2 3,550.1 and TP3 3,559.8 — cancel if price goes through 3,523.6"
+    "Leave the rest for TP2 3,550.2 and TP3 3,559.9 — cancel if price goes through 3,523.6"
   ],
   "confidence": {
     "score": 65,
@@ -187,10 +187,10 @@
       "open_ts": 1795309200,
       "open_iso": "2026-11-22T08:00:00+07:00",
       "as_of_hm": "08:00",
-      "open": 3540.55,
-      "high": 3540.74,
-      "low": 3538.7,
-      "close": 3539.84,
+      "open": 3540.61,
+      "high": 3540.8,
+      "low": 3538.76,
+      "close": 3539.89,
       "bullish": false
     },
     "note_th": "กราฟไซด์เวย์ ราคาระหว่าง 3,494.8–3,545.8 ไม่มีทิศชัด แนะนำรอดูแท่ง H1 ปิดออกจากช่วงก่อนเข้า",
