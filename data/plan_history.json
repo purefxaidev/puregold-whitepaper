@@ -1,11 +1,11 @@
 {
   "started_at": "2026-11-13T20:59:46.850831+07:00",
-  "updated_at": "2026-11-22T09:38:20.595238+07:00",
+  "updated_at": "2026-11-22T09:44:45.013086+07:00",
   "source_note_th": "เริ่มนับผลจากรอบนี้ ไม่มีประวัติย้อนหลัง และไม่ได้สร้างผลลัพธ์สมมติ",
   "source_note_en": "Counted from this run onward. There is no backfilled history, and no results are invented.",
   "open": {
-    "id": "9ad663a8f6e4",
-    "opened_at": "2026-11-22T09:38:20.595238+07:00",
+    "id": "ab7bc2ee1e46",
+    "opened_at": "2026-11-22T09:44:45.013086+07:00",
     "side": "buy",
     "side_th": "ซื้อ",
     "side_en": "BUY",
@@ -21,13 +21,13 @@
       },
       {
         "n": 2,
-        "price": 3550.1,
-        "rr": 2.11
+        "price": 3550.2,
+        "rr": 2.12
       },
       {
         "n": 3,
-        "price": 3559.8,
-        "rr": 3.25
+        "price": 3559.9,
+        "rr": 3.26
       }
     ],
     "invalidation": 3523.6,
@@ -40,7 +40,7 @@
     "reason_en": "",
     "closed_at": null,
     "last_price": 3534.41,
-    "last_check": "2026-11-22T09:38:20.595238+07:00",
+    "last_check": "2026-11-22T09:44:45.013086+07:00",
     "reached": []
   },
   "closed": [
@@ -2443,16 +2443,56 @@
       "last_price": 3534.41,
       "last_check": "2026-11-22T09:38:20.595238+07:00",
       "reached": []
+    },
+    {
+      "id": "9ad663a8f6e4",
+      "opened_at": "2026-11-22T09:38:20.595238+07:00",
+      "side": "buy",
+      "side_th": "ซื้อ",
+      "side_en": "BUY",
+      "entry": 3532.1,
+      "entry_low": 3528.6,
+      "entry_high": 3535.6,
+      "sl": 3523.6,
+      "tps": [
+        {
+          "n": 1,
+          "price": 3541.8,
+          "rr": 1.14
+        },
+        {
+          "n": 2,
+          "price": 3550.1,
+          "rr": 2.11
+        },
+        {
+          "n": 3,
+          "price": 3559.8,
+          "rr": 3.25
+        }
+      ],
+      "invalidation": 3523.6,
+      "title_th": "ซื้อโซน 3,528.6–3,535.6",
+      "title_en": "BUY zone 3,528.6–3,535.6",
+      "status": "closed",
+      "outcome": "expired",
+      "r": null,
+      "reason_th": "แผนถูกแทนที่ก่อนถึงเป้าหรือ SL",
+      "reason_en": "The plan was replaced before a target or stop was hit",
+      "closed_at": "2026-11-22T09:44:45.013086+07:00",
+      "last_price": 3534.41,
+      "last_check": "2026-11-22T09:44:45.013086+07:00",
+      "reached": []
     }
   ],
   "stats": {
     "started_at": "2026-11-13T20:59:46.850831+07:00",
-    "closed": 60,
+    "closed": 61,
     "counted": 1,
     "wins": 1,
     "losses": 0,
     "cancelled": 0,
-    "expired": 59,
+    "expired": 60,
     "win_rate": 100.0,
     "avg_r": 1.7,
     "sample_small": true,
