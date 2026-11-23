@@ -3,16 +3,16 @@
  "as_of": "2026-11-23",
  "as_of_th": "23 พ.ย. 2026",
  "as_of_en": "23 Nov 2026",
- "updated_at": "2026-11-23T08:57:09Z",
- "updated_at_bkk": "2026-11-23 15:57",
+ "updated_at": "2026-11-23T20:59:08Z",
+ "updated_at_bkk": "2026-11-24 03:59",
  "score": 12.6,
  "label_th": "กลัวสุดขีด",
  "label_en": "Extreme Fear",
  "zone": "extreme-fear",
  "components": {
-  "rsi": 30.5,
+  "rsi": 32.8,
   "ma": 0.0,
-  "volatility": 32.3,
+  "volatility": 30.3,
   "spdr": 0.0,
   "momentum": 0.0
  },
@@ -59,7 +59,7 @@
   },
   {
    "date": "2026-06-03",
-   "score": 27.5
+   "score": 27.4
   },
   {
    "date": "2026-06-04",
@@ -151,7 +151,7 @@
   },
   {
    "date": "2026-06-26",
-   "score": 22.1
+   "score": 22.0
   },
   {
    "date": "2026-06-27",
@@ -631,7 +631,7 @@
   },
   {
    "date": "2026-10-24",
-   "score": 20.6
+   "score": 20.5
   },
   {
    "date": "2026-10-25",
