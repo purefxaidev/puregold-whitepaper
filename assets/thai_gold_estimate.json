@@ -1,45 +1,45 @@
 {
  "schema": 1,
- "generated_at": "2026-11-22T11:06:07+07:00",
+ "generated_at": "2026-11-23T22:16:13+07:00",
  "unit_th": "บาทละ (ทองคำแท่ง 96.5%)",
  "market": {
-  "open": false,
-  "state": "weekend",
-  "label_th": "ตลาดโลกปิด (วันหยุดสุดสัปดาห์)",
-  "label_en": "Global market closed (weekend)"
+  "open": true,
+  "state": "open",
+  "label_th": "ตลาดโลกเปิด",
+  "label_en": "Global market open"
  },
  "inputs": {
   "xau": {
-   "price": 3534.415,
-   "bid": 3534.023,
-   "ask": 3534.807,
+   "price": 3664.075,
+   "bid": 3663.823,
+   "ask": 3664.327,
    "kind": "REAL",
    "source_th": "XAU/USD สปอต · Swissquote",
    "source_en": "XAU/USD spot · Swissquote",
-   "updated_at": "2026-11-21T05:00:00+07:00",
-   "age_s": 108367,
+   "updated_at": "2026-11-23T22:15:59+07:00",
+   "age_s": 15,
    "browser_ref": {
     "name": "gold-api",
-    "price": 3539.0
+    "price": 3660.25
    }
   },
   "comex": {
-   "price": 3515.3999,
+   "price": 3668.1001,
    "kind": "REAL",
    "contract": "Gold Dec 26",
    "source_th": "COMEX ฟิวเจอร์ส GC · Yahoo Finance",
    "source_en": "COMEX GC futures · Yahoo Finance",
-   "updated_at": "2026-11-21T04:59:00+07:00",
-   "age_s": 108427,
-   "basis_vs_spot": -19.02
+   "updated_at": "2026-11-23T22:06:00+07:00",
+   "age_s": 614,
+   "basis_vs_spot": 4.03
   },
   "usdthb": {
-   "price": 33.96,
+   "price": 33.93,
    "kind": "REAL",
    "source_th": "USD/THB · Yahoo Finance",
    "source_en": "USD/THB · Yahoo Finance",
-   "updated_at": "2026-11-21T05:36:00+07:00",
-   "age_s": 106207
+   "updated_at": "2026-11-23T22:16:12+07:00",
+   "age_s": 2
   }
  },
  "official": {
@@ -47,41 +47,34 @@
   "label_th": "ราคาประกาศ",
   "label_en": "Announced",
   "source_th": "ราคาประกาศทองไทย",
-  "bar_buy": 56950.0,
-  "bar_sell": 57150.0,
-  "change": 0.0,
-  "jewelry_buy": 55803.96,
-  "jewelry_sell": 57950.0,
-  "as_of": "2026-11-22T09:09:00+07:00",
-  "revision": 1,
-  "age_s": 7027,
-  "fetched_at": "2026-11-22T11:05:59.524805+07:00"
+  "bar_buy": 58150.0,
+  "bar_sell": 58350.0,
+  "change": 50.0,
+  "jewelry_buy": 56986.44,
+  "jewelry_sell": 59150.0,
+  "as_of": "2026-11-23T17:10:00+07:00",
+  "revision": 31,
+  "age_s": 18374,
+  "fetched_at": "2026-11-23T22:16:05.038387+07:00"
  },
  "estimate": {
   "kind": "ESTIMATE",
   "label_th": "ราคาประเมิน AI",
   "label_en": "AI estimate",
-  "bar_buy": 56750.0,
-  "bar_sell": 56950.0,
-  "mid_raw": 56838.1,
-  "theoretical_mid": 56767.9,
-  "low": 56550.0,
-  "high": 57150.0,
+  "bar_buy": 58750.0,
+  "bar_sell": 58950.0,
+  "mid_raw": 58871.2,
+  "theoretical_mid": 58798.4,
+  "low": 58700.0,
+  "high": 59050.0,
   "model": {
-   "id": "weekend",
-   "label_th": "โมเดลวันหยุด: ถือราคาปิดล่าสุดของตลาดโลก",
-   "label_en": "Weekend model: last global close held",
-   "band_baht": 210,
-   "band_basis_th": "ช่องว่างราคาเปิดวันจันทร์ (ค่ามัธยฐาน 48 สัปดาห์) ±0.369%",
-   "weekend_gap": {
-    "computed_at": "2026-11-22T02:44:38+07:00",
-    "weeks": 48,
-    "median_pct": 0.369,
-    "p80_pct": 0.943,
-    "source": "COMEX GC=F daily bars (Yahoo Finance), 1 year"
-   }
+   "id": "live",
+   "label_th": "โมเดลเรียลไทม์: XAU/USD × USD/THB × ค่าปรับเทียบ",
+   "label_en": "Live model: XAU/USD × USD/THB × calibration",
+   "band_baht": 59,
+   "band_basis_th": "ค่าคลาดเคลื่อนเฉลี่ยของโมเดลกับราคาประกาศที่ใช้ปรับเทียบ"
   },
-  "computed_at": "2026-11-22T11:06:07+07:00"
+  "computed_at": "2026-11-23T22:16:13+07:00"
  },
  "calibration": {
   "ratio": 1.001238,
@@ -95,10 +88,10 @@
   "constant": 0.472952
  },
  "deviation": {
-  "sell": -200.0,
-  "buy": -200.0,
-  "mid_raw": -211.9,
-  "pct": -0.371
+  "sell": 600.0,
+  "buy": 600.0,
+  "mid_raw": 621.2,
+  "pct": 1.066
  },
  "accuracy": {
   "since": "2026-11-21T06:43:35+07:00",
@@ -148,6 +141,14 @@
    "sell": 57150.0,
    "est_buy": 56750.0,
    "est_sell": 56950.0
+  },
+  {
+   "as_of": "2026-11-23T17:10:00+07:00",
+   "revision": 31,
+   "buy": 58150.0,
+   "sell": 58350.0,
+   "est_buy": null,
+   "est_sell": null
   }
  ],
  "disclaimer_th": "เพื่อการศึกษา ไม่ใช่คำแนะนำการลงทุน ราคาประเมินไม่ใช่ราคาซื้อขายจริง"
