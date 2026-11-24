@@ -1,20 +1,20 @@
 {
  "source": "PureGold composite (RSI, moving averages, realized volatility, SPDR flows, momentum)",
- "as_of": "2026-11-23",
- "as_of_th": "23 พ.ย. 2026",
- "as_of_en": "23 Nov 2026",
- "updated_at": "2026-11-23T20:59:08Z",
- "updated_at_bkk": "2026-11-24 03:59",
- "score": 12.6,
+ "as_of": "2026-11-24",
+ "as_of_th": "24 พ.ย. 2026",
+ "as_of_en": "24 Nov 2026",
+ "updated_at": "2026-11-24T05:14:32Z",
+ "updated_at_bkk": "2026-11-24 12:14",
+ "score": 15.4,
  "label_th": "กลัวสุดขีด",
  "label_en": "Extreme Fear",
  "zone": "extreme-fear",
  "components": {
-  "rsi": 32.8,
+  "rsi": 32.9,
   "ma": 0.0,
-  "volatility": 30.3,
+  "volatility": 31.5,
   "spdr": 0.0,
-  "momentum": 0.0
+  "momentum": 12.5
  },
  "component_labels_th": {
   "rsi": "RSI รายวัน 14 วัน",
@@ -33,10 +33,6 @@
  "formula_th": "ดัชนี 0–100 เท่ากับค่าเฉลี่ยอย่างง่ายขององค์ประกอบที่มีข้อมูลในวันนั้น (น้ำหนักเท่ากัน): 1) RSI รายวัน 14 วัน (ใช้ค่า RSI โดยตรง) 2) ระยะห่างจาก EMA20 และ EMA50 รายวัน โดย ±3% เทียบเท่า 0 หรือ 100 3) ความผันผวนที่เกิดขึ้นจริง 14 วัน เทียบกับ 60 วัน (ความผันผวนสูง = กลัวมากกว่า) 4) การเปลี่ยนแปลงถือครอง SPDR ย้อนหลัง 5 วันทำการ (±5 ตัน เทียบเท่า 0 หรือ 100) 5) โมเมนตัมราคา 5 วัน (±3%) และ 20 วัน (±6%). โซน: 0–24 กลัวสุดขีด, 25–44 กลัว, 45–55 กลาง ๆ, 56–74 โลภ, 75–100 โลภสุดขีด. เป็นดัชนีภายในของ PureGold จากข้อมูลสาธารณะ ไม่ใช่ดัชนี CNN Fear & Greed และไม่ใช่คำแนะนำการลงทุน.",
  "formula_en": "The 0–100 index is a simple average of whichever components are available that day (equal weights): 1) 14-day daily RSI (used as-is); 2) distance from the daily EMA20 and EMA50, with ±3% mapped to 0 or 100; 3) 14-day realized volatility versus the 60-day level (higher vol scores as more fear); 4) the 5-session change in SPDR holdings (±5 tonnes maps to 0 or 100); 5) 5-day (±3%) and 20-day (±6%) price momentum. Zones: 0–24 extreme fear, 25–44 fear, 45–55 neutral, 56–74 greed, 75–100 extreme greed. This is a PureGold composite from public inputs, not the CNN Fear & Greed Index, and not investment advice.",
  "history": [
-  {
-   "date": "2026-05-28",
-   "score": 29.1
-  },
   {
    "date": "2026-05-29",
    "score": 34.7
@@ -59,7 +55,7 @@
   },
   {
    "date": "2026-06-03",
-   "score": 27.4
+   "score": 27.5
   },
   {
    "date": "2026-06-04",
@@ -187,7 +183,7 @@
   },
   {
    "date": "2026-07-05",
-   "score": 43.4
+   "score": 43.3
   },
   {
    "date": "2026-07-06",
@@ -631,7 +627,7 @@
   },
   {
    "date": "2026-10-24",
-   "score": 20.5
+   "score": 20.6
   },
   {
    "date": "2026-10-25",
@@ -752,6 +748,10 @@
   {
    "date": "2026-11-23",
    "score": 12.6
+  },
+  {
+   "date": "2026-11-24",
+   "score": 15.4
   }
  ]
 }
