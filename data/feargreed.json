@@ -3,18 +3,18 @@
  "as_of": "2026-11-26",
  "as_of_th": "26 พ.ย. 2026",
  "as_of_en": "26 Nov 2026",
- "updated_at": "2026-11-26T02:12:23Z",
- "updated_at_bkk": "2026-11-26 09:12",
- "score": 13.9,
+ "updated_at": "2026-11-26T10:56:32Z",
+ "updated_at_bkk": "2026-11-26 17:56",
+ "score": 12.8,
  "label_th": "กลัวสุดขีด",
  "label_en": "Extreme Fear",
  "zone": "extreme-fear",
  "components": {
-  "rsi": 31.9,
+  "rsi": 30.9,
   "ma": 0.0,
-  "volatility": 32.5,
+  "volatility": 32.9,
   "spdr": 0.0,
-  "momentum": 5.0
+  "momentum": 0.0
  },
  "component_labels_th": {
   "rsi": "RSI รายวัน 14 วัน",
@@ -327,7 +327,7 @@
   },
   {
    "date": "2026-08-12",
-   "score": 81.3
+   "score": 81.4
   },
   {
    "date": "2026-08-13",
@@ -499,11 +499,11 @@
   },
   {
    "date": "2026-09-24",
-   "score": 41.9
+   "score": 42.0
   },
   {
    "date": "2026-09-25",
-   "score": 37.7
+   "score": 37.6
   },
   {
    "date": "2026-09-26",
@@ -555,7 +555,7 @@
   },
   {
    "date": "2026-10-08",
-   "score": 35.6
+   "score": 35.5
   },
   {
    "date": "2026-10-09",
@@ -751,7 +751,7 @@
   },
   {
    "date": "2026-11-26",
-   "score": 13.9
+   "score": 12.8
   }
  ]
 }
