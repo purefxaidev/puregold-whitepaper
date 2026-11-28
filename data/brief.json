@@ -2,8 +2,8 @@
  "timezone": "Asia/Bangkok",
  "schedule_th": "สร้างอัตโนมัติเวลา 08:00 น. และ 20:00 น. เวลาไทย จากข้อมูลจริงบนแดชบอร์ด",
  "schedule_en": "Generated automatically at 08:00 and 20:00 Asia/Bangkok from live desk data.",
- "updated_at": "2026-11-27T11:28:15Z",
- "updated_at_bkk": "2026-11-27 18:28",
+ "updated_at": "2026-11-27T20:12:45Z",
+ "updated_at_bkk": "2026-11-28 03:12",
  "morning": {
   "id": "2026-11-27-morning",
   "date": "2026-11-27",
@@ -56,23 +56,6 @@
   "via": "template"
  },
  "briefs": {
-  "2026-11-13-morning": {
-   "id": "2026-11-13-morning",
-   "date": "2026-11-13",
-   "session": "morning",
-   "session_th": "เช้า",
-   "session_en": "Morning",
-   "generated_at": "2026-11-13T10:46:59Z",
-   "generated_at_bkk": "2026-11-13 17:46",
-   "generated_th": "13 พ.ย. 2026 17:46 น. (เวลาไทย)",
-   "generated_en": "13 Nov 2026 17:46 (Bangkok time)",
-   "price": 3892.305,
-   "change": 1.39,
-   "change_pct": 0.04,
-   "text_th": "สรุปตลาดเช้า 13 พ.ย. 2026 17:46 น. (เวลาไทย). ราคาทองโลก XAUUSD อยู่ที่ 3,892.30 ดอลลาร์ต่อออนซ์ (บวก 1.39 ดอลลาร์ (+0.04%)) แหล่งราคา สปอต FX · Swissquote. มุมมองระบบ: เอียงลง · ขึ้น 22% ลง 78% · ราคา ~3,892.30. แนวรับใกล้สุดประมาณ 3,889.8 (แนวรับใกล้) และแนวต้านใกล้สุดประมาณ 3,896.1 (ต้านใกล้). กองทุน SPDR Gold Trust ถือครอง 1,040.70 ตัน ณ 12 พ.ย. 2026 ขายออก 0.38 ตัน ในรอบข้อมูลล่าสุด (ประกาศแบบ T+1). กองทุนบริหาร (CFTC Managed Money) สุทธิ 103,614 สัญญา ณ 3 พ.ย. 2026. เปลี่ยนแปลงรายสัปดาห์ -1,948 สัญญา. ดัชนีความกลัวและความโลภของทองอยู่ที่ 24 (กลัว) ณ 13 พ.ย. 2026. ทองแท่งไทย 96.5% ขาย 62,510 บาทต่อบาททอง เทียบค่าทฤษฎี 62,350 บาท (พรีเมียม +160 บาท) อัตรา USDTHB 33.87. ปฏิทินข่าวถัดไป: ดัชนีราคาผู้ผลิตพื้นฐาน (เดือนต่อเดือน) วันที่ 13 พ.ย. 2026 20:30 น. (เวลาไทย) (ผลกระทบ high); ดัชนีราคาผู้ผลิต (เดือนต่อเดือน) วันที่ 13 พ.ย. 2026 20:30 น. (เวลาไทย) (ผลกระทบ high). ข้อมูลเพื่อการศึกษา ไม่ใช่คำแนะนำการลงทุน.",
-   "text_en": "Morning market brief, 13 Nov 2026 17:46 (Bangkok time). Spot XAUUSD is at 3,892.30 an ounce (up 1.39 (+0.04%)), source FX spot · Swissquote. System view: Lean down · up 22% down 78% · price ~3,892.30. Nearest support is around 3,889.8 (nearest support) and nearest resistance around 3,896.1 (nearest resistance). SPDR Gold Trust held 1,040.70 tonnes as of 12 Nov 2026, sold 0.38 tonnes in the latest reported session (published T+1). CFTC managed money net is 103,614 contracts as of 3 Nov 2026, week-on-week -1,948 contracts. The gold fear-and-greed composite is 24 (Fear) as of 13 Nov 2026. Thai 96.5% bar gold is offered at 62,510 THB per baht-weight versus a theoretical 62,350 THB (a premium of +160 THB), with USDTHB at 33.87. Upcoming calendar: Core PPI m/m at 13 Nov 2026 20:30 (Bangkok time) (high impact); PPI m/m at 13 Nov 2026 20:30 (Bangkok time) (high impact). For education only — not investment advice.",
-   "via": "template"
-  },
   "2026-11-14-morning": {
    "id": "2026-11-14-morning",
    "date": "2026-11-14",
